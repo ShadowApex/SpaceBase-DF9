@@ -91,7 +91,7 @@ function GuiManager.init()
 	GuiManager.menuManager.addMenu("SquadMenu", SquadMenu.new(GuiManager.menuManager))
 	GuiManager.menuManager.addMenu("SquadEditMenu", SquadEditMenu.new(GuiManager.menuManager, CharacterManager))
 	---------------------------------------
-    GuiManager.newSideBar = NewSideBar.new()
+    GuiManager.newSideBar = NewSideBar.new(GuiManager.menuManager)
     GuiManager.startMenu = StartMenu.new()
     GuiManager.statusBar = StatusBar.new()
 	GuiManager.tutorialText = TutorialText.new()
