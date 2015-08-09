@@ -12,13 +12,11 @@ local ResearchMenu = require('UI.ResearchAssignment')
 local GoalsList = require('UI.GoalsList')
 local BeaconMenu = require('UI.BeaconMenu')
 local DisasterMenu = require('UI.DisasterMenu')
-local SquadMenu = require('UI.SquadMenu')
 local Renderer = require('Renderer')
 local SoundManager = require('SoundManager')
 local CommandObject = require('Utility.CommandObject')
 local Gui = require('UI.Gui')
-
-local SquadEditMenu = require('UI.SquadEditMenu')
+local MenuManager = require('UI.MenuManager')
 
 local sUILayoutFileName = 'UILayouts/SideBarLayout'
 
@@ -28,11 +26,14 @@ function m.create()
     Ob.bIsExpanded = true
     Ob.rSubmenu = nil
 
-    function Ob:init()
+    function Ob:init(menuManager)
         Ob.Parent.init(self)
 
         self:processUIInfo(sUILayoutFileName)
 
+		--------------------------------------------------------
+		self.menuManager = menuManager
+		----------------------------------------------------------------
         self.rSmallBarButton = self:getTemplateElement('SmallBarButton')
         if self.rSmallBarButton then
             self.rSmallBarButton:addHoverCallback(self.onSmallbarHovered, self)
@@ -57,12 +58,8 @@ function m.create()
         self.rBeaconHotKeyExpanded = self:getTemplateElement('BeaconHotkeyExpanded')
         self.rDisasterHotKey = self:getTemplateElement('DisasterHotkey')
         self.rDisasterHotKeyExpanded = self:getTemplateElement('DisasterHotkeyExpanded')
-		-----------------------------------------------
-		self.rSquadHotkey = self:getTemplateElement('SquadHotkey')
-		self.rSquadHotkeyExpanded = self:getTemplateElement('SquadHotkeyExpanded')
-		-----------------------------------------------
-        
-		self.rInspectLabel = self:getTemplateElement('InspectLabel')
+
+        self.rInspectLabel = self:getTemplateElement('InspectLabel')
         self.rAssignLabel = self:getTemplateElement('AssignLabel')
         self.rResearchLabel = self:getTemplateElement('ResearchLabel')
         self.rGoalLabel = self:getTemplateElement('GoalLabel')
@@ -71,12 +68,8 @@ function m.create()
         self.rBeaconLabel = self:getTemplateElement('BeaconLabel')
         self.rDisasterLabel = self:getTemplateElement('DisasterLabel')
         self.rDisasterIcon = self:getTemplateElement('DisasterIcon')
-		-----------------------------------------------
-		self.rSquadLabel = self:getTemplateElement('SquadLabel')
-		self.rSquadIcon = self:getTemplateElement('SquadIcon')
-		-----------------------------------------------
-        
-		self.rInspectButton = self:getTemplateElement('InspectButton')
+
+        self.rInspectButton = self:getTemplateElement('InspectButton')
         self.rAssignButton = self:getTemplateElement('AssignButton')
         self.rResearchButton = self:getTemplateElement('ResearchButton')
         self.rGoalButton = self:getTemplateElement('GoalButton')
@@ -84,17 +77,14 @@ function m.create()
         self.rMineButton = self:getTemplateElement('MineButton')
         self.rBeaconButton = self:getTemplateElement('BeaconButton')
         self.rDisasterButton = self:getTemplateElement('DisasterButton')
-		-----------------------------------------------
-		self.rSquadButton = self:getTemplateElement('SquadButton')
-		-----------------------------------------------
-        
-		self.rEndCap = self:getTemplateElement('SidebarBottomEndcap')
+
+        self.rEndCap = self:getTemplateElement('SidebarBottomEndcap')
         self.rEndCapExpanded = self:getTemplateElement('SidebarBottomEndcapExpanded')
 
         self.rInspectIcon = self:getTemplateElement('InspectIcon')
         self.rInspectHotkey = self:getTemplateElement('InspectHotkey')
         self.rSmallBarHighlight = self:getTemplateElement('SmallBarHighlight')
-		
+
         self.rInspectButton:addPressedCallback(self.onInspectButtonPressed, self)
         self.rAssignButton:addPressedCallback(self.onAssignButtonPressed, self)
         self.rResearchButton:addPressedCallback(self.onResearchButtonPressed, self)
@@ -103,10 +93,7 @@ function m.create()
         self.rConstructButton:addPressedCallback(self.onConstructButtonPressed, self)
         self.rBeaconButton:addPressedCallback(self.onBeaconButtonPressed, self)
         self.rDisasterButton:addPressedCallback(self.onDisasterButtonPressed, self)
-		-----------------------------------------------
-		self.rSquadButton:addPressedCallback(self.onSquadButtonPressed, self)
-		-----------------------------------------------
-		
+
         self.tHotkeyButtons = {}
         self:addHotkey(self.rInspectHotkey.sText, self.rInspectButton)
         self:addHotkey(self.rAssignHotKey.sText, self.rAssignButton)
@@ -115,11 +102,18 @@ function m.create()
         self:addHotkey(self.rConstructHotKey.sText, self.rConstructButton)
         self:addHotkey(self.rMineHotKey.sText, self.rMineButton)
         self:addHotkey(self.rBeaconHotKey.sText, self.rBeaconButton)
-		-----------------------------------------------
-        self:addHotkey(self.rSquadHotkey.sText, self.rSquadButton)
-		-----------------------------------------------
-		self:setExpanded(false)
 		
+		-----------------------------------------------
+		self.rSquadLabel = self:getTemplateElement('SquadLabel')
+		self.rSquadIcon = self:getTemplateElement('SquadIcon')
+		self.rSquadButton = self:getTemplateElement('SquadButton')
+		self.rSquadHotkey = self:getTemplateElement('SquadHotkey')
+		self.rSquadHotkeyExpanded = self:getTemplateElement('SquadHotkeyExpanded')
+		self.rSquadButton:addPressedCallback(self.onSquadButtonPressed, self)
+		self:addHotkey(self.rSquadHotkey.sText, self.rSquadButton)
+		------------------------------------------------
+        self:setExpanded(false)
+
         self.rMineMenu = MineMenu.new()
         self.rConstructMenu = ConstructMenu.new()
         self.rInspectMenu = NewInspectMenu.new()
@@ -129,10 +123,6 @@ function m.create()
         self.rGoalsList = GoalsList.new()
         self.rBeaconMenu = BeaconMenu.new()
         self.rDisasterMenu = DisasterMenu.new()
-		------------------------------------------------
-		self.rSquadMenu = SquadMenu.new()
-		self.rSquadEditMenu = SquadEditMenu.new()
-		------------------------------------------------
         
         -- disable + hide disaster menu to start
         self.rDisasterButton:setEnabled(false)
@@ -143,6 +133,7 @@ function m.create()
         self:setElementHidden(self.rDisasterHotKeyExpanded, true)
         -- track UI state to listen for change
         self.bDisasterMode = false
+		
     end
     
     function Ob:enableDisasterMenu()
@@ -264,6 +255,7 @@ function m.create()
             self:setElementHidden(self.rDisasterHotKey, bExpanded)
             self:setElementHidden(self.rDisasterHotKeyExpanded, not bExpanded)
         end
+		
         self:setElementHidden(self.rInspectLabel, not bExpanded)
         self:setElementHidden(self.rAssignLabel, not bExpanded)
         self:setElementHidden(self.rResearchLabel, not bExpanded)
@@ -289,6 +281,9 @@ function m.create()
         self:setElementHidden(self.rEndCap, bExpanded)
         self:setElementHidden(self.rEndCapExpanded, not bExpanded)
         self:setElementHidden(self.rSmallBarHighlight, bExpanded)
+		
+		
+		
 
         if bExpanded then
             self:setButtonsLocked(false)
@@ -465,12 +460,13 @@ function m.create()
             if g_GameRules.currentMode == g_GameRules.MODE_BEACON then
                 g_GameRules.setUIMode(g_GameRules.MODE_INSPECT)
             end
-            self:openSubmenu(self.rSquadMenu)
+            --self:openSubmenu(self.rSquadMenu)
 			--self:openSubmenu(self.rMenu)
+			self.menuManager.showMenu("SquadMenu")
         end
 	end
 	------------------------------------------------------
-	
+
     function Ob:onFinger(touch, x, y, props)
         if self.rSubmenu then
             return self.rSubmenu:onFinger(touch, x, y, props)

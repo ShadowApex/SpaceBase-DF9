@@ -33,6 +33,9 @@ local OnePixelButton = require('UI.OnePixelButton')
 local ProgressBar = require('UI.ProgressBar')
 local WorldToolTip = require('UI.WorldToolTip')
 local Profile = require('Profile')
+local MenuManager = require('UI.MenuManager')
+local SquadMenu = require('UI.SquadMenu')
+local SquadEditMenu = require('UI.SquadEditMenu')
 
 local Cursor=nil
 
@@ -83,6 +86,11 @@ function GuiManager.init()
         GuiManager.tScrollableScissorRects['UIScrollLayerRight'] = rScrollableScissorRect
     end    
 
+	--------------------------------
+	GuiManager.menuManager = MenuManager.new(GuiManager)
+	GuiManager.menuManager.addMenu("SquadMenu", SquadMenu.new(GuiManager.menuManager))
+	GuiManager.menuManager.addMenu("SquadEditMenu", SquadEditMenu.new(GuiManager.menuManager, CharacterManager))
+	---------------------------------------
     GuiManager.newSideBar = NewSideBar.new()
     GuiManager.startMenu = StartMenu.new()
     GuiManager.statusBar = StatusBar.new()
@@ -160,6 +168,25 @@ function GuiManager.isInStartupScreen()
     return GuiManager.bInStartupScreen
 end
 
+function GuiManager.showStuff()
+	GuiManager.killAllEffects()
+	GuiManager.newSideBar:show()
+	GuiManager.statusBar:show()
+	GuiManager.tutorialText:show()
+	GuiManager.hintPane:show()
+	GuiManager.alertPane:show()
+	GuiManager.hintPane:setMaximized(true)
+	GuiManager.alertPane:setMaximized(true)
+end
+
+function GuiManager.hideStuff()
+	GuiManager.newSideBar:hide()
+	GuiManager.statusBar:hide()
+	GuiManager.tutorialText:hide()
+	GuiManager.hintPane:hide()
+	GuiManager.alertPane:hide()
+end
+
 function GuiManager.setIsInStartupScreen(bSet)
     GuiManager.bInStartupScreen = bSet
 end
@@ -223,6 +250,10 @@ function GuiManager.fadeOutFullScreen()
     end
     Renderer.getRenderLayer('UIOverlay'):removeProp(GuiManager.legalScreen)
     GuiManager.legalScreen = nil
+end
+
+function GuiManager.killAllEffects()
+	GuiManager.uiEffectMask:removeAllMasks()
 end
 
 function GuiManager.createEffectMaskBox(x,y,w,h,nTime,nIntensity)
@@ -382,7 +413,15 @@ function GuiManager.hoverInside(sx,sy)
     if g_Gui.touchInside(sx,sy) then 
         return g_Gui
     end
-
+	
+	---------------------------------------
+	if GuiManager.menuManager.getActive() ~= nil then
+		if GuiManager.menuManager.getActive():inside(wx, wy) then
+			return GuiManager.menuManager.getActive()
+		end
+	end
+	---------------------------------------
+	
     if GuiManager.hintPane:inside(wx,wy) then
         return GuiManager.hintPane
     end
@@ -570,8 +609,11 @@ function GuiManager.showNewBaseScreen()
     if g_GameRules.getTimeScale() ~= 0 then
         g_GameRules.togglePause()
     end
-    GameRules.shutdown()
-    GuiManager.init()
+	-- don't shut down GameRules until new base deploys
+	g_GuiManager.shutdown()
+	g_GuiManager.setCursorVisible(false)
+	g_GuiManager.killAllEffects()
+    g_GuiManager.init()
     g_GuiManager.addToPopupQueue(GuiManager.newBase, true)
 end
 
@@ -786,6 +828,9 @@ function GuiManager.pickTouch(wx,wy)
     GameRules.setUIMode(GameRules.MODE_INSPECT)
 end
 
+--
+-- mouse click goes here
+--
 function GuiManager.onFinger(touch)
     local renderLayer = Renderer.getRenderLayer('UI')
     local wx, wy = renderLayer:wndToWorld(touch.x, touch.y)
@@ -810,6 +855,11 @@ function GuiManager.onFinger(touch)
             return true
         end
     end
+	if GuiManager.menuManager.getActive() ~= nil then
+		if GuiManager.menuManager.getActive():onFinger(touch, wx, wy, Props) then
+			return true
+		end
+	end
     if GuiManager.statusBar:onFinger(touch,wx,wy,tProps) then
         return true
     else        
@@ -850,7 +900,13 @@ function GuiManager.onKeyboard(key, bDown)
     if Gui.rCurActivePane and Gui.rCurActivePane.onKeyboard and Gui.rCurActivePane:onKeyboard(key, bDown) then
         return true
     end    
-    return g_GuiManager.newSideBar:onKeyboard(key, bDown)
+	
+    if g_GuiManager.newSideBar:onKeyboard(key, bDown) then
+		return false
+	end
+	if GuiManager.menuManager.getActive() ~= nil then
+		return GuiManager.menuManager.getActive():onKeyboard(key, bDown)
+	end
 end
 
 function GuiManager.createSelectionProp()

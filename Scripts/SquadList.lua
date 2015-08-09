@@ -1,7 +1,3 @@
---
--- status types (available, on mission, rallying)
---
-
 local SquadList = {}
 
 function SquadList.new()
@@ -12,12 +8,11 @@ function SquadList.new()
 		
 	end
 	
-	function self.addSquad(name)
-		list[name] = {["name"] = name, ["size"] = 0, ["status"] = "available", ["members"] = {}}
+	function self.addSquad(squad)
+		list[squad.getName()] = squad
 	end
 	
 	function self.remSquad(name)
-		--table.remove(list, name)
 		list[name] = nil
 	end
 	

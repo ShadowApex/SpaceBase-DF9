@@ -1,14 +1,13 @@
 local m = {}
 
-local Gui = require('UI.Gui')
 local DFUtil = require("DFCommon.Util")
 local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
 local ScrollableUI = require('UI.ScrollableUI')
 local SoundManager = require('SoundManager')
-local SquadList = require("SquadList")
+local SquadList = require('SquadList')
 local SquadEntry = require('UI.SquadEntry')
-local SquadEditMenu = require("UI.SquadEditMenu")
+local Squad = require('Squad')
 
 local sUILayoutFileName = 'UILayouts/SquadLayout'
 
@@ -18,28 +17,23 @@ local MAX_SQUADS = 10
 local nSquadIndex = 1
 local nSquadCount = 0
 
-
---
--- create randomised array of indexes
--- on use, check if it's already in use, if it is move on to next one
---
-
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 	local squadList
 	local tSquadEntries = {}
 	local rScrollableUI
+	local menuManager
 
-    function Ob:init()
+    function Ob:init(_menuManager)
         Ob.Parent.init(self)
     
         self:processUIInfo(sUILayoutFileName)
 
+		menuManager = _menuManager
         self.rBackButton = self:getTemplateElement('BackButton')
         self.rBackButton:addPressedCallback(self.onBackButtonPressed, self)
 		self.rCreateButton = self:getTemplateElement('CreateButton')
 		self.rCreateButton:addPressedCallback(self.onCreateButtonPressed, self)
-		--self.tSquadEntries = {}
         rScrollableUI = self:getTemplateElement('ScrollPane')
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
@@ -107,7 +101,7 @@ function m.create()
     function Ob:onBackButtonPressed(rButton, eventType)
         if eventType == DFInput.TOUCH_UP then
             if g_GuiManager.newSideBar then
-                g_GuiManager.newSideBar:closeSubmenu()
+				menuManager.closeMenu()
                 SoundManager.playSfx('degauss')
             end
         end
@@ -131,14 +125,13 @@ function m.create()
 			end
 			local name = g_LM.line(tSquadNames[nSquadIndex])
 			tUsedSquadNames[nSquadIndex] = true
-			local name2 = name..' '..g_LM.line('SQUAD001TEXT')
-			squadList.addSquad(name2)
+			local newSquad = Squad.new(name..' '..g_LM.line('SQUAD001TEXT'))
+			squadList.addSquad(newSquad)
 			local rNewEntry = self:addSquadEntry()
-			rNewEntry:setName(name2, self.disbandCallback, self.editCallback, table.getn(tSquadEntries), nSquadIndex)
+			rNewEntry:setSquad(newSquad, self.disbandCallback, self.editCallback, table.getn(tSquadEntries), nSquadIndex)
 			rNewEntry:show()
 			rScrollableUI:refresh()
 			nSquadCount = nSquadCount + 1
-		
 		end
 	end
 	
@@ -159,54 +152,23 @@ function m.create()
 		rScrollableUI:refresh()
 	end
 	
-	function Ob:editCallback()
-		SoundManager.playSfx('select')
-        self.editCallback = SquadEditMenu.new()
-		Ob.Parent.hide(self, bKeepAlive)
-		self.editCallback:show()
+	function Ob:editCallback(squad)
+		menuManager.getMenu("SquadEditMenu"):setSquad(squad)
+		menuManager.showMenu("SquadEditMenu")
 	end
-    
-    function Ob:show(basePri)
-        if g_GameRules.getTimeScale() ~= 0 then
-            self.bWasPaused = false
-            g_GameRules.togglePause()
-        else
-            self.bWasPaused = true
-        end
-        local w = g_GuiManager.getUIViewportSizeY()
-        g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
-
-        self.bListDirty = true
-        local nPri = Ob.Parent.show(self, basePri)
-        rScrollableUI:reset()
-		-- hide status bar behind us
-		g_GuiManager.statusBar:hide()
-		g_GuiManager.tutorialText:hide()
-		g_GuiManager.hintPane:hide()
-		g_GuiManager.alertPane:hide()
-        return nPri
-    end
 	
-	-- function Ob:show()
-		-- local w = g_GuiManager.getUIViewportSizeY()
-		-- g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
-		-- self.bListDirty = true
-		-- rScrollableUI:reset()
-	-- end
-
-    function Ob:hide(bKeepAlive)
-        if g_GameRules.getTimeScale() == 0 and not self.bWasPaused then
-            g_GameRules.togglePause()
-        end
-        Ob.Parent.hide(self, bKeepAlive)
-		-- show status bar etc
-		g_GuiManager.statusBar:show()
-		g_GuiManager.tutorialText:show()
-		g_GuiManager.hintPane:show()
-		g_GuiManager.alertPane:show()
-		g_GuiManager.hintPane:setMaximized(true)
-		g_GuiManager.alertPane:setMaximized(true)
-    end
+	function Ob:show(basePri)
+		local w = g_GuiManager.getUIViewportSizeY()
+		g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
+		self.bListDirty = true
+		local nPri = Ob.Parent.show(self, basePri)
+		rScrollableUI:reset()
+		return nPri
+	end
+	
+	function Ob:hide(bKeepAlive)
+		Ob.Parent.hide(self, bKeepAlive)
+	end
 
     function Ob:addSquadEntry()
 		local rNewEntry = SquadEntry.new()

@@ -10,34 +10,32 @@ local sUILayoutFileName = 'UILayouts/SquadEntryLayout'
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
-    Ob.name = nil
+    local squad
 	local index = -2
 	local nameIndex = -2
 
     function Ob:init()
-	
-		Ob.Parent.init(self)
         self:setRenderLayer('UIScrollLayerLeft')
 
-        
+        Ob.Parent.init(self)
         self:processUIInfo(sUILayoutFileName)
 
         self.rNameLabel = self:getTemplateElement('NameLabel')
 		self.rDisbandButton = self:getTemplateElement('DisbandButton')
 		self.rDisbandButton:addPressedCallback(self.onDisbandButtonPressed, self)
 		self.rEditButton = self:getTemplateElement('EditButton')
-		self.rEditButton:addPressedCallback(self.onCreateButtonPressed, self)
+		self.rEditButton:addPressedCallback(self.onEditButtonPressed, self)
         self:_calcDimsFromElements()
     end
 	
-	function Ob:setName(name, disbandCallback, editCallback, _index, _nameIndex)
-		self.name = name
+	function Ob:setSquad(_squad, disbandCallback, editCallback, _index, _nameIndex)
+		squad = _squad
 		self.disbandCallback = disbandCallback
 		self.editCallback = editCallback
 		index = _index
 		nameIndex = _nameIndex
-		if name then
-			self.rNameLabel:setString(name)
+		if squad then
+			self.rNameLabel:setString(squad.getName())
 		end
 	end
 	
@@ -47,13 +45,13 @@ function m.create()
 	
 	function Ob:onDisbandButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP and self.disbandCallback then
-			self:disbandCallback(self.name, index, nameIndex)
+			self:disbandCallback(squad.getName(), index, nameIndex)
 		end
 	end
 	
-	function Ob:onCreateButtonPressed(rButton, eventType)
+	function Ob:onEditButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP and self.editCallback then
-			self:editCallback()
+			self:editCallback(squad)
 		end
 	end
 

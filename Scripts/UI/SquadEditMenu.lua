@@ -5,40 +5,56 @@ local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
 local ScrollableUI = require('UI.ScrollableUI')
 local SoundManager = require('SoundManager')
-local SquadList = require("SquadList")
-local SquadEntry = require('UI.SquadEntry')
+--local CharacterManager = require('CharacterManager')
+local Character = require('Character')
 
-local sUILayoutFileName = 'UILayouts/SquadLayout' --create a layout for the submenu
-
-
-
---
--- create randomised array of indexes
--- on use, check if it's already in use, if it is move on to next one
---
+local sUILayoutFileName = 'UILayouts/SquadEditLayout'
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 	local rScrollableUI
+	local squad
+	local menuManager
+	local characterManager
+	local rSquadEditMenuLabel
 
-    function Ob:init()
+    function Ob:init(_menuManager, _characterManager)
         Ob.Parent.init(self)
-		--self:refresh()
+    
         self:processUIInfo(sUILayoutFileName)
 
+		menuManager = _menuManager
+		characterManager = _characterManager
         self.rBackButton = self:getTemplateElement('BackButton')
         self.rBackButton:addPressedCallback(self.onBackButtonPressed, self)
-
+		rSquadEditMenuLabel = self:getTemplateElement('SquadEditMenuLabel')
+		rSquadEditMenuLabel:setString("ARRRRR!")
         rScrollableUI = self:getTemplateElement('ScrollPane')
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
-
 	end
 	
-	function Ob:refresh()
-
-    end
+	function Ob:setSquad(_squad)
+		squad = _squad
+		if squad ~= nil then
+			rSquadEditMenuLabel:setString(squad.getName())
+			--local tChars = characterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+			--self:printTable(tChars)
+		else
+			rSquadEditMenuLabel:setString("Fail Squad")
+		end
+	end
 	
+	function Ob:printTable(tbl)
+		for k,v in pairs(tbl) do
+			if type(v) == "table" then
+				self:printTable(v)
+			else
+				print(v)
+			end
+		end
+	end
+
     function Ob:addHotkey(sKey, rButton)
         sKey = string.lower(sKey)
     
@@ -57,7 +73,7 @@ function m.create()
             local uppercaseKeyCode = string.byte(string.upper(sKey))
             self.tHotkeyButtons[uppercaseKeyCode] = rButton
         end
-
+    
         self.tHotkeyButtons[keyCode] = rButton
     end
     
@@ -74,42 +90,33 @@ function m.create()
                 rButton:keyboardPressed()
             end
         end
-		
+        
         if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
             bHandled = self.rSubmenu:onKeyboard(key, bDown)
         end
-        if bDown and key == 27 then -- esc
-			self.onBackButtonPressed()
-        end
-		
+        
         return bHandled
     end
     
     function Ob:onBackButtonPressed(rButton, eventType)
-		self:hide()
-		SoundManager.playSfx('degauss')
-		Ob.Parent.show()
+        if eventType == DFInput.TOUCH_UP then
+			menuManager.showMenu("SquadMenu")
+			SoundManager.playSfx('degauss')
+        end
     end
     
     function Ob:show(basePri)
-        --local w = g_GuiManager.getUIViewportSizeY()
-        --g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
+        local w = g_GuiManager.getUIViewportSizeY()
+        g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
 
-        --self.bListDirty = true
-        --local nPri = Ob.Parent.show(self, basePri)
-        --rScrollableUI:reset()
-		-- hide status bar behind us
-		--g_GuiManager.statusBar:hide()
-		--g_GuiManager.tutorialText:hide()
-		--g_GuiManager.hintPane:hide()
-		--g_GuiManager.alertPane:hide()
-        --return nPri
-		
+        self.bListDirty = true
+        local nPri = Ob.Parent.show(self, basePri)
+        rScrollableUI:reset()
+        return nPri
     end
 
     function Ob:hide(bKeepAlive)
-        --Ob.Parent.hide(self, bKeepAlive)
-		--self:openSubmenu(parent)
+        Ob.Parent.hide(self, bKeepAlive)
     end
 
     function Ob:onTick(dt)
