@@ -143,7 +143,7 @@ function m.create()
         self:setElementHidden(self.rDisasterIcon, false)
         self:setElementHidden(self.rDisasterHotKey, false)
         -- #s taken from SideBarLayout
-        local nButtonHeight, nButtons = 81, 8
+        local nButtonHeight, nButtons = 81, 9
         self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
         self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
         self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
@@ -457,8 +457,6 @@ function m.create()
             if g_GameRules.currentMode == g_GameRules.MODE_BEACON then
                 g_GameRules.setUIMode(g_GameRules.MODE_INSPECT)
             end
-            --self:openSubmenu(self.rSquadMenu)
-			--self:openSubmenu(self.rMenu)
 			self.menuManager.showMenu("SquadMenu")
         end
 	end

@@ -12,7 +12,7 @@ local nHotkeyX, nHotkeyStartY = nButtonWidth - 104, -50
 local nHotkeyExpandedX = nButtonWidthExpanded - 112
 local nIconScale = 0.6
 -- # is 8 with disaster menu but start with it hidden
-local nNumButtons = 9
+local nNumButtons = 8
 
 return
 {
@@ -327,7 +327,7 @@ return
         {
             key = 'DisasterButton',
             type = 'onePixelButton',
-            pos = { 0, -(nButtonHeight * 7) },
+            pos = { 0, -(nButtonHeight * 8) },
             scale = { nButtonWidthExpanded, nButtonHeight },
             color = Gui.BLACK,
             onPressed =
@@ -359,7 +359,7 @@ return
             type = 'uiTexture',
             textureName = 'icon_wall_neon_pizza',
             sSpritesheetPath = 'UI/Shared',
-            pos = { nIconX, nIconStartY - (nButtonHeight * 7) },
+            pos = { nIconX, nIconStartY - (nButtonHeight * 8) },
             scale = {nIconScale, nIconScale},
             color = Gui.AMBER,
         },
@@ -443,7 +443,7 @@ return
         {
             key = 'DisasterLabel',
             type = 'textBox',
-            pos = { nLabelX, nLabelStartY - (nButtonHeight * 7) },
+            pos = { nLabelX, nLabelStartY - (nButtonHeight * 8) },
             linecode = 'HUDHUD062TEXT',
             style = 'dosisregular40',
             rect = { 0, 300, 200, 0 },

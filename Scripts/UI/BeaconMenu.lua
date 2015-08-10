@@ -210,6 +210,7 @@ function m.create()
 			self:clearThreatButton()
 			activeThreatLevel = 'High'
 			rButton:setSelected(true)
+			g_ERBeacon.eViolence = EmergencyBeacon.VIOLENCE_LETHAL
 		end
 	end
 	
@@ -218,6 +219,7 @@ function m.create()
 			self:clearThreatButton()
 			activeThreatLevel = 'Medium'
 			rButton:setSelected(true)
+			g_ERBeacon.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
 		end
 	end
 	
@@ -226,6 +228,7 @@ function m.create()
 			self:clearThreatButton()
 			activeThreatLevel = 'Low'
 			rButton:setSelected(true)
+			g_ERBeacon.eViolence = EmergencyBeacon.VIOLENCE_NONLETHAL
 		end
 	end
 	
@@ -248,6 +251,7 @@ function m.create()
 			local rButton = self:getTemplateElement('Threat'..activeThreatLevel..'Button')
 			rButton:setSelected(false)
 			activeThreatLevel = nil
+			g_ERBeacon:remove()
 		end
 	end
 	
