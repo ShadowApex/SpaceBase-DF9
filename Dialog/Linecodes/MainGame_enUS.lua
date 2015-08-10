@@ -2612,9 +2612,9 @@
     SFJANI014CITZ = { sLine = "It's creepy feelin' carrying away the remains of these raiders. I wonder if their life was ever happy.", },
     SFJANI015CITZ = { sLine = "I despise raiders, but it's my duty to see their bodies are treated with a modicum of dignity.", },
 	COMMAND001TEXT = { sLine = "Command", },
-	COMMAND002TEXT = { sLine = "Threat Monitoring/Squad Management", },
+	COMMAND002TEXT = { sLine = "Threat Monitoring", },
 	COMMAND003TEXT = { sLine = "Command", },
-	COMMAND004TEXT = { sLine = "Monitor incoming threats as well as manage Squads.", },
+	COMMAND004TEXT = { sLine = "Monitor incoming threats.", },
 	COMMAND005TEXT = { sLine = "Command Zone", },
 	COMMAND006TEXT = { sLine = "Cassowary", },
 	COMMAND007TEXT = { sLine = "Stonefish", },
@@ -2650,4 +2650,10 @@
 	SQUAD022TEXT = { sLine = "Eliminate Hostiles", },
 	SQUAD023TEXT = { sLine = "Subdue/Capture", },
 	SQUAD024TEXT = { sLine = "Stand Down", },
+	RECYCLE001TEXT = {sLine='Experimental 02 Recycler'} -- name
+	RECYCLE002TEXT = {sLine='Experimental means only a relatively small chance of a catastrophic failure.'} -- inspect description
+	RECYCLE003TEXT = {sLine='Something about flavour.'} -- flavour text
+	RECYCLE004TEXT = {sLine='Highly Experimental 02 Recycler'} -- name
+	RECYCLE005TEXT = {sLine='Removed pointless safety features in favour of more Jiggawatts.'} -- inspect description
+	RECYCLE006TEXT = {sLine='Something about flavour.'} -- flavour text
 }
