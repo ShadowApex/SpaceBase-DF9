@@ -88,8 +88,9 @@ function GuiManager.init()
 
 	--------------------------------
 	GuiManager.menuManager = MenuManager.new(GuiManager)
-	GuiManager.menuManager.addMenu("SquadMenu", SquadMenu.new(GuiManager.menuManager))
-	GuiManager.menuManager.addMenu("SquadEditMenu", SquadEditMenu.new(GuiManager.menuManager, CharacterManager))
+	local squadEditMenu = SquadEditMenu.new(GuiManager.menuManager)
+	GuiManager.menuManager.addMenu("SquadMenu", SquadMenu.new(GuiManager.menuManager, squadEditMenu))
+	GuiManager.menuManager.addMenu("SquadEditMenu", squadEditMenu)
 	---------------------------------------
     GuiManager.newSideBar = NewSideBar.new(GuiManager.menuManager)
     GuiManager.startMenu = StartMenu.new()
@@ -899,7 +900,7 @@ function GuiManager.onKeyboard(key, bDown)
     end
     if Gui.rCurActivePane and Gui.rCurActivePane.onKeyboard and Gui.rCurActivePane:onKeyboard(key, bDown) then
         return true
-    end    
+    end
 	
     if g_GuiManager.newSideBar:onKeyboard(key, bDown) then
 		return false

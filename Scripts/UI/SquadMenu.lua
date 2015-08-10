@@ -5,9 +5,11 @@ local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
 local ScrollableUI = require('UI.ScrollableUI')
 local SoundManager = require('SoundManager')
-local SquadList = require('SquadList')
 local SquadEntry = require('UI.SquadEntry')
+local SquadEditMenu = require('UI.SquadEditMenu')
 local Squad = require('Squad')
+local World = require('World')
+local SquadList = require('SquadList')
 
 local sUILayoutFileName = 'UILayouts/SquadLayout'
 
@@ -19,17 +21,19 @@ local nSquadCount = 0
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
-	local squadList
 	local tSquadEntries = {}
 	local rScrollableUI
 	local menuManager
+	local squadEditMenu
+	local squadList = World.getSquadList()
 
-    function Ob:init(_menuManager)
+    function Ob:init(_menuManager, _squadEditMenu)
         Ob.Parent.init(self)
     
         self:processUIInfo(sUILayoutFileName)
 
 		menuManager = _menuManager
+		squadEditMenu = _squadEditMenu
         self.rBackButton = self:getTemplateElement('BackButton')
         self.rBackButton:addPressedCallback(self.onBackButtonPressed, self)
 		self.rCreateButton = self:getTemplateElement('CreateButton')
@@ -37,7 +41,6 @@ function m.create()
         rScrollableUI = self:getTemplateElement('ScrollPane')
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
-		squadList = SquadList.new()
 		math.randomseed(os.time())
 		self:shuffleSquadNames()
 		for k,v in ipairs(tSquadNames) do
@@ -126,7 +129,7 @@ function m.create()
 			local name = g_LM.line(tSquadNames[nSquadIndex])
 			tUsedSquadNames[nSquadIndex] = true
 			local newSquad = Squad.new(name..' '..g_LM.line('SQUAD001TEXT'))
-			squadList.addSquad(newSquad)
+			squadList.addSquad(newSquad.getName(), newSquad)
 			local rNewEntry = self:addSquadEntry()
 			rNewEntry:setSquad(newSquad, self.disbandCallback, self.editCallback, table.getn(tSquadEntries), nSquadIndex)
 			rNewEntry:show()
@@ -136,7 +139,7 @@ function m.create()
 	end
 	
 	function Ob:disbandCallback(name, entriesIndex, nameIndex)
-		squadList.remSquad(name)
+		squadList.disbandSquad(name)
 		nSquadCount = nSquadCount - 1
 		tUsedSquadNames[nameIndex] = false
 		local entry = tSquadEntries[entriesIndex]
@@ -153,7 +156,7 @@ function m.create()
 	end
 	
 	function Ob:editCallback(squad)
-		menuManager.getMenu("SquadEditMenu"):setSquad(squad)
+		squadEditMenu:setSquad(squad)
 		menuManager.showMenu("SquadEditMenu")
 	end
 	
@@ -162,6 +165,7 @@ function m.create()
 		g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
 		self.bListDirty = true
 		local nPri = Ob.Parent.show(self, basePri)
+		self:updateDisplay()
 		rScrollableUI:reset()
 		return nPri
 	end
@@ -184,6 +188,12 @@ function m.create()
         rScrollableUI:addScrollingItem(rNewEntry)
         table.insert(tSquadEntries, rNewEntry)
 		return rNewEntry
+	end
+	
+	function Ob:updateDisplay()
+		for k,v in ipairs(tSquadEntries) do
+			v:update()
+		end
 	end
 
     function Ob:onTick(dt)

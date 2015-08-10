@@ -26,7 +26,7 @@ function m.create()
     Ob.bIsExpanded = true
     Ob.rSubmenu = nil
 
-    function Ob:init(menuManager)
+    function Ob:init(menuManager, _world)
         Ob.Parent.init(self)
 
         self:processUIInfo(sUILayoutFileName)
@@ -114,6 +114,7 @@ function m.create()
 		------------------------------------------------
         self:setExpanded(false)
 
+		self.rBeaconMenu = BeaconMenu.new(_world)
         self.rMineMenu = MineMenu.new()
         self.rConstructMenu = ConstructMenu.new()
         self.rInspectMenu = NewInspectMenu.new()
@@ -121,7 +122,7 @@ function m.create()
         self.rJobRosterMenu = JobRosterMenu.new()
         self.rResearchMenu = ResearchMenu.new()
         self.rGoalsList = GoalsList.new()
-        self.rBeaconMenu = BeaconMenu.new()
+        
         self.rDisasterMenu = DisasterMenu.new()
         
         -- disable + hide disaster menu to start

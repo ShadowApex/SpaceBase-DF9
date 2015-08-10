@@ -2646,4 +2646,8 @@
 	SQUAD018TEXT = { sLine = "Numbat", },
 	SQUAD019TEXT = { sLine = "Members", },
 	SQUAD020TEXT = { sLine = "Available", },
+	SQUAD021TEXT = { sLine = "Extreme Prejudice", },
+	SQUAD022TEXT = { sLine = "Eliminate Hostiles", },
+	SQUAD023TEXT = { sLine = "Subdue/Capture", },
+	SQUAD024TEXT = { sLine = "Stand Down", },
 }

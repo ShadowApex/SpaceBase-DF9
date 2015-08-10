@@ -21,6 +21,7 @@ function m.create()
         self:processUIInfo(sUILayoutFileName)
 
         self.rNameLabel = self:getTemplateElement('NameLabel')
+		self.rSizeLabel = self:getTemplateElement('SizeLabel')
 		self.rDisbandButton = self:getTemplateElement('DisbandButton')
 		self.rDisbandButton:addPressedCallback(self.onDisbandButtonPressed, self)
 		self.rEditButton = self:getTemplateElement('EditButton')
@@ -41,6 +42,10 @@ function m.create()
 	
 	function Ob:setIndex(_index)
 		index = _index
+	end
+	
+	function Ob:update()
+		self.rSizeLabel:setString(''..squad.getSize())
 	end
 	
 	function Ob:onDisbandButtonPressed(rButton, eventType)

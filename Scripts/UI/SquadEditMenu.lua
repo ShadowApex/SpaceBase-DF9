@@ -5,30 +5,41 @@ local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
 local ScrollableUI = require('UI.ScrollableUI')
 local SoundManager = require('SoundManager')
---local CharacterManager = require('CharacterManager')
+local CharacterConstants = require('CharacterConstants')
+local CharacterManager = require('CharacterManager')
 local Character = require('Character')
+local SquadEditEntry = require('UI.SquadEditEntry')
+local Squad = require('Squad')
 
 local sUILayoutFileName = 'UILayouts/SquadEditLayout'
+
+local BUTTON_X_MEMBERS = 200 - 10
+local BUTTON_X_AVAILABLE = 800 - 10
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 	local rScrollableUI
 	local squad
 	local menuManager
-	local characterManager
 	local rSquadEditMenuLabel
+	local rAvailableCountLabel
+	local rMembersCountLabel
+	local tMemberEntries = {}
+	local tAvailableEntries = {}
+	local test = true
 
-    function Ob:init(_menuManager, _characterManager)
+    function Ob:init(_menuManager)
         Ob.Parent.init(self)
     
         self:processUIInfo(sUILayoutFileName)
 
 		menuManager = _menuManager
-		characterManager = _characterManager
         self.rBackButton = self:getTemplateElement('BackButton')
         self.rBackButton:addPressedCallback(self.onBackButtonPressed, self)
 		rSquadEditMenuLabel = self:getTemplateElement('SquadEditMenuLabel')
 		rSquadEditMenuLabel:setString("ARRRRR!")
+		rAvailableCountLabel = self:getTemplateElement('AvailableCountLabel')
+		rMembersCountLabel = self:getTemplateElement('MembersCountLabel')
         rScrollableUI = self:getTemplateElement('ScrollPane')
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
@@ -38,21 +49,111 @@ function m.create()
 		squad = _squad
 		if squad ~= nil then
 			rSquadEditMenuLabel:setString(squad.getName())
-			--local tChars = characterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
-			--self:printTable(tChars)
+			local squadMembers = squad.getMembers()
+			for k,v in pairs(squadMembers) do
+				self:addSquadMemberEntry(k, v)
+			end
+			if #squadMembers == 0 then
+				rMembersCountLabel:setString(''..#tMemberEntries)
+			end
 		else
 			rSquadEditMenuLabel:setString("Fail Squad")
 		end
+		rScrollableUI:refresh()
 	end
 	
-	function Ob:printTable(tbl)
-		for k,v in pairs(tbl) do
-			if type(v) == "table" then
-				self:printTable(v)
-			else
-				print(v)
+	function Ob:loadCharacters()
+		local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+		for k,v in ipairs(tChars) do
+			if v:getJob() == CharacterConstants.EMERGENCY and v:getSquad() == nil then
+				self:addAvailableEntry(v:getUniqueID(), v:getNiceName())
 			end
 		end
+	end
+	
+	function Ob:addSquadMemberEntry(id, name)
+		local rNewEntry = self:addEntry(#tMemberEntries + 1, BUTTON_X_MEMBERS)
+		rNewEntry:setChar(id, name, self.onSquadMemberClickCallback)
+		table.insert(tMemberEntries, rNewEntry)
+		rMembersCountLabel:setString(''..#tMemberEntries)
+	end
+	
+	function Ob:addAvailableEntry(id, name)
+		local rNewEntry = self:addEntry(#tAvailableEntries + 1, BUTTON_X_AVAILABLE)
+		rNewEntry:setChar(id, name, self.onAvailableClickCallback)
+		table.insert(tAvailableEntries, rNewEntry)
+		rAvailableCountLabel:setString(''..#tAvailableEntries)
+	end
+	
+	function Ob:addEntry(index, x)
+		local rNewEntry = SquadEditEntry.new()
+		local w,h = rNewEntry:getDims()
+        local nYLoc = h * index - 25
+        rNewEntry:setLoc(x, nYLoc)
+        self:_calcDimsFromElements()
+        rScrollableUI:addScrollingItem(rNewEntry)
+		return rNewEntry
+	end
+	
+	function Ob:remSquadMemberEntry(rEntry)
+		for k,v in ipairs(tMemberEntries) do
+			if v == rEntry then
+				v:hide()
+				table.remove(tMemberEntries, k)
+				self:resetEntryHeight(tMemberEntries, BUTTON_X_MEMBERS)
+				rMembersCountLabel:setString(''..#tMemberEntries)
+				return
+			end
+		end
+		
+	end
+	
+	function Ob:remAvailableEntry(rEntry)
+		for k,v in ipairs(tAvailableEntries) do
+			if v == rEntry then
+				v:hide()
+				table.remove(tAvailableEntries, k)
+				self:resetEntryHeight(tAvailableEntries, BUTTON_X_AVAILABLE)
+				rAvailableCountLabel:setString(''..#tAvailableEntries)
+				return
+			end
+		end
+	end
+	
+	function Ob:resetEntryHeight(tEntries, x)
+		for k,v in ipairs(tEntries) do
+			local w,h = v:getDims()
+			local nYLoc = h * k - 25
+			v:setLoc(x, nYLoc)
+			self:_calcDimsFromElements()
+		end
+	end
+	
+	function Ob:onSquadMemberClickCallback(rEntry, id, name)
+		Ob:remSquadMemberEntry(rEntry)
+		Ob:addAvailableEntry(id, name)
+		squad.remMember(id)
+		local rChar = CharacterManager:getCharacterByUniqueID(id, true)
+		if rChar then
+			rChar:setSquad(nil)
+		end
+	end
+	
+	function Ob:onAvailableClickCallback(rEntry, id, name)
+		Ob:remAvailableEntry(rEntry)
+		for k,v in ipairs(tMemberEntries) do
+			if v == rEntry then
+				return
+			end
+		end
+		Ob:addSquadMemberEntry(id, name)
+		squad.addMember(id, name)
+		local rChar = CharacterManager.getCharacterByUniqueID(id, true)
+		if rChar == nil then
+			print("SquadEditMenu:onAvailableClickCallback() Error: unable to retrieve character from id")
+			return
+		end
+		rChar:setSquad(name)
 	end
 
     function Ob:addHotkey(sKey, rButton)
@@ -108,15 +209,23 @@ function m.create()
     function Ob:show(basePri)
         local w = g_GuiManager.getUIViewportSizeY()
         g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
-
-        self.bListDirty = true
         local nPri = Ob.Parent.show(self, basePri)
+		self:loadCharacters()
         rScrollableUI:reset()
         return nPri
     end
 
     function Ob:hide(bKeepAlive)
-        Ob.Parent.hide(self, bKeepAlive)
+		Ob.Parent.hide(self, bKeepAlive)
+		for i = #tMemberEntries, 1, -1 do
+			tMemberEntries[i]:hide(bKeepAlive)
+			tMemberEntries[i] = nil
+		end
+		for i = #tAvailableEntries, 1, -1 do
+			tAvailableEntries[i]:hide(bKeepAlive)
+			tAvailableEntries[i] = nil
+		end
+		--MOAISim.forceGarbageCollection()
     end
 
     function Ob:onTick(dt)

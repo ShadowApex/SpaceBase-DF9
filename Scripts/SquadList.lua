@@ -2,45 +2,41 @@ local SquadList = {}
 
 function SquadList.new()
 	local self = {}
-	local list = {}
-	
-	function self.init()
-		
+	local tSquads = {}
+
+	function self.getList()
+		return tSquads
 	end
-	
-	function self.addSquad(squad)
-		list[squad.getName()] = squad
+
+	function self.addSquad(name, squad)
+		tSquads[name] = squad
 	end
-	
+
 	function self.remSquad(name)
-		list[name] = nil
+		tSquads[name] = nil
 	end
 	
-	function self.setSquadStatus(name, status)
-		list[name].status = status
+	function self.getSquad(name)
+		return tSquads[name] or nil
 	end
-	
-	function self.addMember(squadName, memberName)
-		table.insert(list[squadName].members, memberName)
+
+	function self.numSquads()
+		return #tSquads
 	end
-	
-	function self.remMember(squadName, memberName)
-		local member = -1
-		for k,v in ipairs(list[squadName].members) do
-			if v == memberName then
-				member = k
+
+	function self.disbandSquad(name)
+		local tMembers = tSquads[name].getMembers()
+		local CharacterManager = require('CharacterManager')
+		local Character = require('Character')
+		local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+		for k,v in pairs(tChars) do
+			if tMembers[v:getUniqueID()] ~= nil then
+				v:setSquad(nil)
 			end
 		end
-		if (member > 0) then
-			table.remove(list[squadName].members, member)
-		end
+		tSquads[name] = nil
 	end
 	
-	function self.getSquadList()
-		return list
-	end
-	
-	self.init()
 	return self
 end
 

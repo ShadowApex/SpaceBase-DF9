@@ -185,7 +185,7 @@ return
 		{
             key = 'MembersLabel',
             type = 'textBox',
-            pos = { 200, -300 },
+            pos = { 200, -200 },
             linecode = 'SQUAD019TEXT',
             style = 'dosismedium44',
             rect = { 0, 100, 300, 0 },
@@ -196,8 +196,8 @@ return
 		{
             key = 'MembersCountLabel',
             type = 'textBox',
-            pos = { 500, -300 },
-            text = '0/0',
+            pos = { 500, -200 },
+            text = '0',
             style = 'dosismedium44',
             rect = { 0, 100, 100, 0 },
             hAlign = MOAITextBox.RIGHT_JUSTIFY,
@@ -207,7 +207,7 @@ return
 		{
             key = 'AvailableLabel',
             type = 'textBox',
-            pos = { 800, -300 },
+            pos = { 800, -200 },
             linecode = 'SQUAD020TEXT',
             style = 'dosismedium44',
             rect = { 0, 100, 300, 0 },
@@ -218,8 +218,8 @@ return
 		{
             key = 'AvailableCountLabel',
             type = 'textBox',
-            pos = { 1100, -300 },
-            text = '0/0',
+            pos = { 1100, -200 },
+            text = '0',
             style = 'dosismedium44',
             rect = { 0, 100, 100, 0 },
             hAlign = MOAITextBox.RIGHT_JUSTIFY,
