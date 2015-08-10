@@ -391,7 +391,7 @@ EnvObjectData.tObjects=
 		bCanDeactivate = true,
 		spriteName = 'oxygen_recycler_level2', -- the name of the model to use
 		sSpriteSheet = 'Environments/Objects' -- the file in which the model is located
-	}
+	},
 	OxygenRecyclerLevel4=
 	{
 		zoneName = 'LIFESUPPORT',
@@ -419,7 +419,7 @@ EnvObjectData.tObjects=
 		bCanDeactivate = true,
 		spriteName = 'oxygen_recycler_level2', -- the name of the model to use
 		sSpriteSheet = 'Environments/Objects' -- the file in which the model is located
-	}
+	},
     AirScrubber=
     {
         spriteName='AirScrubber',

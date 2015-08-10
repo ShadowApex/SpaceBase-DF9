@@ -2650,10 +2650,10 @@
 	SQUAD022TEXT = { sLine = "Eliminate Hostiles", },
 	SQUAD023TEXT = { sLine = "Subdue/Capture", },
 	SQUAD024TEXT = { sLine = "Stand Down", },
-	RECYCLE001TEXT = {sLine='Experimental 02 Recycler'} -- name
-	RECYCLE002TEXT = {sLine='Experimental means only a relatively small chance of a catastrophic failure.'} -- inspect description
-	RECYCLE003TEXT = {sLine='Something about flavour.'} -- flavour text
-	RECYCLE004TEXT = {sLine='Highly Experimental 02 Recycler'} -- name
-	RECYCLE005TEXT = {sLine='Removed pointless safety features in favour of more Jiggawatts.'} -- inspect description
-	RECYCLE006TEXT = {sLine='Something about flavour.'} -- flavour text
+	RECYCLE001TEXT = { sLine = "Experimental 02 Recycler", },
+	RECYCLE002TEXT = { sLine = "Experimental means only a relatively small chance of a catastrophic failure.", },
+	RECYCLE003TEXT = { sLine = "Something about flavour.", },
+	RECYCLE004TEXT = { sLine = "Highly Experimental 02 Recycler", },
+	RECYCLE005TEXT = { sLine = "Removed pointless safety features in favour of more Jiggawatts.", },
+	RECYCLE006TEXT = { sLine = "Something about flavour.", },
 }
