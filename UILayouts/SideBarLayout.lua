@@ -655,8 +655,8 @@ return
                 { key = 'SquadButton', color = Gui.BLACK, },
                 { key = 'SquadLabel', color = Gui.AMBER, },
                 { key = 'SquadIcon', color = Gui.AMBER, },
-                { key = 'ConstructHotkey', color = Gui.AMBER, },
-                { key = 'ConstructHotkeyExpanded', color = Gui.AMBER, },
+                { key = 'SquadHotkey', color = Gui.AMBER, },
+                { key = 'SquadHotkeyExpanded', color = Gui.AMBER, },
             },
         },
 		{

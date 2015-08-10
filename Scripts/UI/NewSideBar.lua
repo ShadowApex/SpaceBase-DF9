@@ -107,10 +107,10 @@ function m.create()
 		self.rSquadLabel = self:getTemplateElement('SquadLabel')
 		self.rSquadIcon = self:getTemplateElement('SquadIcon')
 		self.rSquadButton = self:getTemplateElement('SquadButton')
-		self.rSquadHotkey = self:getTemplateElement('SquadHotkey')
-		self.rSquadHotkeyExpanded = self:getTemplateElement('SquadHotkeyExpanded')
+		self.rSquadHotKey = self:getTemplateElement('SquadHotkey')
+		self.rSquadHotKeyExpanded = self:getTemplateElement('SquadHotkeyExpanded')
 		self.rSquadButton:addPressedCallback(self.onSquadButtonPressed, self)
-		self:addHotkey(self.rSquadHotkey.sText, self.rSquadButton)
+		self:addHotkey(self.rSquadHotKey.sText, self.rSquadButton)
 		------------------------------------------------
         self:setExpanded(false)
 
@@ -271,12 +271,8 @@ function m.create()
 		----------------------------------------------
 		self:setElementHidden(self.rSquadButton, not bExpanded)
 		self:setElementHidden(self.rSquadLabel, not bExpanded)
-		if rSquadHotKey ~= nil then
-			self:setElementHidden(self.rSquadHotKey, bExpanded)
-		end
-		if rSquadHotKeyExpanded ~= nil then
-			self:setElementHidden(self.rSquadHotKeyExpanded, not bExpanded)
-		end
+		self:setElementHidden(self.rSquadHotKey, bExpanded)
+		self:setElementHidden(self.rSquadHotKeyExpanded, not bExpanded)
 		------------------------------------------------
 		
         self:setElementHidden(self.rEndCap, bExpanded)
