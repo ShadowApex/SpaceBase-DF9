@@ -903,7 +903,7 @@ function GuiManager.onKeyboard(key, bDown)
     end
 	
     if g_GuiManager.newSideBar:onKeyboard(key, bDown) then
-		return false
+		return true
 	end
 	if GuiManager.menuManager.getActive() ~= nil then
 		return GuiManager.menuManager.getActive():onKeyboard(key, bDown)

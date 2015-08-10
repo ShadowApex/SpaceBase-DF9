@@ -109,11 +109,9 @@ function m.create()
                 bHandled = true
             end
         end
-        
         if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
             bHandled = self.rSubmenu:onKeyboard(key, bDown)
         end
-        
         return bHandled
     end
     
@@ -235,6 +233,7 @@ function m.create()
 	function Ob:onStandDownButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
 			self:clearThreatButton()
+			g_ERBeacon:remove()
 		end
 	end
 	
@@ -251,7 +250,6 @@ function m.create()
 			local rButton = self:getTemplateElement('Threat'..activeThreatLevel..'Button')
 			rButton:setSelected(false)
 			activeThreatLevel = nil
-			g_ERBeacon:remove()
 		end
 	end
 	
