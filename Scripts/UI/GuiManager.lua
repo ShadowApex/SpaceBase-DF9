@@ -321,7 +321,7 @@ function GuiManager.updateHoverTarget(sx, sy, dt)
 	local hovering = nil
     if GuiManager.inspectMode() then
 		-- hovering a beacon?
-		hovering = GuiManager._getTargetAt(wx, wy, 'room', Renderer.getRenderLayer(g_ERBeacon.RENDER_LAYER))
+		hovering = GuiManager._getTargetAt(wx, wy, 'room', {isBeacon=true})
 		if hovering ~= g_ERBeacon then
 			hovering = GuiManager._getTargetAt(wx, wy, 'room')
 		end
@@ -331,12 +331,12 @@ function GuiManager.updateHoverTarget(sx, sy, dt)
             GameRules.currentModeParam.onTick(dt, GameRules.currentModeParam)
         end
         -- end changes for mod HighlightUnassignedBedsAndCitizens (1/2)
-        hovering = GuiManager._getTargetAt(wx,wy,'room',nil,GameRules.currentModeParam and GameRules.currentModeParam.target,GameRules.currentModeParam and GameRules.currentModeParam.objSubtype)
+        hovering = GuiManager._getTargetAt(wx,wy,'room',{sOnlyThisType=GameRules.currentModeParam and GameRules.currentModeParam.target, sOnlyThisSubtype=GameRules.currentModeParam and GameRules.currentModeParam.objSubtype})
 	-- beacon mode: ignore objects
     elseif GameRules.currentMode == GameRules.MODE_BEACON then
-		hovering = GuiManager._getTargetAt(wx, wy, 'room', nil, true)
+		hovering = GuiManager._getTargetAt(wx, wy, 'room', {sOnlyThisType=true})
 	elseif GameRules.currentMode == GameRules.MODE_PLACE_PROP then
-		hovering = GuiManager._getTargetAt(wx, wy, 'room', nil, true)
+		hovering = GuiManager._getTargetAt(wx, wy, 'room', {sOnlyThisType=true})
 	end
     if GuiManager.hoverTarget and GuiManager.hoverTarget.bDestroyed then GuiManager.hoverTarget = nil end
     
@@ -686,13 +686,16 @@ function GuiManager.setSelected(rTarget)
 	end
 end
 
-function GuiManager._getTargetAt(wx,wy,sRoomOrWall,rLayerOverride,sOnlyThisType,sOnlyThisSubtype)
+function GuiManager._getTargetAt(wx, wy, sRoomOrWall, optional)
+	local optional = optional or {}
+	local isBeacon = optional.isBeacon or false
+	local sOnlyThisType = optional.sOnlyThisType or nil
+	local sOnlyThisSubtype = optional.sOnlyThisSubtype or nil
 	-- don't hover hidden areas UNLESS we're looking for the beacon
-	local rBeaconLayer = Renderer.getRenderLayer(g_ERBeacon.RENDER_LAYER)
-    if World.getVisibility(wx,wy) ~= World.VISIBILITY_FULL and rLayerOverride ~= rBeaconLayer then
+	if World.getVisibility(wx, wy) ~= World.VISIBILITY_FULL and not isBeacon then
 		return nil
 	end
-    
+	
     local tTestLayers={Character.RENDER_LAYER,'WorldFloor',Character.BACKGROUND_RENDER_LAYER}
     
     for _,v in ipairs(tTestLayers) do    
@@ -823,7 +826,7 @@ end
 function GuiManager.pickTouch(wx,wy)    
     if GuiManager._shouldClick(wx,wy) then
         local param = GameRules.currentModeParam
-        local rTarget = GuiManager._getTargetAt(wx,wy,'room',nil,param and param.target,param and param.objSubtype)
+        local rTarget = GuiManager._getTargetAt(wx,wy,'room',{sOnlyThisType=param and param.target, sOnlyThisSubtype=param and param.objSubtype})
         if param and param.cb then param.cb(rTarget) end
     end
     GameRules.setUIMode(GameRules.MODE_INSPECT)
