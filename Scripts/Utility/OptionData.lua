@@ -458,7 +458,16 @@ local tAdvertisedActivities=
 		    DestSafe=true,
         },
     },
-
+    ListenToJukebox = {
+        Needs={ Amusement=7, },
+        ClassPath='Utility.Tasks.ListenToJukebox',
+        Prerequisites={ Spacewalking=false, EmptyHands=true },
+        UIText='JUKEX004TEXT',
+        Tags={
+            DestOwned=true,
+            DestSafe=true,
+        },
+    },
 
     ------------------------------------------------------------------
     -- SURVIVAL
