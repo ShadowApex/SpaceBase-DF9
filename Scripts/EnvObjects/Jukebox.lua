@@ -3,12 +3,16 @@ local DFUtil = require("DFCommon.Util")
 local EnvObject=require('EnvObjects.EnvObject')
 local Gui = require('UI.Gui')
 local SoundManager=require('SoundManager')
+local Renderer=require('Renderer')
+local Camera=require('Camera')
+--local MOAIFmodEventInstance=require('MOAIFmodEventInstance ')
 
 local Jukebox = Class.create(EnvObject, MOAIProp.new)
 
 function Jukebox:init(sName, wx, wy, bFlipX, bForce, tSaveData, nTeam)
 	EnvObject.init(self, sName, wx, wy, bFlipX, bForce, tSaveData, nTeam)
 	self.bIsOn = false
+	self.rMusic = nil
 	print("Jukebox created!")
 end
 
@@ -18,7 +22,24 @@ function Jukebox:setOn(isOn)
 
 	self.bIsOn = isOn
 
-	SoundManager.playSfx3D("jukebox_music", self.wx, self.wy, 0)
+	print(self.rMusic)
+	if rMusic ~= nil then
+		print(self.rMusic:isValid())
+		print(self.rMusic:getVolume())
+	end
+
+	if self.bIsOn then
+		--print(self.wx)
+		--print(self.wy)
+		local c = Renderer.getGameplayCamera()
+		--print("Got camera")
+		--print(c:getLoc())
+		self.rMusic = SoundManager.playSfx3D("jukebox_music", self.wx, self.wy, 0)
+		print(self.rMusic:isValid())
+		print(self.rMusic:getVolume())
+	--elseif not MOAIFmodEventInstance:isValid(self.rMusic) and self.bIsOn then
+		--self.rMusic = SoundManager.playSfx3D("fridgeopen", self.wx, self.wy, 0)
+	end
 
 	print(string.format("Jukebox status changed to %s", self.bIsOn))
 	--return self.bIsOn

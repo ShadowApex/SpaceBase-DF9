@@ -10,7 +10,7 @@ local ListenToJukebox = Class.create(Task)
 
 ListenToJukebox.DURATION_MIN = 8
 ListenToJukebox.DURATION_MAX = 18
-ListenToJukebox.sDanceAnim = 'bartender_mix'
+ListenToJukebox.sDanceAnim = 'yawn'
 
 function ListenToJukebox:init(rChar,tPromisedNeeds,rActivityOption)
 	Task.init(self, rChar, tPromisedNeeds, rActivityOption)
