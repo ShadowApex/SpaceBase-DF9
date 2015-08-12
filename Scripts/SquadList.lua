@@ -1,8 +1,18 @@
 local SquadList = {}
 
+local Squad = require('Squad')
+
 function SquadList.new()
+	print("SquadList.new()")
 	local self = {}
 	local tSquads = {}
+	
+	function self.loadSaveData(tSquadData)
+		for k,v in pairs(tSquadData) do
+			self.addSquad(v.name, Squad.new(v.name, v.status, v.members))
+		end
+		require("UI.GuiManager").updateSquadMenu() -- we cannot guarantee that SquadList will be loaded before SquadMenu so let's update it
+	end
 
 	function self.getList()
 		return tSquads
@@ -35,6 +45,16 @@ function SquadList.new()
 			end
 		end
 		tSquads[name] = nil
+	end
+	
+	function self.getSaveData()
+		local tSquadData = {}
+		local n = 1
+		for k,v in pairs(tSquads) do
+			table.insert(tSquadData, {name=k, status=v.getStatus(), members=v.getMembers()})
+			n = n + 1
+		end
+		return tSquadData
 	end
 	
 	return self

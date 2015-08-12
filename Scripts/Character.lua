@@ -172,6 +172,10 @@ function Character:init( tData )
     end
     
 	self.bInitialized = true
+	
+	------------------------------------------------------------------
+	self.squadName = tData.sSquadName or nil
+	------------------------------------------------------------------
     
     local tx,ty = self:getTileLoc()
     if not World._isInBounds(tx,ty,true) then
@@ -191,6 +195,7 @@ end
 
 -------------------------------------------------------------
 function Character:setSquad(squadName)
+	print("Character:setSquad() squadName: "..squadName)
 	self.squadName = squadName
 end
 
@@ -2923,6 +2928,7 @@ function Character:getSaveData(xOff,yOff)
 	tData.tMemory = self.tMemory
 	tData.tAffinity = self.tAffinity
 	tData.tFamiliarity = self.tFamiliarity
+	tData.sSquadName = self.squadName or nil
     
     --local tInventory = DFUtil.deepCopy(self.tInventory)
     --ObjectList.convertTagsForSaving(tInventory)

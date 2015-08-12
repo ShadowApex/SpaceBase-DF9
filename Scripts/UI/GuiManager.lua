@@ -145,6 +145,10 @@ function GuiManager.init()
     g_GuiManager.bFinishedInit = true
 end
 
+function GuiManager.updateSquadMenu()
+	GuiManager.menuManager.getMenu("SquadMenu").loadSaveData()
+end
+
 function GuiManager.showCursorSprite(bShowSprite)
     local rRenderLayer = Renderer.getRenderLayer("UIOverlay")
 
