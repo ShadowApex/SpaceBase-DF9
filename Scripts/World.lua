@@ -183,8 +183,6 @@ function World.getCardinalOrOrdinalDirectionToVector(x,y)
     return direction and World.oppositeDirections[direction]
 end
 
-local squadList
-
 local tSpaceNames = {
     "The Void",
     "Cold, Empty Space",
@@ -392,7 +390,7 @@ function World.init(width, height, tileWidth, tileHeight)
     Fire.reset()
     Door.reset()
 	
-	squadList = SquadList.new()
+	World.squadList = SquadList.new()
 	
     require('Projectile').reset()
     GlobalObjects.reset()
@@ -508,7 +506,7 @@ function World.init(width, height, tileWidth, tileHeight)
 end
 
 function World.getSquadList()
-	return squadList
+	return World.squadList
 end
 
 function World.setAnalysisPropEnabled(bEnabled,rGrid)
@@ -689,7 +687,8 @@ function World.getSaveData()
     local saveData = {
 		tilesToExplore={},
     }
-    
+	local tSquads = World.getSquadList().getList()
+    print("World:getSaveData() #tSquads: "..#tSquads)
     -- Save out the path grid.
     -- Do not save out prop grid. Props will save themselves out and re-place themselves in the world.
     -- Do not save out room grid. Rooms will save themselves out, so they can save out their attributes.

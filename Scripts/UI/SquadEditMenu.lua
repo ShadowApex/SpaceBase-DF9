@@ -153,7 +153,7 @@ function m.create()
 			print("SquadEditMenu:onAvailableClickCallback() Error: unable to retrieve character from id")
 			return
 		end
-		rChar:setSquad(name)
+		rChar:setSquad(squad.getName())
 	end
 
     function Ob:addHotkey(sKey, rButton)

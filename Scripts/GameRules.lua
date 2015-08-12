@@ -721,6 +721,8 @@ function GameRules.saveGame()
         tSaveData.bTutorialMode = GameRules.bTutorialMode
 		tSaveData.tTutorialState = GameRules.tTutorialState
         tSaveData.nTutorialStateVersion = GameRules.nTutorialStateVersion
+		tSaveData.tSquadData = require('World').getSquadList().getSaveData()
+		local tSquads = require('World').squadList.getList()
 
 		tSaveData.bHasHadEnclosedRooms = GameRules.bHasHadEnclosedRooms
 		tSaveData.bHasZoned = GameRules.bHasZoned
@@ -1024,6 +1026,8 @@ function GameRules.loadGame(sOverridePath, bOverridePreservePath)
             tBeaconSaveData = tSaveData.tBaseState.tBeacon
         end
         g_ERBeacon:fromSaveTable(tBeaconSaveData)
+		
+		World.getSquadList().loadSaveData(tSaveData.tSquadData or {})
         
         Topics.fromSaveData(tSaveData)
         -- refresh activity list in case we added one since save creation

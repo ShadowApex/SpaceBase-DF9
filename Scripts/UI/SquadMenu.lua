@@ -13,8 +13,9 @@ local SquadList = require('SquadList')
 
 local sUILayoutFileName = 'UILayouts/SquadLayout'
 
-local tSquadNames = { 'SQUAD009TEXT', 'SQUAD010TEXT', 'SQUAD011TEXT', 'SQUAD012TEXT', 'SQUAD013TEXT', 'SQUAD014TEXT', 'SQUAD015TEXT', 'SQUAD016TEXT', 'SQUAD017TEXT', 'SQUAD018TEXT',}
-local tUsedSquadNames = {}
+local tSquadNames = { {name='SQUAD009TEXT', isUsed=false}, {name='SQUAD010TEXT', isUsed=false}, {name='SQUAD011TEXT', isUsed=false}, {name='SQUAD012TEXT', isUsed=false}, 
+						{name='SQUAD013TEXT', isUsed=false}, {name='SQUAD014TEXT', isUsed=false}, {name='SQUAD015TEXT', isUsed=false}, {name='SQUAD016TEXT', isUsed=false}, 
+						{name='SQUAD017TEXT', isUsed=false}, {name='SQUAD018TEXT', isUsed=false},}
 local MAX_SQUADS = 10
 local nSquadIndex = 1
 local nSquadCount = 0
@@ -43,8 +44,14 @@ function m.create()
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
 		math.randomseed(os.time())
 		self:shuffleSquadNames()
-		for k,v in ipairs(tSquadNames) do
-			tUsedSquadNames[k] = false
+	end
+	
+	function Ob:loadSaveData()
+		squadList = World.getSquadList()
+		local tSquads = squadList.getList()
+		for k,v in pairs(tSquads) do
+			local rNewEntry = Ob:createSquadEntry(v)
+			rNewEntry:hide()
 		end
 	end
 	
@@ -112,36 +119,47 @@ function m.create()
 	
 	function Ob:onCreateButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP  then
-			self:createSquad()
+			self:createSquadEntry()
 		end
 	end
 	
-	function Ob:createSquad()
-		if nSquadCount < MAX_SQUADS then
-			if tUsedSquadNames[nSquadIndex] then
+	function Ob:createSquadEntry(_rSquad)
+		local rSquad = _rSquad or nil
+		if not rSquad and nSquadCount < MAX_SQUADS then
+			if tSquadNames[nSquadIndex].isUsed then -- if the current name is in use, try the next one
 				nSquadIndex = nSquadIndex + 1
 				if nSquadIndex > MAX_SQUADS then 
 					nSquadIndex = 1
 				end
-				self:createSquad()
+				self:createSquadEntry()
 				return
 			end
-			local name = g_LM.line(tSquadNames[nSquadIndex])
-			tUsedSquadNames[nSquadIndex] = true
-			local newSquad = Squad.new(name..' '..g_LM.line('SQUAD001TEXT'))
-			squadList.addSquad(newSquad.getName(), newSquad)
-			local rNewEntry = self:addSquadEntry()
-			rNewEntry:setSquad(newSquad, self.disbandCallback, self.editCallback, table.getn(tSquadEntries), nSquadIndex)
-			rNewEntry:show()
-			rScrollableUI:refresh()
-			nSquadCount = nSquadCount + 1
+			local sName = g_LM.line(tSquadNames[nSquadIndex].name)
+			rSquad = Squad.new(sName)
+			squadList.addSquad(rSquad.getName(), rSquad)
+			tSquadNames[nSquadIndex].isUsed = true
 		end
+		if rSquad then
+			for k,v in pairs(tSquadNames) do
+				if v.name == rSquad.getName() then
+					v.isUsed = true
+					nSquadIndex = k + 1
+					break
+				end
+			end
+		end
+		local rNewEntry = self:addSquadEntry()
+		rNewEntry:setSquad(rSquad, self.disbandCallback, self.editCallback, table.getn(tSquadEntries), nSquadIndex)
+		rNewEntry:show()
+		rScrollableUI:refresh()
+		nSquadCount = nSquadCount + 1
+		return rNewEntry
 	end
 	
 	function Ob:disbandCallback(name, entriesIndex, nameIndex)
 		squadList.disbandSquad(name)
 		nSquadCount = nSquadCount - 1
-		tUsedSquadNames[nameIndex] = false
+		tSquadNames[nameIndex].isUsed = false
 		local entry = tSquadEntries[entriesIndex]
 		entry:hide(true)
 		rScrollableUI:removeScrollingItem(entry)
