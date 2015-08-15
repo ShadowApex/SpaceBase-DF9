@@ -2656,8 +2656,8 @@
 	RECYCLE004TEXT = { sLine = "Highly Experimental 02 Recycler", },
 	RECYCLE005TEXT = { sLine = "Removed pointless safety features in favour of more Jiggawatts.", },
 	RECYCLE006TEXT = { sLine = "Something about flavour.", },
-    JUKEX001TEXT = {sLine='Jukebox',},
-    JUKEX002TEXT= {sLine='The JamBand2000 is a state-of-the-art listening device.',},
-    JUKEX003TEXT = {sLine='Listen to all the hipster jams of space.',},
-    JUKEX004TEXT = {sLine='Listening to Jukebox',},
+    JUKEX001TEXT = {sLine = "Jukebox",},
+    JUKEX002TEXT= {sLine = "The JamBand2000 is a state-of-the-art listening device.", },
+    JUKEX003TEXT = {sLine = "Listen to all the hipster jams of space.", },
+    JUKEX004TEXT = {sLine = "Listening to Jukebox", },
 }
