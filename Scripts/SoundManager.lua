@@ -1,3 +1,4 @@
+--Posible FMOD encryption password for the .FSB files = DFm3t4lFTW
 local DFFile = require('DFCommon.File')
 local Renderer = require('Renderer')
 local MiscUtil = require('MiscUtil')
@@ -169,7 +170,7 @@ local tSfx =
     room_walla_good = "SFX/Ambience/Walla_Positive", 
 
     --Jukebox
-    jukebox_music = "SpaceBaseV2/Jukebox/music01"
+    jukebox_music = "SpaceBaseV2/SFX/music01"
 }
 
 ----------------------
@@ -375,7 +376,7 @@ function SoundManager.playSfx( sfxCue )
 end
 
 function SoundManager.playSfx3D( sfxCue, x, y, z )
-    print(string.format("playing sound %s", sfxCue))
+    --print(string.format("playing sound %s", sfxCue))
     return MOAIFmodEventMgr.playEvent3D( tSfx[sfxCue], x, y, z )
 end
 
