@@ -277,6 +277,8 @@
     DUTIES021TEXT = { sLine = "Heals Sick & Wounded", },
     DUTIES022TEXT = { sLine = "Janitor", },
     DUTIES023TEXT = { sLine = "Keeps your base clean", },
+    DUTIES024TEXT = { sLine = "Trader", },
+    DUTIES025TEXT = { sLine = "Trades goods and Wares", },
     EMTASK001TEXT = { sLine = "Working Out", },
     EMTASK002TEXT = { sLine = "Playing a Game", },
     EMTASK003TEXT = { sLine = "Building a Machine", },
