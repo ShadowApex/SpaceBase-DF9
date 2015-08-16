@@ -22,6 +22,7 @@ function m.create()
         { enum = Character.BARTENDER, name = g_LM.line("DUTIES013TEXT"), desc = g_LM.line("DUTIES014TEXT"), sound = "emergency"},
         { enum = Character.BOTANIST, name = g_LM.line("DUTIES016TEXT"), desc = g_LM.line("DUTIES017TEXT"), sound = "emergency"},
 		{ enum = Character.JANITOR, name = g_LM.line("DUTIES022TEXT"), desc = g_LM.line("DUTIES023TEXT"), sound = "emergency"},
+		{ enum = Character.TRADER, name = g_LM.line("DUTIES024TEXT"), desc = g_LM.line("DUTIES025TEXT"), sound = "emergency"},
     }
     
     function Ob:init(w)

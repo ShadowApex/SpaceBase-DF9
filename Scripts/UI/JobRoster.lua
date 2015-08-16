@@ -22,7 +22,8 @@ local tJobToEnum =
     job7 = Character.SCIENTIST,
     job8 = Character.DOCTOR,
     job9 = Character.JANITOR,
-    job10 = Character.UNEMPLOYED,
+	job10 = Character.TRADER,
+    job11 = Character.UNEMPLOYED,
 }
 
 local tSortButtonInfos =
@@ -59,6 +60,9 @@ local tSortButtonInfos =
                      },
     Job9SortButton = {
                          sSortKey = 'job9Sort',
+                     },
+    Job10SortButton = {
+                         sSortKey = 'job10Sort',
                      },
 }
 
@@ -131,6 +135,10 @@ local tSortFnInfos =
     job9Sort = {
         sortDownFn = function (rCitizen1, rCitizen2) return jobSortDownFn(tJobToEnum['job9'], rCitizen1, rCitizen2) end,
         sortUpFn = function (rCitizen1, rCitizen2) return jobSortUpFn(tJobToEnum['job9'], rCitizen1, rCitizen2) end,
+               },
+    job10Sort = {
+        sortDownFn = function (rCitizen1, rCitizen2) return jobSortDownFn(tJobToEnum['job10'], rCitizen1, rCitizen2) end,
+        sortUpFn = function (rCitizen1, rCitizen2) return jobSortUpFn(tJobToEnum['job10'], rCitizen1, rCitizen2) end,
                },
 }
 

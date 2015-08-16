@@ -689,6 +689,7 @@ CharacterConstants.BOTANIST,
 CharacterConstants.SCIENTIST,
 CharacterConstants.DOCTOR,
 CharacterConstants.JANITOR,
+CharacterConstants.TRADER,
 }
 
 -- NOTE: do not remove or change any of these constants. If you add any, add to the end.
@@ -3486,6 +3487,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         }, 
     },
     [CharacterConstants.MALE_BOTTOM_ACCESSORY_FAT_LEGPOUCH_01] = { 
@@ -3501,6 +3503,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         }, 
     },
     [CharacterConstants.FEMALE_BOTTOM_ACCESSORY_FAT_LEGPOUCH_01] = { 
@@ -3516,6 +3519,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         }, 
     },
     [CharacterConstants.MALE_BOTTOM_ACCESSORY_BELT_01] = { 
@@ -3531,6 +3535,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_BOTTOM_ACCESSORY_LEGPOUCH_01] = { 
@@ -3546,6 +3551,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_BOTTOM_ACCESSORY_BELT_01] = { 
@@ -3561,6 +3567,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_BOTTOM_ACCESSORY_FAT_BELT_01] = { 
@@ -3576,6 +3583,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_BOTTOM_ACCESSORY_FAT_BELT_01] = { 
@@ -3591,6 +3599,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_BOTTOM_ACCESSORY_LEGPOUCH_01] = { 
@@ -3606,6 +3615,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_BOTTOM_ACCESSORY_BELT_01] = { 
@@ -3621,6 +3631,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_BOTTOM_ACCESSORY_TOURISTSHORTS_01] = { 
@@ -3636,6 +3647,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_BOTTOM_ACCESSORY_TOURISTSHORTS_01] = { 
@@ -3651,6 +3663,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_BOTTOM_ACCESSORY_FAT_TOURISTSHORTS_01] = { 
@@ -3666,6 +3679,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_BOTTOM_ACCESSORY_TOURISTSHORTS_01] = { 
@@ -3680,7 +3694,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.BOTANIST,
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
-            CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.NO_REPLACE] = { 
@@ -3698,6 +3712,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         }, 
     },
     [CharacterConstants.SHAMON_BOTTOM_ACCESSORY_BELT_01] = { 
@@ -3713,6 +3728,7 @@ CharacterConstants.BOTTOM_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
 }
@@ -3734,6 +3750,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_COLLAR_01] = { 
@@ -3749,6 +3766,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_VEST_01] = { 
@@ -3764,6 +3782,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.BOTANIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_VEST_01_BEIGE] = { 
@@ -3779,6 +3798,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_COLLAR_01] = { 
@@ -3794,6 +3814,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_VEST_01] = { 
@@ -3809,6 +3830,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_VEST_01_BEIGE] = { 
@@ -3824,6 +3846,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_BANDOLIER_01] = { 
@@ -3839,6 +3862,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },   
     [CharacterConstants.FEMALE_TOP_ACCESSORY_FAT_BANDOLIER_01] = { 
@@ -3854,6 +3878,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },  
  [CharacterConstants.FEMALE_TOP_ACCESSORY_BANDOLIER_02] = { 
@@ -3869,6 +3894,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },   
     [CharacterConstants.FEMALE_TOP_ACCESSORY_FAT_BANDOLIER_02] = { 
@@ -3884,6 +3910,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },   
     [CharacterConstants.MALE_TOP_ACCESSORY_BANDOLIER_01] = { 
@@ -3899,6 +3926,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },   
     [CharacterConstants.MALE_TOP_ACCESSORY_BANDOLIER_02] = { 
@@ -3914,6 +3942,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     }, 
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_BANDOLIER_01] = { 
@@ -3929,6 +3958,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },  
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_BANDOLIER_02] = { 
@@ -3944,6 +3974,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },  
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_TOURIST_SHIRT_02] = { 
@@ -3959,6 +3990,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_TOURIST_SHIRT_03] = { 
@@ -3974,6 +4006,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_TOURIST_SHIRT_04] = { 
@@ -3989,6 +4022,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_TOURIST_SHIRT_05] = { 
@@ -4004,6 +4038,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_TOURIST_SHIRT_02] = { 
@@ -4019,6 +4054,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_TOURIST_SHIRT_03] = { 
@@ -4034,6 +4070,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_TOURIST_SHIRT_04] = { 
@@ -4049,6 +4086,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_TOURIST_SHIRT_05] = { 
@@ -4064,6 +4102,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_TOURIST_SHIRT_02] = { 
@@ -4079,6 +4118,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_TOURIST_SHIRT_03] = { 
@@ -4094,6 +4134,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_TOURIST_SHIRT_04] = { 
@@ -4109,6 +4150,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.FEMALE_TOP_ACCESSORY_TOURIST_SHIRT_05] = { 
@@ -4124,6 +4166,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_TOP_ACCESSORY_COLLAR_01] = { 
@@ -4139,6 +4182,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_TOP_ACCESSORY_VEST_01] = { 
@@ -4154,6 +4198,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_TOP_ACCESSORY_VEST_01_BEIGE] = { 
@@ -4169,6 +4214,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_SEXYSHIRT_01] = { 
@@ -4182,6 +4228,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOP_ACCESSORY_GAUNTLET_LEFT_01] = { 
@@ -4211,6 +4258,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_TOP_ACCESSORY_TOURIST_SHIRT_03] = {
@@ -4226,6 +4274,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_TOP_ACCESSORY_TOURIST_SHIRT_04] = {
@@ -4241,6 +4290,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOBIAN_TOP_ACCESSORY_TOURIST_SHIRT_05] = {
@@ -4256,6 +4306,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
 
         },
     },
@@ -4272,6 +4323,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_TOURIST_SHIRT_03] = { 
@@ -4287,6 +4339,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_TOURIST_SHIRT_02] = { 
@@ -4302,6 +4355,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.MALE_TOP_ACCESSORY_FAT_TOURIST_SHIRT_03] = { 
@@ -4317,6 +4371,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.NO_REPLACE] = { 
@@ -4334,6 +4389,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.SHAMON_TOP_ACCESSORY_TOURIST_SHIRT_02] = { 
@@ -4349,6 +4405,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.SHAMON_TOP_ACCESSORY_TOURIST_SHIRT_03] = { 
@@ -4364,6 +4421,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.SHAMON_TOP_ACCESSORY_TOURIST_SHIRT_04] = { 
@@ -4379,6 +4437,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.SHAMON_TOP_ACCESSORY_TOURIST_SHIRT_05] = { 
@@ -4394,6 +4453,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.SHAMON_TOP_ACCESSORY_SEXYSHIRT_01] = { 
@@ -4407,6 +4467,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.SHAMON_TOP_ACCESSORY_VEST_01_BEIGE] = { 
@@ -4422,6 +4483,7 @@ CharacterConstants.TOP_ACCESSORY_TYPE=
             CharacterConstants.SCIENTIST,
             CharacterConstants.DOCTOR,
             CharacterConstants.JANITOR,
+			CharacterConstants.TRADER,
         },
     },
     [CharacterConstants.TOP_ACCESSORY_HUMANVISOR_01] = { 
@@ -4820,9 +4882,12 @@ CharacterConstants.JOB_OUTFIT_TYPE=
     [CharacterConstants.TECHNICIAN_BASE_NORMAL] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
     [CharacterConstants.TECHNICIAN_BASE_FAT] = { sModel = 'Tech_FatSuit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
     [CharacterConstants.TECHNICIAN_TOBIAN] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
+    [CharacterConstants.JANITOR_TOBIAN] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
     [CharacterConstants.JANITOR_BASE_NORMAL] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
     [CharacterConstants.JANITOR_BASE_FAT] = { sModel = 'Tech_FatSuit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
-    [CharacterConstants.JANITOR_TOBIAN] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
+    [CharacterConstants.TRADER_TOBIAN] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
+    [CharacterConstants.TRADER_BASE_NORMAL] = { sModel = 'Tech_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
+    [CharacterConstants.TRADER_BASE_FAT] = { sModel = 'Tech_FatSuit02', sTexture = 'Characters/Citizen_Base/Textures/Technician01' },
     [CharacterConstants.MINER_BASE_NORMAL] = { sModel = 'Miner_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Miner01' },
     [CharacterConstants.MINER_BASE_FAT] = { sModel = 'Miner_FatSuit02', sTexture = 'Characters/Citizen_Base/Textures/Miner01' },
     [CharacterConstants.MINER_TOBIAN] = { sModel = 'Miner_Suit02', sTexture = 'Characters/Citizen_Base/Textures/Miner01' },

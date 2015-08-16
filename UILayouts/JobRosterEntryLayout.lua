@@ -98,11 +98,18 @@ return
                     pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale + nJobCheckmarkOffsetX, nJobCheckmarkOffsetY }, --538 + (128 * 9) + 4 + -22, 10 = 1672,10
                 },
             },
-	    Job10 =
+			Job10 =
             {
                 {
                     key = 'SelectedCheckmark',
                     pos = { nJobColStart + (nJobBlockScale * 10) + nBorderScale + nJobCheckmarkOffsetX, nJobCheckmarkOffsetY }, --538 + (128 * 10) + 4 + -22, 10 = 1800,10
+                },
+            },
+			Job11 =
+            {
+                {
+                    key = 'SelectedCheckmark',
+                    pos = { nJobColStart + (nJobBlockScale * 11) + nBorderScale + nJobCheckmarkOffsetX, nJobCheckmarkOffsetY }, --538 + (128 * 10) + 4 + -22, 10 = 1800,10
                 },
             },
         },
@@ -310,11 +317,33 @@ return
                 },
             },
         },
+        -- job10
+        {
+            key = 'Job10Button',
+            type = 'onePixelButton',
+            pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale, 0 },
+            scale = { nJobBlockScale, nBorderHeight },
+            color = Gui.BLACK,
+            onHoverOn =
+            {
+                {
+                    key = 'ActiveJob10BG',
+                    hidden = false,
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'ActiveJob10BG',
+                    hidden = true,
+                },
+            },
+        },
         -- unassigned
         {
             key = 'UnassignedJobButton',
             type = 'onePixelButton',
-            pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale, 0 },
+            pos = { nJobColStart + (nJobBlockScale * 10) + nBorderScale, 0 },
             scale = { nJobBlockScale, nBorderHeight },
             color = Gui.BLACK,
             onHoverOn =
@@ -414,9 +443,17 @@ return
             hidden = true,
         },
         {
-            key = 'UnassignedJobBG',
+            key = 'ActiveJob10BG',
             type = 'onePixel',
             pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale, 0 },
+            scale = { nJobBlockScale, nBorderHeight },
+            color = { 1, 0, 0 },
+            hidden = true,
+        },
+        {
+            key = 'UnassignedJobBG',
+            type = 'onePixel',
+            pos = { nJobColStart + (nJobBlockScale * 10) + nBorderScale, 0 },
             scale = { nUnassignedJobBGScale, nBorderHeight },
             color = Gui.AMBER,
             hidden = true,
@@ -426,7 +463,7 @@ return
             type = 'uiTexture',
             textureName = 'ui_circlefilled',
             sSpritesheetPath = 'UI/Shared',
-            pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale + nUnassignedJobBGScale + 32, 0  },
+            pos = { nJobColStart + (nJobBlockScale * 10) + nBorderScale + nUnassignedJobBGScale + 32, 0  },
             color = Gui.AMBER,
             scale = { -1, 1 },
             hidden = true,
@@ -606,6 +643,13 @@ return
             key = 'Column9',
             type = 'onePixel',
             pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale, 0 }, --538 + (128*9) + 4 = 1694, 0
+            scale = { nBorderScale, nBorderHeight },
+            color = Gui.GREY,
+        },
+        {
+            key = 'Column10',
+            type = 'onePixel',
+            pos = { nJobColStart + (nJobBlockScale * 10) + nBorderScale, 0 }, --538 + (128*9) + 4 = 1694, 0
             scale = { nBorderScale, nBorderHeight },
             color = Gui.GREY,
         },
@@ -791,6 +835,24 @@ return
 			scale = { 1, 1 },
             color = Gui.AMBER,
         },
+		{
+            key = 'Job10AffBG',
+            type = 'uiTexture',
+            pos = { nJobColStart + nAffinityIconOffsetX + (nJobBlockScale*9), -12 }, --538+76+(128*8) = 1638,-12
+            textureName = 'ui_dialogicon_blackBG',
+            sSpritesheetPath = 'UI/Emoticons',
+			scale = { 1, 1 },
+            color = Gui.AMBER,
+        },
+        {
+            key = 'Job10Aff',
+            type = 'uiTexture',
+            pos = { nJobColStart + nAffinityIconOffsetX + (nJobBlockScale*9), -12 },
+            textureName = 'ui_dialogicon_meh',
+            sSpritesheetPath = 'UI/Emoticons',
+			scale = { 1, 1 },
+            color = Gui.AMBER,
+        },
          {
             key = 'Job1SkillLevel',
             type = 'uiTexture',
@@ -869,6 +931,15 @@ return
             textureName = 'ui_jobs_skillrank5',
             sSpritesheetPath = 'UI/JobRoster',
             pos = { nJobColStart + (nJobBlockScale * 8) + nBorderScale + nSkillLevelIconOffsetX, 0  },
+            color = Gui.AMBER,
+            scale = { 1, 1 },
+        },
+		{
+            key = 'Job10SkillLevel',
+            type = 'uiTexture',
+            textureName = 'ui_jobs_skillrank5',
+            sSpritesheetPath = 'UI/JobRoster',
+            pos = { nJobColStart + (nJobBlockScale * 9) + nBorderScale + nSkillLevelIconOffsetX, 0  },
             color = Gui.AMBER,
             scale = { 1, 1 },
         },
