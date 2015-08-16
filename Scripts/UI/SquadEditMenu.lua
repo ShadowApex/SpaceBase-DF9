@@ -65,7 +65,7 @@ function m.create()
 	function Ob:loadCharacters()
 		local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
 		for k,v in ipairs(tChars) do
-			if v:getJob() == CharacterConstants.EMERGENCY and v:getSquad() == nil then
+			if v:getJob() == CharacterConstants.EMERGENCY and v:getSquadName() == nil then
 				self:addAvailableEntry(v:getUniqueID(), v:getNiceName())
 			end
 		end
@@ -153,7 +153,8 @@ function m.create()
 			print("SquadEditMenu:onAvailableClickCallback() Error: unable to retrieve character from id")
 			return
 		end
-		rChar:setSquad(squad.getName())
+		print("ARGH: "..squad.getName())
+		rChar:setSquadName(squad.getName())
 	end
 
     function Ob:addHotkey(sKey, rButton)

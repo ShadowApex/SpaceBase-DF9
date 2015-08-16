@@ -74,6 +74,8 @@ function m.create()
 		self:addHotkey(self:getTemplateElement('ThreatMediumHotkey').sText, self.rThreatMediumButton)
 		self:addHotkey(self:getTemplateElement('ThreatLowHotkey').sText, self.rThreatLowButton)
 		self:addHotkey(self:getTemplateElement('StandDownHotkey').sText, self.rStandDownButton)
+		
+		self.rThreatMediumButton:setSelected(true)
     end
 
     function Ob:addHotkey(sKey, rButton)
@@ -129,6 +131,13 @@ function m.create()
 			self:clearActive()
 			activeSlot = 1
 			rButton:setSelected(true)
+			local sName = self:getTemplateElement('Slot'..activeSlot..'Label'):getString()
+			local rSquad = squadList.getSquad(sName)
+			if not rSquad then
+				print("BeaconMenu:onSlot1ButtonPressed() Error: Couldn't find squad.")
+				return
+			end
+			g_ERBeacon:setSelectedSquad(rSquad)
 		end
 	end
 	
@@ -254,6 +263,7 @@ function m.create()
 	end
 	
 	function Ob:updateDisplay()
+		squadList = World.getSquadList()
 		local tSquads = squadList.getList()
 		local count = 1
 		for k,v in pairs(tSquads) do

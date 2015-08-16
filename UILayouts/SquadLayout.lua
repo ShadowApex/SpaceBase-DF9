@@ -241,6 +241,63 @@ return
             vAlign = MOAITextBox.LEFT_JUSTIFY,
             color = Gui.AMBER,
         },
+		{
+            key = 'PurgeButton',
+            type = 'onePixelButton',
+            pos = { 800 + nButtonWidth, 0 },
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'PurgeButton',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'PurgeButton',
+                    color = AMBER,
+                },       
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'PurgeButton',
+                    color = Gui.AMBER,
+                },
+                {
+                    key = 'PurgeLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'PurgeButton',
+                    color = Gui.BLACK,
+                },
+				{
+                    key = 'PurgeLabel',
+                    color = Gui.AMBER,
+                },
+            },
+        },
+		{
+            key = 'PurgeLabel',
+            type = 'textBox',
+            pos = { 800 + nButtonWidth, -20 },
+            linecode = 'SQUAD025TEXT',
+            style = 'dosisregular40',
+            rect = { 0, 400, 300, 0 },
+            hAlign = MOAITextBox.CENTER_JUSTIFY,
+            vAlign = MOAITextBox.LEFT_JUSTIFY,
+            color = Gui.AMBER,
+        },
         -- top bar
 		{
             key = 'SquadLabel',

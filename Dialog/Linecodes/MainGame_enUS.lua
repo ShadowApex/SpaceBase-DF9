@@ -2650,6 +2650,7 @@
 	SQUAD022TEXT = { sLine = "Eliminate Hostiles", },
 	SQUAD023TEXT = { sLine = "Subdue/Capture", },
 	SQUAD024TEXT = { sLine = "Stand Down", },
+	SQUAD025TEXT = { sLine = "Purge", },
 	RECYCLE001TEXT = { sLine = "Experimental 02 Recycler", },
 	RECYCLE002TEXT = { sLine = "Experimental means only a relatively small chance of a catastrophic failure.", },
 	RECYCLE003TEXT = { sLine = "Something about flavour.", },

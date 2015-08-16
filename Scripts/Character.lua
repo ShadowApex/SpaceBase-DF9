@@ -194,12 +194,12 @@ function Character:postLoad()
 end
 
 -------------------------------------------------------------
-function Character:setSquad(squadName)
-	print("Character:setSquad() squadName: "..squadName)
+function Character:setSquadName(squadName)
+	print("Character:setSquad() squadName: "..(squadName or 'nil'))
 	self.squadName = squadName
 end
 
-function Character:getSquad()
+function Character:getSquadName()
 	return self.squadName or nil
 end
 ------------------------------------------------------------

@@ -3,7 +3,6 @@ local SquadList = {}
 local Squad = require('Squad')
 
 function SquadList.new()
-	print("SquadList.new()")
 	local self = {}
 	local tSquads = {}
 	
@@ -41,7 +40,7 @@ function SquadList.new()
 		local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
 		for k,v in pairs(tChars) do
 			if tMembers[v:getUniqueID()] ~= nil then
-				v:setSquad(nil)
+				v:setSquadName(nil)
 			end
 		end
 		tSquads[name] = nil

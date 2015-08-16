@@ -39,6 +39,8 @@ function m.create()
         self.rBackButton:addPressedCallback(self.onBackButtonPressed, self)
 		self.rCreateButton = self:getTemplateElement('CreateButton')
 		self.rCreateButton:addPressedCallback(self.onCreateButtonPressed, self)
+		self.rPurgeButton = self:getTemplateElement('PurgeButton')
+		self.rPurgeButton:addPressedCallback(self.onPurgeButtonPressed, self)
         rScrollableUI = self:getTemplateElement('ScrollPane')
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
@@ -120,6 +122,26 @@ function m.create()
 	function Ob:onCreateButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP  then
 			self:createSquadEntry()
+		end
+	end
+	
+	function Ob:onPurgeButtonPressed(rButton, eventType)
+		squadList = require('World').getSquadList()
+		local tSquads = squadList.getList()
+		for k,v in pairs(tSquads) do
+			tSquads[k] = nil
+		end
+		local CharacterManager = require('CharacterManager')
+		local Character = require('Character')
+		local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+		for k,v in pairs(tChars) do
+			if v:getSquadName() then
+				v:setSquadName(nil)
+			end
+		end
+		for k,v in pairs(tSquadEntries) do
+			tSquadEntries[k]:hide()
+			tSquadEntries[k] = nil
 		end
 	end
 	
