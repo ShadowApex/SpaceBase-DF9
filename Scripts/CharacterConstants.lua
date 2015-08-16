@@ -649,13 +649,14 @@ CharacterConstants.EMERGENCY2 = 10
 CharacterConstants.EMERGENCY3 = 11
 CharacterConstants.DOCTOR = 12
 CharacterConstants.JANITOR = 13
+CharacterConstants.TRADER = 14
 -- convenience list for jobs you can have a proficiency/affinity for
 CharacterConstants.tJobs = {
 	CharacterConstants.BUILDER, CharacterConstants.TECHNICIAN,
 	CharacterConstants.MINER, CharacterConstants.EMERGENCY,
 	CharacterConstants.BARTENDER, CharacterConstants.BOTANIST,
 	CharacterConstants.SCIENTIST, CharacterConstants.DOCTOR,
-        CharacterConstants.JANITOR,
+        CharacterConstants.JANITOR, CharacterConstants.TRADER,
 }
 --job competency levels
 CharacterConstants.COMPETENCY_LEVEL1 = 1
@@ -705,6 +706,7 @@ CharacterConstants.JOB_NAMES_CAPS=
     [CharacterConstants.SCIENTIST] = "DUTIES018TEXT",
     [CharacterConstants.DOCTOR] = "DUTIES020TEXT",
     [CharacterConstants.JANITOR] = "DUTIES022TEXT",
+    [CharacterConstants.TRADER] = "DUTIES024TEXT",
 }
 CharacterConstants.JOB_NAMES=
 {
@@ -719,6 +721,7 @@ CharacterConstants.JOB_NAMES=
     [CharacterConstants.SCIENTIST] = "DUTIES018TEXT",
     [CharacterConstants.DOCTOR] = "DUTIES020TEXT",
     [CharacterConstants.JANITOR] = "DUTIES022TEXT",
+    [CharacterConstants.TRADER] = "DUTIES024TEXT",
 }
 CharacterConstants.JOB_ICONS=
 {
@@ -733,6 +736,7 @@ CharacterConstants.JOB_ICONS=
     [CharacterConstants.SCIENTIST] = "ui_jobs_iconJobScientist",
     [CharacterConstants.DOCTOR] = "ui_jobs_iconJobDoctor",
     [CharacterConstants.JANITOR] = "ui_jobs_iconJobTechnician",
+    [CharacterConstants.TRADER] = "ui_jobs_iconJobUnemployed"
 }
 -- icons and colors that correspond with affinity #s
 CharacterConstants.AFFINITY_ICONS =
@@ -835,6 +839,12 @@ CharacterConstants.JOB_EQUIPMENT =
         sTopLayer = 'Characters/Citizen_Base/Textures/Technician01_Base_top', 
         sBottomLayer = 'Characters/Citizen_Base/Textures/Technician01_Base_bottom',
     },
+    [CharacterConstants.TRADER] = {
+        bHasHelmet = false,
+        bHasSuit = false,
+       -- sTopLayer = 'Characters/Citizen_Base/Textures/Technician01_Base_top', 
+       -- sBottomLayer = 'Characters/Citizen_Base/Textures/Technician01_Base_bottom',
+    },
 }
 --[[
 CharacterConstants.JOB_HELMET_PREFIX = '_Character_Group_Group_Flipbook_Group_Helmet_FBGroup_Helmets_Head_Helmets_Helmets_'
@@ -867,6 +877,7 @@ CharacterConstants.SPACESUITS =
     [CharacterConstants.SCIENTIST] = { sModel = 'Suit01_Body', sTexture = 'Characters/Spacesuit/Textures/SpaceDefault01'},
     [CharacterConstants.DOCTOR] = { sModel = 'Suit01_Body', sTexture = 'Characters/Spacesuit/Textures/SpaceDefault01'},
     [CharacterConstants.JANITOR] = { sModel = 'Suit01_Body', sTexture = 'Characters/Spacesuit/Textures/SpaceDefault01'},
+    [CharacterConstants.TRADER] = { sModel = 'Suit01_Body', sTexture = 'Characters/Spacesuit/Textures/SpaceDefault01'},
 }
 
 CharacterConstants.SPACESUIT_JOB_EQUIPMENT_PREFIX = '_Character_Group_Group_Flipbook_Group_Job_FBGroup_Jobs_AllTransB_Jobs_'
@@ -883,6 +894,7 @@ CharacterConstants.SPACESUIT_JOB_EQUIPMENT =
     [CharacterConstants.SCIENTIST] = { sModel = 'Builder_Spacesuit01', sTexture = 'Characters/Spacesuit/Textures/Spacesuit01'},
     [CharacterConstants.DOCTOR] = { sModel = 'Builder_Spacesuit01', sTexture = 'Characters/Spacesuit/Textures/Spacesuit01'},
     [CharacterConstants.JANITOR] = { sModel = 'Builder_Spacesuit01', sTexture = 'Characters/Spacesuit/Textures/Spacesuit01'},
+    [CharacterConstants.TRADER] = { sModel = 'Builder_Spacesuit01', sTexture = 'Characters/Spacesuit/Textures/Spacesuit01'},
 }
 CharacterConstants.JOB_HAND_ACCESSORY_PREFIX = '_Character_Group_Group_Flipbook_Group_AC_Hand_FBGroup_Hands_Rt_Prop_ACHands_'
 CharacterConstants.JOB_HAND_ACCESSORIES=
@@ -1300,6 +1312,9 @@ CharacterConstants.DOCTOR_BASE_FAT = 32
 CharacterConstants.JANITOR_BASE_NORMAL = 33
 CharacterConstants.JANITOR_BASE_FAT = 34
 CharacterConstants.JANITOR_TOBIAN = 35
+CharacterConstants.TRADER_BASE_NORMAL = 36
+CharacterConstants.TRADER_BASE_FAT = 37
+CharacterConstants.TRADER_TOBIAN = 38
 --job helmets
 CharacterConstants.NO_HELMET = 0
 CharacterConstants.BUILDER_BASE_HELMET = 1
@@ -4895,6 +4910,8 @@ function CharacterConstants.getDefaultJobOutfit(nJob,bFat)
         return (bFat and CharacterConstants.DOCTOR_BASE_FAT) or CharacterConstants.DOCTOR_BASE_NORMAL
     elseif nJob == CharacterConstants.JANITOR then
         return (bFat and CharacterConstants.JANITOR_BASE_FAT) or CharacterConstants.JANITOR_BASE_NORMAL
+    elseif nJob == CharacterConstants.TRADER then
+        return (bFat and CharacterConstants.TRADER_BASE_FAT) or CharacterConstants.TRADER_BASE_NORMAL
     else
         assert(false)
     end
