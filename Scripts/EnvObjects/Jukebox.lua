@@ -22,21 +22,10 @@ function Jukebox:setOn(isOn)
 
 	self.bIsOn = isOn
 
-	print(self.rMusic)
-	if rMusic ~= nil then
-		print(self.rMusic:isValid())
-		print(self.rMusic:getVolume())
-	end
-
 	if self.bIsOn then
-		--print(self.wx)
-		--print(self.wy)
-		local c = Renderer.getGameplayCamera()
-		--print("Got camera")
-		--print(c:getLoc())
 		self.rMusic = SoundManager.playSfx3D("jukebox_music", self.wx, self.wy, 0)
-		print(self.rMusic:isValid())
-		print(self.rMusic:getVolume())
+		--print(self.rMusic:isValid())
+		--print(self.rMusic:getVolume())
 	--elseif not MOAIFmodEventInstance:isValid(self.rMusic) and self.bIsOn then
 		--self.rMusic = SoundManager.playSfx3D("fridgeopen", self.wx, self.wy, 0)
 	end

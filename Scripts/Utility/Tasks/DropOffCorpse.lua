@@ -40,6 +40,9 @@ function DropOffCorpse:onUpdate(dt)
                 elseif tItemData.nType == Corpse.TYPE_MONSTER then
                     sLogType = Log.tTypes.DUTY_JANITOR_REFINE_CORPSE_MONSTER
                 end
+                print("Type",sLogType)
+                print("Char",self.rChar)
+                print("Data",tLogData)
                 Log.add(sLogType, self.rChar, tLogData)
                 -- people are made of matter :/
                 local nYield = math.random(GameRules.MAT_CORPSE_MIN, GameRules.MAT_CORPSE_MAX)
