@@ -143,6 +143,7 @@ CharacterConstants.FACTION_BEHAVIOR=
     EnemyGroup=4,
 	-- custom killbot faction, only used for debug purposes right now
 	KillBot=5,
+    Trader=6,
 }
 
 CharacterConstants.THREAT_LEVEL=
