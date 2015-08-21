@@ -135,7 +135,16 @@ function m.create()
 		squad.remMember(id)
 		local rChar = CharacterManager:getCharacterByUniqueID(id, true)
 		if rChar then
-			rChar:setSquad(nil)
+			rChar:setSquadName(nil)
+		else
+			local tChars = CharacterManager:getCharacters()
+			for k,v in pairs(tChars) do
+				if v:getUniqueID() == id then
+					v:setSquadName(nil)
+					return
+				end
+			end
+			print("SquadEditMenu:onSquadMemberClickCallback() Error: Couldn't retrieve character by id.")
 		end
 	end
 	
@@ -153,7 +162,6 @@ function m.create()
 			print("SquadEditMenu:onAvailableClickCallback() Error: unable to retrieve character from id")
 			return
 		end
-		print("ARGH: "..squad.getName())
 		rChar:setSquadName(squad.getName())
 	end
 
@@ -226,7 +234,6 @@ function m.create()
 			tAvailableEntries[i]:hide(bKeepAlive)
 			tAvailableEntries[i] = nil
 		end
-		--MOAISim.forceGarbageCollection()
     end
 
     function Ob:onTick(dt)

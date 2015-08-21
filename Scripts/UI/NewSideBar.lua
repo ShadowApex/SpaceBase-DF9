@@ -17,6 +17,8 @@ local SoundManager = require('SoundManager')
 local CommandObject = require('Utility.CommandObject')
 local Gui = require('UI.Gui')
 local MenuManager = require('UI.MenuManager')
+local GameConfig = require('GameConfig')
+local DebugMenu = require('UI.DebugMenu')
 
 local sUILayoutFileName = 'UILayouts/SideBarLayout'
 
@@ -111,10 +113,34 @@ function m.create()
 		self.rSquadHotKeyExpanded = self:getTemplateElement('SquadHotkeyExpanded')
 		self.rSquadButton:addPressedCallback(self.onSquadButtonPressed, self)
 		self:addHotkey(self.rSquadHotKey.sText, self.rSquadButton)
+		
+		self.rDebugLabel = self:getTemplateElement('DebugLabel')
+		self.rDebugIcon = self:getTemplateElement('DebugIcon')
+		self.rDebugButton = self:getTemplateElement('DebugButton')
+		self.rDebugHotKey = self:getTemplateElement('DebugHotkey')
+		self.rDebugHotKeyExpanded = self:getTemplateElement('DebugHotkeyExpanded')
+		self.rDebugButton:addPressedCallback(self.onDebugButtonPressed, self)
+		self:addHotkey(self.rDebugHotKey.sText, self.rDebugButton)
+		if not DFSpace.isDev() then
+			self.rDebugButton:setEnabled(false)
+			self:setElementHidden(self.rDebugButton, true)
+			self:setElementHidden(self.rDebugIcon, true)
+			self:setElementHidden(self.rDebugLabel, true)
+			self:setElementHidden(self.rDebugHotKey, true)
+			self:setElementHidden(self.rDebugHotKeyExpanded, true)
+		else
+			-- this isn't aligning properly
+			local nButtonHeight, nButtons = 81, 10
+			self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
+			self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
+			self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
+			self.rLargeBarButton:setScl(286, nButtonHeight * nButtons)
+		end
+		self.rDebugMenu = DebugMenu.new()
 		------------------------------------------------
         self:setExpanded(false)
 
-		self.rBeaconMenu = BeaconMenu.new(_world)
+		self.rBeaconMenu = BeaconMenu.new()
         self.rMineMenu = MineMenu.new()
         self.rConstructMenu = ConstructMenu.new()
         self.rInspectMenu = NewInspectMenu.new()
@@ -143,11 +169,19 @@ function m.create()
         self:setElementHidden(self.rDisasterIcon, false)
         self:setElementHidden(self.rDisasterHotKey, false)
         -- #s taken from SideBarLayout
-        local nButtonHeight, nButtons = 81, 9
-        self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
-        self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
-        self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
-        self.rLargeBarButton:setScl(286, nButtonHeight * nButtons)
+        local nButtonHeight, nButtons = 81, 8
+		if DFSpace.isDev() then
+			nButtons = nButtons + 1
+		end
+        self.rEndCap:setLoc(-152, -nButtonHeight * (nButtons + 1))
+        self.rEndCapExpanded:setLoc(0, -nButtonHeight * (nButtons + 1))
+        self.rSmallBarButton:setScl(104, nButtonHeight * (nButtons + 1))
+        self.rLargeBarButton:setScl(286, nButtonHeight * (nButtons + 1))
+		self.rDisasterButton:setLoc(0, -nButtonHeight * nButtons)
+		self.rDisasterLabel:setLoc(105, -10 - nButtonHeight * nButtons)
+		self.rDisasterIcon:setLoc(10, -nButtonHeight * nButtons)
+		self.rDisasterHotKey:setLoc(0, -50 - nButtonHeight * nButtons)
+		self.rDisasterHotKeyExpanded:setLoc(174, -50 - nButtonHeight * nButtons)
         self:addHotkey(self.rDisasterHotKey.sText, self.rDisasterButton)
     end
     
@@ -273,6 +307,10 @@ function m.create()
 		self:setElementHidden(self.rSquadLabel, not bExpanded)
 		self:setElementHidden(self.rSquadHotKey, bExpanded)
 		self:setElementHidden(self.rSquadHotKeyExpanded, not bExpanded)
+		self:setElementHidden(self.rDebugButton, not bExpanded)
+		self:setElementHidden(self.rDebugLabel, not bExpanded)
+		self:setElementHidden(self.rDebugHotKey, bExpanded)
+		self:setElementHidden(self.rDebugHotKeyExpanded, not bExpanded)
 		------------------------------------------------
 		
         self:setElementHidden(self.rEndCap, bExpanded)
@@ -347,6 +385,12 @@ function m.create()
 		if eventType == DFInput.TOUCH_UP then
             self:openSubmenu(self.rGoalsList)
         end
+	end
+	
+	function Ob:onDebugButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			self:openSubmenu(self.rDebugMenu)
+		end
 	end
 	
     function Ob:openSubmenu(rMenu)

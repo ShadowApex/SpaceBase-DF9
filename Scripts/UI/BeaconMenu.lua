@@ -9,50 +9,33 @@ local SoundManager = require('SoundManager')
 local EmergencyBeacon = require('Utility.EmergencyBeacon')
 local World = require('World')
 local SquadList = require('SquadList')
+local BeaconMenuEntry = require('UI.BeaconMenuEntry')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
     Ob.rSelectedButton = nil
-	local activeSlot = nil
+	-- local activeSlot = nil
 	local activeThreatLevel = nil
 	local squadList = World.getSquadList()
+	local tBeaconMenuEntries = {}
+	local activeEntry = nil
+	local rScrollableUI
+	local nNumEntries = 0
 
     function Ob:init()
         Ob.Parent.init(self)
         self:processUIInfo(sUILayoutFileName)
 
         self.rDoneButton = self:getTemplateElement('DoneButton')
-		self.rSlot1Button = self:getTemplateElement('Slot1Button')
-		self.rSlot2Button = self:getTemplateElement('Slot2Button')
-		self.rSlot3Button = self:getTemplateElement('Slot3Button')
-		self.rSlot4Button = self:getTemplateElement('Slot4Button')
-		self.rSlot5Button = self:getTemplateElement('Slot5Button')
-		self.rSlot6Button = self:getTemplateElement('Slot6Button')
-		self.rSlot7Button = self:getTemplateElement('Slot7Button')
-		self.rSlot8Button = self:getTemplateElement('Slot8Button')
-		self.rSlot9Button = self:getTemplateElement('Slot9Button')
-		self.rSlot10Button = self:getTemplateElement('Slot10Button')
-		self.rSlot1Button = self:getTemplateElement('Slot1Button')
-		self.rSlot1Button = self:getTemplateElement('Slot1Button')
-		self.rSlot1Button = self:getTemplateElement('Slot1Button')
+		rScrollableUI = self:getTemplateElement('ScrollPane')
 		self.rThreatHighButton = self:getTemplateElement('ThreatHighButton')
 		self.rThreatMediumButton = self:getTemplateElement('ThreatMediumButton')
 		self.rThreatLowButton = self:getTemplateElement('ThreatLowButton')
 		self.rStandDownButton = self:getTemplateElement('StandDownButton')
 
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
-		self.rSlot1Button:addPressedCallback(self.onSlot1ButtonPressed, self)
-		self.rSlot2Button:addPressedCallback(self.onSlot2ButtonPressed, self)
-		self.rSlot3Button:addPressedCallback(self.onSlot3ButtonPressed, self)
-		self.rSlot4Button:addPressedCallback(self.onSlot4ButtonPressed, self)
-		self.rSlot5Button:addPressedCallback(self.onSlot5ButtonPressed, self)
-		self.rSlot6Button:addPressedCallback(self.onSlot6ButtonPressed, self)
-		self.rSlot7Button:addPressedCallback(self.onSlot7ButtonPressed, self)
-		self.rSlot8Button:addPressedCallback(self.onSlot8ButtonPressed, self)
-		self.rSlot9Button:addPressedCallback(self.onSlot9ButtonPressed, self)
-		self.rSlot10Button:addPressedCallback(self.onSlot10ButtonPressed, self)
 		self.rThreatHighButton:addPressedCallback(self.onThreatHighButtonPressed, self)
 		self.rThreatMediumButton:addPressedCallback(self.onThreatMediumButtonPressed, self)
 		self.rThreatLowButton:addPressedCallback(self.onThreatLowButtonPressed, self)
@@ -60,22 +43,13 @@ function m.create()
         
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
-		self:addHotkey(self:getTemplateElement('Slot1Hotkey').sText, self.rSlot1Button)
-		self:addHotkey(self:getTemplateElement('Slot2Hotkey').sText, self.rSlot2Button)
-		self:addHotkey(self:getTemplateElement('Slot3Hotkey').sText, self.rSlot3Button)
-		self:addHotkey(self:getTemplateElement('Slot4Hotkey').sText, self.rSlot4Button)
-		self:addHotkey(self:getTemplateElement('Slot5Hotkey').sText, self.rSlot5Button)
-		self:addHotkey(self:getTemplateElement('Slot6Hotkey').sText, self.rSlot6Button)
-		self:addHotkey(self:getTemplateElement('Slot7Hotkey').sText, self.rSlot7Button)
-		self:addHotkey(self:getTemplateElement('Slot8Hotkey').sText, self.rSlot8Button)
-		self:addHotkey(self:getTemplateElement('Slot9Hotkey').sText, self.rSlot9Button)
-		self:addHotkey(self:getTemplateElement('Slot10Hotkey').sText, self.rSlot10Button)
 		self:addHotkey(self:getTemplateElement('ThreatHighHotkey').sText, self.rThreatHighButton)
 		self:addHotkey(self:getTemplateElement('ThreatMediumHotkey').sText, self.rThreatMediumButton)
 		self:addHotkey(self:getTemplateElement('ThreatLowHotkey').sText, self.rThreatLowButton)
 		self:addHotkey(self:getTemplateElement('StandDownHotkey').sText, self.rStandDownButton)
 		
 		self.rThreatMediumButton:setSelected(true)
+		self:_calcDimsFromElements()
     end
 
     function Ob:addHotkey(sKey, rButton)
@@ -126,90 +100,19 @@ function m.create()
         end
     end
 	
-	function Ob:onSlot1ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 1
-			rButton:setSelected(true)
-			local sName = self:getTemplateElement('Slot'..activeSlot..'Label'):getString()
-			local rSquad = squadList.getSquad(sName)
-			if not rSquad then
-				print("BeaconMenu:onSlot1ButtonPressed() Error: Couldn't find squad.")
-				return
-			end
-			g_ERBeacon:setSelectedSquad(rSquad)
+	function Ob:onSlotButtonPressed(rEntry, sName)
+		if activeEntry then
+			activeEntry:setSelected(false)
+			activeEntry = nil
 		end
-	end
-	
-	function Ob:onSlot2ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 2
-			rButton:setSelected(true)
+		rEntry:setSelected(true)
+		local rSquad = squadList.getSquad(sName)
+		if not rSquad then
+			print("BeaconMenu:onSlotButtonPressed() Error: Couldn't find squad.")
+			return
 		end
-	end
-	function Ob:onSlot3ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 3
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot4ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 4
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot5ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 5
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot6ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 6
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot7ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 7
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot8ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 8
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot9ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 9
-			rButton:setSelected(true)
-		end
-	end
-	
-	function Ob:onSlot10ButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearActive()
-			activeSlot = 10
-			rButton:setSelected(true)
-		end
+		g_ERBeacon:setSelectedSquad(rSquad)
+		activeEntry = rEntry
 	end
 	
 	function Ob:onThreatHighButtonPressed(rButton, eventType)
@@ -246,14 +149,6 @@ function m.create()
 		end
 	end
 	
-	function Ob:clearActive()
-		if activeSlot ~= nil then
-			local rButton = self:getTemplateElement('Slot'..activeSlot..'Button')
-			rButton:setSelected(false)
-			activeSlot = nil
-		end
-	end
-	
 	function Ob:clearThreatButton()
 		if activeThreatLevel ~= nil then
 			local rButton = self:getTemplateElement('Threat'..activeThreatLevel..'Button')
@@ -265,26 +160,41 @@ function m.create()
 	function Ob:updateDisplay()
 		squadList = World.getSquadList()
 		local tSquads = squadList.getList()
-		local count = 1
+		local count = 0
+		if nNumEntries ~= squadList.numSquads() then
+			for k,v in pairs(tBeaconMenuEntries) do
+				if not tSquads[k] then
+					tBeaconMenuEntries[k]:hide(false)
+					tBeaconMenuEntries[k] = nil
+				end
+			end
+		end
 		for k,v in pairs(tSquads) do
-			local rLabel = self:getTemplateElement('Slot'..count..'Label')
-			local rButton = self:getTemplateElement('Slot'..count..'Button')
-			local rHotKey = self:getTemplateElement('Slot'..count..'Hotkey')
-			rLabel:setString(k)
-			rLabel:setVisible(true)
-			rButton:setVisible(true)
-			rHotKey:setVisible(true)
+			if not tBeaconMenuEntries[k] then
+				self:addEntry(k)
+			else
+				local w, h = tBeaconMenuEntries[k]:getDims()
+				tBeaconMenuEntries[k]:setLoc(0, h * count)
+			end
 			count = count + 1
 		end
-		for i = count, 10, 1 do
-			local rLabel = self:getTemplateElement('Slot'..i..'Label')
-			local rButton = self:getTemplateElement('Slot'..i..'Button')
-			local rHotKey = self:getTemplateElement('Slot'..i..'Hotkey')
-			rLabel:setString("")
-			rLabel:setVisible(false)
-			rButton:setVisible(false)
-			rHotKey:setVisible(false)
-		end
+		rScrollableUI:refresh()
+	end
+	
+	function Ob:addEntry(sName)
+		local rNewEntry = BeaconMenuEntry.new()
+		-- local nNumEntries = table.getn(tBeaconMenuEntries)
+		print("BeaconMenu:addEntry() nNumEntries: "..nNumEntries)
+        local w,h = rNewEntry:getDims()
+        local nYLoc = h * nNumEntries - 1
+        rNewEntry:setLoc(0, nYLoc)
+        self:_calcDimsFromElements()
+        rScrollableUI:addScrollingItem(rNewEntry)
+		local sHotkey = ''..(nNumEntries + 1)
+		rNewEntry:setName(sName, sHotkey..'.', self.onSlotButtonPressed)
+		self:addHotkey(sHotkey, rNewEntry:getTemplateElement("NameButton"))
+		tBeaconMenuEntries[sName] = rNewEntry
+		nNumEntries = nNumEntries + 1
 	end
 
     function Ob:show(basePri)

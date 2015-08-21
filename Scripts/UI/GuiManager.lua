@@ -691,10 +691,9 @@ function GuiManager.setSelected(rTarget)
 end
 
 function GuiManager._getTargetAt(wx, wy, sRoomOrWall, optional)
-	local optional = optional or {}
-	local isBeacon = optional.isBeacon or false
-	local sOnlyThisType = optional.sOnlyThisType or nil
-	local sOnlyThisSubtype = optional.sOnlyThisSubtype or nil
+	local isBeacon = optional and optional.isBeacon or false
+	local sOnlyThisType = optional and optional.sOnlyThisType or nil
+	local sOnlyThisSubtype = optional and optional.sOnlyThisSubtype or nil
 	-- don't hover hidden areas UNLESS we're looking for the beacon
 	if World.getVisibility(wx, wy) ~= World.VISIBILITY_FULL and not isBeacon then
 		return nil

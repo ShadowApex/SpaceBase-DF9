@@ -195,7 +195,6 @@ end
 
 -------------------------------------------------------------
 function Character:setSquadName(squadName)
-	print("Character:setSquad() squadName: "..(squadName or 'nil'))
 	self.squadName = squadName
 end
 
@@ -2609,7 +2608,7 @@ function Character:_testSurvivalThreats()
     
     -- some lower pri threats
     if nThreat < OptionData.tPriorities.SURVIVAL_LOW then
-	    if g_ERBeacon:needsMoreResponders() and self:getJob() == Character.EMERGENCY then
+	    if self:getSquadName() and g_ERBeacon:needsMoreResponders(self:getSquadName()) and self:getJob() == Character.EMERGENCY then
 	    	nThreat = OptionData.tPriorities.SURVIVAL_LOW
 	    	self.sThreatSource ='beacon'
         end

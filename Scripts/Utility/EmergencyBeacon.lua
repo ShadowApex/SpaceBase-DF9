@@ -15,7 +15,7 @@ local Class=require('Class')
 local EmergencyBeacon = Class.create(nil, MOAIProp.new)
 
 local kNUM_BEACON_TEXTURES = 6
-local tBeacons = {}
+-- local tBeacons = {}
 
 EmergencyBeacon.RENDER_LAYER = 'Cursor'
 EmergencyBeacon.MODE_TRAVELTO={spriteName='beacon_waypoint'}
@@ -35,14 +35,12 @@ EmergencyBeacon.tBeaconTypeLinecodes = {
 
 EmergencyBeacon.tModes={EmergencyBeacon.MODE_TRAVELTO,EmergencyBeacon.MODE_BREACH,EmergencyBeacon.MODE_EXPLORE,EmergencyBeacon.MODE_INVALID}
 
--- local function EmergencyBeacon:newBeacon(sSquadName)
-	-- local beacon = Class.create(nil, MOAIProp.new)
-	-- beacon.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
-	-- tBeacons[sSquadName] = beacon
--- end
-
 function EmergencyBeacon:getActivityOption()
     return self.rActivityOption
+end
+
+function EmergencyBeacon:getActivityOptions()
+	return self.tActivityOptions
 end
 
 function EmergencyBeacon:init()
@@ -50,6 +48,8 @@ function EmergencyBeacon:init()
     self.nCount=0
     self.deck = DFGraphics.loadSpriteSheet('UI/Beacon')
     self.tChars = {}
+	self.tBeacons = {}
+	self.tActivityOptions = {}
     
     self.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
 
@@ -79,7 +79,22 @@ function EmergencyBeacon:setSelectedSquad(rSquad)
 		print("EmergencyBeacon:setSelectedSquad() Error: rSquad is nil")
 		return
 	end
+	if not self.tBeacons[rSquad.getName()] then
+		self:newBeacon(rSquad.getName())
+	end
 	self.rSelectedSquad = rSquad
+end
+
+function EmergencyBeacon:newBeacon(sSquadName)
+	print("EmergencyBeacon:newBeacon(sSquadName): "..sSquadName)
+	local beacon = MOAIProp.new()
+	beacon:setDeck(self.deck)
+	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beacon)
+	beacon:setVisible(false)
+	beacon:setScl(1.5, 1.5, 1.5)
+	beacon:setColor(unpack(Gui.AMBER))
+	beacon.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
+	self.tBeacons[sSquadName] = beacon
 end
 
 function EmergencyBeacon:onTick()
@@ -339,42 +354,32 @@ function EmergencyBeacon:_maxAllowedCount()
     return math.max(nCount,1)
 end
 
-function EmergencyBeacon:_incrementCount(sSpriteName)
-    self.nCount = self.nCount+1
-    if self.nCount > self:_maxAllowedCount() then
-        self.nCount = 1
-    end
-    self:updatePropIndex()
-    self.rActivityOption.tData.nMaxReservations = self.nCount
-end
+-- function EmergencyBeacon:_incrementCount(sSpriteName)
+    -- self.nCount = self.nCount+1
+    -- if self.nCount > self:_maxAllowedCount() then
+        -- self.nCount = 1
+    -- end
+    -- self:updatePropIndex()
+    -- self.rActivityOption.tData.nMaxReservations = self.nCount
+-- end
 
 function EmergencyBeacon:placeAt(tx,ty,nCount)
 	if not self.rSelectedSquad then
 		print("EmergencyBeacon:placeAt() Error: No squad selected")
 		return
 	end
-	-- if tBeacons[self.rSelectedSquad] then
-		-- return
-	-- end
-	-- tBeacons[self.rSelectedSquad] = true
     local nTargetTeam = Room.getTeamAtTile(tx,ty,1)
-	
-	-- if squad has a beacon already, move it
-	-- if squad has no beacon, place new
-	--
-	
-	-- if tBeacons[self.rSelectedSquad] then
-		-- nCount = tBeacons[self.rSelectedSquad]
-	-- end
-	
-	if not tBeacons[self.rSelectedSquad] then
-		tBeacons[self.rSelectedSquad] = table.getn(tBeacons) + 1
-	end
-	nCount = tBeacons[self.rSelectedSquad]
 
     self:clearAttrLink(MOAIProp.INHERIT_LOC)
     local wx,wy = g_World._getWorldFromTile(tx,ty,1)
-    local tMode,tx,ty = self:_showPropAt(wx, wy, tx, ty, self)
+    -- local tMode,tx,ty = self:_showPropAt(wx, wy, tx, ty, self)
+	if not self.tBeacons[self.rSelectedSquad.getName()] then
+		print("EmergencyBeacon:placeAt() self.tBeacons["..self.rSelectedSquad.getName().."] not found")
+		self:newBeacon(self.rSelectedSquad.getName())
+	end
+	self.tBeacons[self.rSelectedSquad.getName()]:setVisible(false)
+	local tMode,tx,ty = self:_showPropAt(wx, wy, tx, ty, self.tBeacons[self.rSelectedSquad.getName()])
+	nCount = table.getn(self.tBeacons)
 
     -- if self.tMode == tMode then
         -- if self.nTargetTeam and self.nTargetTeam ~= Character.TEAM_ID_PLAYER then
@@ -401,7 +406,8 @@ function EmergencyBeacon:placeAt(tx,ty,nCount)
     self.tMode = tMode
     self.nTargetTeam = nTargetTeam
     -- self:updatePropIndex()
-	self:setIndex(self.deck.names[self.tMode.spriteName..self.nCount])
+	-- self:setIndex(self.deck.names[self.tMode.spriteName..self.nCount])
+	self.tBeacons[self.rSelectedSquad.getName()]:setIndex(self.deck.names[self.tMode.spriteName..nCount])
 
     local tData = {}
     tData.utilityGateFn = function(rChar)
@@ -431,16 +437,20 @@ function EmergencyBeacon:placeAt(tx,ty,nCount)
         tData.bInside = not bOutside
         tData.pathX,tData.pathY = wx,wy
         tData.pathToNearest = true
-        self.rActivityOption = ActivityOption.new(sActivityName, tData)
+        --self.rActivityOption = ActivityOption.new(sActivityName, tData)
+		self.tActivityOptions[self.rSelectedSquad.getName()] = ActivityOption.new(sActivityName, tData)
     elseif self.tMode == EmergencyBeacon.MODE_BREACH then
     elseif self.tMode == EmergencyBeacon.MODE_EXPLORE then
         local sActivityName = 'ERBeaconExplore'
         tData.pathX,tData.pathY = wx,wy
         tData.pathToNearest = true
-        self.rActivityOption = ActivityOption.new(sActivityName, tData)
+        --self.rActivityOption = ActivityOption.new(sActivityName, tData)
+		self.tActivityOptions[self.rSelectedSquad.getName()] = ActivityOption.new(sActivityName, tData)
     else
-        self.rActivityOption = nil
-        self:setVisible(false)
+        --self.rActivityOption = nil
+		self.tActivityOptions[self.rSelectedSquad.getName()] = nil
+        --self:setVisible(false)
+		tBeacons[rSquad.getName()]:setVisible(false)
     end
 end
 
@@ -493,9 +503,10 @@ function EmergencyBeacon:attachTo(rTargetObject,nCount)
     self.rActivityOption = ActivityOption.new(sActivityName, tData)
 end
 
-function EmergencyBeacon:needsMoreResponders()
-    if self.tMode and self.rActivityOption then
-        if (self.rActivityOption.tData.nMaxReservations or 1) > (self.rActivityOption.nReservations or 0) then
+function EmergencyBeacon:needsMoreResponders(sSquadName)
+	print("EmergencyBeacon:needsMoreResponders(sSquadName): "..sSquadName)
+    if self.tMode and self.tActivityOptions[sSquadName] then
+        if (self.tActivityOptions[sSquadName].tData.nMaxReservations or 1) > (self.tActivityOptions[sSquadName].nReservations or 0) then
             return true
         end
     end
@@ -507,8 +518,15 @@ function EmergencyBeacon:remove()
     self.rTargetObject = nil
     self.tMode = nil
     self.rPreviewProp:setVisible(false)
-    self.rActivityOption = nil
-    self:setVisible(false)
+    -- self.rActivityOption = nil
+	for k,v in pairs(self.tActivityOptions) do
+		k = nil
+	end
+	for k,v in pairs(self.tBeacons) do
+		v:setVisible(false)
+		k = nil
+	end
+    -- self:setVisible(false)
     self:clearAttrLink(MOAITransform.INHERIT_LOC)
 end
 
