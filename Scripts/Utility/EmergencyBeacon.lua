@@ -354,14 +354,14 @@ function EmergencyBeacon:_maxAllowedCount()
     return math.max(nCount,1)
 end
 
--- function EmergencyBeacon:_incrementCount(sSpriteName)
-    -- self.nCount = self.nCount+1
-    -- if self.nCount > self:_maxAllowedCount() then
-        -- self.nCount = 1
-    -- end
-    -- self:updatePropIndex()
-    -- self.rActivityOption.tData.nMaxReservations = self.nCount
--- end
+function EmergencyBeacon:_incrementCount(sSpriteName)
+    self.nCount = self.nCount+1
+    if self.nCount > self:_maxAllowedCount() then
+        self.nCount = 1
+    end
+    self:updatePropIndex()
+    self.rActivityOption.tData.nMaxReservations = self.nCount
+end
 
 function EmergencyBeacon:placeAt(tx,ty,nCount)
 	if not self.rSelectedSquad then
@@ -504,7 +504,7 @@ function EmergencyBeacon:attachTo(rTargetObject,nCount)
 end
 
 function EmergencyBeacon:needsMoreResponders(sSquadName)
-	print("EmergencyBeacon:needsMoreResponders(sSquadName): "..sSquadName)
+	-- print("EmergencyBeacon:needsMoreResponders(sSquadName): "..sSquadName)
     if self.tMode and self.tActivityOptions[sSquadName] then
         if (self.tActivityOptions[sSquadName].tData.nMaxReservations or 1) > (self.tActivityOptions[sSquadName].nReservations or 0) then
             return true
