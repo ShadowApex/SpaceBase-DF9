@@ -121,20 +121,20 @@ function m.create()
 		self.rDebugHotKeyExpanded = self:getTemplateElement('DebugHotkeyExpanded')
 		self.rDebugButton:addPressedCallback(self.onDebugButtonPressed, self)
 		self:addHotkey(self.rDebugHotKey.sText, self.rDebugButton)
-		if not DFSpace.isDev() then
+		if DFSpace.isDev() then
+			-- this isn't aligning properly
+			local nButtonHeight, nButtons = 81, 8
+			self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
+			self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
+			self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
+			self.rLargeBarButton:setScl(286, nButtonHeight * nButtons)
+		else
 			self.rDebugButton:setEnabled(false)
 			self:setElementHidden(self.rDebugButton, true)
 			self:setElementHidden(self.rDebugIcon, true)
 			self:setElementHidden(self.rDebugLabel, true)
 			self:setElementHidden(self.rDebugHotKey, true)
 			self:setElementHidden(self.rDebugHotKeyExpanded, true)
-		else
-			-- this isn't aligning properly
-			local nButtonHeight, nButtons = 81, 10
-			self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
-			self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
-			self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
-			self.rLargeBarButton:setScl(286, nButtonHeight * nButtons)
 		end
 		self.rDebugMenu = DebugMenu.new()
 		------------------------------------------------

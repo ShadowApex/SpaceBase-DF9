@@ -15,6 +15,7 @@ EnvObjectData.tMenus=
     FITNESS={},
     INFIRMARY={},
     RESEARCH={},
+	COMMAND={},
 }
 
 EnvObjectData.tObjects=
@@ -390,9 +391,7 @@ EnvObjectData.tObjects=
 		sFlavorText = 'RECYCLE003TEXT',  -- no idea what this does
 		bCanDeactivate = true,
 		spriteName = 'O2Gen3',
-		spriteSheetPath = 'Environments/O2Gen' 
-		--spriteName = 'oxygen_recycler_level2', -- the name of the model to use
-		--sSpriteSheet = 'Environments/O2Gen3' -- the file in which the model is located
+		spriteSheetPath = 'Environments/O2Gen'
 	},
 	OxygenRecyclerLevel4=
 	{
@@ -949,6 +948,29 @@ EnvObjectData.tObjects=
         sidebarIcon = 'icon_research_desk',
 		nPowerDraw = 50,
 		sFlavorText = 'OBFLAV006TEXT',
+		bCanDeactivate = true,
+    },
+	SecurityDesk=
+    {
+        spriteName='research_desk',
+        zoneName='COMMAND',
+        friendlyNameLinecode='COMMAND016TEXT',
+        COMMAND017TEXT='PROPSX061TEXT',
+        width=2,
+        height=1,
+        margin=1,
+        decayPerSecond=0.005,
+        maintainJob=Character.EMERGENCY,
+        createJob=Character.BUILDER,
+        explodeOnFailure=true,
+        bBlocksPathing=true,
+        clickSound = 'spacebed',
+        portrait = 'Env_Research_Desk',
+		matterCost=300,
+        placeSound = 'placebed',
+        sidebarIcon = 'icon_research_desk',
+		nPowerDraw = 50,
+		sFlavorText = 'COMMAND018TEXT',
 		bCanDeactivate = true,
     },
 	WallMountedTurret=
