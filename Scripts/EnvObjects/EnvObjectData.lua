@@ -389,8 +389,10 @@ EnvObjectData.tObjects=
 		nPowerDraw = 35,
 		sFlavorText = 'RECYCLE003TEXT',  -- no idea what this does
 		bCanDeactivate = true,
-		spriteName = 'oxygen_recycler_level2', -- the name of the model to use
-		sSpriteSheet = 'Environments/Objects' -- the file in which the model is located
+		spriteName = 'O2Gen3',
+		spriteSheetPath = 'Environments/O2Gen' 
+		--spriteName = 'oxygen_recycler_level2', -- the name of the model to use
+		--sSpriteSheet = 'Environments/O2Gen3' -- the file in which the model is located
 	},
 	OxygenRecyclerLevel4=
 	{
