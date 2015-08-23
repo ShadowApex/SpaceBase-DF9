@@ -5,12 +5,10 @@ local BRIGHT_AMBER = { Gui.AMBER[1], Gui.AMBER[2], Gui.AMBER[3], 1 }
 local SELECTION_AMBER = { Gui.AMBER[1], Gui.AMBER[2], Gui.AMBER[3], 0.01 }
 
 local nButtonWidth, nButtonHeight  = 330, 81
-local nButtonStartY = -123
-local nLabelX, nLabelStartY = 105, -133
+local nButtonStartY = -100
+local nDoneLabelX, nLabelX, nLabelStartY = 105, 30, -133
 local nHotkeyX, nHotkeyStartY = nButtonWidth - 112, -169
-local nIconScale = .6
 local numButtons = 2
-local nBGWidth = 160
 
 return 
 {
@@ -55,7 +53,7 @@ return
             {
                 {
                     key = 'DoneButton',
-                    color = Gui.GREEN,
+                    color = SELECTION_AMBER,
                 },
                 {
                     key = 'DoneLabel',
@@ -77,24 +75,24 @@ return
                 },
                 {
                     key = 'DoneLabel',
-                    color = Gui.GREEN,
+                    color = SELECTION_AMBER,
                 },
                 {
                     key = 'DoneHotkey',
-                    color = Gui.GREEN,
+                    color = SELECTION_AMBER,
                 },
             },
         },
         {
             key = 'DoneLabel',
             type = 'textBox',
-            pos = { nLabelX, -10 },
+            pos = { nDoneLabelX, -10 },
             linecode = 'HUDHUD035TEXT',
             style = 'dosisregular40',
             rect = { 0, 300, 280, 0 },
             hAlign = MOAITextBox.LEFT_JUSTIFY,
             vAlign = MOAITextBox.LEFT_JUSTIFY,
-            color = Gui.GREEN,
+            color = SELECTION_AMBER,
         },
         {
             key = 'DoneHotkey',
@@ -105,7 +103,7 @@ return
             rect = { 0, 100, 100, 0 },
             hAlign = MOAITextBox.RIGHT_JUSTIFY,
             vAlign = MOAITextBox.LEFT_JUSTIFY,
-            color = Gui.GREEN
+            color = SELECTION_AMBER
         },
 		{
             key = 'ResearchButton',
@@ -131,7 +129,7 @@ return
             {
                 {
                     key = 'ResearchButton',
-                    color = Gui.GREEN,
+                    color = SELECTION_AMBER,
                 },
                 {
                     key = 'ResearchLabel',
@@ -153,24 +151,24 @@ return
                 },
                 {
                     key = 'ResearchLabel',
-                    color = Gui.GREEN,
+                    color = SELECTION_AMBER,
                 },
                 {
                     key = 'ResearchHotkey',
-                    color = Gui.GREEN,
+                    color = SELECTION_AMBER,
                 },
             },
         },
         {
             key = 'ResearchLabel',
             type = 'textBox',
-            pos = { 0, nButtonStartY },
+            pos = { nLabelX, nButtonStartY },
             linecode = 'DEBUG002TEXT',
             style = 'dosisregular40',
             rect = { 0, nButtonHeight, nButtonWidth, 0 },
-            hAlign = MOAITextBox.CENTER_JUSTIFY,
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
             vAlign = MOAITextBox.CENTER_JUSTIFY,
-            color = Gui.GREEN,
+            color = SELECTION_AMBER,
         },
         {
             key = 'ResearchHotkey',
@@ -181,7 +179,83 @@ return
             rect = { 0, nButtonHeight, 20, 0 },
             hAlign = MOAITextBox.RIGHT_JUSTIFY,
             vAlign = MOAITextBox.CENTER_JUSTIFY,
-            color = Gui.GREEN
+            color = SELECTION_AMBER
+        },
+		{
+            key = 'ResearchAllButton',
+            type = 'onePixelButton',
+            pos = { 0, nButtonStartY - nButtonHeight },
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'ResearchAllButton',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'ResearchAllButton',
+                    color = AMBER,
+                },
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'ResearchAllButton',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'ResearchAllLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    key = 'ResearchAllHotkey',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'ResearchAllButton',
+                    color = Gui.BLACK,
+                },
+                {
+                    key = 'ResearchAllLabel',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'ResearchAllHotkey',
+                    color = SELECTION_AMBER,
+                },
+            },
+        },
+		{
+            key = 'ResearchAllLabel',
+            type = 'textBox',
+            pos = { nLabelX, nButtonStartY - nButtonHeight },
+            linecode = 'DEBUG003TEXT',
+            style = 'dosisregular40',
+            rect = { 0, nButtonHeight, nButtonWidth, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER,
+        },
+        {
+            key = 'ResearchAllHotkey',
+            type = 'textBox',
+            pos = { 0, nButtonStartY - nButtonHeight - 5 },
+            text = '2.',
+            style = 'dosissemibold22',
+            rect = { 0, nButtonHeight, 20, 0 },
+            hAlign = MOAITextBox.RIGHT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER
         },
         {
             key = 'SidebarBottomEndcapExpanded',

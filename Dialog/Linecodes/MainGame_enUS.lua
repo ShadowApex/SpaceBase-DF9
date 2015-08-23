@@ -2674,5 +2674,6 @@
     TRADE009TEXT = { sLine = "I'm going to do it anyway", },
     TRADE010TEXT = { sLine = "cool cool", },
 	DEBUG001TEXT = { sLine = "Debug", },
-	DEBUG002TEXT = { sLine = "Finish Research"}
+	DEBUG002TEXT = { sLine = "Finish current research"},
+	DEBUG003TEXT = { sLine = "Finish all research"},
 }

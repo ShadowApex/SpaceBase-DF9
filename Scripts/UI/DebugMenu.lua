@@ -20,9 +20,12 @@ function m.create()
 		self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
 		self.rResearchButton = self:getTemplateElement('ResearchButton')
 		self.rResearchButton:addPressedCallback(self.onResearchButtonPressed, self)
+		self.rResearchAllButton = self:getTemplateElement('ResearchAllButton')
+		self.rResearchAllButton:addPressedCallback(self.onResearchAllButtonPressed, self)
 		self.tHotkeyButtons = {}
 		self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
 		self:addHotkey(self:getTemplateElement('ResearchHotkey').sText, self.rResearchButton)
+		self:addHotkey(self:getTemplateElement('ResearchAllHotkey').sText, self.rResearchAllButton)
 	end
 
     function Ob:addHotkey(sKey, rButton)
@@ -81,32 +84,18 @@ function m.create()
 		if eventType == DFInput.TOUCH_UP then
 			local tAvailableResearch = Base.getAvailableResearch()
 			for k,v in pairs(tAvailableResearch) do
-				--print("k: "..k)
-				--print("nTotalNeeded: "..ResearchData[k].nResearchUnits)
-				--self:printTable(v)
-				--print("nProgress: "..v.nResearchUnits)
 				if v.nResearchUnits then
 					Base.addResearch(k, ResearchData[k].nResearchUnits - v.nResearchUnits)
 				end
-				-- if Base.tS.tResearch[k].nResearchUnits > 0 then
-					-- Base.addResearch(k, ResearchData[k].nResearchUnits)
-				-- end
-				-- if v.nProgress > 0 then
-					-- v.nProgress = v.nTotalNeeded
-				-- end
 			end
 		end
 	end
 	
-	function Ob:printTable(t)
-		print("printTable()")
-		for k,v in pairs(t) do
-			print("ARRRRRRRRRRRRRRRGH")
-			if type(v) == "table" then
-				print(k.." = ")
-				self:printTable(v)
-			else
-				print(k.." = "..v)
+	function Ob:onResearchAllButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			local tAvailableResearch = Base.getAvailableResearch()
+			for k,v in pairs(tAvailableResearch) do
+				Base.addResearch(k, ResearchData[k].nResearchUnits)
 			end
 		end
 	end
