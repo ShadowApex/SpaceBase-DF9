@@ -23,6 +23,9 @@ function m.create()
 	local activeEntry = nil
 	local rScrollableUI
 	local nNumEntries = 0
+	local rThreatHighButton, rThreatMediumButton, rThreatLowButton, rStandDownButton
+	local rThreatHighLabel, rThreatMediumLabel, rThreatLowLabel, rStandDownLabel
+	local rThreatHighHotkey, rThreatMediumHotkey, rThreatLowHotkey, rStandDownHotkey
 
     function Ob:init()
         Ob.Parent.init(self)
@@ -30,16 +33,24 @@ function m.create()
 
         self.rDoneButton = self:getTemplateElement('DoneButton')
 		rScrollableUI = self:getTemplateElement('ScrollPane')
-		self.rThreatHighButton = self:getTemplateElement('ThreatHighButton')
-		self.rThreatMediumButton = self:getTemplateElement('ThreatMediumButton')
-		self.rThreatLowButton = self:getTemplateElement('ThreatLowButton')
-		self.rStandDownButton = self:getTemplateElement('StandDownButton')
+		rThreatHighButton = self:getTemplateElement('ThreatHighButton')
+		rThreatMediumButton = self:getTemplateElement('ThreatMediumButton')
+		rThreatLowButton = self:getTemplateElement('ThreatLowButton')
+		rStandDownButton = self:getTemplateElement('StandDownButton')
+		rThreatHighLabel = self:getTemplateElement('ThreatHighLabel')
+		rThreatMediumLabel = self:getTemplateElement('ThreatMediumLabel')
+		rThreatLowLabel = self:getTemplateElement('ThreatLowLabel')
+		rStandDownLabel = self:getTemplateElement('StandDownLabel')
+		rThreatHighHotkey = self:getTemplateElement('ThreatHighHotkey')
+		rThreatMediumHotkey = self:getTemplateElement('ThreatMediumHotkey')
+		rThreatLowHotkey = self:getTemplateElement('ThreatLowHotkey')
+		rStandDownHotkey = self:getTemplateElement('StandDownHotkey')
 
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
-		self.rThreatHighButton:addPressedCallback(self.onThreatHighButtonPressed, self)
-		self.rThreatMediumButton:addPressedCallback(self.onThreatMediumButtonPressed, self)
-		self.rThreatLowButton:addPressedCallback(self.onThreatLowButtonPressed, self)
-		self.rStandDownButton:addPressedCallback(self.onStandDownButtonPressed, self)
+		rThreatHighButton:addPressedCallback(self.onThreatHighButtonPressed, self)
+		rThreatMediumButton:addPressedCallback(self.onThreatMediumButtonPressed, self)
+		rThreatLowButton:addPressedCallback(self.onThreatLowButtonPressed, self)
+		rStandDownButton:addPressedCallback(self.onStandDownButtonPressed, self)
         
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
@@ -48,7 +59,19 @@ function m.create()
 		self:addHotkey(self:getTemplateElement('ThreatLowHotkey').sText, self.rThreatLowButton)
 		self:addHotkey(self:getTemplateElement('StandDownHotkey').sText, self.rStandDownButton)
 		
-		self.rThreatMediumButton:setSelected(true)
+		rThreatMediumButton:setSelected(true)
+		self:setElementHidden(rThreatHighButton, true)
+		self:setElementHidden(rThreatMediumButton, true)
+		self:setElementHidden(rThreatLowButton, true)
+		self:setElementHidden(rStandDownButton, true)
+		self:setElementHidden(rThreatHighLabel, true)
+		self:setElementHidden(rThreatMediumLabel, true)
+		self:setElementHidden(rThreatLowLabel, true)
+		self:setElementHidden(rStandDownLabel, true)
+		self:setElementHidden(rThreatHighHotkey, true)
+		self:setElementHidden(rThreatMediumHotkey, true)
+		self:setElementHidden(rThreatLowHotkey, true)
+		self:setElementHidden(rStandDownHotkey, true)
 		self:_calcDimsFromElements()
     end
 
@@ -104,6 +127,19 @@ function m.create()
 		if activeEntry then
 			activeEntry:setSelected(false)
 			activeEntry = nil
+		else
+			self:setElementHidden(rThreatHighButton, false)
+			self:setElementHidden(rThreatMediumButton, false)
+			self:setElementHidden(rThreatLowButton, false)
+			self:setElementHidden(rStandDownButton, false)
+			self:setElementHidden(rThreatHighLabel, false)
+			self:setElementHidden(rThreatMediumLabel, false)
+			self:setElementHidden(rThreatLowLabel, false)
+			self:setElementHidden(rStandDownLabel, false)
+			self:setElementHidden(rThreatHighHotkey, false)
+			self:setElementHidden(rThreatMediumHotkey, false)
+			self:setElementHidden(rThreatLowHotkey, false)
+			self:setElementHidden(rStandDownHotkey, false)
 		end
 		rEntry:setSelected(true)
 		local rSquad = squadList.getSquad(sName)
@@ -145,7 +181,7 @@ function m.create()
 	function Ob:onStandDownButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
 			self:clearThreatButton()
-			g_ERBeacon:remove()
+			g_ERBeacon:removeSelectedBeacon()
 		end
 	end
 	
@@ -183,8 +219,6 @@ function m.create()
 	
 	function Ob:addEntry(sName)
 		local rNewEntry = BeaconMenuEntry.new()
-		-- local nNumEntries = table.getn(tBeaconMenuEntries)
-		print("BeaconMenu:addEntry() nNumEntries: "..nNumEntries)
         local w,h = rNewEntry:getDims()
         local nYLoc = h * nNumEntries - 1
         rNewEntry:setLoc(0, nYLoc)
