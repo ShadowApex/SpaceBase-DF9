@@ -388,10 +388,10 @@ EnvObjectData.tObjects=
 		researchPrereq = 'OxygenRecyclerLevel3',
 		sFunctionality = 'OxygenRecycler',
 		nPowerDraw = 35,
-		sFlavorText = 'RECYCLE003TEXT',  -- no idea what this does
+		sFlavorText = 'RECYCLE003TEXT',
 		bCanDeactivate = true,
 		spriteName = 'O2Gen3',
-		spriteSheetPath = 'Environments/O2Gen'
+		spriteSheetPath = 'Environments/O2Gen3'
 	},
 	OxygenRecyclerLevel4=
 	{
@@ -410,16 +410,16 @@ EnvObjectData.tObjects=
 		oxygenLevel = 500,
 		clickSound = 'oxygenrecycler',
 		ambientSound = 'oxygenrecyclerloop',
-		portrait = 'Env_LifeSupport_OxygenRecycler2', -- inspector portrait
+		portrait = 'Env_LifeSupport_OxygenRecycler2',
 		placeSound = 'placerecycler',
 		sidebarIcon = 'icon_oxygen_recycler',
 		researchPrereq = 'OxygenRecyclerLevel4',
 		sFunctionality = 'OxygenRecycler',
 		nPowerDraw = 35,
-		sFlavorText = 'RECYCLE006TEXT',  -- no idea what this does
+		sFlavorText = 'RECYCLE006TEXT',
 		bCanDeactivate = true,
-		spriteName = 'oxygen_recycler_level2', -- the name of the model to use
-		sSpriteSheet = 'Environments/Objects' -- the file in which the model is located
+		spriteName = 'O2Gen4',
+		spriteSheetPath = 'Environments/O2Gen4'
 	},
     AirScrubber=
     {
