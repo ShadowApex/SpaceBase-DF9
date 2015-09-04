@@ -121,14 +121,8 @@ function m.create()
 		self.rDebugHotKeyExpanded = self:getTemplateElement('DebugHotkeyExpanded')
 		self.rDebugButton:addPressedCallback(self.onDebugButtonPressed, self)
 		self:addHotkey(self.rDebugHotKey.sText, self.rDebugButton)
-		if DFSpace.isDev() then
-			-- this isn't aligning properly
-			local nButtonHeight, nButtons = 81, 8
-			self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
-			self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
-			self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
-			self.rLargeBarButton:setScl(286, nButtonHeight * nButtons)
-		else
+		self.rDebugMenu = DebugMenu.new()
+		if not DFSpace.isDev() then
 			self.rDebugButton:setEnabled(false)
 			self:setElementHidden(self.rDebugButton, true)
 			self:setElementHidden(self.rDebugIcon, true)
@@ -136,7 +130,7 @@ function m.create()
 			self:setElementHidden(self.rDebugHotKey, true)
 			self:setElementHidden(self.rDebugHotKeyExpanded, true)
 		end
-		self.rDebugMenu = DebugMenu.new()
+		self.postInitComplete = false
 		------------------------------------------------
         self:setExpanded(false)
 
@@ -197,6 +191,16 @@ function m.create()
                 self.rSubmenu:onTick(dt)
             end
         end
+		if not self.postInitComplete then
+			if DFSpace.isDev() then
+				local nButtonHeight, nButtons = 81, 9
+				self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
+				self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
+				self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
+				self.rLargeBarButton:setScl(286, nButtonHeight * nButtons)
+			end
+			self.postInitComplete = true
+		end
     end
 
     function Ob:refresh()
@@ -241,6 +245,9 @@ function m.create()
         end
 		-------------------------------------
 		self.rSquadButton:setEnabled(bEnabled)
+		if DFSpace.isDev() then
+			self.rDebugButton:setEnabled(bEnabled)
+		end
 		------------------------------------
     end
 
@@ -307,10 +314,12 @@ function m.create()
 		self:setElementHidden(self.rSquadLabel, not bExpanded)
 		self:setElementHidden(self.rSquadHotKey, bExpanded)
 		self:setElementHidden(self.rSquadHotKeyExpanded, not bExpanded)
-		self:setElementHidden(self.rDebugButton, not bExpanded)
-		self:setElementHidden(self.rDebugLabel, not bExpanded)
-		self:setElementHidden(self.rDebugHotKey, bExpanded)
-		self:setElementHidden(self.rDebugHotKeyExpanded, not bExpanded)
+		if DFSpace.isDev() then
+			self:setElementHidden(self.rDebugButton, not bExpanded)
+			self:setElementHidden(self.rDebugLabel, not bExpanded)
+			self:setElementHidden(self.rDebugHotKey, bExpanded)
+			self:setElementHidden(self.rDebugHotKeyExpanded, not bExpanded)
+		end
 		------------------------------------------------
 		
         self:setElementHidden(self.rEndCap, bExpanded)
