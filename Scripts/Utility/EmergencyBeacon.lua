@@ -11,6 +11,7 @@ local SoundManager= require('SoundManager')
 local ObjectList=require('ObjectList')
 local Base=require('Base')
 local Class=require('Class')
+local MOAIImageExt = require('SBRS.MOAIImageExt')
 
 local EmergencyBeacon = Class.create(nil, MOAIProp.new)
 
@@ -48,8 +49,6 @@ function EmergencyBeacon:init()
     self.deck = DFGraphics.loadSpriteSheet('UI/Beacon')
     self.tChars = {}
 	self.tBeacons = {}
-    
-    -- self.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
 
     for _,tMode in ipairs(self.tModes) do
         for index = 1, kNUM_BEACON_TEXTURES do
@@ -84,15 +83,111 @@ function EmergencyBeacon:setSelectedSquad(rSquad)
 end
 
 function EmergencyBeacon:newBeacon(sSquadName)
-	print("EmergencyBeacon:newBeacon(sSquadName): "..sSquadName)
 	local beacon = MOAIProp.new()
-	beacon:setDeck(self.deck)
+	local deck = self:generateGraphic()
+	beacon:setDeck(deck)
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beacon)
 	beacon:setVisible(false)
-	beacon:setScl(1.5, 1.5, 1.5)
 	beacon:setColor(unpack(Gui.AMBER))
 	beacon.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
 	self.tBeacons[sSquadName] = beacon
+end
+
+function EmergencyBeacon:generateGraphic()
+	local image = MOAIImageExt.new()
+	local totalWidth, totalHeight = 100, 100
+	local iconWidth, iconHeight = totalWidth - (totalWidth / 3), totalHeight - (totalHeight / 3) -- total width/height of the icon part
+	local iconx, icony = (totalWidth - iconWidth) / 2, (totalHeight - iconHeight) / 2
+	local yellow = {1, 1, 0, 1}
+	image:init(totalWidth, totalHeight)
+	image:setRGBA(0, 0, 1, 1, 1, 1)
+	image.fillTriangle({x = 0, y = totalHeight / 2}, {x = totalWidth / 2, y = 0}, {x = totalWidth, y = totalHeight / 2}, yellow)
+	image.drawLine(totalWidth / 2, totalHeight / 2, 0, totalHeight, 5, yellow)
+	image.drawLine(totalWidth / 2, totalHeight / 2, totalWidth, totalHeight, 5, yellow)
+	image.fillRect({x = iconx, y = icony}, {x = iconx + iconWidth - 1, y = icony + iconHeight - 1}, yellow)
+	local randoms = self:_getDistinctRandoms(4, 2, 0, 8)
+	local tl = self:_drawQuadrant(iconWidth / 2, iconHeight / 2, randoms[1])
+	local tr = self:_drawQuadrant(iconWidth / 2, iconHeight / 2, randoms[2])
+	local bl = self:_drawQuadrant(iconWidth / 2, iconHeight / 2, randoms[3])
+	local br = self:_drawQuadrant(iconWidth / 2, iconHeight / 2, randoms[4])
+	image.copyImage(tl, 0, 0, iconWidth / 2, iconHeight / 2, iconx, icony, false)
+	image.copyImage(tr, iconWidth / 2, 0, 0, iconHeight / 2, iconx + iconWidth, icony, false)
+	image.copyImage(bl, 0, iconHeight / 2, iconWidth / 2, 0, iconx, icony + iconHeight, false)
+	image.copyImage(br, iconWidth / 2, iconHeight / 2, 0, 0, iconx + iconWidth, icony + iconWidth, false)
+	local gfxQuad = MOAIGfxQuad2D.new()
+	gfxQuad:setTexture(image)
+	gfxQuad:setRect(-totalWidth / 2, -totalHeight / 2, totalWidth / 2, totalHeight / 2)
+	return gfxQuad
+end
+
+function EmergencyBeacon:_getDistinctRandoms(numRandoms, numSameAllowed, minRand, maxRand)
+	local randomAmounts = {}
+	local randoms = {}
+	local count = 0
+	math.random()
+	math.random()
+	math.random()
+	while count < numRandoms do
+		local rand = math.random(minRand, maxRand)
+		if not randomAmounts[rand] then
+			randomAmounts[rand] = 1
+		else
+			if randomAmounts[rand] < numSameAllowed then
+				randomAmounts[rand] = randomAmounts[rand] + 1
+				count = count + 1
+				table.insert(randoms, rand)
+			end
+		end
+	end
+	return randoms
+end
+
+function EmergencyBeacon:_print(...)
+	local arg = {...}
+	if arg then
+		for k,v in pairs(arg) do
+			print(k..": "..v)
+		end
+	else
+		print("nil")
+	end
+end
+
+function EmergencyBeacon:_drawQuadrant(width, height, option)
+	local image = MOAIImageExt.new()
+	image:init(width, height)
+	local lineWidth = 5
+	local colour = {0, 0, 0, 1}
+	if option == 0 then
+		image.fillCircle(width, height, width, colour)
+	elseif option == 1 then
+		image.fillCircle(width, height, width / 2, colour)
+	elseif option == 2 then
+		image.fillTriangle({x = width, y = height}, {x = 0, y = height}, {x = width, y = 0}, colour)
+	elseif option == 3 then
+		image.drawLine(width, height, 0, 0, lineWidth, colour)
+	elseif option == 4 then
+		image.drawLine(0, height, width, 0, lineWidth, colour)
+	elseif option == 5 then
+		image.drawLine(width + lineWidth, height - lineWidth, lineWidth, -lineWidth, lineWidth, colour)
+		image.drawLine(width - lineWidth, height + lineWidth, -lineWidth, lineWidth, lineWidth, colour)
+	elseif option == 6 then
+		image.drawLine(lineWidth, height + lineWidth, width + lineWidth, lineWidth, lineWidth, colour)
+		image.drawLine(-lineWidth, height - lineWidth, width - lineWidth, -lineWidth, lineWidth, colour)
+	elseif option == 7 then -- square minus large circle
+		local tempImage = MOAIImageExt.new()
+		tempImage:init(width, height)
+		tempImage.fillRect({x = 0, y = 0}, {x = width - 0, y = height - 0}, colour)
+		tempImage.fillCircle(0, 0, width, {0, 0, 0, 0})
+		image.copyImage(tempImage, 0, 0, width, height, 0, 0, width, height, false)
+	elseif option == 8 then	-- large circle minus small circle
+		local tempImage = MOAIImageExt.new()
+		tempImage:init(width, height)
+		tempImage.fillCircle(width, height, width, colour)
+		tempImage.fillCircle(width, height, width / 2, {0, 0, 0, 0})
+		image.copyImage(tempImage, 0, 0, width, height, 0, 0, width, height, false)
+	end
+	return image
 end
 
 function EmergencyBeacon:onTick()
@@ -380,14 +475,14 @@ function EmergencyBeacon:placeAt(tx,ty,nCount)
 	end
 	self.tBeacons[self.rSelectedSquad.getName()]:setVisible(false)
 	local tMode,tx,ty = self:_showPropAt(wx, wy, tx, ty, self.tBeacons[self.rSelectedSquad.getName()])
-	nCount = nCount or table.getn(self.tBeacons)
+	nCount = nCount or 1
 	self.tBeacons[self.rSelectedSquad.getName()].tx, self.tBeacons[self.rSelectedSquad.getName()].ty = tx, ty
 	self.tBeacons[self.rSelectedSquad.getName()].rTargetObject = nil
 	self.tBeacons[self.rSelectedSquad.getName()].tChars = {}
 	self.tBeacons[self.rSelectedSquad.getName()].nCharsAtBeacon = 0
 	self.tBeacons[self.rSelectedSquad.getName()].tMode = tMode
 	self.tBeacons[self.rSelectedSquad.getName()].nTargetTeam = nTargetTeam
-	self.tBeacons[self.rSelectedSquad.getName()]:setIndex(self.deck.names[tMode.spriteName..nCount])
+	-- self.tBeacons[self.rSelectedSquad.getName()]:setIndex(self.deck.names[tMode.spriteName..nCount])
 
     local tData = {}
     tData.utilityGateFn = function(rChar)
@@ -437,28 +532,11 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
     local tx, ty, tz = rTargetObject:getTileLoc()
     local tMode = EmergencyBeacon.MODE_TRAVELTO
     local nTargetTeam = rTargetObject:getTeam()
-
-    -- if self.tMode == tMode then
-        -- if self.rTargetObject and self.rTargetObject == rTargetObject then
-            -- self:_incrementCount(tMode.spriteName)
-            -- return
-        -- end
-    -- end
-
     self:clearAttrLink(MOAIProp.INHERIT_LOC)
     self:setLoc(0,200,0)
     self:setAttrLink(MOAIProp.INHERIT_LOC, rTargetObject, MOAIProp.TRANSFORM_TRAIT)
     self:setVisible(true)
-    -- self:updatePropIndex()
-
-    -- looks like we've got a new beacon.
     nCount = nCount or table.getn(self.tBeacons)
-    -- self.tx, self.ty = nil, nil
-    -- self.rTargetObject = rTargetObject
-    -- self.tChars = {}
-    -- self.nCharsAtBeacon = 0
-    -- self.tMode = tMode
-    -- self.nTargetTeam = nTargetTeam
 	self.tBeacons[self.rSelectedSquad.getName()].tx, self.tBeacons[self.rSelectedSquad.getName()].ty = tx, ty
 	self.tBeacons[self.rSelectedSquad.getName()].rTargetObject = nil
 	self.tBeacons[self.rSelectedSquad.getName()].tChars = {}
@@ -519,15 +597,12 @@ function EmergencyBeacon:needsMoreResponders(sSquadName)
 end
 
 function EmergencyBeacon:remove()
-    self.tx,self.ty = nil,nil
-    self.rTargetObject = nil
-    self.tMode = nil
     self.rPreviewProp:setVisible(false)
 	for k,v in pairs(self.tBeacons) do
 		v:setVisible(false)
 		k = nil
 	end
-    -- self:setVisible(false)
+    self:setVisible(false)
     self:clearAttrLink(MOAITransform.INHERIT_LOC)
 end
 
@@ -547,12 +622,6 @@ function EmergencyBeacon:destroy()
     Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):removeProp(self)
     Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):removeProp(self.rPreviewProp)
     self.rPreviewProp=nil
-end
-
-function EmergencyBeacon:getViolenceMode()
-end
-
-function EmergencyBeacon:setViolenceMode(eMode)
 end
 
 return EmergencyBeacon

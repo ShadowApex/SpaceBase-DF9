@@ -16,7 +16,6 @@ local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
     Ob.rSelectedButton = nil
-	-- local activeSlot = nil
 	local activeThreatLevel = nil
 	local squadList = World.getSquadList()
 	local tBeaconMenuEntries = {}

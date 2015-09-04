@@ -6,7 +6,7 @@ EnvObjectData.tMenus=
 {
     ALL={ 'Door','Airlock','HeavyDoor','FirePanel','EmergencyAlarm',},
     POWER={ 'Generator', },
-    LIFESUPPORT={},
+    LIFESUPPORT={'AirScrubber', 'OxygenRecycler', 'OxygenRecyclerLevel2', 'OxygenRecyclerLevel3', 'OxygenRecyclerLevel4'},
     RESIDENCE={},
     GARDEN={},
     PUB={'Bar','Fridge','FridgeLvl2','Stove','StandingTable','BurgerSign','PizzaSign','FriesSign',},
