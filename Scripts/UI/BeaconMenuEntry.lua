@@ -33,6 +33,10 @@ function m.create()
 		self.callback = callback
 	end
 	
+	function Ob:getName()
+		return name
+	end
+	
 	function Ob:setSelected(isSelected)
 		self.rNameButton:setSelected(isSelected)
 	end

@@ -408,6 +408,8 @@ function Character:_remove()
 	rBGLayer:removeProp( self )
 	ObjectList.removeObject(self.tag)
 	self.tag = nil
+	World.getSquadList().getSquad(self.sSquadName).remMember(self:getUniqueID())
+	self.sSquadName = nil
 end
 
 function Character:setVisible(bVisible)
@@ -734,9 +736,9 @@ function Character:_shouldAttackLethal(rTarget)
             local bHuman = bTargetIsCharacter and rTarget.nRace ~= Character.RACE_MONSTER and rTarget.nRace ~= Character.RACE_KILLBOT
             if not bHuman then
                 bLethal = true
-            elseif g_ERBeacon.eViolence == g_ERBeacon.VIOLENCE_LETHAL or self:hasUtilityStatus(Character.STATUS_RAMPAGE_VIOLENT) then
+            elseif g_ERBeacon:getViolence(self.sSquadName) == g_ERBeacon.VIOLENCE_LETHAL or self:hasUtilityStatus(Character.STATUS_RAMPAGE_VIOLENT) then
                 bLethal = true
-            elseif g_ERBeacon.eViolence == g_ERBeacon.VIOLENCE_NONLETHAL then
+            elseif g_ERBeacon:getViolence(self.sSquadName) == g_ERBeacon.VIOLENCE_NONLETHAL then
                 bLethal = false
             else
                 bLethal = not rTarget or not bTargetIsCharacter or self:_hates(rTarget)
@@ -1901,7 +1903,7 @@ function Character:shouldTargetForAttack(rTarget)
         if nFactionBehavior ~= Character.FACTION_BEHAVIOR.Citizen and nFactionBehavior ~= Character.FACTION_BEHAVIOR.Friendly then
             return true
         end
-        return not bIncapacitated or not bHuman or g_ERBeacon.eViolence == EmergencyBeacon.VIOLENCE_LETHAL
+        return not bIncapacitated or not bHuman or g_ERBeacon:getViolence(self.sSquadName) == EmergencyBeacon.VIOLENCE_LETHAL
     end
     
     -- brawlers only try to incapacitate their opponent
@@ -1922,7 +1924,7 @@ function Character:shouldTargetForAttack(rTarget)
 
     if rTarget:hasUtilityStatus(Character.STATUS_RAMPAGE) and rTarget.tStatus.bRampageObserved then 
         if bIncapacitated then 
-            return g_ERBeacon.eViolence == EmergencyBeacon.VIOLENCE_LETHAL 
+            return g_ERBeacon:getViolence(self.sSquadName) == EmergencyBeacon.VIOLENCE_LETHAL 
         end
         return true
     end
@@ -5426,7 +5428,7 @@ function Character:takeDamage(rAttacker, tDamage)
     if not self.tStatus.nHitPoints or self.tStatus.nHitPoints <= 0 then
         local bStunDamage = tDamage.nDamageType == Character.DAMAGE_TYPE.Stunner 
         -- cheat: if we're in nonlethal mode, melee is also an incapacitator.
-        if self:isPlayersTeam() and g_ERBeacon.eViolence == g_ERBeacon.VIOLENCE_NONLETHAL and tDamage.nDamageType == Character.DAMAGE_TYPE.Melee then
+        if self:isPlayersTeam() and g_ERBeacon:getViolence(self.sSquadName) == g_ERBeacon.VIOLENCE_NONLETHAL and tDamage.nDamageType == Character.DAMAGE_TYPE.Melee then
             bStunDamage = true
         end
 		-- brawlers always do stun damage
@@ -6465,7 +6467,7 @@ function Character:getToolTipTextInfos()
 		if not Base.isFriendlyToPlayer(self) then
 			s = g_LM.line('UIMISC030TEXT')
 		end
-		local sTypeLC = g_ERBeacon.tBeaconTypeLinecodes[g_ERBeacon.eViolence]
+		local sTypeLC = g_ERBeacon.tBeaconTypeLinecodes[g_ERBeacon:getViolence(self.sSquadName)]
 		s = s .. ' (' .. g_LM.line(sTypeLC) .. ')'
 		self.tToolTipTextInfos[nCurrentIndex].sString = s
         self.tToolTipTextInfos[nCurrentIndex].sTexture = nil

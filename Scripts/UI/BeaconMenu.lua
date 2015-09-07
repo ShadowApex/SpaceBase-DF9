@@ -16,7 +16,7 @@ local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
     Ob.rSelectedButton = nil
-	local activeThreatLevel = nil
+	local activeThreatButton = nil
 	local squadList = World.getSquadList()
 	local tBeaconMenuEntries = {}
 	local activeEntry = nil
@@ -53,24 +53,23 @@ function m.create()
         
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
-		self:addHotkey(self:getTemplateElement('ThreatHighHotkey').sText, self.rThreatHighButton)
-		self:addHotkey(self:getTemplateElement('ThreatMediumHotkey').sText, self.rThreatMediumButton)
-		self:addHotkey(self:getTemplateElement('ThreatLowHotkey').sText, self.rThreatLowButton)
-		self:addHotkey(self:getTemplateElement('StandDownHotkey').sText, self.rStandDownButton)
+		self:addHotkey('z', rThreatHighButton)
+		self:addHotkey('x', rThreatMediumButton)
+		self:addHotkey('c', rThreatLowButton)
+		self:addHotkey('v', rStandDownButton)
 		
-		rThreatMediumButton:setSelected(true)
-		self:setElementHidden(rThreatHighButton, true)
-		self:setElementHidden(rThreatMediumButton, true)
-		self:setElementHidden(rThreatLowButton, true)
-		self:setElementHidden(rStandDownButton, true)
-		self:setElementHidden(rThreatHighLabel, true)
-		self:setElementHidden(rThreatMediumLabel, true)
-		self:setElementHidden(rThreatLowLabel, true)
-		self:setElementHidden(rStandDownLabel, true)
-		self:setElementHidden(rThreatHighHotkey, true)
-		self:setElementHidden(rThreatMediumHotkey, true)
-		self:setElementHidden(rThreatLowHotkey, true)
-		self:setElementHidden(rStandDownHotkey, true)
+		-- rThreatHighButton:setEnabled(false)
+		rThreatHighLabel:setVisible(false)
+		rThreatHighHotkey:setVisible(false)
+		-- rThreatMediumButton:setEnabled(false)
+		rThreatMediumLabel:setVisible(false)
+		rThreatMediumHotkey:setVisible(false)
+		-- rThreatLowButton:setEnabled(false)
+		rThreatLowLabel:setVisible(false)
+		rThreatLowHotkey:setVisible(false)
+		rStandDownButton:setVisible(false)
+		rStandDownLabel:setVisible(false)
+		rStandDownHotkey:setVisible(false)
 		self:_calcDimsFromElements()
     end
 
@@ -127,24 +126,27 @@ function m.create()
 			activeEntry:setSelected(false)
 			activeEntry = nil
 		else
-			self:setElementHidden(rThreatHighButton, false)
-			self:setElementHidden(rThreatMediumButton, false)
-			self:setElementHidden(rThreatLowButton, false)
-			self:setElementHidden(rStandDownButton, false)
-			self:setElementHidden(rThreatHighLabel, false)
-			self:setElementHidden(rThreatMediumLabel, false)
-			self:setElementHidden(rThreatLowLabel, false)
-			self:setElementHidden(rStandDownLabel, false)
-			self:setElementHidden(rThreatHighHotkey, false)
-			self:setElementHidden(rThreatMediumHotkey, false)
-			self:setElementHidden(rThreatLowHotkey, false)
-			self:setElementHidden(rStandDownHotkey, false)
+			rThreatHighLabel:setVisible(true)
+			rThreatHighHotkey:setVisible(true)
+			rThreatMediumLabel:setVisible(true)
+			rThreatMediumHotkey:setVisible(true)
+			rThreatLowLabel:setVisible(true)
+			rThreatLowHotkey:setVisible(true)
+			rStandDownLabel:setVisible(true)
+			rStandDownHotkey:setVisible(true)
 		end
 		rEntry:setSelected(true)
 		local rSquad = squadList.getSquad(sName)
 		if not rSquad then
 			print("BeaconMenu:onSlotButtonPressed() Error: Couldn't find squad.")
 			return
+		end
+		if g_ERBeacon:getViolence(sName) == 'High' then
+			rThreatHighButton:setSelected(true)
+		elseif g_ERBeacon:getViolence(sName) == 'Medium' then
+			rThreatMediumButton:setSelected(true)
+		elseif g_ERBeacon:getViolence(sName) == 'Low' then
+			rThreatLowButton:setSelected(true)
 		end
 		g_ERBeacon:setSelectedSquad(rSquad)
 		activeEntry = rEntry
@@ -153,27 +155,27 @@ function m.create()
 	function Ob:onThreatHighButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
 			self:clearThreatButton()
-			activeThreatLevel = 'High'
+			activeThreatButton = rButton
 			rButton:setSelected(true)
-			g_ERBeacon.eViolence = EmergencyBeacon.VIOLENCE_LETHAL
+			g_ERBeacon:setViolence(activeEntry:getName(), EmergencyBeacon.VIOLENCE_LETHAL)
 		end
 	end
 	
 	function Ob:onThreatMediumButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
 			self:clearThreatButton()
-			activeThreatLevel = 'Medium'
+			activeThreatButton = rButton
 			rButton:setSelected(true)
-			g_ERBeacon.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
+			g_ERBeacon:setViolence(activeEntry:getName(), EmergencyBeacon.VIOLENCE_DEFAULT)
 		end
 	end
 	
 	function Ob:onThreatLowButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
 			self:clearThreatButton()
-			activeThreatLevel = 'Low'
+			activeThreatButton = rButton
 			rButton:setSelected(true)
-			g_ERBeacon.eViolence = EmergencyBeacon.VIOLENCE_NONLETHAL
+			g_ERBeacon:setViolence(activeEntry:getName(), EmergencyBeacon.VIOLENCE_NONLETHAL)
 		end
 	end
 	
@@ -185,10 +187,9 @@ function m.create()
 	end
 	
 	function Ob:clearThreatButton()
-		if activeThreatLevel ~= nil then
-			local rButton = self:getTemplateElement('Threat'..activeThreatLevel..'Button')
-			rButton:setSelected(false)
-			activeThreatLevel = nil
+		if activeThreatButton ~= nil then
+			activeThreatButton:setSelected(false)
+			activeThreatButton = nil
 		end
 	end
 	
@@ -231,6 +232,16 @@ function m.create()
 	end
 
     function Ob:show(basePri)
+		if activeEntry then
+			rThreatHighLabel:setVisible(true)
+			rThreatHighHotkey:setVisible(true)
+			rThreatMediumLabel:setVisible(true)
+			rThreatMediumHotkey:setVisible(true)
+			rThreatLowLabel:setVisible(true)
+			rThreatLowHotkey:setVisible(true)
+			rStandDownLabel:setVisible(true)
+			rStandDownHotkey:setVisible(true)
+		end
         local nPri = Ob.Parent.show(self, basePri)
         g_GameRules.setUIMode(g_GameRules.MODE_BEACON)
 		self:updateDisplay()
@@ -238,6 +249,14 @@ function m.create()
     end
 
     function Ob:hide()
+		rThreatHighLabel:setVisible(false)
+		rThreatHighHotkey:setVisible(false)
+		rThreatMediumLabel:setVisible(false)
+		rThreatMediumHotkey:setVisible(false)
+		rThreatLowLabel:setVisible(false)
+		rThreatLowHotkey:setVisible(false)
+		rStandDownLabel:setVisible(false)
+		rStandDownHotkey:setVisible(false)
         Ob.Parent.hide(self)
         g_GameRules.setUIMode(g_GameRules.MODE_INSPECT)
     end
