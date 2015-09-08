@@ -134,6 +134,7 @@ function m.create()
 			rThreatLowHotkey:setVisible(true)
 			rStandDownLabel:setVisible(true)
 			rStandDownHotkey:setVisible(true)
+			rThreatMediumButton:setSelected(true)
 		end
 		rEntry:setSelected(true)
 		local rSquad = squadList.getSquad(sName)
