@@ -297,3 +297,18 @@ HOLODECKS
 
 TIME TRAVEL
 * events deemed timeline-critical by the IGTTC Armistice of 7978 cannot be changed without serious consequences.  however, we are pretty sure time travel armistices are for babies.
+
+ADMINISTRIVIA
+* Licensing.  The CPAL-1.0 license has a number of requirements that have to be met by the codebase. (See https://www.socialtext.net/open/how_to_apply_the_cpal_to_your_product)
+** Include a copy of the license with Source Code.
+** Duplicate the license in any documentation for the Source Code where you describe recipients' rights or ownership rights relating to the Covered Code.
+** Conspicuously include a notice stating that source code is available under terms of the license and describing how it may be obtained in Executable versions, related documentation, and collateral in which you describe the recipients' rights related to the Covered Code.
+** Provide a mechanism for obtaining the Source Code as part of the UI.
+** Provide an initial version of the file with changes listed.
+** Provide an initial "LEGAL" file with details of additional licenses required for rights and APIs.
+** Provide a list of trademarks, service marks, and tradename ownerships.
+** Fill in Exhibit A in your copy of the license if appropriate and duplicate the notice in each file of the Source Code with all the blanks filled in.
+** Fill in Exhibit B in your copy of the license.
+
+
+
