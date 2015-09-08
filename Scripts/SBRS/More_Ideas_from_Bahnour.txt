@@ -1,0 +1,37 @@
+- global power drain / power production display
+- change hydroponics placement, allow to line them up next to each other.  Using all that space doesn't make sense
+- interesting research trade-offs (more power, more maintenance required and a greater chance of catastrophic failure)
+- Maslow's hierarchy of needs
+- mod manager (takes care of the pain of installing mods directly into the game)
+- leadership
+issue edicts
+no eating raw food (workers won't consume from garden's directly)
+shifts
+set maximum population (prevent immigrants)
+- defence airlocks (vent hostiles)
+- advanced hostile can override airlock control preventing vent, breach hull causing your workers to vent
+- docks/hangar/landing bay
+new citizens won't arrive until you have one
+dock security
+- venting
+- defined bases (each has it's own O2/CO2/POWER readings)
+- have our own MOTD
+- meteor shower - redo completely, hate the current one
+- look up interesting space phenomena that can effect a space base
+- garden crop, instead of margin have an optional tile display
+- create dead zone, noone may enter (prevent people from entering enemy turret LOS)
+- capture space worms, tame them as a pet maybe, research them and gain some benefit, containment objects to hold things for study
+- skill-up characters in non-job areas, shooting etc.
+- oxygen tanks - so you don't have to go back inside to refill
+- new game mechanic, heat
+- new threat, eclipse - base will freeze
+- research upgrade to existing spacesuits to contain heat modules
+- enhance characters (genetics/mechanical)
+- vermin infestations (space weevil from red dwarf)
+- put a freeze on immigration
+- blast doors - auto close to save most of rest of base
+
+Rebalance
+- use population to determine difficulty
+- use Losing is Fun and Building is Fun for difficulty modifier (LF is harder)
+- use dock to accept new people, thus preventing the game from getting too difficult too soon
