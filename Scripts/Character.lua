@@ -408,8 +408,10 @@ function Character:_remove()
 	rBGLayer:removeProp( self )
 	ObjectList.removeObject(self.tag)
 	self.tag = nil
-	World.getSquadList().getSquad(self.sSquadName).remMember(self:getUniqueID())
-	self.sSquadName = nil
+	if self:getSquadName() then
+		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+		self:setSquadName(nil)
+	end
 end
 
 function Character:setVisible(bVisible)
@@ -646,6 +648,10 @@ function Character:setTeam(nTeam)
 end
 
 function Character:setJob(job, bLoading)
+	if self:getJob() == Character.EMERGENCY and self:getSquadName() and job ~= Character.EMERGENCY then
+		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+		self:setSquadName(nil)
+	end
     assertdev(Character.JOB_NAMES[job])
     if not Character.JOB_NAMES[job] then
         job = Character.UNEMPLOYED

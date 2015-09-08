@@ -12,14 +12,13 @@ local ObjectList=require('ObjectList')
 local Base=require('Base')
 local Class=require('Class')
 local MOAIImageExt = require('SBRS.MOAIImageExt')
+local MOAIPropExt = require('SBRS.MOAIPropExt')
 
 local EmergencyBeacon = Class.create(nil, MOAIProp.new)
 
 EmergencyBeacon.COLOUR_VIOLENCE_HIGH = {0.9, 0, 0, 1}
 EmergencyBeacon.COLOUR_VIOLENCE_MEDIUM = Gui.AMBER
 EmergencyBeacon.COLOUR_VIOLENCE_LOW = {138 / 255, 43 / 255, 226 / 255}
-
-local kNUM_BEACON_TEXTURES = 6
 
 EmergencyBeacon.RENDER_LAYER = 'Cursor'
 EmergencyBeacon.MODE_TRAVELTO={spriteName='beacon_waypoint'}
@@ -42,37 +41,19 @@ EmergencyBeacon.tModes={EmergencyBeacon.MODE_TRAVELTO,EmergencyBeacon.MODE_BREAC
 function EmergencyBeacon:getActivityOptions()
 	local tActivityOptions = {}
 	for k,v in pairs(self.tBeacons) do
-		table.insert(tActivityOptions, v.rActivityOption)
+		if v.rActivityOption then
+			table.insert(tActivityOptions, v.rActivityOption)
+		end
 	end
 	return tActivityOptions
 end
 
 function EmergencyBeacon:init()
 	Room = require('Room')
-	self.nCount=0
-	self.deck = DFGraphics.loadSpriteSheet('UI/Beacon')
-	self.tChars = {}
 	self.tBeacons = {}
-
-	for _,tMode in ipairs(self.tModes) do
-		for index = 1, kNUM_BEACON_TEXTURES do
-			DFGraphics.alignSprite(self.deck, tMode.spriteName..index, "center", "bottom")
-		end
-	end
-
-	self:setDeck(self.deck)
-	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(self)
-	self:setScl(1.5,1.5,1.5)
-	self:setVisible(false)
-
-	self.rPreviewProp = MOAIProp.new()
-	self.rPreviewProp:setScl(1.5,1.5,1.5)
-	self.rPreviewProp:setDeck(self.deck)
+	self.rPreviewProp = MOAIPropExt.new()
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(self.rPreviewProp)
 	self.rPreviewProp:setVisible(false)
-
-	self:setColor(unpack(Gui.AMBER))
-	self.rPreviewProp:setColor(unpack(Gui.AMBER))
 end
 
 function EmergencyBeacon:setSelectedSquad(rSquad)
@@ -95,17 +76,26 @@ function EmergencyBeacon:getViolence(sSquadName)
 end
 
 function EmergencyBeacon:setViolence(sSquadName, eViolence)
-	if self.tBeacons[sSquadName] then
-		self.tBeacons[sSquadName].eViolence = eViolence
+	if not self.tBeacons[sSquadName] then
+		self:newBeacon(sSquadName)
+	end
+	self.tBeacons[sSquadName].eViolence = eViolence
+	if self.rSelectedSquad then
+		local beacon = self:_getCurrentBeacon()
+		self.rPreviewProp:setDeck(beacon.deck)
+		self.rPreviewProp:setVisible(true)
 	end
 end
 
 function EmergencyBeacon:newBeacon(sSquadName)
-	local beaconLow, beaconMed, beaconHigh = MOAIProp.new(), MOAIProp.new(), MOAIProp.new()
+	local beaconLow, beaconMed, beaconHigh = MOAIPropExt.new(), MOAIPropExt.new(), MOAIPropExt.new()
 	local deckHigh, deckMed, deckLow = self:_generateGraphics()
 	beaconHigh:setDeck(deckHigh)
 	beaconMed:setDeck(deckMed)
 	beaconLow:setDeck(deckLow)
+	beaconHigh.deck = deckHigh
+	beaconMed.deck = deckMed
+	beaconLow.deck = deckLow
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beaconHigh)
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beaconMed)
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beaconLow)
@@ -113,7 +103,7 @@ function EmergencyBeacon:newBeacon(sSquadName)
 	beaconMed:setVisible(false)
 	beaconLow:setVisible(false)
 	self.tBeacons[sSquadName] = {}
-	self.tBeacons[sSquadName].eViolence = EmergencyBeacon.VIOLENCE_DEFAULT 
+	self.tBeacons[sSquadName].eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
 	self.tBeacons[sSquadName].beaconLow = beaconLow
 	self.tBeacons[sSquadName].beaconMed = beaconMed
 	self.tBeacons[sSquadName].beaconHigh = beaconHigh
@@ -262,9 +252,18 @@ function EmergencyBeacon:_showPropAt(wx, wy, tx, ty, rProp)
 			rProp:setVisible(false)
 			return
 		end
+		if self.rSelectedSquad and self.tBeacons[self.rSelectedSquad.getName()] then
+			local beacon = self:_getCurrentBeacon()
+			if beacon:isVisible() then
+				rProp:setDeck(beacon.deck)
+				rProp:setVisible(true)
+			end
+		end
+	else
+		rProp:setVisible(true)
 	end
 
-	rProp:setVisible(true)
+	
 	if wx == math.inf or wy == math.inf or wx ~= wx or wy ~= wy then
 		assertdev(false)
 	else
@@ -513,7 +512,6 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
 		print("EmergencyBeacon:attachTo() self.tBeacons["..self.rSelectedSquad.getName().."] not found")
 		self:newBeacon(self.rSelectedSquad.getName())
 	end
---	self.tBeacons[self.rSelectedSquad.getName()]:clearAttrLink(MOAIProp.INHERIT_LOC)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:clearAttrLink(MOAIProp.INHERIT_LOC)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconMed:clearAttrLink(MOAIProp.INHERIT_LOC)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconLow:clearAttrLink(MOAIProp.INHERIT_LOC)
@@ -521,9 +519,6 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
 	beacon:setLoc(0, 400, 0)
 	beacon:setAttrLink(MOAIProp.INHERIT_LOC, rTargetObject, MOAIProp.TRANSFORM_TRAIT)
 	beacon:setVisible(true)
---	self.tBeacons[self.rSelectedSquad.getName()]:setLoc(0, 400, 0)
---	self.tBeacons[self.rSelectedSquad.getName()]:setAttrLink(MOAIProp.INHERIT_LOC, rTargetObject, MOAIProp.TRANSFORM_TRAIT)
---	self.tBeacons[self.rSelectedSquad.getName()]:setVisible(true)
 	self.tBeacons[self.rSelectedSquad.getName()].nCount = nCount or self.rSelectedSquad.getSize()
 	self.tBeacons[self.rSelectedSquad.getName()].tx, self.tBeacons[self.rSelectedSquad.getName()].ty = nil, nil
 	self.tBeacons[self.rSelectedSquad.getName()].rTargetObject = rTargetObject
@@ -579,7 +574,7 @@ function EmergencyBeacon:_getCurrentBeacon()
 end
 
 function EmergencyBeacon:needsMoreResponders(sSquadName)
-	if not self.tBeacons[sSquadName] then
+	if not self.tBeacons or not self.tBeacons[sSquadName] then
 		return false
 	end
 	if not self.tBeacons[sSquadName].rActivityOption then
@@ -597,13 +592,26 @@ function EmergencyBeacon:remove()
 	self.rPreviewProp:setVisible(false)
 	for k,v in pairs(self.tBeacons) do
 		v:setVisible(false)
-		k = nil
+		self:removeBeacon(v)
 	end
 	self:setVisible(false)
 	self:clearAttrLink(MOAITransform.INHERIT_LOC)
 end
 
-function EmergencyBeacon:removeSelectedBeacon()
+function EmergencyBeacon:removeBeacon(beacon)
+	if not self.rSelectedSquad or not self.tBeacons[self.rSelectedSquad.getName()] then
+		return
+	end
+	beacon.beaconHigh:clearAttrLink(MOAIProp.INHERIT_LOC)
+	beacon.beaconMed:clearAttrLink(MOAIProp.INHERIT_LOC)
+	beacon.beaconLow:clearAttrLink(MOAIProp.INHERIT_LOC)
+	beacon.beaconHigh:setVisible(false)
+	beacon.beaconMed:setVisible(false)
+	beacon.beaconLow:setVisible(false)
+	beacon = nil
+end
+
+function EmergencyBeacon:hideSelectedBeacon()
 	if not self.rSelectedSquad or not self.tBeacons[self.rSelectedSquad.getName()] then
 		return
 	end
@@ -613,7 +621,10 @@ function EmergencyBeacon:removeSelectedBeacon()
 	self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:setVisible(false)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconMed:setVisible(false)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconLow:setVisible(false)
-	self.tBeacons[self.rSelectedSquad.getName()] = nil
+	self.tBeacons[self.rSelectedSquad.getName()].rActivityOption = nil
+	self.tBeacons[self.rSelectedSquad.getName()].tx, self.tBeacons[self.rSelectedSquad.getName()].ty = nil, nil
+	self.rPreviewProp:setDeck()
+	self.rPreviewProp:setVisible(false)
 end
 
 function EmergencyBeacon:stopPreview()

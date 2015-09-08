@@ -122,6 +122,12 @@ function m.create()
     end
 	
 	function Ob:onSlotButtonPressed(rEntry, sName)
+		local rSquad = squadList.getSquad(sName)
+		if not rSquad then
+			print("BeaconMenu:onSlotButtonPressed() Error: Couldn't find squad.")
+			return
+		end
+		g_ERBeacon:setSelectedSquad(rSquad)
 		if activeEntry then
 			activeEntry:setSelected(false)
 			activeEntry = nil
@@ -135,13 +141,9 @@ function m.create()
 			rStandDownLabel:setVisible(true)
 			rStandDownHotkey:setVisible(true)
 			rThreatMediumButton:setSelected(true)
+			g_ERBeacon:setViolence(sName, EmergencyBeacon.VIOLENCE_DEFAULT)
 		end
 		rEntry:setSelected(true)
-		local rSquad = squadList.getSquad(sName)
-		if not rSquad then
-			print("BeaconMenu:onSlotButtonPressed() Error: Couldn't find squad.")
-			return
-		end
 		if g_ERBeacon:getViolence(sName) == 'High' then
 			rThreatHighButton:setSelected(true)
 		elseif g_ERBeacon:getViolence(sName) == 'Medium' then
@@ -149,7 +151,7 @@ function m.create()
 		elseif g_ERBeacon:getViolence(sName) == 'Low' then
 			rThreatLowButton:setSelected(true)
 		end
-		g_ERBeacon:setSelectedSquad(rSquad)
+		
 		activeEntry = rEntry
 	end
 	
@@ -183,7 +185,7 @@ function m.create()
 	function Ob:onStandDownButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
 			self:clearThreatButton()
-			g_ERBeacon:removeSelectedBeacon()
+			g_ERBeacon:hideSelectedBeacon()
 		end
 	end
 	
