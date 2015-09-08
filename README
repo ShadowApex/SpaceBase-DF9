@@ -1,0 +1,30 @@
+Spacebase DF-9 v2 - Space station building game
+
+This is a community maintained fork of DoubleFine's original game, which
+was open sourced May 12, 2015 under the Common Public Attribution
+License (CPAL-1.0: http://opensource.org/licenses/cpal_1.0).
+
+MOTD - May 12, 2015
+    Open source license available at: http://opensource.org/licenses/cpal_1.0
+
+    -- https://web.archive.org/web/20150512113236/http://blog.spacebasedf9.com/motd/motd.txt
+
+JP - Sept 17, 2014
+    We’re also pleased to announce we’ll be releasing the game’s full
+    Lua source code a short time after 1.0, which will allow the
+    community to create potentially far-ranging mods that add content,
+    new features, and change some fundamental game behaviors.
+
+    -- http://store.steampowered.com/news/externalpost/steam_community_announcements/521612880954244703
+
+JP - Oct 27, 2014
+    The game’s Lua source code is now available in the game’s install
+    directory on all platforms. Usually this will be in your Steam
+    directory, under SteamApps\common\SpacebaseDF9\Data\Scripts. If you
+    own the game you can modify these files and distribute your
+    modifications to other users as you like. A large portion of
+    Spacebase is written in Lua, so there are relatively few limits on
+    what you can do with this.
+
+    -- http://steamcommunity.com/games/246090/announcements/detail/216497448170557993
+
