@@ -526,7 +526,7 @@ function EventController.generateEventForecast(nForcePop,nForceTime)
     local nAllowedConsecutiveEvents = 3
     local nConsecutiveEvents = 1
 
-    -- thesed are passed into the onQueue function of the events for difficulty
+    -- these are passed into the onQueue function of the events for difficulty
     local nPopulationDeltaEstimate = nForcePop or CharacterManager.getOwnedCitizenPopulation()
     local nTimeDeltaEstimate = nForceTime or 0
 
