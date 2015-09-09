@@ -13,6 +13,9 @@ local t=
             screwYouResponse='DOCKUI151TEXT',screwYouResponseButton='DOCKUI149TEXT',
         },
     },
+
+    -- Brings 1-2 new crew members to the station unless population cap
+    -- has been reached.  Occurs more frequently in early portion of the game.
     immigrationEvents=
     {
         {   -- lost in space         
@@ -65,6 +68,8 @@ local t=
         },
     },
 	
+    -- Ship drops off 1-2 raiders who attack crew and/or try to board station
+    -- if the station has at least 6 crew members.
 	hostileImmigrationEvents=
     {
         {
@@ -88,6 +93,7 @@ local t=
         },
     },
     
+    -- Attempts a dock a derelict to the station
     dockingEvents=
     {
         ambiguous={
