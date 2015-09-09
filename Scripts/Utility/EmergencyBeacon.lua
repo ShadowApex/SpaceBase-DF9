@@ -81,7 +81,7 @@ function EmergencyBeacon:setViolence(sSquadName, eViolence)
 	end
 	self.tBeacons[sSquadName].eViolence = eViolence
 	if self.rSelectedSquad then
-		local beacon = self:_getCurrentBeacon()
+		local beacon = self:_getCurrentBeacon(sSquadName)
 		self.rPreviewProp:setDeck(beacon.deck)
 		self.rPreviewProp:setVisible(true)
 	end
@@ -96,6 +96,9 @@ function EmergencyBeacon:newBeacon(sSquadName)
 	beaconHigh.deck = deckHigh
 	beaconMed.deck = deckMed
 	beaconLow.deck = deckLow
+	beaconHigh.sSquadName = sSquadName
+	beaconMed.sSquadName = sSquadName
+	beaconLow.sSquadName = sSquadName
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beaconHigh)
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beaconMed)
 	Renderer.getRenderLayer(EmergencyBeacon.RENDER_LAYER):insertProp(beaconLow)
@@ -220,6 +223,9 @@ function EmergencyBeacon:getModeAt(tx, ty)
 end
 
 function EmergencyBeacon:_showPropAt(wx, wy, tx, ty, rProp)
+	if not rProp then
+		return
+	end
 	if rProp == self then
 		SoundManager.playSfx('placebeacon')
 	end
@@ -253,8 +259,8 @@ function EmergencyBeacon:_showPropAt(wx, wy, tx, ty, rProp)
 			return
 		end
 		if self.rSelectedSquad and self.tBeacons[self.rSelectedSquad.getName()] then
-			local beacon = self:_getCurrentBeacon()
-			if beacon:isVisible() then
+			local beacon = self:_getCurrentBeacon(self.rSelectedSquad.getName())
+			if beacon and beacon:isVisible() then
 				rProp:setDeck(beacon.deck)
 				rProp:setVisible(true)
 			end
@@ -263,7 +269,7 @@ function EmergencyBeacon:_showPropAt(wx, wy, tx, ty, rProp)
 		rProp:setVisible(true)
 	end
 
-	
+
 	if wx == math.inf or wy == math.inf or wx ~= wx or wy ~= wy then
 		assertdev(false)
 	else
@@ -273,52 +279,65 @@ function EmergencyBeacon:_showPropAt(wx, wy, tx, ty, rProp)
 	return tMode, tx, ty
 end
 
--- function EmergencyBeacon:getToolTipTextInfos() -- need to fix this
--- -- hovering in inspect mode, show nature and target of beacon order, eg
--- -- Secure Room (Lethal Force):
--- -- The Rusty Killbot
--- self.tToolTipTextInfos = {}
--- self.tToolTipTextInfos[1] = {}
--- self.tToolTipTextInfos[2] = {}
--- self.tToolTipTextInfos[3] = {}
--- -- character or room?
--- local rTarget = self.rTargetObject
--- local sOrderLC
--- if not rTarget then
--- assertdev(self.tx ~= nil)
--- if self.tx == nil then return {} end
--- rTarget = Room.getRoomAtTile(self.tx, self.ty, 1, true)
--- sOrderLC = 'UIMISC037TEXT'
--- else
--- sOrderLC = 'UIMISC035TEXT'
--- if not Base.isFriendlyToPlayer(rTarget) then
--- sOrderLC = 'UIMISC036TEXT'
--- end
--- end
--- local sTypeLC = EmergencyBeacon.tBeaconTypeLinecodes[self.eViolence]
--- local s = g_LM.line(sOrderLC) .. ' (' .. g_LM.line(sTypeLC) .. ')'
--- self.tToolTipTextInfos[1].sString = s
--- -- security icon
--- self.tToolTipTextInfos[1].sTextureSpriteSheet = 'UI/JobRoster'
--- self.tToolTipTextInfos[1].sTexture = 'ui_jobs_iconJobResponse'
--- -- beacon for hidden area?
--- local sTargetName
--- if not rTarget then
--- -- beacon is in space, don't show a room name if so
--- elseif ObjectList.getObjType(rTarget) == ObjectList.CHARACTER then
--- sTargetName = rTarget.tStats.sName
--- elseif rTarget.uniqueZoneName then
--- local wx,wy = self.tx and g_World._getWorldFromTile(self.tx, self.ty)
--- local bHidden = not wx or g_World.getVisibility(wx,wy) ~= g_World.VISIBILITY_FULL
--- if not bHidden then
--- sTargetName = rTarget.uniqueZoneName
--- end
--- end
--- if sTargetName then
--- self.tToolTipTextInfos[2].sString = sTargetName
--- end
--- return self.tToolTipTextInfos
--- end
+--function EmergencyBeacon:getToolTipTextInfos(test) -- need to fix this
+--	print("EmergencyBeacon:getToolTipTextInfos() test: "..test)
+--	-- hovering in inspect mode, show nature and target of beacon order, eg
+--	-- Secure Room (Lethal Force):
+--	-- The Rusty Killbot
+--	self.tToolTipTextInfos = {}
+--	self.tToolTipTextInfos[1] = {}
+--	self.tToolTipTextInfos[2] = {}
+--	self.tToolTipTextInfos[3] = {}
+--	-- character or room?
+--	local rTarget = self.rTargetObject
+--	local sOrderLC
+--	if not rTarget then
+--		assertdev(self.tx ~= nil)
+--		if self.tx == nil then return {} end
+--		rTarget = Room.getRoomAtTile(self.tx, self.ty, 1, true)
+--		sOrderLC = 'UIMISC037TEXT'
+--	else
+--		sOrderLC = 'UIMISC035TEXT'
+--		if not Base.isFriendlyToPlayer(rTarget) then
+--			sOrderLC = 'UIMISC036TEXT'
+--		end
+--	end
+--	local sTypeLC = EmergencyBeacon.tBeaconTypeLinecodes[self.eViolence]
+--	local s = g_LM.line(sOrderLC) .. ' (' .. g_LM.line(sTypeLC) .. ')'
+--	self.tToolTipTextInfos[1].sString = s
+--	-- security icon
+--	self.tToolTipTextInfos[1].sTextureSpriteSheet = 'UI/JobRoster'
+--	self.tToolTipTextInfos[1].sTexture = 'ui_jobs_iconJobResponse'
+--	-- beacon for hidden area?
+--	local sTargetName
+--	if not rTarget then
+--		-- beacon is in space, don't show a room name if so
+--	elseif ObjectList.getObjType(rTarget) == ObjectList.CHARACTER then
+--		sTargetName = rTarget.tStats.sName
+--	elseif rTarget.uniqueZoneName then
+--		local wx,wy = self.tx and g_World._getWorldFromTile(self.tx, self.ty)
+--		local bHidden = not wx or g_World.getVisibility(wx,wy) ~= g_World.VISIBILITY_FULL
+--		if not bHidden then
+--			sTargetName = rTarget.uniqueZoneName
+--		end
+--	end
+--	if sTargetName then
+--		self.tToolTipTextInfos[2].sString = sTargetName
+--	end
+--	return self.tToolTipTextInfos
+--end
+
+function EmergencyBeacon:isVisible(rProp)
+	print("EmergencyBeacon:isVisible() sSquadName: "..rProp.sSquadName)
+	if self.tBeacons[rProp.sSquadName].beaconHigh:isVisible() then
+		return true
+	elseif self.tBeacons[rProp.sSquadName].beaconMed:isVisible() then
+		return true
+	elseif self.tBeacons[rProp.sSquadName].beaconLow:isVisible() then
+		return true
+	end
+	return false
+end
 
 function EmergencyBeacon:showAtTile(tx, ty)
 	tx, ty = g_World.clampTileToBounds(tx, ty)
@@ -372,43 +391,50 @@ function EmergencyBeacon:charArrived(rChar)
 	self.tBeacons[rChar:getSquadName()].nCharsAtBeacon = nArrived
 end
 
-function EmergencyBeacon:getSaveTable() -- need to fix this
+function EmergencyBeacon:getSaveTable()
+	local World = require('World')
 	local t = {}
-	t.eViolence = self.eViolence
-	t.tx = self.tx
-	t.ty = self.ty
-	t.nCount = self.nCount
-	if self.tMode and self.tMode.spriteName then
-		-- save out the mode
-		t.spriteName = self.tMode.spriteName
-	end
-	if self.rTargetObject then
-		local tTag = ObjectList.getTag(self.rTargetObject)
-		if tTag then
-			t.tTargetObjTag = ObjectList.getTagSaveData(tTag)
+	for k, v in pairs(self.tBeacons) do
+		if World.getSquadList().getSquad(k) then
+			t[k] = {}
+			t[k].eViolence = v.eViolence
+			t[k].tx = v.tx
+			t[k].ty = v.ty
+			t[k].nCount = v.nCount
+			if v.tMode and v.tMode.spriteName then
+				t[k].spriteName = v.tMode.spriteName
+			end
+			if v.rTargetObject then
+				local tTag = ObjectList.getTag(v.rTargetObject)
+				if tTag then
+					t[k].tTargetObjTag = ObjectList.getTagSaveData(tTag)
+				end
+			end
 		end
 	end
 	return t
 end
 
-function EmergencyBeacon:fromSaveTable(t) -- need to fix this
-	if t.eViolence ~= nil then
-		self.eViolence = t.eViolence
-	else
-		self.eViolence = EmergencyBeacon.VIOLENCE_DEFAULT
-	end
-	local bSet = false
-	if t.tTargetObjTag then
-		self.tTargetObjTag = t.tTargetObjTag 
-		local rTargetObject = ObjectList.getObject(self.tTargetObjTag)
-		if rTargetObject then
-			self:attachTo(rTargetObject,t.ncount)
-			bSet = true
+function EmergencyBeacon:fromSaveTable(t)
+	for k,v in pairs(t) do
+		if type(v) ~= 'table' then
+			break -- old save, so ignore it
+		end
+		self:newBeacon(k)
+		self.tBeacons[k].eViolence = v.eViolence
+		local bSet = false
+		if v.tTargetObjTag then
+			self.tBeacons[k].tTargetObject = v.tTargetObjTag
+			local rTargetObject = ObjectList.getObject(self.tBeacons[k].tTargetObjTag)
+			if rTargetObject then
+				self:attachTo(rTargetObject, v.nCount)
+				bSet = true
+			end
+		end
+		if not bSet and v.tx and v.ty then
+			self:placeAt(v.tx, v.ty, v.nCount, {sSquadName = k})
 		end
 	end
-	if not bSet and t.tx and t.ty then
-		self:placeAt(t.tx,t.ty,t.nCount)
-	end 
 end
 
 function EmergencyBeacon:charWaiting(rChar,dt)
@@ -433,33 +459,38 @@ function EmergencyBeacon:getTargetTeam(rChar)
 	return self.tBeacons[rChar:getSquadName()].nTargetTeam
 end
 
-function EmergencyBeacon:placeAt(tx,ty,nCount)
-	if not self.rSelectedSquad then
+function EmergencyBeacon:placeAt(tx, ty, nCount, optional)
+	local sSquadName = nil
+	if self.rSelectedSquad then
+		sSquadName = self.rSelectedSquad.getName()
+	elseif optional and optional.sSquadName then
+		sSquadName = optional.sSquadName
+	end
+	if not sSquadName then
 		print("EmergencyBeacon:placeAt() Error: No squad selected")
 		return
 	end
 	local nTargetTeam = Room.getTeamAtTile(tx,ty,1)
 	local wx,wy = g_World._getWorldFromTile(tx,ty,1)
-	if not self.tBeacons[self.rSelectedSquad.getName()] then
-		print("EmergencyBeacon:placeAt() self.tBeacons["..self.rSelectedSquad.getName().."] not found")
-		self:newBeacon(self.rSelectedSquad.getName())
+	if not self.tBeacons[sSquadName] then
+		print("EmergencyBeacon:placeAt() self.tBeacons["..sSquadName.."] not found")
+		self:newBeacon(sSquadName)
 	end
-	self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:clearAttrLink(MOAIProp.INHERIT_LOC)
-	self.tBeacons[self.rSelectedSquad.getName()].beaconMed:clearAttrLink(MOAIProp.INHERIT_LOC)
-	self.tBeacons[self.rSelectedSquad.getName()].beaconLow:clearAttrLink(MOAIProp.INHERIT_LOC)
-	self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:setVisible(false)
-	self.tBeacons[self.rSelectedSquad.getName()].beaconMed:setVisible(false)
-	self.tBeacons[self.rSelectedSquad.getName()].beaconLow:setVisible(false)
-	local beacon = self:_getCurrentBeacon()
---	beacon:setLoc(wx, wy)
+	self.tBeacons[sSquadName].beaconHigh:clearAttrLink(MOAIProp.INHERIT_LOC)
+	self.tBeacons[sSquadName].beaconMed:clearAttrLink(MOAIProp.INHERIT_LOC)
+	self.tBeacons[sSquadName].beaconLow:clearAttrLink(MOAIProp.INHERIT_LOC)
+	self.tBeacons[sSquadName].beaconHigh:setVisible(false)
+	self.tBeacons[sSquadName].beaconMed:setVisible(false)
+	self.tBeacons[sSquadName].beaconLow:setVisible(false)
+	local beacon = self:_getCurrentBeacon(sSquadName)
 	local tMode,tx,ty = self:_showPropAt(wx, wy, tx, ty, beacon)
-	self.tBeacons[self.rSelectedSquad.getName()].tx, self.tBeacons[self.rSelectedSquad.getName()].ty = tx, ty
-	self.tBeacons[self.rSelectedSquad.getName()].rTargetObject = nil
-	self.tBeacons[self.rSelectedSquad.getName()].tChars = {}
-	self.tBeacons[self.rSelectedSquad.getName()].nCharsAtBeacon = 0
-	self.tBeacons[self.rSelectedSquad.getName()].tMode = tMode
-	self.tBeacons[self.rSelectedSquad.getName()].nTargetTeam = nTargetTeam
-	self.tBeacons[self.rSelectedSquad.getName()].nCount = nCount or self.rSelectedSquad.getSize()
+	self.tBeacons[sSquadName].tx, self.tBeacons[sSquadName].ty = tx, ty
+	self.tBeacons[sSquadName].rTargetObject = nil
+	self.tBeacons[sSquadName].tChars = {}
+	self.tBeacons[sSquadName].nCharsAtBeacon = 0
+	self.tBeacons[sSquadName].tMode = tMode
+	self.tBeacons[sSquadName].nTargetTeam = nTargetTeam
+	self.tBeacons[sSquadName].nCount = nCount or self.rSelectedSquad.getSize()
 
 	local tData = {}
 	tData.utilityGateFn = function(rChar)
@@ -474,33 +505,33 @@ function EmergencyBeacon:placeAt(tx,ty,nCount)
 		if not rSquad then
 			return false, 'could not find squad'
 		end
-		if rSquad.getName() == self.rSelectedSquad.getName() then
+		if rSquad.getName() == sSquadName then
 			return true
 		else
 			return false, 'not in squad'
 		end
 	end
 
-	tData.nMaxReservations = self.rSelectedSquad.getSize()
+	tData.nMaxReservations = nCount or self.rSelectedSquad.getSize()
 	wx,wy = g_World._getWorldFromTile(tx,ty)
-	if self.tBeacons[self.rSelectedSquad.getName()].tMode == EmergencyBeacon.MODE_TRAVELTO then
-		local bOutside = g_World.isAdjacentToSpace(self.tBeacons[self.rSelectedSquad.getName()].tx,self.tBeacons[self.rSelectedSquad.getName()].ty,true,true)
+	if self.tBeacons[sSquadName].tMode == EmergencyBeacon.MODE_TRAVELTO then
+		local bOutside = g_World.isAdjacentToSpace(self.tBeacons[sSquadName].tx,self.tBeacons[sSquadName].ty,true,true)
 		local sActivityName = (bOutside and 'ERCircleBeaconSpace') or 'ERCircleBeaconInside'
 		tData.bInside = not bOutside
 		tData.pathX,tData.pathY = wx,wy
 		tData.pathToNearest = true
-		self.tBeacons[self.rSelectedSquad.getName()].rActivityOption = ActivityOption.new(sActivityName, tData)
-	elseif self.tBeacons[self.rSelectedSquad.getName()].tMode == EmergencyBeacon.MODE_BREACH then
-	elseif self.tBeacons[self.rSelectedSquad.getName()].tMode == EmergencyBeacon.MODE_EXPLORE then
+		self.tBeacons[sSquadName].rActivityOption = ActivityOption.new(sActivityName, tData)
+	elseif self.tBeacons[sSquadName].tMode == EmergencyBeacon.MODE_BREACH then
+	elseif self.tBeacons[sSquadName].tMode == EmergencyBeacon.MODE_EXPLORE then
 		local sActivityName = 'ERBeaconExplore'
 		tData.pathX,tData.pathY = wx,wy
 		tData.pathToNearest = true
-		self.tBeacons[self.rSelectedSquad.getName()].rActivityOption = ActivityOption.new(sActivityName, tData)
+		self.tBeacons[sSquadName].rActivityOption = ActivityOption.new(sActivityName, tData)
 	else
-		self.tBeacons[self.rSelectedSquad.getName()].rActivityOption = nil
-		self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:setVisible(false)
-		self.tBeacons[self.rSelectedSquad.getName()].beaconMed:setVisible(false)
-		self.tBeacons[self.rSelectedSquad.getName()].beaconLow:setVisible(false)
+		self.tBeacons[sSquadName].rActivityOption = nil
+		self.tBeacons[sSquadName].beaconHigh:setVisible(false)
+		self.tBeacons[sSquadName].beaconMed:setVisible(false)
+		self.tBeacons[sSquadName].beaconLow:setVisible(false)
 	end
 end
 
@@ -515,7 +546,7 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:clearAttrLink(MOAIProp.INHERIT_LOC)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconMed:clearAttrLink(MOAIProp.INHERIT_LOC)
 	self.tBeacons[self.rSelectedSquad.getName()].beaconLow:clearAttrLink(MOAIProp.INHERIT_LOC)
-	local beacon = self:_getCurrentBeacon()
+	local beacon = self:_getCurrentBeacon(self.rSelectedSquad.getName())
 	beacon:setLoc(0, 400, 0)
 	beacon:setAttrLink(MOAIProp.INHERIT_LOC, rTargetObject, MOAIProp.TRANSFORM_TRAIT)
 	beacon:setVisible(true)
@@ -561,15 +592,18 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
 	self.tBeacons[self.rSelectedSquad.getName()].rActivityOption = ActivityOption.new(sActivityName, tData)
 end
 
-function EmergencyBeacon:_getCurrentBeacon()
-	if self.tBeacons[self.rSelectedSquad.getName()].eViolence == EmergencyBeacon.VIOLENCE_LETHAL then
-		return self.tBeacons[self.rSelectedSquad.getName()].beaconHigh
-	elseif self.tBeacons[self.rSelectedSquad.getName()].eViolence == EmergencyBeacon.VIOLENCE_DEFAULT then
-		return self.tBeacons[self.rSelectedSquad.getName()].beaconMed
-	elseif self.tBeacons[self.rSelectedSquad.getName()].eViolence == EmergencyBeacon.VIOLENCE_NONLETHAL then
-		return self.tBeacons[self.rSelectedSquad.getName()].beaconLow
+function EmergencyBeacon:_getCurrentBeacon(sSquadName)
+	if not sSquadName or not self.tBeacons[sSquadName] then
+		return nil
+	end
+	if self.tBeacons[sSquadName].eViolence == EmergencyBeacon.VIOLENCE_LETHAL then
+		return self.tBeacons[sSquadName].beaconHigh
+	elseif self.tBeacons[sSquadName].eViolence == EmergencyBeacon.VIOLENCE_DEFAULT then
+		return self.tBeacons[sSquadName].beaconMed
+	elseif self.tBeacons[sSquadName].eViolence == EmergencyBeacon.VIOLENCE_NONLETHAL then
+		return self.tBeacons[sSquadName].beaconLow
 	else
-		return self.tBeacons[self.rSelectedSquad.getName()].beaconMed
+		return self.tBeacons[sSquadName].beaconMed
 	end
 end
 
