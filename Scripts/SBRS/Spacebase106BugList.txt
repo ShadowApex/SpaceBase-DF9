@@ -76,7 +76,7 @@ Status: looking into it
 Assigned to: Rick (skenners)
 
 ****************************************************
-Bug: Rug on one of the angles is fucked
+Bug: Rug on one of the angles isn't aligned correctly, suspect the texture loading needs to be fixed
 Bug Location Found: bahnours list of bugs
 Additional Info: none
 Possible Location: check loading item loading for that specific item
@@ -84,7 +84,7 @@ Status: unchecked
 Assigned to: open
 
 ****************************************************
-Bug: Changing a character from mining job with matter in hand, they take the chunck back to base
+Bug: Changing a character from mining job to a different job with matter in hand, they take the chunck back to base instead of finishing up or dropping the chunk near the refinery
 Bug Location Found: bahnours list of bugs
 Additional Info: none
 Possible Location: pickups.lua and pickup rocks areas to modify where they take the chunk
@@ -108,17 +108,9 @@ Status: unchecked
 Assigned to: open
 
 ****************************************************
-Bug: doesn't seem to update zone description in inspector tab after selecting new zone, only after closing and reopening inspector tab
-Bug Location Found: bahnours list of bugs
-Additional Info: none
-Possible Location: check loading of inspector tab and its requirements
-Status: unchecked
-Assigned to: open
-
-****************************************************
 Bug: Dead people don't change from outside animation to inside when built into a room
 Bug Location Found: bahnours list of bugs
-Additional Info: none
+Additional Info: Dead people in space use a floating animation, when you build a room around them with O2 they still float.
 Possible Location: check room information and clarify if any dead people, to change them back.
 Status: unchecked
 Assigned to: open
