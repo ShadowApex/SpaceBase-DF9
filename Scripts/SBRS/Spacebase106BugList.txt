@@ -153,6 +153,44 @@ Status: unchecked
 Assigned to: none
 
 ****************************************************
+Bug: Abnormal path completion - subpath find failure
+Bug Location Found: Play log file (Bryce Harrington)
+Additional Info: 
+  stack traceback:
+      Data/Common/DFCommon/Util.lua:59: in function 'Print'
+      Data/Scripts/Pathfinder.lua:1408: in function 'increment'
+      Data/Scripts/Pathfinder.lua:1644: in function 'tick'
+      Data/Scripts/Utility/Task.lua:569: in function 'tickWalk'
+      Data/Scripts/Utility/Tasks/Patrol.lua:125: in function 'onUpdate'
+      Data/Scripts/Utility/Task.lua:265: in function 'update'
+      Data/Scripts/Character.lua:2388: in function 'updateAI'
+      Data/Scripts/CharacterManager.lua:419: in function 'onTick'
+      Data/Scripts/GameRules.lua:398: in function 'onTick'
+      Data/Scripts/main.lua:227: in function <Data/Scripts/main.lua:215>
+  ERROR Abnormal path completion: subpath find failure. Previous node type (none). Reason: path size 0
+Possible Location: Unknown
+Status: unchecked
+Assigned to: none
+
+****************************************************
+Bug: Cache miss on Citizen_Eat_Birdshark.anim
+Bug Location Found: Play log file (Bryce Harrington)
+Additional Info: 
+  Cache miss:  Linux/Munged/Characters/Citizen_Base/Animations/Citizen_Eat_Birdshark.anim
+  WARN Can't open file:  Linux/Munged/Characters/Citizen_Base/Animations/Citizen_Eat_Birdshark.anim
+Possible Location: Unknown
+Status: unchecked
+Assigned to: none
+****************************************************
+
+****************************************************
+Bug: WARN Incorrect reservation clear.
+Bug Location Found: Play log file (Bryce Harrington)
+Additional Info:  Occurs repeatedly in game log
+Possible Location: Unknown
+Status: unchecked
+Assigned to: none
+****************************************************
 
 
 
