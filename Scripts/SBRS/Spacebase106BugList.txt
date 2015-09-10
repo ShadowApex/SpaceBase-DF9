@@ -1,6 +1,10 @@
-This is a listing of all the official bugs from the original v1.06 that i could find across the internet that need to be looked into.
+This is a listing of all the official bugs from the original v1.06 that
+i could find across the internet that need to be looked into.
 
-Please add more if you find any. So far, they only need to be looked at or replicated as much as possible, but not fixed unless you can see the problem. We'll do bug fixes after releases and only on our stuff for starters. Churning out as much game data as possible is priority 1.
+Please add more if you find any. So far, they only need to be looked at
+or replicated as much as possible, but not fixed unless you can see the
+problem. We'll do bug fixes after releases and only on our stuff for
+starters. Churning out as much game data as possible is priority 1.
 
 format:
 
@@ -15,13 +19,33 @@ Assigned to:
 ****************************************************
 
 Bug: what the bug is
+
 Bug Location Found: where the bug was brought to your attention
-Additional Info: any info about the bug or anything about changes requested
-Possible Location: where the bug might be, or somewhere to look for it.
-Status: is anyone looking at it? (unchecked or looking into it)
-Assigned to: if so, who is looking at it? (open or someones name)
+Additional Info: any info about the bug or anything about changes
+requested Possible Location: where the bug might be, or somewhere to
+look for it.  Status: is anyone looking at it? (unchecked or looking
+into it) Assigned to: if so, who is looking at it? (open or someones
+name)
 
 
+
+GENERAL:
+
+****************************************************
+Bug: Far too many tantrums, especially scientists (suspect angry values are too high)
+Bug Location Found: bahnours list of bugs
+Additional Info: linked to morale rebalancing.  Affects both Windows and Linux.
+Possible Location: linked to morale and rebalancing of morale
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Raider ship still moves away while game is paused
+Bug Location Found: bahnours list of bugs
+Additional Info: Affects both Windows and Linux.
+Possible Location: animation check and loading/unloading of the raider ships. confirm that this is a universal thing
+Status: unchecked
+Assigned to: open
 
 
 
@@ -52,14 +76,6 @@ Status: unchecked
 Assigned to: open
 
 ****************************************************
-Bug: Far too many tantrums, especially scientists (suspect angry values are too high)
-Bug Location Found: bahnours list of bugs
-Additional Info: linked to morale rebalancing
-Possible Location: linked to morale and rebalancing of morale
-Status: unchecked
-Assigned to: open
-
-****************************************************
 Bug: doesn't seem to update zone description in inspector tab after selecting new zone, only after closing and reopening inspector tab
 Bug Location Found: bahnours list of bugs
 Additional Info: none
@@ -70,8 +86,8 @@ Assigned to: open
 ****************************************************
 Bug: Scripts/String/MainGame_enUS.lua exists and appears to be orphaned (isn't used by anything)
 Bug Location Found: bahnours list of bugs
-Additional Info: none
-Possible Location: requires going through the files to see whats orphaned and what isnt
+Additional Info: On Linux there is no Scripts/String/ subdir at all.
+Possible Location: requires going through the files to see what's orphaned and what isn't
 Status: looking into it
 Assigned to: Rick (skenners)
 
@@ -88,14 +104,6 @@ Bug: Changing a character from mining job to a different job with matter in hand
 Bug Location Found: bahnours list of bugs
 Additional Info: none
 Possible Location: pickups.lua and pickup rocks areas to modify where they take the chunk
-Status: unchecked
-Assigned to: open
-
-****************************************************
-Bug: Raider ship still moves away while game is paused
-Bug Location Found: bahnours list of bugs
-Additional Info: none
-Possible Location: animation check and loading/unloading of the raider ships. confirm that this is a universal thing
 Status: unchecked
 Assigned to: open
 
@@ -133,17 +141,13 @@ Assigned to: open
 
 
 
-
-
-
-
-
 LINUX:
 
 ****************************************************
 Bug: reading the modding directory
 Bug Location Found: DF bug Forums
-Additional Info: Apparently no modding files are read in the mod directory, also problem with MAC and lesser degree WINDOWS
+Additional Info: Apparently no modding files are read in the mod
+directory, also problem with MAC and lesser degree WINDOWS
 Possible Location: Unknown
 Status: unchecked
 Assigned to: none
