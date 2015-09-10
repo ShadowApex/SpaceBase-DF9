@@ -148,7 +148,7 @@ Bug: reading the modding directory
 Bug Location Found: DF bug Forums
 Additional Info: Apparently no modding files are read in the mod
 directory, also problem with MAC and lesser degree WINDOWS
-Possible Location: Unknown
+Possible Location: Reading of the mod files is done in the executable, which we have no control over
 Status: unchecked
 Assigned to: none
 
@@ -203,7 +203,7 @@ MAC:
 Bug: reading the modding directory
 Bug Location Found: DF bug Forums
 Additional Info: Apparently no modding files are read in the mod directory, also problem with LINUX and lesser degree WINDOWS
-Possible Location: Unknown
+Possible Location: Reading of the mod files is done in the executable, which we have no control over
 Status: unchecked
 Assigned to: none
 
