@@ -28,3 +28,10 @@ JP - Oct 27, 2014
 
     -- http://steamcommunity.com/games/246090/announcements/detail/216497448170557993
 
+Debugging
+=========
+To test events more quickly you can toggle the dev debug stuff so you
+can generate a new list of events and activate them at your
+will. There’s a good amount of info on debugging on the wiki.
+
+  http://spacebasedf9.gamepedia.com/Source_Documentation
