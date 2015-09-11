@@ -18,6 +18,7 @@ DockingEvent.sEventType = 'friendlyDockingEvents'
 DockingEvent.sAlertLC = 'ALERTS028TEXT'
 DockingEvent.sFailureLC = 'ALERTS024TEXT'
 DockingEvent.sDialogSet = 'dockingEvents'
+DockingEvent.DEFAULT_WEIGHT = 5.0
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
@@ -31,7 +32,7 @@ function DockingEvent.getWeight(nPopulation, nElapsedTime)
     if nPopulation >= g_nPopulationCap then
         return 0
     end
-    return 5.0
+    return DockingEvent.DEFAULT_WEIGHT
 end
 
 function DockingEvent.allowEvent(nPopulation, nElapsedTime)

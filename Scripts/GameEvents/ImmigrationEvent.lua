@@ -38,6 +38,7 @@ ImmigrationEvent.sRejectionFailAlert='ALERTS025TEXT'
 ImmigrationEvent.sRejectionSuccessAlert='ALERTS024TEXT'
 ImmigrationEvent.sAcceptedSuccessAlert='ALERTS030TEXT'
 ImmigrationEvent.sDialogSkippedAlert='ALERTS041TEXT'
+ImmigrationEvent.DEFAULT_WEIGHT = 50
 
 function ImmigrationEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(false)
@@ -54,9 +55,9 @@ function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)
     end
 	-- in early game try to help player get to a minimum viable population size
 	if nElapsedTime < ImmigrationEvent.EARLY_POPULATION_TIME and nPopulation < ImmigrationEvent.EARLY_POPULATION_THRESHOLD then
-		return 75.0
+		return ImmigrationEvent.DEFAULT_WEIGHT * 1.5
 	end
-    return 50.0
+    return ImmigrationEvent.DEFAULT_WEIGHT
 end
 
 function ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

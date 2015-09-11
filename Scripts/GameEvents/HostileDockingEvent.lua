@@ -15,6 +15,7 @@ local CharacterManager = require('CharacterManager')
 local MiscUtil = require('MiscUtil')
 
 HostileDockingEvent.sEventType = 'hostileDockingEvents'
+HostileDockingEvent.DEFAULT_WEIGHT = 5.0
 
 function HostileDockingEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
@@ -26,7 +27,7 @@ function HostileDockingEvent.onQueue(rController, tUpcomingEventPersistentState,
 end
 
 function HostileDockingEvent.getWeight()
-    return 5.0
+    return HostileDockingEvent.DEFAULT_WEIGHT
 end
 
 function HostileDockingEvent._ignoreRefusal(tPersistentEventState)

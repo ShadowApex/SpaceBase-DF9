@@ -10,6 +10,7 @@ TraderEvent.bSkipAlert = false
 TraderEvent.sAlertLC = 'ALERTS028TEXT'
 TraderEvent.sFailureLC = 'ALERTS024TEXT'
 TraderEvent.sDialogSet = 'traderEvents'
+TraderEvent.DEFAULT_WEIGHT = 25.0
 
 function TraderEvent.allowEvent( nPopulation, nElapsedTime)
 	print("Checking if traderEvents is allowed",nPopulation > 6 or GameRules.elapsedTime > 60*12)
@@ -17,7 +18,7 @@ function TraderEvent.allowEvent( nPopulation, nElapsedTime)
 end
 
 function TraderEvent.getWeight( nPopulation, nElapsedTime )
-	return 25.0
+	return TraderEvent.DEFAULT_WEIGHT
 end
 
 function  TraderEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

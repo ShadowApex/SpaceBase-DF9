@@ -15,6 +15,7 @@ HostileImmigrationEvent.sEventType = 'hostileImmigrationEvents'
 HostileImmigrationEvent.sAlertLC = 'ALERTS028TEXT'
 HostileImmigrationEvent.sFailureLC = 'ALERTS024TEXT'
 HostileImmigrationEvent.sDialogSet = 'hostileImmigrationEvents'
+HostileImmigrationEvent.DEFAULT_WEIGHT = 15.0
 
 function HostileImmigrationEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
@@ -25,7 +26,7 @@ function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)
 end
 
 function HostileImmigrationEvent.getWeight()
-    return 15.0
+    return HostileImmigrationEvent.DEFAULT_WEIGHT
 end
 
 function HostileImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
