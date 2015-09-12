@@ -2590,6 +2590,7 @@
     UITASK079TEXT = { sLine = "Incinerating Something", },
     UITASK080TEXT = { sLine = "Dropping Something", },
     UITASK081TEXT = { sLine = "Displaying Something", },
+	UITASK082TEXT = { sLine = "Cleaning up", },
     ZONEUI001TEXT = { sLine = "Life Support", },
     ZONEUI002TEXT = { sLine = "Provides oxygen. Must be monitored by technicians.", },
     ZONEUI003TEXT = { sLine = "Reactor", },

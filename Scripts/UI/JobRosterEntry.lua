@@ -22,8 +22,8 @@ local tJobInfo =
     [Character.SCIENTIST] = 'Job7',
     [Character.DOCTOR] = 'Job8',
     [Character.JANITOR] = 'Job9',
-	[Character.TRADER] = 'Job10',
-    [Character.UNEMPLOYED] = 'Job11'
+    [Character.UNEMPLOYED] = 'Job10',
+	[Character.TRADER] = 'Job11'
 }
 local tJobTextureInfo =
 {
@@ -36,8 +36,8 @@ local tJobTextureInfo =
     [Character.SCIENTIST] = Character.JOB_ICONS[Character.SCIENTIST],
     [Character.DOCTOR] = Character.JOB_ICONS[Character.DOCTOR],
     [Character.JANITOR] = Character.JOB_ICONS[Character.TECHNICIAN],
-	[Character.TRADER] = Character.JOB_ICONS[Character.TECHNICIAN],
-    [Character.UNEMPLOYED] = Character.JOB_ICONS[Character.UNEMPLOYED]
+    --[Character.UNEMPLOYED] = Character.JOB_ICONS[Character.UNEMPLOYED],
+	--[Character.TRADER] = Character.JOB_ICONS[Character.TECHNICIAN]
 }
 local tJobCompetencyTexture =
 {
@@ -50,7 +50,6 @@ local tJobCompetencyTexture =
     [Character.SCIENTIST] = 'Job7SkillLevel',
     [Character.DOCTOR] = 'Job8SkillLevel',
     [Character.JANITOR] = 'Job9SkillLevel',
-	[Character.TRADER] = 'Job10SkillLevel',
 }
 local tCompetencyInfo =
 {
@@ -94,7 +93,6 @@ local tJobBGInfo =
     [Character.SCIENTIST] = 'ActiveJob7BG',
     [Character.DOCTOR] = 'ActiveJob8BG',
     [Character.JANITOR] = 'ActiveJob9BG',
-	[Character.TRADER] = 'ActiveJob10BG',
 }
 local tJobButtonButtonMapping =
 {
@@ -107,7 +105,6 @@ local tJobButtonButtonMapping =
     [Character.SCIENTIST] = 'Job7Button',
     [Character.DOCTOR] = 'Job8Button',
     [Character.JANITOR] = 'Job9Button',
-	[Character.TRADER] = 'Job10Button',
     [Character.UNEMPLOYED] = 'UnassignedJobButton',
 }
 

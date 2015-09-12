@@ -408,9 +408,12 @@ function Character:_remove()
 	rBGLayer:removeProp( self )
 	ObjectList.removeObject(self.tag)
 	self.tag = nil
+
 	if self:getSquadName() then
-		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
-		self:setSquadName(nil)
+		if self:getUniqueID() ~= nil then
+			World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+			self:setSquadName(nil)
+		end
 	end
 end
 
@@ -470,7 +473,7 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 	if not bStartDead then
 		assert(self.tStatus.health ~= Character.STATUS_DEAD)
 	end
-    -- spawn a pick-up-able corpse object, so doctors can inter our remains
+    -- spawn a pick-up-able corpse object, so janitors can inter our remains
     if cause ~= Character.CAUSE_OF_DEATH.SUCKED_INTO_SPACE and not self.tStatus.bCreatedCorpse then
         self.tStatus.bCreatedCorpse = true
         local nCorpseType = nil
