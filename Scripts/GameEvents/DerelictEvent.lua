@@ -30,8 +30,7 @@ function DerelictEvent.getWeight(nPopulation, nElapsedTime, bForecast)
     end
     if bForecast then return 10.0 end
     local _,nPlayerRooms,nHiddenRooms = Room.getRoomsOfTeam(Character.TEAM_ID_PLAYER)
-    local bAllowDerelict = nHiddenRooms < DerelictEvent.nMaxUndiscoveredRooms
-    if bAllowDerelict then
+    if nHiddenRooms < DerelictEvent.nMaxUndiscoveredRooms then
         return 10.0
     end
     if nHiddenRooms > DerelictEvent.nMaxUndiscoveredRooms * .5 then
