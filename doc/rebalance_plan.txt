@@ -1,0 +1,13 @@
+Spacebase DF-9 rebalance plan
+
+Each time a hostile event will trigger, a difficulty rating will be determined.
+
+difficulty rating = location modifier * population modifier * game type modifier
+
+location modifier = location is selected at beginning of game
+population modifier = modifier based on population
+game type modifier = 2 game types, Losing is Fun is harder, difficulty will progress faster and you will inevitably lose.  Building is Fun is easier, with a slower difficulty progression, you will be able to build large bases with this game type.
+
+Each hostile event will have a minimum difficulty rating, if it fires with a lower difficulty rating than the minimum a new one will be selected.
+
+Remove "end game raider event", might put back in, might not.
