@@ -54,6 +54,7 @@ Event.tMaladyProbabilities = {
 }
 
 Event.nAlertPriority = 1
+Event.DEFAULT_WEIGHT = 5
 
 function Event._getExpMod(sMod)
     -- map 0-1 hostility to .5 to 2x, where 0.5 hostility = 1x.
@@ -83,7 +84,7 @@ end
 -- we pipe in these two arguments because we are likely generating a weight
 -- for a future event.
 function Event.getWeight(nPopulation, nElapsedTime)
-    return 5
+    return Event.DEFAULT_WEIGHT
 end
 
 -- Is it ok to run this event given these attributes about the world?

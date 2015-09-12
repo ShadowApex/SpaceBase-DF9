@@ -25,10 +25,6 @@ function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > 6 or GameRules.elapsedTime > 60*12
 end
 
-function HostileImmigrationEvent.getWeight()
-    return HostileImmigrationEvent.DEFAULT_WEIGHT
-end
-
 function HostileImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 

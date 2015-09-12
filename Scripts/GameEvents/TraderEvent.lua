@@ -17,10 +17,6 @@ function TraderEvent.allowEvent( nPopulation, nElapsedTime)
 	return nPopulation > 6 or GameRules.elapsedTime > 60*12
 end
 
-function TraderEvent.getWeight( nPopulation, nElapsedTime )
-	return TraderEvent.DEFAULT_WEIGHT
-end
-
 function  TraderEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 	print("traderEvent queued")
 	ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

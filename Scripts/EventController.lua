@@ -547,19 +547,23 @@ function EventController.generateEventForecast(nForcePop,nForceTime)
         local nCount = 0
         for sEventType, rClass in pairs(EventController.tEventClasses) do
             if (nConsecutiveEvents < 3 or (i > 1 and sEventType ~= EventController.tS.tEventForecast[i-1].sEventType))
-                and rClass.allowEvent(nPopulationEstimate, nTimeEstimate) then
-                
-                tWeights[sEventType] =
-                    rClass.getWeight(nPopulationEstimate, nTimeEstimate)
-                    * EventController.tS.tSpawnModifiers[sEventType]
-                nCount = nCount + 1
+	    and rClass.allowEvent(nPopulationEstimate, nTimeEstimate) then
+
+	       if rClass.DEFAULT_WEIGHT then
+		  weight = rClass.DEFAULT_WEIGHT
+	       else
+		  weight = rClass.getWeight(nPopulationEstimate, nTimeEstimate)
+	       end
+	       print('weight for',sEventType,'is',weight)
+	       tWeights[sEventType] = weight * EventController.tS.tSpawnModifiers[sEventType]
+	       nCount = nCount + 1
             end
         end
         if nCount == 0 then
             tWeights[ImmigrationEvent.sEventType] = 1
             nCount = 1
         end
-        
+
         local sNextEventType = MiscUtil.weightedRandom(tWeights)
 
         if i > 1 and sNextEventType == EventController.tS.tEventForecast[i-1].sEventType then

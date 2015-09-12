@@ -25,10 +25,6 @@ function MeteorEvent.getSpawnLocationModifier()
     return Event._getExpMod('asteroids')
 end
 
-function MeteorEvent.getWeight()
-    return MeteorEvent.DEFAULT_WEIGHT
-end
-
 function MeteorEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > 4 or GameRules.elapsedTime > 60*10
 end

@@ -26,10 +26,6 @@ function HostileDockingEvent.onQueue(rController, tUpcomingEventPersistentState,
     DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 end
 
-function HostileDockingEvent.getWeight()
-    return HostileDockingEvent.DEFAULT_WEIGHT
-end
-
 function HostileDockingEvent._ignoreRefusal(tPersistentEventState)
     return math.random() > 0.33
 end
