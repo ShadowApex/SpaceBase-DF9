@@ -25,3 +25,9 @@ Trader Event
 -- Buildable object progression
 
 O2Gen line - I'm thinking we increase the cost and increase the amount of 02 generated.
+
+level	original	new
+1		150/50		150/50
+2		250/200		300/300
+3		350/350		450/600
+4		450/500		600/950
