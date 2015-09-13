@@ -94,15 +94,6 @@ function Event.allowEvent(nPopulation, nElapsedTime)
     return true
 end
 
-
-function Event._difficultyCurve(x)
-    -- TODO make this non linear?
-    -- maybe just keep this linear, then have the internals of each event
-    -- respond to difficulty non-linearly
-    return x
-end
-
-
 -- Called when the event is placed on the event queue. E.g. turn on meteor indicator
 function Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     tUpcomingEventPersistentState.nDifficulty = Event.getDifficulty(nElapsedTime,nPopulation)
@@ -124,7 +115,7 @@ function Event.getDifficulty(nOptionalTime,nOptionalPopulation)
     -- this should be in [0,1], but just in case
     x = math.min(1.0, math.max(0.0, x))
 
-    return Event._difficultyCurve(x)
+    return x
 end
 
 -- Called when the alert for this event is displayed.
