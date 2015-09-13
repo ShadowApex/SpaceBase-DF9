@@ -35,3 +35,14 @@ can generate a new list of events and activate them at your
 will. There’s a good amount of info on debugging on the wiki.
 
   http://spacebasedf9.gamepedia.com/Source_Documentation
+
+Code Style
+==========
+The code uses 'hungarian notation'.  For an explanation, see
+
+  http://blogs.msdn.com/b/ericlippert/archive/2003/09/12/52989.aspx
+
+We believe the meaning is:  n is Number, b is Boolean, t is Table, r is
+Reference.
+
+
