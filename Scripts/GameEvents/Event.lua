@@ -35,6 +35,10 @@ Event.tMaladyProbabilities = {
         nChanceOfAffliction = 50,
         nChanceOfNewStrain = 50,
     },
+    Dysentery = {
+        nChanceOfAffliction = 20,
+        nChanceOfNewStrain = 10,
+    },
     SlackersDisease = {
         nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,

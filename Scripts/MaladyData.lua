@@ -103,6 +103,47 @@ local t=
         },
     },
 
+    Dysentery=
+    {
+        sDesc='DISEAS034TEXT',
+        bSpreadSneeze=false,
+        bSpreadTouch=true,
+        nPerceivedSeverity=.25,
+        nSeverity=.75,
+        nImmuneChance=.1,
+        tTimeToContagious={30,60*15},
+        nFieldTreatSkill=2,
+        nBacteriaLifetime=60*15,
+        bCreateStrains=true,
+	sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
+        tSymptomStages=
+        {
+            {
+	        tTimeToSymptoms={10,60*2},
+		tReduceMods={
+		   Duty=.25,
+		   Hunger=0,
+		},
+                sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
+            },
+	    {
+                tTimeToSymptoms={60*2,60*12},
+                tReduceMods={
+                    Duty=0,
+                    Social=.2,
+                    Amusement=.2,
+                    Hunger=0,
+                    Energy=.2,
+                },
+                sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
+            },
+            {
+                tTimeToSymptoms={60*12,60*15},
+                sSpecial='death',
+            },
+        },
+    },
+
     SlackersDisease=
     {
         sDesc='DISEAS025TEXT',
