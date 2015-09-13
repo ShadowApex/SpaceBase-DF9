@@ -319,7 +319,16 @@
     DOCKUI179TEXT = { sLine = "Good Friday to YOU, sir!", },
     DOCKUI180TEXT = { sLine = "Wait, I can figure this out, I'll use my brains.", },
     DOCKUI181TEXT = { sLine = "Do you really believe that's wise?", },
-
+	
+	DOCKUI182TEXT = { sLine = "Dark Side of the Moon Mining Group", },
+	DOCKUI183TEXT = { sLine = "Hello? Is there anybody in there? Just nod if you can hear me! Is there anyone home?\n\n And can we join you?", },
+	DOCKUI184TEXT = { sLine = "Well, I can ease your pain and get you on your feet again. Come Aboard!", },
+	DOCKUI185TEXT = { sLine = "Buzz Off Hippy!", },
+	DOCKUI186TEXT = { sLine = "Awesome. We'll float on over when our hands dont feel like two balloons!", },
+	DOCKUI187TEXT = { sLine = "Ok, but I'll need some information first, Just the basic facts", },
+	DOCKUI188TEXT = { sLine = "Awww duuuuuude.. you're harshing my vibe!", },
+	DOCKUI189TEXT = { sLine = "Get a haircut!", },
+	
     DUTIES001TEXT = { sLine = "Unassigned", },
     DUTIES002TEXT = { sLine = "No Primary Duty", },
     DUTIES003TEXT = { sLine = "Builder", },
@@ -2855,4 +2864,7 @@
 	DEBUG001TEXT = { sLine = "Debug", },
 	DEBUG002TEXT = { sLine = "Finish research"},
 	DEBUG003TEXT = { sLine = "Finish all research"},
+	DEBUG004TEXT = { sLine = "Finish all Malady research"},
+	DEBUG005TEXT = { sLine = "All Base is Happy"},
+	DEBUG006TEXT = { sLine = "All Base is Sad"},
 }

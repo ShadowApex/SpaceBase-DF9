@@ -8,7 +8,7 @@ local nButtonWidth, nButtonHeight  = 330, 81
 local nButtonStartY = -100
 local nDoneLabelX, nLabelX, nLabelStartY = 105, 30, -133
 local nHotkeyX, nHotkeyStartY = nButtonWidth - 112, -169
-local numButtons = 2
+local numButtons = 5
 
 return 
 {
@@ -108,7 +108,7 @@ return
 		{
             key = 'ResearchButton',
             type = 'onePixelButton',
-            pos = { 0, nButtonStartY },
+            pos = { 0, nButtonStartY }, -- 0,-100
             scale = { nButtonWidth, nButtonHeight },
             color = Gui.BLACK,
             onPressed =
@@ -238,7 +238,7 @@ return
 		{
             key = 'ResearchAllLabel',
             type = 'textBox',
-            pos = { nLabelX, nButtonStartY - nButtonHeight },
+            pos = { nLabelX, nButtonStartY - nButtonHeight }, --  -100 - 81 = -181
             linecode = 'DEBUG003TEXT',
             style = 'dosisregular40',
             rect = { 0, nButtonHeight, nButtonWidth, 0 },
@@ -257,6 +257,238 @@ return
             vAlign = MOAITextBox.CENTER_JUSTIFY,
             color = SELECTION_AMBER
         },
+		--------------------------------------------
+		{
+            key = 'ResearchAllMaladyButton',
+            type = 'onePixelButton',
+            pos = { 0, nButtonStartY - (nButtonHeight *2) }, --  -100 - 81 = 262
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'ResearchAllMaladyButton',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'ResearchAllMaladyButton',
+                    color = AMBER,
+                },
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'ResearchAllMaladyButton',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'ResearchAllMaladyLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    key = 'ResearchAllMaladyHotkey',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'ResearchAllMaladyButton',
+                    color = Gui.BLACK,
+                },
+                {
+                    key = 'ResearchAllMaladyLabel',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'ResearchAllMaladyHotkey',
+                    color = SELECTION_AMBER,
+                },
+            },
+        },
+		{
+            key = 'ResearchAllMaladyLabel',
+            type = 'textBox',
+            pos = { nLabelX, nButtonStartY - (nButtonHeight *2) },
+            linecode = 'DEBUG004TEXT',
+            style = 'dosisregular40',
+            rect = { 0, nButtonHeight, nButtonWidth, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER,
+        },
+        {
+            key = 'ResearchAllMaladyHotkey',
+            type = 'textBox',
+            pos = { 0, nButtonStartY - (nButtonHeight *2) - 5 },
+            text = '3.',
+            style = 'dosissemibold22',
+            rect = { 0, nButtonHeight, 20, 0 },
+            hAlign = MOAITextBox.RIGHT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER
+        },
+		-----------------------------------------------
+		{
+            key = 'MakeAllHappyButton',
+            type = 'onePixelButton',
+            pos = { 0, nButtonStartY - (nButtonHeight *3) },
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'MakeAllHappyButton',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'MakeAllHappyButton',
+                    color = AMBER,
+                },
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'MakeAllHappyButton',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'MakeAllHappyLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    key = 'MakeAllHappyHotkey',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'MakeAllHappyButton',
+                    color = Gui.BLACK,
+                },
+                {
+                    key = 'MakeAllHappyLabel',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'MakeAllHappyHotkey',
+                    color = SELECTION_AMBER,
+                },
+            },
+        },
+		{
+            key = 'MakeAllHappyLabel',
+            type = 'textBox',
+            pos = { nLabelX, nButtonStartY - (nButtonHeight *3) },
+            linecode = 'DEBUG005TEXT',
+            style = 'dosisregular40',
+            rect = { 0, nButtonHeight, nButtonWidth, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER,
+        },
+        {
+            key = 'MakeAllHappyHotkey',
+            type = 'textBox',
+            pos = { 0, nButtonStartY - (nButtonHeight *3) - 5 },
+            text = '4.',
+            style = 'dosissemibold22',
+            rect = { 0, nButtonHeight, 20, 0 },
+            hAlign = MOAITextBox.RIGHT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER
+        },
+		-----------------------------------------------------------------
+		{
+            key = 'MakeAllSadButton',
+            type = 'onePixelButton',
+            pos = { 0, nButtonStartY - (nButtonHeight *4) },
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'MakeAllSadButton',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'MakeAllSadButton',
+                    color = AMBER,
+                },
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'MakeAllSadButton',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'MakeAllSadLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    key = 'MakeAllSadHotkey',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'MakeAllSadButton',
+                    color = Gui.BLACK,
+                },
+                {
+                    key = 'MakeAllSadLabel',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'MakeAllSadHotkey',
+                    color = SELECTION_AMBER,
+                },
+            },
+        },
+		{
+            key = 'MakeAllSadLabel',
+            type = 'textBox',
+            pos = { nLabelX, nButtonStartY - (nButtonHeight *4) },
+            linecode = 'DEBUG006TEXT',
+            style = 'dosisregular40',
+            rect = { 0, nButtonHeight, nButtonWidth, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER,
+        },
+        {
+            key = 'MakeAllSadHotkey',
+            type = 'textBox',
+            pos = { 0, nButtonStartY - (nButtonHeight *4) - 5 },
+            text = '5.',
+            style = 'dosissemibold22',
+            rect = { 0, nButtonHeight, 20, 0 },
+            hAlign = MOAITextBox.RIGHT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER
+        },
+		------------
         {
             key = 'SidebarBottomEndcapExpanded',
             type = 'uiTexture',

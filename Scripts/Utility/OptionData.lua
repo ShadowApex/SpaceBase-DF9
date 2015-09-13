@@ -316,7 +316,7 @@ local tAdvertisedActivities=
     },
 	-- Janitor
     DropOffCorpse = {
-        Needs={ Duty=20, }, --6
+        Needs={ Duty=30, }, --6
         ScoreMods={},
         ClassPath='Utility.Tasks.DropOffCorpse',
         Tags={WorkShift=true,Job=Character.JANITOR,DestOwned=true,},
