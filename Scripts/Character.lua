@@ -550,8 +550,11 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 	
 	-- remove player from squad if they are a member of one
 	if self:getSquadName() then
-		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
-		self:setSquadName(nil)
+		local rSquadList = World.getSquadList()
+		if rSquadList.getSquad(self:getSquadName()) then
+			World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+			self:setSquadName(nil)
+		end
 	end
 	
 	callback( self )
