@@ -408,13 +408,6 @@ function Character:_remove()
 	rBGLayer:removeProp( self )
 	ObjectList.removeObject(self.tag)
 	self.tag = nil
-
-	if self:getSquadName() then
-		if self:getUniqueID() ~= nil then
-			World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
-			self:setSquadName(nil)
-		end
-	end
 end
 
 function Character:setVisible(bVisible)
@@ -553,6 +546,12 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 	if self.rEmoticon then
 		self:setEmoticon(nil)
 		self.rEmoticon = nil
+	end
+	
+	-- remove player from squad if they are a member of one
+	if self:getSquadName() then
+		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+		self:setSquadName(nil)
 	end
 	
 	callback( self )
