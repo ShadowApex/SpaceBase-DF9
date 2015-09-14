@@ -91,6 +91,7 @@ function Event.getWeight(nPopulation, nElapsedTime)
     return Event.DEFAULT_WEIGHT
 end
 
+--- Indicates whether conditions are sufficient for this event.
 -- Is it ok to run this event given these attributes about the world?
 -- we pipe in these two arguments because we are likely generating a weight
 -- for a future event.
@@ -98,7 +99,12 @@ function Event.allowEvent(nPopulation, nElapsedTime)
     return true
 end
 
+--- Handler for when event is queued.
 -- Called when the event is placed on the event queue. E.g. turn on meteor indicator
+-- @param rController
+-- @param tUpcomingEventPersistentState
+-- @param nPopulation number of crew members at time of the event
+-- @param nElapsedTime length of time since start of the game
 function Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     tUpcomingEventPersistentState.nDifficulty = Event.getDifficulty(nElapsedTime,nPopulation)
     tUpcomingEventPersistentState.nTargetTime = nElapsedTime
@@ -122,21 +128,20 @@ function Event.getDifficulty(nOptionalTime,nOptionalPopulation)
     return x
 end
 
--- Called when the alert for this event is displayed.
+--- Called when the alert for this event is displayed.
 -- Note not all events have alerts.
 -- Note event is not executing yet, it is still in queue.
 function Event.onAlertShown(rController, tUpcomingEventPersistentState)
 end
 
--- called when the event is about to be popped off the queue and executed for the first time.
--- Return true if you want the event to go forward with execution.
--- Return false if event cannot execute and you want it discarded.
+--- Called when the event is about to be popped off the queue and executed for the first time.
+-- @returns true if the event should go forward with execution, false to discard it.
 function Event.preExecuteSetup(rController, tUpcomingEventPersistentState)
     return true
 end
 
--- called during event execution.
--- Return true when event is completed.
+--- Called during event execution.
+-- @returns true when event is completed.
 function Event.tick(rController, dT, tCurrentEventPersistentState, tCurrentEventTransientState)
     assertdev(false)
 end
@@ -144,8 +149,9 @@ end
 function Event.cleanup(rController)
 end
 
--- attempts to get a tile of open space that is relatively near the base
+--- Attempts to get a tile of open space that is relatively near the base.
 -- !!NOT guaranteed to be an open space tile. We attempt nAttempt tries!!
+-- @returns x,y coordinate of open space
 function Event._getTileInOpenSpace(nAttempts)
     nAttempts = nAttempts or 5
 
@@ -469,10 +475,12 @@ function Event.getDebugString(rController, tPersistentState, tTransientState)
     return s
 end
 
+--- Pauses the game.
 function Event.pauseGame()
     GameRules.timePause()
 end
 
+--- Resumes the game.
 function Event.resumeGame()
     if GameRules.getTimeScale() == 0 then
         GameRules.setTimeScale(1)

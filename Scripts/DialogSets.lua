@@ -117,7 +117,7 @@ local t=
             screwYouResponse='DOCKUI122TEXT',screwYouResponseButton='DOCKUI123TEXT',
         },
     },
-    
+
     -- Attempts a dock a derelict to the station
     dockingEvents=
     {

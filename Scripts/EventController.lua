@@ -65,16 +65,17 @@ EventController.tEventClasses = {
     [TraderEvent.sEventType] = TraderEvent,
 }
 
+--- Initializes the event controller.
 function EventController.init()
     EventController.nEventsThisPlaySession = 0    
 
-	EventController.hideMeteorStrikeIndicator()
+    EventController.hideMeteorStrikeIndicator()
     SoundManager = require('SoundManager')
     Docking.init()
     EventController.fromSaveData({})
 end
 
--- calculate modifiers for each event type based on base spawn loc in galaxy
+--- Calculate modifiers for each event type based on base spawn loc in galaxy.
 function EventController.setBaseSeeds()
     local tLandingZone = GameRules.getLandingZone()
     EventController.tS.tSpawnModifiers = {}
@@ -181,6 +182,8 @@ function EventController._portOldSaves(tSaveData)
     return tSaveData
 end
 
+--- Restores state of the EventController from saved data.
+-- @param tSaveData the data to load from
 function EventController.fromSaveData(tSaveData)
     EventController.fnOngoingEventTick = nil
     EventController.tCurrentEventPersistentState = nil
@@ -317,6 +320,8 @@ function EventController._failed(tNextEventState, sOptionalFailMsg)
     end
 end
 
+--- Attempt to set up the next event to start execution.
+-- @param tNextEventData the persistent state table for the next event
 function EventController.attemptExecuteEvent(tNextEventData)
     local rEventClass = EventController.tEventClasses[tNextEventData.sEventType]
 	
@@ -345,6 +350,8 @@ function EventController.attemptExecuteEvent(tNextEventData)
     end
 end
 
+--- 
+-- @param id the event's unique ID
 function EventController.clearCurrentEventFromSaveTable(id)
     if EventController.tS.tNextEventData and EventController.tS.tNextEventData.nUniqueID == id then
         EventController.tS.tNextEventData = nil
@@ -397,6 +404,10 @@ function EventController._eventCompleted(tEventPersistentState)
     end    
 end
 
+--- Begins a camera movement towards the given location.
+-- Creates a tCutscene table to track the animation progress.
+-- @param tx Coordinate of location to move camera focus
+-- @param ty Coordinate of location to move camera focus
 function EventController.initCameraMove(tx,ty)
     local tCutscene={}
     local rCamera = Renderer.getGameplayCamera()
@@ -411,6 +422,10 @@ function EventController.initCameraMove(tx,ty)
     return tCutscene
 end
 
+--- Moves the camera an increment towards the new location.
+-- Updates the tCutscene object accordingly.
+-- @param dt time delta for the move
+-- @param tCutscene 
 function EventController.tickCamera(dt,tCutscene)
     tCutscene.nElapsed=tCutscene.nElapsed+dt
     local t = math.min(tCutscene.nElapsed / tCutscene.nDuration, 1)
@@ -447,6 +462,9 @@ function EventController._doAlert(tEventData)
                 return true
 end
 
+--- Trigger per-tick event activities.
+-- This operates event execution, alerts, and event setup
+-- @param dt time delta
 function EventController.onTick(dt)
 	-- pulse meteor indicator
     -- TODO generalize this into a table of sprites needed by the event manager,
@@ -519,6 +537,9 @@ function EventController.DBG_fakeLateForecast()
     print(EventController.getForecastDebugText())
 end
 
+--- Create upcoming events
+-- @param nForcePop population level to use for estimation calculations
+-- @param nForceTime extra time delta for estimation calculations
 function EventController.generateEventForecast(nForcePop,nForceTime)
     EventController.tS.tEventForecast = {}
 
@@ -615,6 +636,9 @@ function EventController.generateEventForecast(nForcePop,nForceTime)
     EventController.dForecastGenerated:dispatch()
 end
 
+--- Draw the meteor_highlight sprite at given location
+-- @param tx Coordinate to draw meteor highlight
+-- @param ty Coordinate to draw meteor highlight
 function EventController.showMeteorStrikeIndicator(tx, ty)
     local p = MOAIProp.new()
     local spriteSheet = DFGraphics.loadSpriteSheet('UI/UIMisc')
@@ -635,6 +659,7 @@ function EventController.showMeteorStrikeIndicator(tx, ty)
     EventController.rMeteorIndicator = p
 end
 
+--- Removes the meteor indicator.
 function EventController.hideMeteorStrikeIndicator()
     if not EventController.rMeteorIndicator then
         return
@@ -692,7 +717,7 @@ function EventController.rollRandomTrader( )
 end
 
 
--- used by docking and derelict events that spawn a module
+--- Used by docking and derelict events that spawn a module.
 function EventController.spawnModuleEntities(tEventData, tModuleData, tTeams)
     local tCrewData = tEventData.tCrewData
     local tObjectData = tEventData.tObjectData
