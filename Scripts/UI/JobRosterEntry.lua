@@ -136,7 +136,7 @@ function m.create()
 		for i,_ in pairs(Character.tJobs) do
 			self.tAffIcons[i] = self:getTemplateElement('Job'..i..'Aff')
 		end
-
+		
         self.rActiveJobInfo = self:getExtraTemplateInfo('tActiveJobInfo')
         self:_calcDimsFromElements()
         self.rNameButton:addPressedCallback(self.onNameButtonPressed, self)
@@ -186,11 +186,16 @@ function m.create()
             self.eJobAtLastTick = eCurJob
 			-- show affinity
 			-- icons line up with jobs b/c we iterate through the same list as above
+			
 			for i,nJob in pairs(Character.tJobs) do
+				
 				local nAff = self.rCitizen:getJobAffinity(nJob)
 				local sIcon,tColor = self.rCitizen:getAffinityIconAndColor(nAff)
+				
 				self:setTemplateUITexture('Job'..i..'Aff', sIcon, 'UI/Emoticons')
-				self.tAffIcons[i]:setColor(unpack(tColor))
+				if i ~= nil then
+					self.tAffIcons[i]:setColor(unpack(tColor))
+				end
 			end
         end
     end

@@ -11,7 +11,7 @@ local nNameBGScaleX, nNameBGScaleY = 418, 62
 local nNameBGLocX = 122
 local nSkillLevelIconOffsetX = -32
 local nAffinityIconOffsetX = 76
-local nHorizBorderXScale = 1636
+local nHorizBorderXScale = 1760 --1636
 local nHorizBorderYScale = 2
 
 return
@@ -781,25 +781,7 @@ return
             key = 'Job9Aff',
             type = 'uiTexture',
             pos = { nJobColStart + nAffinityIconOffsetX + (nJobBlockScale*8), -12 },
-            textureName = 'ui_dialogicon_meh',
-            sSpritesheetPath = 'UI/Emoticons',
-			scale = { 1, 1 },
-            color = Gui.AMBER,
-        },
-		        {
-            key = 'Job10AffBG',
-            type = 'uiTexture',
-            pos = { nJobColStart + nAffinityIconOffsetX + (nJobBlockScale*9), -12 },
-            textureName = 'ui_dialogicon_blackBG',
-            sSpritesheetPath = 'UI/Emoticons',
-			scale = { 1, 1 },
-            color = Gui.AMBER,
-        },
-        {
-            key = 'Job10Aff',
-            type = 'uiTexture',
-            pos = { nJobColStart + nAffinityIconOffsetX + (nJobBlockScale*9), -12 },
-            textureName = 'ui_dialogicon_meh',
+			textureName = 'ui_dialogicon_meh',
             sSpritesheetPath = 'UI/Emoticons',
 			scale = { 1, 1 },
             color = Gui.AMBER,

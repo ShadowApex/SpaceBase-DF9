@@ -657,7 +657,7 @@ CharacterConstants.tJobs = {
 	CharacterConstants.MINER, CharacterConstants.EMERGENCY,
 	CharacterConstants.BARTENDER, CharacterConstants.BOTANIST,
 	CharacterConstants.SCIENTIST, CharacterConstants.DOCTOR,
-        CharacterConstants.JANITOR, CharacterConstants.TRADER,
+        CharacterConstants.JANITOR,
 }
 --job competency levels
 CharacterConstants.COMPETENCY_LEVEL1 = 1

@@ -1334,7 +1334,7 @@ return
             pos = { nJob10ColX + nJobTextureXOffset, nJobTextureYOffset },
             color = Gui.AMBER,
             scale = { 1, 1 },
-        }, --[[
+        },
         {
             key = 'job10Num',
             type = 'textBox',
@@ -1366,6 +1366,6 @@ return
             pos = { nJob10ColX + nJobDivScl + nSortTextureSize, nTopLabelY },
             scale = { nJobDivScl, nTopBarHeight },
             color = Gui.GREY,
-        }, ]]--  
+        },
     },
 }
