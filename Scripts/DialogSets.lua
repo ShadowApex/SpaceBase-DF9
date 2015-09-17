@@ -160,7 +160,7 @@ local t=
             title='TRADE001TEXT',request='TRADE002TEXT',acceptButton='TRADE003TEXT',rejectButton='TRADE004TEXT',
             acceptedResponse='TRADE005TEXT',acceptedResponseButton='TRADE006TEXT',
             rejectedResponse='TRADE007TEXT',rejectedResponseButton='TRADE008TEXT',
-            screwYouResponse='TRADE009TEXT',screwYouResponseButton='TRADE0010TEXT',
+            screwYouResponse='TRADE009TEXT',screwYouResponseButton='TRADE010TEXT',
         },   
     },    
 }
