@@ -450,6 +450,13 @@ function Malady._tickMalady(rChar,tMalady)
 			Log.add(logtype, rChar)
 			tMalady.nNextSymptomLog = Malady._nextTime(Malady.LOG_RANGE)
 		end
+        --The Thing
+		if tMalady.sSpecial == 'thing' and (not tMalady.nNextSpawnAttempt or tMalady.nNextSpawnAttempt < GameRules.elapsedTime) then
+			tMalady.nNextSpawnAttempt = GameRules.elapsedTime + 15
+			if math.random(0,100) < 10 then
+				rChar:spawnThing()
+			end
+		end
 		if tMalady.sSpecial == 'parasite' and (not tMalady.nNextSpawnAttempt or tMalady.nNextSpawnAttempt < GameRules.elapsedTime) then
 			tMalady.nNextSpawnAttempt = GameRules.elapsedTime + 15
 			rChar:spawnMonster()
