@@ -31,6 +31,10 @@ Event.tMaladyProbabilities = {
         nChanceOfAffliction = 4,
         nChanceOfNewStrain = 0,
     },
+    Thing = {
+        nChanceOfAffliction = 15,
+        nChanceOfNewStrain = 100,
+    },
     SpaceFlu = {
         nChanceOfAffliction = 50,
         nChanceOfNewStrain = 50,

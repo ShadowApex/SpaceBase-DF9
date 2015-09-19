@@ -5489,6 +5489,10 @@ function Character:takeDamage(rAttacker, tDamage)
 			Base.incrementStat('nHostilesKilledByParasite')
 		end
 	end
+	if (rAttacker.tStats.sName == "Thing")
+	--attacked by "Thing"
+	--MTODO- Add "infect with "Thing" function.
+	end
 end
 
 -- Handles keeping of history for kills and total damage dealt
@@ -6203,6 +6207,27 @@ end
 ------------------------------------------------
 -- MALADIES
 ------------------------------------------------
+function Character:spawnThing()
+    if self:wearingSpacesuit() then
+        --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
+        return false
+    end
+    if g_Config:getConfigValue('disable_hostiles') then
+        return false
+    end
+    local nwx,nwy = self:getLoc()
+    local tData = { tStats={ nRace = Character.RACE_MONSTER, sName = 'Thing' } }
+    CharacterManager.addNewCharacter(nwx,nwy,tData,Character.TEAM_ID_DEBUG_ENEMYGROUP)
+    if not self:isDead() then
+    local tLogData = {}
+		--Kill and delete for "things".
+		Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
+		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.PARASITE)
+    end
+    CharacterManager.deleteCharacter(self)
+
+    return true
+end
 function Character:spawnMonster()
     if self:wearingSpacesuit() then
         --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
