@@ -82,6 +82,33 @@ local t=
     },
 
     -- NEED REDUCE MOD DISEASES
+    Thing=
+    {
+        sDesc='DISEASTHINGTEXT',
+	    bSpreadSneeze=false,
+        bSpreadTouch=true,
+        nSeverity=1,
+        nAdditionalDeadliness=.5,
+        nPerceivedSeverity=.2,
+        nFieldTreatSkill=6,
+        bCreateStrains=true,
+        sSpecial='thing',
+		tSymptomStages=
+        {
+            {
+                tTimeToSymptoms={60*1,60*2},
+                tReduceMods={
+                    Hunger=3,
+				    Social=10,
+                },
+			sSymptomLog=Log.tTypes.HEALTH_CITIZEN_IS_THING,
+            },
+            {
+                tTimeToSymptoms={60*1,60*4},
+				sSpecial='thing',
+            },
+        },
+    },
     SpaceFlu=
     {
         sDesc='DISEAS024TEXT',
