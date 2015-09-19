@@ -92,7 +92,6 @@ local t=
         nPerceivedSeverity=.2,
         nFieldTreatSkill=6,
         bCreateStrains=true,
-        sSpecial='thing',
 		tSymptomStages=
         {
             {
