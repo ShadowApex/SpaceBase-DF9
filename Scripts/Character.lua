@@ -5489,6 +5489,10 @@ function Character:takeDamage(rAttacker, tDamage)
 			Base.incrementStat('nHostilesKilledByParasite')
 		end
 	end
+	if (rAttacker.tStats.sName == "Thing")
+	--attacked by "Thing"
+	--MTODO- Add "infect with "Thing" function.
+	end
 end
 
 -- Handles keeping of history for kills and total damage dealt
