@@ -2867,4 +2867,11 @@
 	DEBUG004TEXT = { sLine = "Finish all Malady research"},
 	DEBUG005TEXT = { sLine = "All Base is Happy"},
 	DEBUG006TEXT = { sLine = "All Base is Sad"},
+	DISEASTHINGTEXT = "DUN DUN...dun.SHH.dun..dun..dun..DUN DUN...dun.SHH.dun..dun..dun",
+	SFTHING01 = "*darts eyes uncontrollably*",
+    SFTHING02 = "*is scheming*",
+	SFTHING03 = "*Stares at a wall*",
+	SFTHING04 = "*Deceivingly staring*",
+	SFTHING05 = "Hahaha, I figured out the password...errmm.. I mean, I haven't written a log in awhile.",
+	SFTHING06 = "I do love a bit of inf--err..socialization.",
 }
