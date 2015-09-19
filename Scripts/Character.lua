@@ -6214,11 +6214,10 @@ function Character:spawnThing()
     local nwx,nwy = self:getLoc()
     local tData = { tStats={ nRace = Character.RACE_MONSTER, sName = 'Thing' } }
     CharacterManager.addNewCharacter(nwx,nwy,tData,Character.TEAM_ID_DEBUG_ENEMYGROUP)
-
-    local tLogData = {}
-	--Kill and delete for "things".
-    Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
     if not self:isDead() then
+    local tLogData = {}
+		--Kill and delete for "things".
+		Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
 		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.PARASITE)
     end
     CharacterManager.deleteCharacter(self)
