@@ -10,8 +10,8 @@ local sUILayoutFileName = 'UILayouts/BeaconMenuEntryLayout'
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
-	local name
-	-- local disabled = false
+	local sName
+	local bDisabled = false
 	
 	function Ob:init()
         self:setRenderLayer('UIScrollLayerLeft')
@@ -26,15 +26,15 @@ function m.create()
 		self:_calcDimsFromElements()
 	end
 	
-	function Ob:setName(_name, _hotkey, callback)
-		name = _name
-		self.rNameLabel:setString(name)
-		self.rHotKey:setString(_hotkey)
-		self.callback = callback
+	function Ob:setName(_sName, _sHotkey, rCallback)
+		sName = _sName
+		self.rNameLabel:setString(sName)
+		self.rHotKey:setString(_sHotkey)
+		self.rCallback = rCallback
 	end
 	
 	function Ob:getName()
-		return name
+		return sName
 	end
 	
 	function Ob:setSelected(isSelected)
@@ -42,14 +42,14 @@ function m.create()
 	end
 	
 	function Ob:onButtonClicked(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP and not disabled then
-			self:callback(self, name)
+		if eventType == DFInput.TOUCH_UP and not bDisabled then
+			self:rCallback(self, sName)
 			SoundManager.playSfx('degauss')
 		end
 	end
 	
 	function Ob:hide(bKeepAlive)
-		disabled = true
+		bDisabled = true
 		if self.rNameLabel then
 			self.rNameLabel:setVisible(false)
 		end
@@ -64,7 +64,7 @@ function m.create()
 	
 	function Ob:show(basePri)
         local nPri = Ob.Parent.show(self, basePri)
-        disabled = false
+        bDisabled = false
 		if self.rNameLabel then
 			self.rNameLabel:setVisible(true)
 		end
