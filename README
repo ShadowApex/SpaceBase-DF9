@@ -4,6 +4,10 @@ This is a community maintained fork of DoubleFine's original game, which
 was open sourced May 12, 2015 under the Common Public Attribution
 License (CPAL-1.0: http://opensource.org/licenses/cpal_1.0).
 
+Resoration Code - Sep 20, 2015
+    We have a Slack messaging system room. Similar to IRC, sbrs.slack.com under the #Dev room 
+    to come and chat with us about what we're all doing.
+
 MOTD - May 12, 2015
     Open source license available at: http://opensource.org/licenses/cpal_1.0
 
@@ -44,5 +48,3 @@ The code uses 'hungarian notation'.  For an explanation, see
 
 We believe the meaning is:  n is Number, b is Boolean, t is Table, r is
 Reference, e is Enum.
-
-
