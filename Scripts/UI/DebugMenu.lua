@@ -1,6 +1,5 @@
 local m = {}
 
-
 local DFUtil = require("DFCommon.Util")
 local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
@@ -169,6 +168,17 @@ function m.create()
 			end
 		end
 	end
-		
-return m		
+	
+	
+    return Ob
 end
+
+
+function m.new(...)
+    local Ob = m.create()
+    Ob:init(...)
+    return Ob
+end
+
+
+return m
