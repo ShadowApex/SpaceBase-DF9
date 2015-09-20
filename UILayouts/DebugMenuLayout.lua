@@ -8,7 +8,7 @@ local nButtonWidth, nButtonHeight  = 330, 81
 local nButtonStartY = -100
 local nDoneLabelX, nLabelX, nLabelStartY = 105, 30, -133
 local nHotkeyX, nHotkeyStartY = nButtonWidth - 112, -169
-local numButtons = 5
+local numButtons = 8
 
 return 
 {
@@ -488,6 +488,162 @@ return
             vAlign = MOAITextBox.CENTER_JUSTIFY,
             color = SELECTION_AMBER
         },
+		------------------------------------------------------------
+		{
+            key = 'InfectButton',
+            type = 'onePixelButton',
+            pos = { 0, nButtonStartY - (nButtonHeight *5) },
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'InfectButton',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'InfectButton',
+                    color = AMBER,
+                },
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'InfectButton',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'InfectLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    key = 'InfectHotkey',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'InfectButton',
+                    color = Gui.BLACK,
+                },
+                {
+                    key = 'InfectLabel',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'InfectHotkey',
+                    color = SELECTION_AMBER,
+                },
+            },
+        },
+		{
+            key = 'InfectLabel',
+            type = 'textBox',
+            pos = { nLabelX, nButtonStartY - (nButtonHeight *5) },
+            linecode = 'DEBUG007TEXT',
+            style = 'dosisregular40',
+            rect = { 0, nButtonHeight, nButtonWidth, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER,
+        },
+        {
+            key = 'InfectHotkey',
+            type = 'textBox',
+            pos = { 0, nButtonStartY - (nButtonHeight *5) - 5 },
+            text = '6.',
+            style = 'dosissemibold22',
+            rect = { 0, nButtonHeight, 20, 0 },
+            hAlign = MOAITextBox.RIGHT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER
+        },
+		
+		------------------------------------------------------------
+		{
+            key = 'RandomTest',
+            type = 'onePixelButton',
+            pos = { 0, nButtonStartY - (nButtonHeight *6) },
+            scale = { nButtonWidth, nButtonHeight },
+            color = Gui.BLACK,
+            onPressed =
+            {
+                {
+                    key = 'RandomTest',
+                    color = BRIGHT_AMBER,
+                },            
+            },
+            onReleased =
+            {
+                {
+                    key = 'RandomTest',
+                    color = AMBER,
+                },
+            },
+            onHoverOn =
+            {
+                {
+                    key = 'RandomTest',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'RandomTestLabel',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    key = 'RandomTestHotkey',
+                    color = { 0, 0, 0 },
+                },
+                {
+                    playSfx = 'hilight',
+                },
+            },
+            onHoverOff =
+            {
+                {
+                    key = 'RandomTest',
+                    color = Gui.BLACK,
+                },
+                {
+                    key = 'RandomTestLabel',
+                    color = SELECTION_AMBER,
+                },
+                {
+                    key = 'RandomTestHotkey',
+                    color = SELECTION_AMBER,
+                },
+            },
+        },
+		{
+            key = 'RandomTestLabel',
+            type = 'textBox',
+            pos = { nLabelX, nButtonStartY - (nButtonHeight *6) },
+            linecode = 'DEBUG008TEXT',
+            style = 'dosisregular40',
+            rect = { 0, nButtonHeight, nButtonWidth, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER,
+        },
+        {
+            key = 'RandomTestHotkey',
+            type = 'textBox',
+            pos = { 0, nButtonStartY - (nButtonHeight *6) - 5 },
+            text = '7.',
+            style = 'dosissemibold22',
+            rect = { 0, nButtonHeight, 20, 0 },
+            hAlign = MOAITextBox.RIGHT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = SELECTION_AMBER
+        },
+		
 		------------
         {
             key = 'SidebarBottomEndcapExpanded',

@@ -6,7 +6,13 @@ local DFInput = require('DFCommon.Input')
 local CommandObject = require('Utility.CommandObject')
 local SoundManager = require('SoundManager')
 local ResearchData = require('ResearchData')
+local Malady = require('Malady')
 local Base = require('Base')
+local Character = require('Character')
+local CharacterManager = require('CharacterManager')
+local Clean = require('Utility.Tasks.Clean')
+local World=require('World')
+
 
 local sUILayoutFileName = 'UILayouts/DebugMenuLayout'
 
@@ -22,10 +28,28 @@ function m.create()
 		self.rResearchButton:addPressedCallback(self.onResearchButtonPressed, self)
 		self.rResearchAllButton = self:getTemplateElement('ResearchAllButton')
 		self.rResearchAllButton:addPressedCallback(self.onResearchAllButtonPressed, self)
+		
+		self.rResearchAllMaladyButton = self:getTemplateElement('ResearchAllMaladyButton')
+		self.rResearchAllMaladyButton:addPressedCallback(self.onResearchAllMaladyButtonPressed, self)
+		self.rMakeAllHappyButton = self:getTemplateElement('MakeAllHappyButton')
+		self.rMakeAllHappyButton:addPressedCallback(self.onMakeAllHappyButtonPressed, self)
+		self.rMakeAllSadButton = self:getTemplateElement('MakeAllSadButton')
+		self.rMakeAllSadButton:addPressedCallback(self.onMakeAllSadButtonPressed, self)
+		self.rInfectButton = self:getTemplateElement('InfectButton')
+		self.rInfectButton:addPressedCallback(self.onInfectButtonPressed, self)		
+		self.rRandomTestButton = self:getTemplateElement('RandomTest')
+		self.rRandomTestButton:addPressedCallback(self.onRandomTestButtonPressed, self)
+		
 		self.tHotkeyButtons = {}
 		self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
 		self:addHotkey(self:getTemplateElement('ResearchHotkey').sText, self.rResearchButton)
 		self:addHotkey(self:getTemplateElement('ResearchAllHotkey').sText, self.rResearchAllButton)
+		
+		self:addHotkey(self:getTemplateElement('ResearchAllMaladyHotkey').sText, self.rResearchAllMaladyButton)
+		self:addHotkey(self:getTemplateElement('MakeAllHappyHotkey').sText, self.rMakeAllHappyButton)		
+		self:addHotkey(self:getTemplateElement('MakeAllSadHotkey').sText, self.rMakeAllSadButton)	
+		self:addHotkey(self:getTemplateElement('InfectHotkey').sText, self.rInfectButton)			
+		self:addHotkey(self:getTemplateElement('RandomTestHotkey').sText, self.rRandomTestButton)		
 	end
 
     function Ob:addHotkey(sKey, rButton)
@@ -99,6 +123,53 @@ function m.create()
 			end
 		end
 	end
+	
+	------------------------------------------
+	function Ob:onResearchAllMaladyButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			local tAvailableMaladyResearch = Malady.getAvailableResearch()
+			for key,value in pairs(tAvailableMaladyResearch) do 
+				Malady.addResearch(key, value["nResearchCure"] )
+			end
+		end
+	end
+	
+	function Ob:onMakeAllHappyButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+			for key,value in pairs(tChars) do 
+				print("cHARACTERasdasdasfda :  " .. key .. " - " .. value)
+			end
+		end
+	end
+	
+	function Ob:onMakeAllSadButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			local tAvailableResearch = Base.getAvailableResearch()
+			for k,v in pairs(tAvailableResearch) do
+				Base.addResearch(k, ResearchData[k].nResearchUnits)
+			end
+		end
+	end
+	
+	function Ob:onInfectButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			
+		end
+	end
+	
+	
+	function Ob:onRandomTestButtonPressed(rButton, eventType)
+	--this button is used for random testing of code
+		if eventType == DFInput.TOUCH_UP then
+			for key in pairs(World.floorDecals) do
+				World.floorDecals[key] = nil
+			end
+		end
+	end
+		
+		
+	-----------------------------------
 	
 	function Ob:onTick(dt)
 		
