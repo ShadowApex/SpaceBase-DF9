@@ -1,5 +1,6 @@
 local m = {}
 
+
 local DFUtil = require("DFCommon.Util")
 local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
@@ -15,9 +16,10 @@ local World=require('World')
 
 local sUILayoutFileName = 'UILayouts/DebugMenuLayout'
 
-
+function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 
+	
     function Ob:init()
         self:processUIInfo(sUILayoutFileName)
 
@@ -168,4 +170,5 @@ local sUILayoutFileName = 'UILayouts/DebugMenuLayout'
 		end
 	end
 		
-		
+return m		
+end
