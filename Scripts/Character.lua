@@ -5489,7 +5489,7 @@ function Character:takeDamage(rAttacker, tDamage)
 			Base.incrementStat('nHostilesKilledByParasite')
 		end
 	end
-	if (rAttacker.tStats.sName == "Thing")
+	if rAttacker.tStats.sName == "Thing" then
 	--attacked by "Thing"
 	--MTODO- Add "infect with "Thing" function.
 	end
@@ -6208,6 +6208,7 @@ end
 -- MALADIES
 ------------------------------------------------
 function Character:spawnThing()
+
     if self:wearingSpacesuit() then
         --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
         return false
@@ -6228,7 +6229,9 @@ function Character:spawnThing()
 
     return true
 end
+
 function Character:spawnMonster()
+
     if self:wearingSpacesuit() then
         --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
         return false
@@ -6249,6 +6252,7 @@ function Character:spawnMonster()
     Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
 
     return true
+
 end
 
 function Character:isImmuneTo(tMalady)
