@@ -10,13 +10,12 @@ local Malady = require('Malady')
 local Base = require('Base')
 local Character = require('Character')
 local CharacterManager = require('CharacterManager')
-local Clean = require('Utility.Tasks.Clean')
 local World=require('World')
 
 
 local sUILayoutFileName = 'UILayouts/DebugMenuLayout'
 
-function m.create()
+
     local Ob = DFUtil.createSubclass(UIElement.create())
 
     function Ob:init()
@@ -154,7 +153,8 @@ function m.create()
 	
 	function Ob:onInfectButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
-			
+			--local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+			--tChars[1].diseaseInteraction(nil,'Thing')
 		end
 	end
 	
@@ -169,20 +169,3 @@ function m.create()
 	end
 		
 		
-	-----------------------------------
-	
-	function Ob:onTick(dt)
-		
-	end
-	
-	return Ob
-end
-
-function m.new(...)
-    local Ob = m.create()
-    Ob:init(...)
-
-    return Ob
-end
-
-return m
