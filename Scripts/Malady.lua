@@ -366,6 +366,39 @@ function Malady.createNewMaladyInstance(sMaladyType, bUseExistingStrain, bRequir
     return Malady.reproduceMalady(tMaladySpec)
 end
 
+function Malady.getMalady(sMaladyType,s2MaladyName)
+    local tMaladySpec = DFUtil.deepCopy( MaladyData[sMaladyType] )
+   
+    if tMaladySpec.bCreateStrains then
+
+            local tStrains = {}
+            if Malady.tS and Malady.tS.tMaladyStrains then
+                for sStrainName, tStrainData in pairs(Malady.tS.tMaladyStrains) do
+				--Loop through strain list to find a strain with the correct name
+                    if tStrainData.sMaladyName == s2MaladyName then
+                        table.insert(tStrains, sStrainName)
+						print(tStrainData.sMaladyName)
+                    end
+                end
+            end
+			
+            if #tStrains > 0 then
+                -- choose a random strain (It should actually only be one, but just in case)
+                tMaladySpec.sMaladyName = Malady.tS.tMaladyStrains[tStrains[math.random(1,#tStrains)]].sMaladyName
+			end
+        if not tMaladySpec.sMaladyName then
+            -- no existing strain found above (fall-through case).
+            tMaladySpec.sMaladyName = Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOverride)
+        end
+		else
+		tMaladySpec.sMaladyName = sMaladyType
+    end
+	tMaladySpec.sMaladyType = sMaladyType
+	
+    return Malady.reproduceMalady(tMaladySpec)
+end
+
+
 function Malady._nextTime(tRange)
     return GameRules.elapsedTime+math.random(tRange[1],tRange[2])-.01
 end

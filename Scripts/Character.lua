@@ -5392,6 +5392,15 @@ function Character:_getCauseOfDeathFromDamageTable(tDamage)
     return eCOD
 end
 
+--Quick and dirty function for infecting, without worrying about the details too much.
+function Character:infestFromObject(rSource, sDiseaseName)
+	--I am creating this for other maladies we might want to infect people with, like zombisim for example.
+	if rSource and rSource.tStats  and rSource.tStats.sMaladyHolder then
+	--Grab the disease if it exists, if not create a new strain
+		self:diseaseInteraction(nil,Malady.getMalady(sDiseaseName,rSource.tStats.sMaladyHolder))
+	end
+end
+
 -- NOTE: rAttacker may be null, e.g. in cases of fire, and may not be a character
 -- tDamage
 -- nDamage = damage amount
@@ -5406,9 +5415,10 @@ function Character:takeDamage(rAttacker, tDamage)
     self:storeMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY, true, Character.SELF_HEAL_COOLDOWN)
 
     local nDamageReduction = self:currentDamageReductionValue()
-	--Infect it with "Thing" if Thing
+	--Infect it with "Thing" if Thing, even if the creature "misses"
 	if rAttacker and  rAttacker.tStats then
 		if rAttacker.tStats.nRace == Character.RACE_MONSTER and rAttacker.tStats.sName == "Thing" then
+			self:infestFromObject(rAttacker, 'Thing')
 		end
 	end
 
@@ -5612,6 +5622,7 @@ function Character:getIllnesses()
 	end
 	return tIllnesses, nIllnesses
 end
+
 
 function Character:getInjuries()
 	local tInjuries = {}
@@ -6217,8 +6228,21 @@ function Character:spawnThing()
     if g_Config:getConfigValue('disable_hostiles') then
         return false
     end
+	--Loop through the illness list to find a specific malady type
+	local tIllList, nNum = self:getIllnesses()
+	sMName = ''
+	for i, tStrainData in pairs (tIllList) do
+          if tStrainData.sMaladyType == 'Thing' then
+			sMName = tStrainData.sMaladyName
+          end
+	end
+	if sMName == '' then 
+	--if it cant find it default it so that "Malady.getMalady will create  a new one
+	sMName = 'Thing'
+	end
     local nwx,nwy = self:getLoc()
-    local tData = { tStats={ nRace = Character.RACE_MONSTER, sName = 'Thing' } }
+	--Lua tables are dictionaries as-well, so this is legal
+    local tData = { tStats={ sMaladyHolder = sMName, nRace = Character.RACE_MONSTER, sName = 'Thing' } }
     CharacterManager.addNewCharacter(nwx,nwy,tData,Character.TEAM_ID_DEBUG_ENEMYGROUP)
     if not self:isDead() then
     local tLogData = {}
@@ -6273,6 +6297,7 @@ end
 
 -- infects the character.
 function Character:diseaseInteraction(rSource,tMalady)
+	--It seems rSource is unused in this right now consider removing...
     -- no diseases for robots
 	if self.tStats.nRace == Character.RACE_KILLBOT then return false end
 

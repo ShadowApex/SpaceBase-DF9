@@ -86,7 +86,7 @@ local t=
     {
         sDesc='DISEASTHINGTEXT',
 	    bSpreadSneeze=false,
-        bSpreadTouch=true,
+        bSpreadTouch=false,
         nSeverity=1,
         nAdditionalDeadliness=.5,
         nPerceivedSeverity=.2,
