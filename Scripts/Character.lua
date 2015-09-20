@@ -5399,7 +5399,6 @@ end
 -- nDamageType = CharacterConstants.DAMAGE_TYPE
 function Character:takeDamage(rAttacker, tDamage)
     if self:isDead() then return end
-
     -- Ensure values are set
     local nDamage = (tDamage and tDamage.nDamage) or 1
     local bKill = false
@@ -5407,6 +5406,12 @@ function Character:takeDamage(rAttacker, tDamage)
     self:storeMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY, true, Character.SELF_HEAL_COOLDOWN)
 
     local nDamageReduction = self:currentDamageReductionValue()
+	--Infect it with "Thing" if Thing
+	if rAttacker and  rAttacker.tStats then
+		if rAttacker.tStats.nRace == Character.RACE_MONSTER and rAttacker.tStats.sName == "Thing" then
+		end
+	end
+
     -- Ensure damage is always positive
     nDamage = math.max(nDamage * (1 - nDamageReduction), 0)
 	-- debug cheat
@@ -5488,10 +5493,6 @@ function Character:takeDamage(rAttacker, tDamage)
 		elseif rAttacker.tStats and rAttacker.tStats.nRace == Character.RACE_MONSTER and Base.isFriendlyToPlayer(rAttacker) then
 			Base.incrementStat('nHostilesKilledByParasite')
 		end
-	end
-	if rAttacker.tStats.sName == "Thing" then
-	--attacked by "Thing"
-	--MTODO- Add "infect with "Thing" function.
 	end
 end
 
