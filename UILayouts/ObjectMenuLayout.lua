@@ -8,7 +8,7 @@ local SELECTION_AMBER = { Gui.AMBER[1], Gui.AMBER[2], Gui.AMBER[3], 0.01 }
 local CONSTRUCT_CANCEL = Gui.RED
 local CONSTRUCT_CONFIRM = Gui.GREEN
 
-local nButtonWidth, nButtonHeight  = 330, 78
+local nButtonWidth, nButtonHeight  = 330, 68
 local nButtonStartY = 278
 local nIconX, nIconStartY = 20, -280
 local nLabelX, nLabelStartY =  105, -288
@@ -88,12 +88,13 @@ return
             scale = { nButtonWidth, nButtonStartY + (numButtons * nButtonHeight) },
             color = Gui.SIDEBAR_BG,
         },
-		{
+			--[[ {
             key = 'ScrollPane',
             type = 'scrollPane',
             pos = { 0, nButtonStartY },
-            rect = { 0, 0, nButtonWidth, '(g_GuiManager.getUIViewportSizeY() - 280)' },
-        },
+            rect = { 0, 0, nButtonWidth, 'g_GuiManager.getUIViewportSizeY() - 280)' },
+			
+        }, ]]--
         {
             key = 'BackButton',
             type = 'onePixelButton',

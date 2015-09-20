@@ -5,6 +5,7 @@ local UIElement = require('UI.UIElement')
 local DFInput = require('DFCommon.Input')
 local CommandObject = require('Utility.CommandObject')
 local SelectObjectForZoneMenu = require('UI.SelectObjectForZoneMenu')
+local rScrollableUI = require('UI.ScrollableUI')
 --local DoorsSubMenu = require('UI.DoorsSubMenu')
 local SoundManager = require('SoundManager')
 
@@ -30,9 +31,11 @@ function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 
     function Ob:init()
+	    self:setRenderLayer('UIScrollLayerLeft')
         self:processUIInfo(sUILayoutFileName)
 
 		self.rScrollableUI = self:getTemplateElement('ScrollPane')
+		
         self.rBackButton = self:getTemplateElement('BackButton')
 
         self.rAllButton = self:getTemplateElement('AllButton')
@@ -91,7 +94,8 @@ function m.create()
         self.sBuildCostLabel = g_LM.line("BUILDM017TEXT")
         self.sVaporizeLabel = g_LM.line("BUILDM018TEXT")
         self.sUndoLabel = g_LM.line("BUILDM019TEXT")
-
+		
+		
         self:setMatterCostVisible(false)
     end
 
@@ -240,6 +244,8 @@ function m.create()
 end
 
 
+
+	
 function m.new(...)
     local Ob = m.create()
     Ob:init(...)
