@@ -341,6 +341,18 @@
     DOCKUI200TEXT = { sLine = "I need a towel badly! I'm coming aboard.", },
     DOCKUI201TEXT = { sLine = "Our towels are for us and NOBODY else! We wont let you have any, we swear.", },
 	
+	--Hostile construction fleet
+	DOCKUI202TEXT = { sLine = "Hyper-galactic construction vessel", },
+    DOCKUI203TEXT = { sLine = "Hello, your base is in the way of our construction plans, move your base or be docked and deconstructed! ", },
+    DOCKUI204TEXT = { sLine = "Do you have a deed of some kind?", },
+    DOCKUI205TEXT = { sLine = "Im sorry, but our base is Immobile..", },
+    DOCKUI206TEXT = { sLine = "Of course we have a deed!\n Why wouldn't we! We aren't some kind of half baked construction company. \n We go through all the proper channels! ", },
+    DOCKUI207TEXT = { sLine = "We have a deed too and we will defend our property rights!. Enguarde!", },
+    DOCKUI208TEXT = { sLine = "Well, I guess we could move the construction a couple parsecs to the left..Im sure my boss wont mind..", },
+    DOCKUI209TEXT = { sLine = "Good riddence.", },
+    DOCKUI210TEXT = { sLine = "Im sorry, but if we dont complete this job our boss will kill us! Prepare to be deconstructed!", },
+    DOCKUI211TEXT = { sLine = "Typical", },
+	
     DUTIES001TEXT = { sLine = "Unassigned", },
     DUTIES002TEXT = { sLine = "No Primary Duty", },
     DUTIES003TEXT = { sLine = "Builder", },

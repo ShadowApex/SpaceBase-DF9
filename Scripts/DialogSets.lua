@@ -150,6 +150,13 @@ local t=
                 rejectedResponse='DOCKUI016TEXT',rejectedResponseButton='DOCKUI036TEXT',
                 screwYouResponse='DOCKUI015TEXT',screwYouResponseButton='DOCKUI027TEXT',
             },
+		    {
+                --In the way of a hostile construction fleet
+                title='DOCKUI202TEXT',request='DOCKUI203TEXT',acceptButton='DOCKUI204TEXT',rejectButton='DOCKUI205TEXT',
+                acceptedResponse='DOCKUI206TEXT',acceptedResponseButton='DOCKUI207TEXT',
+                rejectedResponse='DOCKUI208TEXT',rejectedResponseButton='DOCKUI209TEXT',
+                screwYouResponse='DOCKUI210TEXT',screwYouResponseButton='DOCKUI211TEXT',
+            },
         },
         {
             --fake service call
