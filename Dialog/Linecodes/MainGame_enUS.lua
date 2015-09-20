@@ -329,6 +329,18 @@
 	DOCKUI188TEXT = { sLine = "Awww duuuuuude.. you're harshing my vibe!", },
 	DOCKUI189TEXT = { sLine = "Get a haircut!", },
 	
+	--Buzzers Guide to the galaxy.
+	DOCKUI192TEXT = { sLine = "Unmarked Escape Pod", },
+    DOCKUI193TEXT = { sLine = "Hello, I am an explorer who buzzes around the galaxy to gather info about it and update my e-book.\n However I recently lost my towel. \n Can I come aboard?", },
+    DOCKUI194TEXT = { sLine = "Of course, we have plenty of towels!", },
+    DOCKUI195TEXT = { sLine = "Um... we can't help you. We are..um..out of towels.", },
+    DOCKUI196TEXT = { sLine = "Thanks, \n I cant wait to feel the fluffiness on my face again! \n Hey does your pub serve Pan Galactic Gargle Blasters by any chance? I love those. ", },
+    DOCKUI197TEXT = { sLine = "Hey does this mean we get featured in your e-book?", },
+    DOCKUI198TEXT = { sLine = "Fine, But you are still being featured in my e-book...pfft...xenophobes.\n That's the entry you get by the way  'Xenophobes, who hate towels and everything else.' \n Yeah, that will teach you. *Grumbles*", },
+    DOCKUI199TEXT = { sLine = "I'm sure they have towels in that other base.", },
+    DOCKUI200TEXT = { sLine = "I need a towel badly! I'm coming aboard.", },
+    DOCKUI201TEXT = { sLine = "Our towels are for us and NOBODY else! We wont let you have any, we swear.", },
+	
     DUTIES001TEXT = { sLine = "Unassigned", },
     DUTIES002TEXT = { sLine = "No Primary Duty", },
     DUTIES003TEXT = { sLine = "Builder", },

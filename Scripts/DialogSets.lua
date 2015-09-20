@@ -91,6 +91,12 @@ local t=
            rejectedResponse='DOCKUI188TEXT',rejectedResponseButton='DOCKUI189TEXT',
            screwYouResponse='DOCKUI190TEXT',screwYouResponseButton='DOCKUI191TEXT',
 	},
+	{   --Hitchhikers Guide to the galaxy reference
+           title='DOCKUI192TEXT',request='DOCKUI193TEXT',acceptButton='DOCKUI194TEXT',rejectButton='DOCKUI195TEXT',
+           acceptedResponse='DOCKUI196TEXT',acceptedResponseButton='DOCKUI197TEXT',
+           rejectedResponse='DOCKUI198TEXT',rejectedResponseButton='DOCKUI199TEXT',
+           screwYouResponse='DOCKUI200TEXT',screwYouResponseButton='DOCKUI201TEXT',
+	}
     },
 	
     -- Ship drops off 1-2 raiders who attack crew and/or try to board station
