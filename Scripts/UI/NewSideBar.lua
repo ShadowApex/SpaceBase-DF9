@@ -32,7 +32,7 @@ function m.create()
         Ob.Parent.init(self)
 
         self:processUIInfo(sUILayoutFileName)
-
+--push!
 		--------------------------------------------------------
 		self.menuManager = menuManager
 		----------------------------------------------------------------
