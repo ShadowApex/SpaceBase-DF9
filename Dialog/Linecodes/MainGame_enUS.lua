@@ -331,27 +331,39 @@
 	
 	--Buzzers Guide to the galaxy.
 	DOCKUI192TEXT = { sLine = "Unmarked Escape Pod", },
-    DOCKUI193TEXT = { sLine = "Hello, I am an explorer who buzzes around the galaxy to gather info about it and update my e-book.\n However I recently lost my towel. \n Can I come aboard?", },
+    DOCKUI193TEXT = { sLine = "Hello, I am an explorer who buzzes around the galaxy to gather info about it and update my e-book. However I recently lost my towel. Can I come aboard?", },
     DOCKUI194TEXT = { sLine = "Of course, we have plenty of towels!", },
     DOCKUI195TEXT = { sLine = "Um... we can't help you. We are..um..out of towels.", },
     DOCKUI196TEXT = { sLine = "Thanks, \n I cant wait to feel the fluffiness on my face again! \n Hey does your pub serve Pan Galactic Gargle Blasters by any chance? I love those. ", },
     DOCKUI197TEXT = { sLine = "Hey does this mean we get featured in your e-book?", },
-    DOCKUI198TEXT = { sLine = "Fine, But you are still being featured in my e-book...pfft...xenophobes.\n That's the entry you get by the way  'Xenophobes, who hate towels and everything else.' \n Yeah, that will teach you. *Grumbles*", },
+    DOCKUI198TEXT = { sLine = "Fine, But you are still being featured in my e-book...pfft...xenophobes.\n That's the entry you get by the way  'Xenophobes, who hate towels and everything else.' Yeah, that will teach you. *Grumbles*", },
     DOCKUI199TEXT = { sLine = "I'm sure they have towels in that other base.", },
     DOCKUI200TEXT = { sLine = "I need a towel badly! I'm coming aboard.", },
     DOCKUI201TEXT = { sLine = "Our towels are for us and NOBODY else! We wont let you have any, we swear.", },
-	
+
 	--Hostile construction fleet
 	DOCKUI202TEXT = { sLine = "Hyper-galactic construction vessel", },
     DOCKUI203TEXT = { sLine = "Hello, your base is in the way of our construction plans, move your base or be docked and deconstructed! ", },
     DOCKUI204TEXT = { sLine = "Do you have a deed of some kind?", },
     DOCKUI205TEXT = { sLine = "Im sorry, but our base is Immobile..", },
-    DOCKUI206TEXT = { sLine = "Of course we have a deed!\n Why wouldn't we! We aren't some kind of half baked construction company. \n We go through all the proper channels! ", },
+    DOCKUI206TEXT = { sLine = "Of course we have a deed!\n Why wouldn't we! We aren't some kind of half baked construction company. We go through all the proper channels! ", },
     DOCKUI207TEXT = { sLine = "We have a deed too and we will defend our property rights!. Enguarde!", },
     DOCKUI208TEXT = { sLine = "Well, I guess we could move the construction a couple parsecs to the left..Im sure my boss wont mind..", },
     DOCKUI209TEXT = { sLine = "Good riddence.", },
     DOCKUI210TEXT = { sLine = "Im sorry, but if we dont complete this job our boss will kill us! Prepare to be deconstructed!", },
     DOCKUI211TEXT = { sLine = "Typical", },
+	
+	--A different spacebase failed
+	DOCKUI212TEXT = { sLine = "Ship Information Unavailable", },
+    DOCKUI213TEXT = { sLine = "Hello, we are refugees from another spacebase about 66 parsecs from here, Something horrible happened on our base..and..we..errm.. we need... well... a new place to stay. Can you help us?", },
+    DOCKUI214TEXT = { sLine = "Come aboard we have plenty of room.", },
+    DOCKUI215TEXT = { sLine = "Uh, No we can't help you, go away please.", },
+    DOCKUI216TEXT = { sLine = "Thank you! I'm sorry about my tone, we are a bit shaken ya-know.", },
+    DOCKUI217TEXT = { sLine = "No problem, always willing to help people in need. Don't expect a free lunch though.", },
+    DOCKUI218TEXT = { sLine = "No?! Why not? Please help us!", },
+    DOCKUI219TEXT = { sLine = "Im sure another base will have room for you.", },
+    DOCKUI220TEXT = { sLine = "We just went through a blackhole and back, we are coming in no matter what!", },
+    DOCKUI221TEXT = { sLine = "What if something horrible happens to you again? Would you reconsider?", },
 	
     DUTIES001TEXT = { sLine = "Unassigned", },
     DUTIES002TEXT = { sLine = "No Primary Duty", },

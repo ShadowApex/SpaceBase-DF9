@@ -97,6 +97,12 @@ local t=
            rejectedResponse='DOCKUI198TEXT',rejectedResponseButton='DOCKUI199TEXT',
            screwYouResponse='DOCKUI200TEXT',screwYouResponseButton='DOCKUI201TEXT',
 	}
+	{   --Bad thing happened
+           title='DOCKUI212TEXT',request='DOCKUI213TEXT',acceptButton='DOCKUI214TEXT',rejectButton='DOCKUI215TEXT',
+           acceptedResponse='DOCKUI216TEXT',acceptedResponseButton='DOCKUI217TEXT',
+           rejectedResponse='DOCKUI218TEXT',rejectedResponseButton='DOCKUI219TEXT',
+           screwYouResponse='DOCKUI220TEXT',screwYouResponseButton='DOCKUI221TEXT',
+	}
     },
 	
     -- Ship drops off 1-2 raiders who attack crew and/or try to board station
