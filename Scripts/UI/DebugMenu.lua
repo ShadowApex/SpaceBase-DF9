@@ -136,31 +136,17 @@ function m.create()
 	
 	function Ob:onMakeAllHappyButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
-			local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
-			for key,value in pairs(tChars) do 
-				print("cHARACTERasdasdasfda :  " .. key .. " - " .. value)
-			end
 		end
 	end
 	
 	function Ob:onMakeAllSadButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
-			local tAvailableResearch = Base.getAvailableResearch()
-			for k,v in pairs(tAvailableResearch) do
-				Base.addResearch(k, ResearchData[k].nResearchUnits)
-			end
+			
 		end
 	end
 	
 	function Ob:onInfectButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
-			local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
-			for key,value in pairs(tChars) do 
-				if not value.isDead() then
-				value.diseaseInteraction(nil,Malady.createNewMaladyInstance('Thing'))
-				break
-				end
-			end
 		end
 	end
 	
