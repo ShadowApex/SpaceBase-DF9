@@ -95,8 +95,9 @@ function m.create()
     end
     
     function Ob:onTick(dt)
+    --This if statement is a hacky quick-fix for the debug menu crashes we were getting
 	if self.tAnimatingObjects then
-	
+    --Hackiness above
         for k,v in pairs(self.tAnimatingObjects) do
             v.currentTime = math.min(v.currentTime + dt, (v.totalTime+v.delay))
             local t = math.max(v.currentTime - v.delay, 0) / v.totalTime
