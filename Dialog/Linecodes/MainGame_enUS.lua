@@ -364,6 +364,17 @@
     DOCKUI219TEXT = { sLine = "Im sure another base will have room for you.", },
     DOCKUI220TEXT = { sLine = "We just went through a blackhole and back, we are coming in no matter what!", },
     DOCKUI221TEXT = { sLine = "What if something horrible happens to you again? Would you reconsider?", },
+	--Hero Trap
+	DOCKUI222TEXT = { sLine = "Ship Information Unavailable", },
+    DOCKUI223TEXT = { sLine = "Hello,...we need help....our lives are at stake.", },
+    DOCKUI224TEXT = { sLine = "Always a pleasure to help a person in need. Come aboard.", },
+    DOCKUI225TEXT = { sLine = "Uh, No we can't help you, go away please.", },
+    DOCKUI226TEXT = { sLine = "Thank you! We will just get our laz...err..bags, and come aboard..", },
+    DOCKUI227TEXT = { sLine = "No problem, always...wait...did you just say lazer?.", },
+    DOCKUI228TEXT = { sLine = "No?! Why not? We told you we needed help!", },
+    DOCKUI229TEXT = { sLine = "I'm sure another base will be able to 'Help' you", },
+    DOCKUI230TEXT = { sLine = "I shouldn't have even asked, we never needed help, prepare to be boarded.", },
+    DOCKUI231TEXT = { sLine = "Pirates! I KNEW YOU WERE SHADY!", },
 	
     DUTIES001TEXT = { sLine = "Unassigned", },
     DUTIES002TEXT = { sLine = "No Primary Duty", },

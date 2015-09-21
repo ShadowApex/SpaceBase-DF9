@@ -96,13 +96,13 @@ local t=
            acceptedResponse='DOCKUI196TEXT',acceptedResponseButton='DOCKUI197TEXT',
            rejectedResponse='DOCKUI198TEXT',rejectedResponseButton='DOCKUI199TEXT',
            screwYouResponse='DOCKUI200TEXT',screwYouResponseButton='DOCKUI201TEXT',
-	}
+	},
 	{   --Bad thing happened
            title='DOCKUI212TEXT',request='DOCKUI213TEXT',acceptButton='DOCKUI214TEXT',rejectButton='DOCKUI215TEXT',
            acceptedResponse='DOCKUI216TEXT',acceptedResponseButton='DOCKUI217TEXT',
            rejectedResponse='DOCKUI218TEXT',rejectedResponseButton='DOCKUI219TEXT',
            screwYouResponse='DOCKUI220TEXT',screwYouResponseButton='DOCKUI221TEXT',
-	}
+	},
     },
 	
     -- Ship drops off 1-2 raiders who attack crew and/or try to board station
@@ -128,6 +128,12 @@ local t=
             rejectedResponse='DOCKUI120TEXT',rejectedResponseButton='DOCKUI121TEXT',
             screwYouResponse='DOCKUI122TEXT',screwYouResponseButton='DOCKUI123TEXT',
         },
+		{   --hero trap.
+           title='DOCKUI222TEXT',request='DOCKUI223TEXT',acceptButton='DOCKUI224TEXT',rejectButton='DOCKUI225TEXT',
+           acceptedResponse='DOCKUI226TEXT',acceptedResponseButton='DOCKUI227TEXT',
+           rejectedResponse='DOCKUI228TEXT',rejectedResponseButton='DOCKUI229TEXT',
+           screwYouResponse='DOCKUI230TEXT',screwYouResponseButton='DOCKUI231TEXT',
+	},
     },
 
     -- Attempts a dock a derelict to the station
