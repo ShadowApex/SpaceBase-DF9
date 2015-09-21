@@ -34,7 +34,7 @@ function m.create()
 	    self:setRenderLayer('UIScrollLayerLeft')
         self:processUIInfo(sUILayoutFileName)
 
-		self.rScrollableUI = self:getTemplateElement('ScrollPane')
+		--self.rScrollableUI = self:getTemplateElement('ScrollPane')
 		
         self.rBackButton = self:getTemplateElement('BackButton')
 

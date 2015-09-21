@@ -88,13 +88,14 @@ return
             scale = { nButtonWidth, nButtonStartY + (numButtons * nButtonHeight) },
             color = Gui.SIDEBAR_BG,
         },
-			--[[ {
+			 --[[ {
             key = 'ScrollPane',
             type = 'scrollPane',
             pos = { 0, nButtonStartY },
             rect = { 0, 0, nButtonWidth, 'g_GuiManager.getUIViewportSizeY() - 280)' },
 			
-        }, ]]--
+        },
+		--]]
         {
             key = 'BackButton',
             type = 'onePixelButton',
