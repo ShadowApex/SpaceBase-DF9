@@ -154,8 +154,13 @@ function m.create()
 	
 	function Ob:onInfectButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
-			--local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
-			--tChars[1].diseaseInteraction(nil,'Thing')
+			local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+			for key,value in pairs(tChars) do 
+				if not value.isDead() then
+				value.diseaseInteraction(nil,Malady.createNewMaladyInstance('Thing'))
+				break
+				end
+			end
 		end
 	end
 	
@@ -163,7 +168,7 @@ function m.create()
 	function Ob:onRandomTestButtonPressed(rButton, eventType)
 	--this button is used for random testing of code
 		if eventType == DFInput.TOUCH_UP then
-			for key in pairs(World.floorDecals) do
+		for key in pairs(World.floorDecals) do
 				World.floorDecals[key] = nil
 			end
 		end
@@ -179,6 +184,5 @@ function m.new(...)
     Ob:init(...)
     return Ob
 end
-
 
 return m
