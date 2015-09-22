@@ -242,15 +242,13 @@ end
 
 --Check to see if disease exists in base
 function Malady.hasEncounteredDisease(sMaladyName)
-
-	return Malady.tS.tResearch[sMaladyName]
+	return Malady.tS.tResearch[sMaladyName] and Malady.tS.tResearch[sMaladyName].bEncountered
 end
 
 --Check to see if player knows disease exists
 function Malady.hasIdentifiedDisease(sMaladyName)
 	if Malady.tS.tResearch[sMaladyName] then
-	
-    return Malady.tS.tResearch[sMaladyName].bEncountered
+        return Malady.tS.tResearch[sMaladyName].bEncountered
 	end
 end
 
