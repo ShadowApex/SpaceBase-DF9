@@ -147,6 +147,8 @@ function m.create()
 	
 	function Ob:onInfectButtonPressed(rButton, eventType)
 		if eventType == DFInput.TOUCH_UP then
+		print(Malady.getDiseaseName('Thing'))
+		print(Malady.getDiseaseName('dysentary'))
 		end
 	end
 	

@@ -83,79 +83,106 @@ function Malady._updateMaladySaveData()
     end
 end
 
+local tDIseaseSpecific = {'thing','Thing'}
+
 local tDiseaseAdjectives = {
+   default = {
    'DISEAS004TEXT', 'DISEAS005TEXT', 'DISEAS006TEXT', 
    'DISEAS011TEXT', 'DISEAS012TEXT', 'DISEAS014TEXT',
    'DISEAS015TEXT', 'DISEAS016TEXT', 'DISEAS018TEXT',
-   'DISEAS035TEXT', 'DISEAS036TEXT', 'DISEAS037TEXT', 'DISEAS038TEXT', 'DISEAS039TEXT', 
-   'DISEAS040TEXT', 'DISEAS041TEXT', 'DISEAS042TEXT', 'DISEAS043TEXT', 'DISEAS044TEXT', 
-   'DISEAS045TEXT', 'DISEAS046TEXT', 'DISEAS047TEXT', 'DISEAS048TEXT', 'DISEAS049TEXT', 
-   'DISEAS050TEXT', 'DISEAS051TEXT', 'DISEAS052TEXT', 'DISEAS053TEXT', 'DISEAS054TEXT', 
-   'DISEAS055TEXT', 'DISEAS056TEXT', 'DISEAS057TEXT', 'DISEAS058TEXT', 'DISEAS059TEXT', 
-}
-local tDiseaseNouns = {
-   'DISEAS007TEXT', 'DISEAS008TEXT', 'DISEAS009TEXT',
-   'DISEAS010TEXT', 'DISEAS013TEXT', 'DISEAS017TEXT',
-   'DISEAS019TEXT', 'DISEAS020TEXT',
-   'DISEAS060TEXT', 'DISEAS061TEXT', 'DISEAS062TEXT', 'DISEAS063TEXT', 'DISEAS064TEXT',
-   'DISEAS065TEXT',
+   'DISEAS035TEXT', 'DISEAS036TEXT', 'DISEAS037TEXT', 
+   'DISEAS038TEXT', 'DISEAS039TEXT', 'DISEAS040TEXT',
+   'DISEAS041TEXT', 'DISEAS042TEXT', 'DISEAS043TEXT', 
+   'DISEAS044TEXT', 'DISEAS045TEXT', 'DISEAS046TEXT',
+   'DISEAS047TEXT', 'DISEAS048TEXT', 'DISEAS049TEXT', 
+   'DISEAS050TEXT', 'DISEAS051TEXT', 'DISEAS052TEXT', 
+   'DISEAS053TEXT', 'DISEAS054TEXT', 'DISEAS055TEXT',
+   'DISEAS056TEXT', 'DISEAS057TEXT', 'DISEAS058TEXT', 
+   'DISEAS059TEXT',},
+   --Thing type diseases actually use the same array, but can now be customized
+    Thing = {
+   'DISEAS004TEXT', 'DISEAS005TEXT', 'DISEAS006TEXT', 
+   'DISEAS011TEXT', 'DISEAS012TEXT', 'DISEAS014TEXT',
+   'DISEAS015TEXT', 'DISEAS016TEXT', 'DISEAS018TEXT',
+   'DISEAS035TEXT', 'DISEAS036TEXT', 'DISEAS037TEXT', 
+   'DISEAS038TEXT', 'DISEAS039TEXT', 'DISEAS040TEXT',
+   'DISEAS041TEXT', 'DISEAS042TEXT', 'DISEAS043TEXT', 
+   'DISEAS044TEXT', 'DISEAS045TEXT', 'DISEAS046TEXT',
+   'DISEAS047TEXT', 'DISEAS048TEXT', 'DISEAS049TEXT', 
+   'DISEAS050TEXT', 'DISEAS051TEXT', 'DISEAS052TEXT', 
+   'DISEAS053TEXT', 'DISEAS054TEXT', 'DISEAS055TEXT',
+   'DISEAS056TEXT', 'DISEAS057TEXT', 'DISEAS058TEXT', 
+   'DISEAS059TEXT',},
+			  
 }
 
-local tDiseaseThingNouns = {
-	'DISEAS066TEXT','DISEAS067TEXT','DISEAS068TEXT',
-	'DISEAS069TEXT','DISEAS070TEXT','DISEAS071TEXT',
-	'DISEAS072TEXT','DISEAS073TEXT','DISEAS074TEXT',
+local tDiseaseNouns = {
+Thing = {
+'DISEAS066TEXT','DISEAS067TEXT','DISEAS068TEXT',
+'DISEAS069TEXT','DISEAS070TEXT','DISEAS071TEXT',
+'DISEAS072TEXT','DISEAS073TEXT','DISEAS074TEXT'},
+			
+default = {
+'DISEAS007TEXT', 'DISEAS008TEXT', 'DISEAS009TEXT',
+'DISEAS010TEXT', 'DISEAS013TEXT', 'DISEAS017TEXT',
+'DISEAS019TEXT', 'DISEAS020TEXT','DISEAS060TEXT', 
+'DISEAS061TEXT', 'DISEAS062TEXT', 'DISEAS063TEXT',
+'DISEAS064TEXT', 'DISEAS065TEXT',},
+		  
 }
 
 local tDiseaseSpecials = { 'DISEAS021TEXT', }
 
---Name a special disease
-function Malady.getDiseaseSpecialName(sDiseaseType)
+
+--Name Generator algorithm
+function Malady.getDiseaseName(sDiseaseType)
     local sName = ''
-	if sDiseaseType=='Thing' then
-		if math.random() > 0.50 then
-			sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
-		end
-		sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
-		sName = sName .. g_LM.randomLine(tDiseaseThingNouns)
-	else
-		sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
-		sName = sName .. g_LM.randomLine(tDiseaseNouns)
+	local bIsSpecial=false
+	
+    if math.random() < 0.75 then
+       sName = require('Topics').getRandomProvenance() .. ' '
+   end
+   
+	for key, value in pairs(tDIseaseSpecific) do 
+	    if value == sDiseaseType then
+		bIsSpecial=true
+	    end
 	end
 	
-    return sName
-end
-
---Old Function For Genning Name, keeping it because the Logs use it to generate fake diseases and I don't want them to reference the scarier ones
-function Malady.getDiseaseName()
-    -- pattern: [Provenance] Adjective Name
-    -- examples: Orange Flu, Venusian Crawling Hives
-    local sName = ''
-    if math.random() < 0.75 then
-        sName = require('Topics').getRandomProvenance() .. ' '
+    if  not bIsSpecial then
+       sDiseaseType = 'default'
     end
-    sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
-    sName = sName .. g_LM.randomLine(tDiseaseNouns)
+	
+    sName = sName .. Malady.addDiseaseNameFlavor(sDiseaseType)
+    sName = sName .. g_LM.randomLine(tDiseaseAdjectives[sDiseaseType]) .. ' '
+    sName = sName .. g_LM.randomLine(tDiseaseNouns[sDiseaseType])
+	
     -- small chance for a special name
     if math.random() < 0.025 then
         sName = g_LM.randomLine(tDiseaseSpecials)
     end
     return sName
 end
+
+--for adding flavor to disease names
+function Malady.addDiseaseNameFlavor(sDiseaseType)
+	sFlavor = ''
+    if sDiseaseType == 'Thing' then
+	--Things get an extra adjective
+	sFlavor = sFlavor .. g_LM.randomLine(tDiseaseAdjectives[sDiseaseType]) .. ' ' 
+    end
+	return sFlavor
+end
  
 
+ --Name code that gets called
 function Malady.getNewDiseaseName(sDiseaseType)
     local nTries = 0
     local nNumSuffixes = 0
 	local sName = ""
     while true do
 	
-		--There is no switch statement in lua
-		if sDiseaseType == 'Thing' then
-			sName = Malady.getDiseaseSpecialName(sDiseaseType)
-		else
-			sName = Malady.getDiseaseName()
-		end
+		sName = Malady.getDiseaseName(sDiseaseType)
 
         for i=1,nNumSuffixes do
             sName = sName..' '..g_LM.randomLine(Zone.greekLetters)
