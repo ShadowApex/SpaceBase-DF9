@@ -573,7 +573,7 @@ Log.tTypes = {
                    'SFMONS031KBOT',},
     },
 	HEALTH_CITIZEN_IS_THING={
-		lineCodes={ 'SFTHING01', 'SFTHING02','SFTHING03','SFTHING04','SFTHING05','SFTHING06',
+		lineCodes={ 'SFTHING01', 'SFTHING02','SFTHING03','SFTHING04','SFTHING05','SFTHING06','SFTHING07'
 				},
 		priority=3,
 	},

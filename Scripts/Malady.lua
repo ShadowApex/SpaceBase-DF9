@@ -101,8 +101,32 @@ local tDiseaseNouns = {
    'DISEAS065TEXT',
 }
 
+local tDiseaseThingNouns = {
+	'DISEAS066TEXT','DISEAS067TEXT','DISEAS068TEXT',
+	'DISEAS069TEXT','DISEAS070TEXT','DISEAS071TEXT',
+	'DISEAS072TEXT','DISEAS073TEXT','DISEAS074TEXT',
+}
+
 local tDiseaseSpecials = { 'DISEAS021TEXT', }
 
+--Name a special disease
+function Malady.getDiseaseSpecialName(sDiseaseType)
+    local sName = ''
+	if sDiseaseType=='Thing' then
+		if math.random() > 0.50 then
+			sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
+		end
+		sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
+		sName = sName .. g_LM.randomLine(tDiseaseThingNouns)
+	else
+		sName = sName .. g_LM.randomLine(tDiseaseAdjectives) .. ' '
+		sName = sName .. g_LM.randomLine(tDiseaseNouns)
+	end
+	
+    return sName
+end
+
+--Old Function For Genning Name, keeping it because the Logs use it to generate fake diseases and I don't want them to reference the scarier ones
 function Malady.getDiseaseName()
     -- pattern: [Provenance] Adjective Name
     -- examples: Orange Flu, Venusian Crawling Hives
@@ -118,14 +142,20 @@ function Malady.getDiseaseName()
     end
     return sName
 end
+ 
 
-function Malady.getNewDiseaseName()
+function Malady.getNewDiseaseName(sDiseaseType)
     local nTries = 0
     local nNumSuffixes = 0
+	local sName = ""
     while true do
-        -- put core name generation logic in its own function so that
-        -- citizens can talk about made-up (ie not "real") diseases
-        local sName = Malady.getDiseaseName()
+	
+		--There is no switch statement in lua
+		if sDiseaseType == 'Thing' then
+			sName = Malady.getDiseaseSpecialName(sDiseaseType)
+		else
+			sName = Malady.getDiseaseName()
+		end
 
         for i=1,nNumSuffixes do
             sName = sName..' '..g_LM.randomLine(Zone.greekLetters)
@@ -142,6 +172,7 @@ function Malady.getNewDiseaseName()
         end
     end
 end
+
 
 function Malady.getSaveData()
     return Malady.tS
@@ -193,6 +224,7 @@ function Malady.isIncapacitated(rChar)
     end
 end
 
+--This code runs WHEN a disease is encountered.
 function Malady.diseaseEncountered(tMaladyData,rChar)
     local sMaladyName = tMaladyData.sMaladyName
     if not Malady.tS.tResearch[sMaladyName] then Malady.tS.tResearch[sMaladyName] = { nResearchCure=0, nCureProgress=0, bMalady=true } end
@@ -208,13 +240,18 @@ function Malady.diseaseEncountered(tMaladyData,rChar)
     end
 end
 
+--Check to see if disease exists in base
 function Malady.hasEncounteredDisease(sMaladyName)
-    return Malady.tS.tResearch[sMaladyName] and Malady.tS.tResearch[sMaladyName].bEncountered
+
+	return Malady.tS.tResearch[sMaladyName]
 end
 
+--Check to see if player knows disease exists
 function Malady.hasIdentifiedDisease(sMaladyName)
-    -- MTF: not using this functionality. As soon as you encounter a disease, you know its name.
-    return true
+	if Malady.tS.tResearch[sMaladyName] then
+	
+    return Malady.tS.tResearch[sMaladyName].bEncountered
+	end
 end
 
 function Malady.hasDiscoveredCure(sMaladyName)
@@ -276,12 +313,17 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
     assert(tMaladySpec.bCreateStrains)
     local sMaladyType = tMaladySpec.sMaladyType
     local sMaladyName = sMaladyType .. i
+	
     while Malady.tS.tMaladyStrains[sMaladyName] do
         i = i+1
         sMaladyName = sMaladyType .. i
     end
-    local sFriendlyName = Malady.getNewDiseaseName()
+	
+    local sFriendlyName = Malady.getNewDiseaseName(sMaladyType)
+
+	
     Malady.tS.tMaladyStrains[sMaladyName] = { sMaladyName=sMaladyName, sMaladyType=sMaladyType, sFriendlyName=sFriendlyName }
+	
     if bRequireResearch then
         local nResearchCure = math.floor(nResearchTimeOverride)
         if nResearchCure == nil then
@@ -292,8 +334,10 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
         Malady.tS.tResearch[sMaladyName] = { nResearchCure = nResearchCure, nCureProgress=0, bMalady=true }
     end
     return sMaladyName
-end
 
+	end
+
+--Friendly name is the name the player sees
 function Malady.getFriendlyName(sMaladyName)
     return Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sFriendlyName
 end
@@ -366,6 +410,7 @@ function Malady.createNewMaladyInstance(sMaladyType, bUseExistingStrain, bRequir
     return Malady.reproduceMalady(tMaladySpec)
 end
 
+--Get maladies by type and the diseases name, if it is not found it creates a new strain of the type.
 function Malady.getMalady(sMaladyType,s2MaladyName)
     local tMaladySpec = DFUtil.deepCopy( MaladyData[sMaladyType] )
    
@@ -374,8 +419,8 @@ function Malady.getMalady(sMaladyType,s2MaladyName)
             local tStrains = {}
             if Malady.tS and Malady.tS.tMaladyStrains then
                 for sStrainName, tStrainData in pairs(Malady.tS.tMaladyStrains) do
-				--Loop through strain list to find a strain with the correct name
-                    if tStrainData.sMaladyName == s2MaladyName then
+				--Loop through strain list to find a strain with the correct id or friendly name
+                    if tStrainData[sStrainName].sMaladyName == s2MaladyName  or tStrainData[sStrainName].sFriendlyName==s2MaladyName then
                         table.insert(tStrains, sStrainName)
 						print(tStrainData.sMaladyName)
                     end
@@ -388,7 +433,7 @@ function Malady.getMalady(sMaladyType,s2MaladyName)
 			end
         if not tMaladySpec.sMaladyName then
             -- no existing strain found above (fall-through case).
-            tMaladySpec.sMaladyName = Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOverride)
+            tMaladySpec.sMaladyName = Malady._createNewStrain(tMaladySpec,true, 300)
         end
 		else
 		tMaladySpec.sMaladyName = sMaladyType

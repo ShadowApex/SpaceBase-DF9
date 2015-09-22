@@ -135,6 +135,18 @@
     DISEAS063TEXT = { sLine = "Cramps", },
     DISEAS064TEXT = { sLine = "Syndrome", },
     DISEAS065TEXT = { sLine = "Flux", },
+	
+	--Spoiler diseases
+	DISEAS066TEXT = { sLine = "Infestation", },
+    DISEAS067TEXT = { sLine = "Infection", },
+    DISEAS068TEXT = { sLine = "Retrovirus", },
+	DISEAS069TEXT = { sLine = "Transformation", },
+    DISEAS070TEXT = { sLine = "Changeling", },
+	DISEAS071TEXT = { sLine = "Infester", },
+	DISEAS072TEXT = { sLine = "Thing", },
+	DISEAS073TEXT = { sLine = "Monster", },
+	DISEAS074TEXT = { sLine = "Eater", },
+	
     DOCKUI001TEXT = { sLine = "INCOMING DOCKING REQUEST FROM:", },
     DOCKUI002TEXT = { sLine = "Starship Information Unavailable", },
     DOCKUI003TEXT = { sLine = "Greetings, Spaceb&##ase.As you can see our trasSS MISsion relay is having some issues.  Not artificially jammed.\n\nWe AR**|*E NOT P|RATES this is real. Please allow us to dock with your base. With your bountiful resources we will make a great team and you can;uk]Ahelp a stranger out. Not pirates or raiders.", },
@@ -2923,4 +2935,5 @@
 	SFTHING04 = { sLine = "*Deceivingly staring*", },
 	SFTHING05 = { sLine = "Hahaha, I figured out the password...errmm.. I mean, I haven't written a log in awhile.", },
 	SFTHING06 = { sLine = "I do love a bit of inf--err..socialization.", },
+	SFTHING07 = { sLine = "I am feeling extremely hungry today, might feed soon",},
 }
