@@ -379,28 +379,9 @@ function Malady.getDescription(sMaladyName)
     return sMaladyType and MaladyData[sMaladyType].sDesc
 end
 
--- Rough guess at the badness of a malady. Should maybe just pick a number to hardcode in MaladyData?
--- returns 0-1.
+--Grabs the badness from a disease for future event code things (Was going to delete, instead decided to change)
 function Malady.getMaladyDifficulty(tMalady)
-    local nRemainingResearch = 0
-    local sMaladyName = tMalady.sMaladyName
-
-    if not Malady.hasDiscoveredCure(sMaladyName) then
-        nRemainingResearch = Malady.tS.tResearch[sMaladyName].nResearchCure - Malady.tS.tResearch[sMaladyName].nCureProgress
-    end
-    nRemainingResearch = math.min(.2, .2 * nRemainingResearch / 1500)
-
-    local nSeverity = math.min(.4, .35 * (tMalady.nSeverity + (tMalady.nAdditionalDeadliness or 0)))
-
-    local nPerceptionGap = math.max(0,math.min(.1, 0.25 * (tMalady.nSeverity - tMalady.nPerceivedSeverity)))
-
-    local nContagiousness = 0
-    if tMalady.bSpreadSneeze then nContagiousness = nContagiousness + .15 end
-    if tMalady.bSpreadTouch then nContagiousness = nContagiousness + .15 end
-
-    --print('contag',nContagiousness,'sev',nSeverity,'percept',nPerceptionGap,'resrch',nRemainingResearch)
-
-    return nContagiousness + nSeverity + nPerceptionGap + nRemainingResearch
+   return tMalady.nDifficulty
 end
 
 function Malady.createNewMaladyInstance(sMaladyType, bUseExistingStrain, bRequireResearch, nResearchTimeOverride)
@@ -560,13 +541,16 @@ function Malady._tickMalady(rChar,tMalady)
 				rChar:spawnThing()
 			end
 		end
+		--Parasite
 		if tMalady.sSpecial == 'parasite' and (not tMalady.nNextSpawnAttempt or tMalady.nNextSpawnAttempt < GameRules.elapsedTime) then
 			tMalady.nNextSpawnAttempt = GameRules.elapsedTime + 15
 			rChar:spawnMonster()
 		end
+		--The Plague
 		if tMalady.sSpecial == 'death' then
 			CharacterManager.killCharacter(rChar, Character.CAUSE_OF_DEATH.DISEASE, {sDiseaseName=Malady.getFriendlyName(tMalady.sMaladyName)})
 		end
+		
 	elseif tMalady.preSymptomaticLog and (tMalady.nNextPreSymptomLog < GameRules.elapsedTime) then
 		Log.add(tMalady.preSymptomaticLog, rChar)
 		tMalady.nNextPreSymptomLog = Malady._nextTime(Malady.LOG_RANGE)
