@@ -688,7 +688,6 @@ function World.getSaveData()
 		tilesToExplore={},
     }
 	local tSquads = World.getSquadList().getList()
-    print("World:getSaveData() #tSquads: "..#tSquads)
     -- Save out the path grid.
     -- Do not save out prop grid. Props will save themselves out and re-place themselves in the world.
     -- Do not save out room grid. Rooms will save themselves out, so they can save out their attributes.

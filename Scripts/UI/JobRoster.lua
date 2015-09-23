@@ -22,8 +22,7 @@ local tJobToEnum =
     job7 = Character.SCIENTIST,
     job8 = Character.DOCTOR,
     job9 = Character.JANITOR,
-	job10 = Character.TRADER,
-    job11 = Character.UNEMPLOYED,
+    job10 = Character.UNEMPLOYED,
 }
 
 local tSortButtonInfos =
@@ -61,7 +60,7 @@ local tSortButtonInfos =
     Job9SortButton = {
                          sSortKey = 'job9Sort',
                      },
-    Job10SortButton = {
+	Job10SortButton = {
                          sSortKey = 'job10Sort',
                      },
 }

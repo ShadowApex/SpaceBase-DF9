@@ -1,0 +1,33 @@
+Spacebase DF-9 rebalance plan
+
+Each time a hostile event will trigger, a difficulty rating will be determined.
+
+difficulty rating = location modifier * population modifier * game type modifier
+
+location modifier = location is selected at beginning of game
+population modifier = modifier based on population
+game type modifier = 2 game types, Losing is Fun is harder, difficulty will progress faster and you will inevitably lose.  Building is Fun is easier, with a slower difficulty progression, you will be able to build large bases with this game type.
+
+prereqs: min/max pop, play time elapsed, specific buildings, credits, num turrets, military strength, medical knowledge
+
+For each event create a table of potential events based on prereqs, then pick a random one.  Keep a record of the last one/two to try make sure hostile events don't happen too often.
+For hostile event, modify event based on difficulty rating
+
+-- Specific events
+
+Breaching Event
+Derelict Event
+Docking
+Immigration Event
+Meteor Event
+Trader Event
+
+-- Buildable object progression
+
+O2Gen line - I'm thinking we increase the cost and increase the amount of 02 generated.
+
+level	original	new
+1		150/50		150/50
+2		250/200		300/300
+3		350/350		450/600
+4		450/500		600/950

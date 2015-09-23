@@ -1,0 +1,311 @@
+Spacebase DF-9 Dev Plans
+
+TECHNOLOGY
+* top-level research screen showing all possible projects, completed and non
+
+ASSIGN PEOPLE TO ROOMS
+* depending on their duty and/or zone type, this can mean different things:
+** assign a security-duty citizen to a room to have them guard it
+** assign a technician to a room to have them focus their work on it
+** assign any citizen to a residence to have them use it as their quarters
+* normally, a citizen will "claim" an unused bed and the area around it
+** citizens decorate their living space with their stuff (see "stuff" above)
+* people protect their spaces / become annoyed when strangers or unfriendly people intrude
+
+CARRYABLE OBJECTS
+* new citizen inspector tab showing stuff stashed in inventory
+* when people arrive, they have a suitcase (container with their stuff in it)
+* players build shelves for people to put their stuff on
+* replicator food comes in wrappers, produces waste (litter carryable)
+* a single item of stuff can have multiple tags describing it, eg purple, terran, fuzzy, punk rock, etc.  citizens have affinities for these tags
+* citizens trade stuff with each other, trying to get stuff they like more
+* roaming traders will visit the base to trade new stuff with people
+** traders enter the base and build a "trading post" in a reasonable location, people go to it
+* "litter" objects that citizens with low neatness personality throw away
+* janitors / people with high neatness pick up litter
+* janitors clean up bloodstains and other cosmetic damage
+* people gibbed by monsters turn into bits, which janitors must clean up
+* citizens have to reach a locker before they can change duty
+* duty gear exists in-world, citizens must find it and equip themselves to do duty
+
+POWER SYSTEM
+* "reactor zone" with fusion reactor object that produces power
+* rooms must be adjacent to a room with a working reactor to be powered
+* unpowered rooms go dark (emergency lighting) and objects in them don't function
+* reactors only produce X power, then you have to build another
+* a room's power demand is determined by its size and the objects in it
+* maybe make the Base Seed object serves as a low-output reactor to help players get started
+* power viz mode: rooms are green/yellow/red to show adequate/partial/no power, specific objects red when unpowered
+* factor new need for reactors into starting matter allotment
+
+BASE DEFENSE
+* auto turrets, placeable on base exterior or in rooms
+* like other machines, turrets draw power, probably a lot to make it difficult to construct an invincible amount of them
+
+BASE HISTORY SCREEN
+* a permanent timestamped list of important base events: citizen joined, citizen died, ship docked, first zone of each type created
+* in-game screenshot key that pops up a "write a caption for this screenshot" box, screenshot + caption is added to the timestamped list
+* base history is stored locally in save dir as HTML + linked images, each base has its own dir
+* base history is also mirrored on a hosted server somewhere, players can easily link their base histories
+
+MISC LIFE SIM
+* citizens become annoyed if their environment is noisy (people passing through or doing stuff) while sleeping or relaxing - incentivize building residences that are low-traffic
+* "watch video" activity tied to monitors
+* high morale = skills go up more quickly
+
+MISC UI
+* replace global O2 capacity HUD box with O2-viz-mode-only display: X/Y capacity #s over each chunk of contiguous (ie sharing the same O2 supply) base geo
+
+TECHNOLOGY
+* open-ended "research mystery tech" task, has a chance to discover a "secret" project
+* doctors must research cures for slow-killer diseases
+* in-place upgrading of lvl 1 objects if you've researched a cooler version
+
+FOOD/GARDENS
+* improperly maintained food replicators produce bad food that makes people sick?
+
+CLAIM/DISCLAIM ROOMS
+* if all rooms in a derelict are unclaimed+dim or undiscovered for long enough, the entire derelict "drifts away"
+
+MINIMAP
+* minimap display of base in lower right corner
+* separate viz mode toggles for minimap vs main view
+
+DOCKING SHIPS
+* Tetris-piece-style placement for docking ships (friendly and hostile) so that you have control over where a ship appears, making it less disruptive to base development.
+* ability to tell security to breach a locked door
+
+MULTI-LEVEL BASE CONSTRUCTION
+* UI for navigating multiple levels
+* rendering tech for showing multiple levels
+* build gravshafts to allow citizens to travel between levels
+* ability to build railings for safety?
+
+SPACEFACE LOGS
+* support "all lower case" personality flag
+* use a linecode's recency as another score-impacting variable (reduce repetition)
+* "comment on thing in environment" - save list of recent objects nearby
+
+"LEARN TO PLAY"
+* option in front/pause menu
+* loads Box.sav as starting map, as opposed to normal DeepSpace.sav
+* "only display once" hint flag for tutorialish / first time messages
+* add "time since last true" concept to hint system
+* add "has been true since X" concept to hint system
+
+TELEPORTERS
+* build at least two "teleport pad" objects to create a functioning teleporter
+* UI for selecting which teleporter goes where (dynamically changeable)
+* teleporter accidents: poorly maintained teleporters could hurt/kill people, scramble their brains (personality change), turn them evil (goatee Spock)
+
+METEOR STRIKES
+* shield generators generate shielding to repel meteor strikes (gives technicians stuff to do in space)
+
+MISC UI
+* ticker along bottom edge of screen showing recent notable spaceface updates
+* confirm + cancel for roster screen
+* custom viz for Construct mode - desaturate colors except for amber building color?
+* shift-space = max speed
+* up/down arrows in room centers showing whether room O2 is rising or lowering
+* "object condition" viz mode: color-code objects by condition, highlight technicians?  do same when a technician is selected?
+* allow zoom in beyond min_zoom, spring back to normal min_zoom after a few seconds
+* make ability to rename citizens "once only"
+* "no power" icon over unpowered rooms (once power system exists)
+* little lines showing where someone is pathing to
+* support Mac trackpad gestures
+* dev shortcut list for edit mode?
+
+BASE STATS SCREEN
+* auto-show stats screen after base fails, ie everyone dies, "game over" state
+stats to show:
+* Matter spent
+* Derelicts
+* Hostile docking
+* Total docks
+* Non-hostile docks
+* Docking requests denied, accepted, forced
+* Room temp
+* Raiders killed
+* Monsters killed
+
+EMERGENCY DISTRESS SIGNAL
+* (very expensive?) object you can build that calls for rescue people / immigrants to show up and save your base
+
+BASE NAMING
+* when your first oxygenated room comes online, base is considered "established" and prompts you for a name
+
+STEAM WORKSHOP
+* built in savegame sharing!
+* mod support!
+** "mods" subdir where user-created scripts patch base game lua files at runtime
+** provide uncompiled lua source for gameplay-relevant classes, eg Character.lua, to support modders
+** allow PNG sprite sheets - lower performance than tex format in exchange for easy moddability
+
+BARTENDERS
+* citizen drunkenness - increased by X every drink they have, dwindles to zero slowly (ie "blood alcohol")
+* drunk citizens more likely to make mistakes while doing duty
+
+CITIZEN FIGHTING
+* citizens who dislike each other enough will fight
+* low risk of actual death, but injury and deepening mutual hatred
+* security can stun violent people to calm them down, knocking them unconscious for a bit
+* drunk citizens more likely to fight
+* low morale citizens far more likely to fight
+
+MENTAL HEALTH
+* when morale is critically low, depending on personality type:
+** sit in bed moping
+*** friends visit the depressed citizen and bring them space-soup, attempting to cheer them up
+** become violent, grabbing a rifle if available, attacking random people
+
+DOCTORS
+* doctor duty and infirmary zone
+* doctors unassigned to an infirmary (see "assining people to rooms") patrol the base looking for hurt/sick people
+* citizens seek out an infirmary/doctor when hurt or sick (eg parasite infestation)
+* doctors use tricorder-like first aid prop to heal people
+** better doctors heal people faster / more fully, bad doctors have a chance to hurt them
+* revivabed object for infirmary: only way to detect parasite infestation or cure some diseases
+* cold viruses can be transmitted between citizens via chat and proximity
+** having a cold saps stamina and has morale impact
+
+CONSTRUCTION TOOLS
+* "flood fill with floor" tool, works on areas enclosed by walls or asteroid
+* "build circular room" tool - drag out a circular area instead of a square
+* filled (with floor) vs unfilled (without floor) toggle for box and circle room tools
+* enclosed room plans become objects in a build queue, queued objects can be reordered in priority or canceled
+
+MISC LIFE SIM
+* over time, citizens get nicknames, eg Bob "Sparky" Schmidt
+* ability to flag any citizens as hostile / suspicious (security will keep an eye on them)
+* sportsball matches viewable on monitors / in pubs
+* jukeboxes in pubs that play player-selected music on command
+* citizens form bands and play gigs together
+** songs bands write can be about real things a citizen has experienced
+* citizens create artwork
+** art depicts real things a citizen has experienced / concepts a citizen knows about
+
+SOCIALIZATION / AFFINITY AI
+* people have +/- affinities for duties, and will become unhappy doing a duty they dislike for too long, even if they're good at it - players must balance needs of citizen versus needs of base
+* people prefer to chat with friends, unless they have high gregarious personality in which case they actively enjoy chatting with strangers (low familiarity)
+* people have +/- affinities for objects and rooms with certain qualities, eg red, dark, fluffy
+* people have +/- affinities for people with certain qualities (xenophobia/philia, sexual preference, fashion sense)
+* people spread gossip about people they dislike, biasing affinity map changes against them
+* trends: popular (high aggregate affinity) people influence the affinities of less popular people
+** trends are spread via chat, ie "memes", very similiar to viruses
+** "meme susceptible" personality trait, analogous to immunodefense strength
+* fashion accessories signify social affiliation, eg cliques wear the same kind of thing
+* new concepts (topics) are gradually introduced by immigrants and trade, eg a new fasion craze starts when a trader visits the base with slap bracelets
+* if morale is good, choose topics that you like, converse if morale is bad?
+
+PERSONALITY TRAITS
+* introverted/extroverted = how much people enjoy solitary vs group activities
+* gregarious/shy = how much people enjoy chatting with strangers vs friends
+* vindictive/forgiving = how long people hold grudges and whether they act on them
+* angry/peaceful = whether people become violent or depressed when morale is low
+* neat/messy = whether people pick up litter and spare objects vs throw junk on the floor
+* religious preference = whether people prefer to be recycled on death or given a "spock funeral"
+
+AFFINITY/CONVERSATION TOPICS
+* games
+* pubs
+* tv shows
+* films
+* sports
+* sports teams
+* music albums
+* songs
+
+TECHNOLOGY
+* starting conditions determine what technologies you have access to
+* take dead hostiles to research labs to study them and learn to better deal with them
+** eventually, how to deactivate killbots and reform them into friendly (still scary lookin') bots
+
+"VISIT A FRIEND'S BASE"
+* hangar bay zone where shuttles can dock
+** (post "stuff" update, traders show up here)
+** "landing pad" env object needed to demonstrate footprint
+** "hangar door", like airlock door but wider
+** room depressurizes when hangar door is open, represurrizes when closed then people can disembark
+* load citizens onto a shuttle and give it a destination friend's base
+* shuttle leaves, your friend gets a visit request
+* if accepted, your citizens disembark inside their base, walk around and have adventures
+* eventually, they return to the shuttle and return to your base
+* travelers preserve any stuff, gained experience, technology etc that they accrue while visiting another base
+
+BASE DEFENSE
+* more types of attackers show up in derelicts, docking ships, etc:
+** murderslugs
+* invaders breach base walls and invade from the outside
+* exterior base defenses - shielding
+* build traps to capture or kill invaders:
+** tripwires that can be scripted to doors, other traps, depressurize room, etc
+** laser grids
+** auto-turrets
+** stun nets
+* brig zone for storing captured hostiles or violent citizens
+** monster domestication/breeding?!?
+* greater variety of weapons for citizens to wield
+** flamethrower
+** gravity gun (flings things/people around)
+** plasma cannon (cuts through anything)
+
+BASE ADMINISTRATOR PERSONAS
+* when starting a new base, enter your name and choose an "avatar" image to represent your base leadership persona
+* player-selected optional goals a la crusader kings 2's "choose an ambition"
+** 
+** each goal can be suspended and resumed at any point
+
+FUNERALS
+* when they die, depending on religious(?) preference each citizen will either be recycled at the matter recycler, or given a "spock funeral" ie placed in a spacecoffin and sent out an airlock
+* either way, a small service may be held with the citizen's friends
+** attending this service raises their morale, ie if there is no time for a proper ceremony then survivors will have a harder time grieving
+
+GALAXY MAP / "NEW BASE" SCREEN
+* procedurally generate galaxy(!)
+* demarcate specific regions, gen should produce areas that feel like coherent "terrain features" a la mountain ranges, forests
+* viz modes that make areas with certain qualities distinct
+
+ROBOTS
+* robots join your base as citizens
+* states for robots:
+** normal - subservient to organic life, perform the duty they're assigned without question, don't have a personality
+** rampant - gained self-awareness but hate all organic life, they rampage and band together with / produce more killbots
+** enlightened sentient - after a long enough life, they become sentient, develop personalities, change their names, live normal lives
+
+LAWS
+* ability to pass ordinances: forbid/penalize certain actions, punish or praise people
+
+COMPUTER TERMINALS
+* write Lua to script control of environment objects, robots, etc
+
+PLANETFALL
+* teleport down to the surface of planet(s) you're orbiting
+* discover abandoned bases, alien life, friendly or hostile sentients
+
+TOURISM
+* tourists visit from parts unknown, eat at pubs, gamble in casino zones, relax in pleasure zones, etc
+
+HOLODECKS
+* build vast zones that can reconfigure their geometry to provide different entertainment/educational scenarios
+* citizen costumes for holodeck scenarios
+* holodeck malfunctions:
+** glitches that partially reconfigure the geometry of your base, eg "half your base is now a medieval castle"
+** holo-actors can break free and wreak havok in your base, eg "cavemen and cowboys are attacking everyone"
+
+"HISTORICAL SCENARIO" ADDON PACKS
+* props, tiles, costumes for sandbox storytelling in famous sci fi settings: alien, star wars, 2001, etc
+
+TIME TRAVEL
+* events deemed timeline-critical by the IGTTC Armistice of 7978 cannot be changed without serious consequences.  however, we are pretty sure time travel armistices are for babies.
+
+ADMINISTRIVIA
+* Licensing.  The CPAL-1.0 license has a number of requirements that have to be met by the codebase. (See https://www.socialtext.net/open/how_to_apply_the_cpal_to_your_product)
+** √ Include a copy of the license with Source Code.
+** Duplicate the license in any documentation for the Source Code where you describe recipients' rights or ownership rights relating to the Covered Code.
+** Conspicuously include a notice stating that source code is available under terms of the license and describing how it may be obtained in Executable versions, related documentation, and collateral in which you describe the recipients' rights related to the Covered Code.
+** Provide a mechanism for obtaining the Source Code as part of the UI.
+** Provide an initial version of the file with changes listed.
+** Provide an initial "LEGAL" file with details of additional licenses required for rights and APIs.
+** Provide a list of trademarks, service marks, and tradename ownerships.
+** Fill in Exhibit A in your copy of the license if appropriate and duplicate the notice in each file of the Source Code with all the blanks filled in.
+** Fill in Exhibit B in your copy of the license.

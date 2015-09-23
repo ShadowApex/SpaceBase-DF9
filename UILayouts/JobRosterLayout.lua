@@ -37,7 +37,6 @@ local nJob7ColX = nJob1ColX + nJobColScale * 6
 local nJob8ColX = nJob1ColX + nJobColScale * 7
 local nJob9ColX = nJob1ColX + nJobColScale * 8
 local nJob10ColX = nJob1ColX + nJobColScale * 9
-local nJob11ColX = nJob1ColX + nJobColScale * 10
 
 local nJobDivScl = 40
 local nJobLabelDivScl = 24
@@ -1306,46 +1305,21 @@ return
             pos = { nJob9ColX + nJobDivScl + nSortTextureSize, nTopLabelY },
             scale = { nJobDivScl, nTopBarHeight },
             color = Gui.GREY,
-        },        
-		
--- job10------------------------------------------------------------------------
+        },          
+
+        -- job10
         {
             key = 'Job10SortButton',
             type = 'onePixelButton',
             pos = { nJob10ColX, nHighlightY },
             scale = { nJobDivScl * 2 + nSortTextureSize, nSortHighlightScaleY },
             color = Gui.BLACK,
-            onHoverOn =
-            {
-                {
-                    key = 'Job10SortHighlight',
-                    hidden = false,
-                },
-                {
-                    playSfx = 'hilight',
-                },
-            },
-            onHoverOff =
-            {
-                {
-                    key = 'Job10SortHighlight',
-                    hidden = true,
-                },
-            },
-        },
-        {
-            key = 'Job10SortHighlight',
-            type = 'onePixel',
-            hidden = true,
-            pos = { nJob10ColX, nHighlightY },
-            scale = { nJobDivScl * 2 + nSortTextureSize, nSortHighlightScaleY },
-            color = HIGHLIGHT_COLOR,
         },
         {
             key = 'job10Label',
             type = 'textBox',
             pos = { nJob10ColX, nTopLabelTextY },            
-            linecode = 'DUTIES024TEXT',
+            linecode = 'DUTIES001TEXT',
             style = 'dosissemibold26',
             rect = { 0, 100, nJobCatLabelRectSize, 0 },
             hAlign = MOAITextBox.CENTER_JUSTIFY,
@@ -1355,7 +1329,7 @@ return
         {
             key = 'Job10Texture',
             type = 'uiTexture',
-            textureName = CharacterConstants.JOB_ICONS[CharacterConstants.TECHNICIAN],
+            textureName = CharacterConstants.JOB_ICONS[CharacterConstants.UNEMPLOYED],
             sSpritesheetPath = 'UI/JobRoster',
             pos = { nJob10ColX + nJobTextureXOffset, nJobTextureYOffset },
             color = Gui.AMBER,
@@ -1380,101 +1354,18 @@ return
             color = Gui.GREY,
         },   
         {
-            key = 'job10SortDivMid',
+            key = 'Job10LabelDivMid',
             type = 'onePixel',
             pos = { nJob10ColX + nJobDivScl, nTopLabelY },
             scale = { nSortTextureSize, nTopBarHeight },
             color = Gui.GREY,
-            hidden = true,
         },   
-        {
-            key = 'job10SortDown',
-            type = 'uiTexture',
-            textureName = 'ui_jobs_catsortDown',
-            sSpritesheetPath = 'UI/JobRoster',
-            pos = { nJob10ColX + nJobDivScl,nTopLabelY + 6  },
-            color = Gui.GREY,
-            scale = { 1, 1 },
-            hidden = false,
-        },
-        {
-            key = 'job10SortUp',
-            type = 'uiTexture',
-            textureName = 'ui_jobs_catsortUp',
-            sSpritesheetPath = 'UI/JobRoster',
-            pos = { nJob10ColX + nJobDivScl, nTopLabelY + 6  },
-            color = Gui.GREY,
-            scale = { 1, 1 },
-            hidden = true,
-        },
         {
             key = 'Job10LabelDivRt',
             type = 'onePixel',
             pos = { nJob10ColX + nJobDivScl + nSortTextureSize, nTopLabelY },
             scale = { nJobDivScl, nTopBarHeight },
             color = Gui.GREY,
-        },          
-		
-		
-        -- job11
-        {
-            key = 'Job11SortButton',
-            type = 'onePixelButton',
-            pos = { nJob11ColX, nHighlightY },
-            scale = { nJobDivScl * 2 + nSortTextureSize, nSortHighlightScaleY },
-            color = Gui.BLACK,
         },
-        {
-            key = 'job11Label',
-            type = 'textBox',
-            pos = { nJob11ColX, nTopLabelTextY },            
-            linecode = 'DUTIES001TEXT',
-            style = 'dosissemibold26',
-            rect = { 0, 100, nJobCatLabelRectSize, 0 },
-            hAlign = MOAITextBox.CENTER_JUSTIFY,
-            vAlign = MOAITextBox.LEFT_JUSTIFY,
-            color = Gui.AMBER,
-        },
-        {
-            key = 'Job11Texture',
-            type = 'uiTexture',
-            textureName = CharacterConstants.JOB_ICONS[CharacterConstants.UNEMPLOYED],
-            sSpritesheetPath = 'UI/JobRoster',
-            pos = { nJob11ColX + nJobTextureXOffset, nJobTextureYOffset },
-            color = Gui.AMBER,
-            scale = { 1, 1 },
-        },
-        {
-            key = 'job11Num',
-            type = 'textBox',
-            pos = { nJob11ColX + nJobNumXOffset, nJobNumYOffset },
-            text = '10',
-            style = 'dosissemibold26',
-            rect = { 0, 100, 100, 0 },
-            hAlign = MOAITextBox.LEFT_JUSTIFY,
-            vAlign = MOAITextBox.LEFT_JUSTIFY,
-            color = Gui.AMBER,
-        },
-        {
-            key = 'Job11LabelDivLf',
-            type = 'onePixel',
-            pos = { nJob11ColX, nTopLabelY },
-            scale = { nJobDivScl, nTopBarHeight },
-            color = Gui.GREY,
-        },   
-        {
-            key = 'Job11LabelDivMid',
-            type = 'onePixel',
-            pos = { nJob11ColX + nJobDivScl, nTopLabelY },
-            scale = { nSortTextureSize, nTopBarHeight },
-            color = Gui.GREY,
-        },   
-        {
-            key = 'Job11LabelDivRt',
-            type = 'onePixel',
-            pos = { nJob11ColX + nJobDivScl + nSortTextureSize, nTopLabelY },
-            scale = { nJobDivScl, nTopBarHeight },
-            color = Gui.GREY,
-        },   
     },
 }

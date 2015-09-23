@@ -80,6 +80,16 @@ local tAdvertisedActivities=
         UIText='UITASK008TEXT',
         nJobExperience=2,
     },
+	--[[
+	BuildO2PriorityInside = {
+        Needs={ Duty=25, },
+        ScoreMods={BaseScore=.25, } ,
+        Tags={WorkShift=true,Job=Character.BUILDER,},
+        ClassPath='Utility.Tasks.BuildBase',
+        Prerequisites={ EmptyHands=true },
+        UIText='UITASK008TEXT',
+        nJobExperience=2,
+    },]]--
     BuildSpace = {
         Needs={ Duty=20, },
         ScoreMods={BaseScore=.25, },
@@ -304,15 +314,25 @@ local tAdvertisedActivities=
         UIText='UITASK068TEXT',
         --ScoreMods={Priority=tPriorities.SURVIVAL_NORMAL, BaseScore=0.01},
     },
+	-- Janitor
     DropOffCorpse = {
-        Needs={ Duty=2, }, --6
+        Needs={ Duty=30, }, --6
         ScoreMods={},
         ClassPath='Utility.Tasks.DropOffCorpse',
         Tags={WorkShift=true,Job=Character.JANITOR,DestOwned=true,},
         Prerequisites={ HeldItem='Corpse' },
-        UIText='UITASK071TEXT',
+        UIText='UITASK071TEXT',	
     },
-    
+    Clean = {
+        Needs={ Duty=5, },
+        ScoreMods={BaseScore=.25, } ,
+        Tags={WorkShift=true,Job=Character.JANITOR,DestOwned=true},
+        ClassPath='Utility.Tasks.Clean',
+        Prerequisites={ EmptyHands=true },
+        UIText='UITASK082TEXT',
+        nJobExperience=2,
+    },
+	
     -- Emergency/security
     Patrol = { 
         Needs={ Duty=2, },

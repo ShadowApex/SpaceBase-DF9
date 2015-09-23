@@ -23,11 +23,11 @@ HintChecks.ACCIDENT_TIMEOUT = 20
 HintChecks.DERELICT_WARN_DELAY = 20
 HintChecks.REC_PLANTS_PER_BOTANIST = 6
 
-function HintChecks.waitingAtBeacon()
-    if g_ERBeacon and g_ERBeacon:timeWaited() > 30 then
-        return true
-    end
-end
+-- function HintChecks.waitingAtBeacon()
+    -- if g_ERBeacon and g_ERBeacon:timeWaited() > 30 then
+        -- return true
+    -- end
+-- end
 
 function HintChecks.dontPutNormalDoorsOnAnAirlock()
     if HintChecks.noFunctioningAirlocks() then

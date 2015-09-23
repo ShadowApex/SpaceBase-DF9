@@ -203,7 +203,6 @@ function m.create()
 	function Ob:show(basePri)
 		local w = g_GuiManager.getUIViewportSizeY()
 		g_GuiManager.createEffectMaskBox(0, 0, 1800, w, 0.3, 0.3)
-		self.bListDirty = true
 		local nPri = Ob.Parent.show(self, basePri)
 		self:updateDisplay()
 		rScrollableUI:reset()

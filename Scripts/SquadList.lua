@@ -5,12 +5,14 @@ local Squad = require('Squad')
 function SquadList.new()
 	local self = {}
 	local tSquads = {}
+	local nSize = 0
 	
 	function self.loadSaveData(tSquadData)
 		for k,v in pairs(tSquadData) do
 			self.addSquad(v.name, Squad.new(v.name, v.status, v.members))
+			nSize = nSize + 1
 		end
-		require("UI.GuiManager").updateSquadMenu() -- we cannot guarantee that SquadList will be loaded before SquadMenu so let's update it
+		require("UI.GuiManager").updateSquadMenu() -- we cannot guarantee that SquadList will be loaded before SquadMenu, so let's update it
 	end
 
 	function self.getList()
@@ -19,10 +21,12 @@ function SquadList.new()
 
 	function self.addSquad(name, squad)
 		tSquads[name] = squad
+		nSize = nSize + 1
 	end
 
 	function self.remSquad(name)
 		tSquads[name] = nil
+		nSize = nSize - 1
 	end
 	
 	function self.getSquad(name)
@@ -30,7 +34,7 @@ function SquadList.new()
 	end
 
 	function self.numSquads()
-		return #tSquads
+		return nSize
 	end
 
 	function self.disbandSquad(name)
@@ -44,6 +48,7 @@ function SquadList.new()
 			end
 		end
 		tSquads[name] = nil
+		nSize = nSize - 1
 	end
 	
 	function self.getSaveData()

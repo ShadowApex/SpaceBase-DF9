@@ -19,13 +19,10 @@ MeteorEvent.sEventType = "meteorEvents"
 MeteorEvent.sAlertLC = 'ALERTS026TEXT'
 MeteorEvent.sFailureLC = 'ALERTS027TEXT'
 MeteorEvent.METEOR_STRIKE_RADIUS=256*3
+MeteorEvent.DEFAULT_WEIGHT = 10.0
 
 function MeteorEvent.getSpawnLocationModifier()
     return Event._getExpMod('asteroids')
-end
-
-function MeteorEvent.getWeight()
-    return 10.0
 end
 
 function MeteorEvent.allowEvent(nPopulation, nElapsedTime)

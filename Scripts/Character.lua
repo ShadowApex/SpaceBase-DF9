@@ -195,7 +195,6 @@ end
 
 -------------------------------------------------------------
 function Character:setSquadName(squadName)
-	print("Character:setSquad() squadName: "..(squadName or 'nil'))
 	self.squadName = squadName
 end
 
@@ -467,7 +466,7 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 	if not bStartDead then
 		assert(self.tStatus.health ~= Character.STATUS_DEAD)
 	end
-    -- spawn a pick-up-able corpse object, so doctors can inter our remains
+    -- spawn a pick-up-able corpse object, so janitors can inter our remains
     if cause ~= Character.CAUSE_OF_DEATH.SUCKED_INTO_SPACE and not self.tStatus.bCreatedCorpse then
         self.tStatus.bCreatedCorpse = true
         local nCorpseType = nil
@@ -547,6 +546,15 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 	if self.rEmoticon then
 		self:setEmoticon(nil)
 		self.rEmoticon = nil
+	end
+	
+	-- remove player from squad if they are a member of one
+	if self:getSquadName() then
+		local rSquadList = World.getSquadList()
+		if rSquadList.getSquad(self:getSquadName()) then
+			World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+			self:setSquadName(nil)
+		end
 	end
 	
 	callback( self )
@@ -645,6 +653,10 @@ function Character:setTeam(nTeam)
 end
 
 function Character:setJob(job, bLoading)
+	if self:getJob() == Character.EMERGENCY and self:getSquadName() and job ~= Character.EMERGENCY then
+		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+		self:setSquadName(nil)
+	end
     assertdev(Character.JOB_NAMES[job])
     if not Character.JOB_NAMES[job] then
         job = Character.UNEMPLOYED
@@ -735,9 +747,9 @@ function Character:_shouldAttackLethal(rTarget)
             local bHuman = bTargetIsCharacter and rTarget.nRace ~= Character.RACE_MONSTER and rTarget.nRace ~= Character.RACE_KILLBOT
             if not bHuman then
                 bLethal = true
-            elseif g_ERBeacon.eViolence == g_ERBeacon.VIOLENCE_LETHAL or self:hasUtilityStatus(Character.STATUS_RAMPAGE_VIOLENT) then
+            elseif g_ERBeacon:getViolence(self.sSquadName) == g_ERBeacon.VIOLENCE_LETHAL or self:hasUtilityStatus(Character.STATUS_RAMPAGE_VIOLENT) then
                 bLethal = true
-            elseif g_ERBeacon.eViolence == g_ERBeacon.VIOLENCE_NONLETHAL then
+            elseif g_ERBeacon:getViolence(self.sSquadName) == g_ERBeacon.VIOLENCE_NONLETHAL then
                 bLethal = false
             else
                 bLethal = not rTarget or not bTargetIsCharacter or self:_hates(rTarget)
@@ -1902,7 +1914,7 @@ function Character:shouldTargetForAttack(rTarget)
         if nFactionBehavior ~= Character.FACTION_BEHAVIOR.Citizen and nFactionBehavior ~= Character.FACTION_BEHAVIOR.Friendly then
             return true
         end
-        return not bIncapacitated or not bHuman or g_ERBeacon.eViolence == EmergencyBeacon.VIOLENCE_LETHAL
+        return not bIncapacitated or not bHuman or g_ERBeacon:getViolence(self.sSquadName) == EmergencyBeacon.VIOLENCE_LETHAL
     end
     
     -- brawlers only try to incapacitate their opponent
@@ -1923,7 +1935,7 @@ function Character:shouldTargetForAttack(rTarget)
 
     if rTarget:hasUtilityStatus(Character.STATUS_RAMPAGE) and rTarget.tStatus.bRampageObserved then 
         if bIncapacitated then 
-            return g_ERBeacon.eViolence == EmergencyBeacon.VIOLENCE_LETHAL 
+            return g_ERBeacon:getViolence(self.sSquadName) == EmergencyBeacon.VIOLENCE_LETHAL 
         end
         return true
     end
@@ -2609,7 +2621,7 @@ function Character:_testSurvivalThreats()
     
     -- some lower pri threats
     if nThreat < OptionData.tPriorities.SURVIVAL_LOW then
-	    if g_ERBeacon:needsMoreResponders() and self:getJob() == Character.EMERGENCY then
+	    if self:getSquadName() and g_ERBeacon:needsMoreResponders(self:getSquadName()) and self:getJob() == Character.EMERGENCY then
 	    	nThreat = OptionData.tPriorities.SURVIVAL_LOW
 	    	self.sThreatSource ='beacon'
         end
@@ -5380,6 +5392,15 @@ function Character:_getCauseOfDeathFromDamageTable(tDamage)
     return eCOD
 end
 
+--Quick and dirty function for infecting, without worrying about the details too much.
+function Character:infestFromObject(rSource, sDiseaseName)
+	--I am creating this for other maladies we might want to infect people with, like zombisim for example.
+	if rSource and rSource.tStats  and rSource.tStats.sMaladyHolder then
+	--Grab the disease if it exists, if not create a new strain
+		self:diseaseInteraction(nil,Malady.getMalady(sDiseaseName,rSource.tStats.sMaladyHolder))
+	end
+end
+
 -- NOTE: rAttacker may be null, e.g. in cases of fire, and may not be a character
 -- tDamage
 -- nDamage = damage amount
@@ -5387,7 +5408,6 @@ end
 -- nDamageType = CharacterConstants.DAMAGE_TYPE
 function Character:takeDamage(rAttacker, tDamage)
     if self:isDead() then return end
-
     -- Ensure values are set
     local nDamage = (tDamage and tDamage.nDamage) or 1
     local bKill = false
@@ -5395,6 +5415,13 @@ function Character:takeDamage(rAttacker, tDamage)
     self:storeMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY, true, Character.SELF_HEAL_COOLDOWN)
 
     local nDamageReduction = self:currentDamageReductionValue()
+	--Infect it with "Thing" if Thing, even if the creature "misses"
+	if rAttacker and  rAttacker.tStats then
+		if rAttacker.tStats.nRace == Character.RACE_MONSTER and rAttacker.tStats.sName == "Thing" then
+			self:infestFromObject(rAttacker, 'Thing')
+		end
+	end
+
     -- Ensure damage is always positive
     nDamage = math.max(nDamage * (1 - nDamageReduction), 0)
 	-- debug cheat
@@ -5427,7 +5454,7 @@ function Character:takeDamage(rAttacker, tDamage)
     if not self.tStatus.nHitPoints or self.tStatus.nHitPoints <= 0 then
         local bStunDamage = tDamage.nDamageType == Character.DAMAGE_TYPE.Stunner 
         -- cheat: if we're in nonlethal mode, melee is also an incapacitator.
-        if self:isPlayersTeam() and g_ERBeacon.eViolence == g_ERBeacon.VIOLENCE_NONLETHAL and tDamage.nDamageType == Character.DAMAGE_TYPE.Melee then
+        if self:isPlayersTeam() and g_ERBeacon:getViolence(self.sSquadName) == g_ERBeacon.VIOLENCE_NONLETHAL and tDamage.nDamageType == Character.DAMAGE_TYPE.Melee then
             bStunDamage = true
         end
 		-- brawlers always do stun damage
@@ -5595,6 +5622,7 @@ function Character:getIllnesses()
 	end
 	return tIllnesses, nIllnesses
 end
+
 
 function Character:getInjuries()
 	local tInjuries = {}
@@ -6191,7 +6219,44 @@ end
 ------------------------------------------------
 -- MALADIES
 ------------------------------------------------
+function Character:spawnThing()
+
+    if self:wearingSpacesuit() then
+        --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
+        return false
+    end
+    if g_Config:getConfigValue('disable_hostiles') then
+        return false
+    end
+	--Loop through the illness list to find a specific malady type
+	local tIllList, nNum = self:getIllnesses()
+	sMName = ''
+	for i, tStrainData in pairs (tIllList) do
+          if tStrainData.sMaladyType == 'Thing' then
+			sMName = tStrainData.sMaladyName
+          end
+	end
+	if sMName == '' then 
+	--if it cant find it default it so that "Malady.getMalady will create  a new one
+	sMName = 'Thing'
+	end
+    local nwx,nwy = self:getLoc()
+	--Lua tables are dictionaries as-well, so this is legal
+    local tData = { tStats={ sMaladyHolder = sMName, nRace = Character.RACE_MONSTER, sName = 'Thing' } }
+    CharacterManager.addNewCharacter(nwx,nwy,tData,Character.TEAM_ID_DEBUG_ENEMYGROUP)
+    if not self:isDead() then
+    local tLogData = {}
+		--Kill and delete for "things".
+		Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
+		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.PARASITE)
+    end
+    CharacterManager.deleteCharacter(self)
+
+    return true
+end
+
 function Character:spawnMonster()
+
     if self:wearingSpacesuit() then
         --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
         return false
@@ -6212,6 +6277,7 @@ function Character:spawnMonster()
     Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
 
     return true
+
 end
 
 function Character:isImmuneTo(tMalady)
@@ -6231,6 +6297,7 @@ end
 
 -- infects the character.
 function Character:diseaseInteraction(rSource,tMalady)
+	--It seems rSource is unused in this right now consider removing...
     -- no diseases for robots
 	if self.tStats.nRace == Character.RACE_KILLBOT then return false end
 
@@ -6466,7 +6533,7 @@ function Character:getToolTipTextInfos()
 		if not Base.isFriendlyToPlayer(self) then
 			s = g_LM.line('UIMISC030TEXT')
 		end
-		local sTypeLC = g_ERBeacon.tBeaconTypeLinecodes[g_ERBeacon.eViolence]
+		local sTypeLC = g_ERBeacon.tBeaconTypeLinecodes[g_ERBeacon:getViolence(self.sSquadName)]
 		s = s .. ' (' .. g_LM.line(sTypeLC) .. ')'
 		self.tToolTipTextInfos[nCurrentIndex].sString = s
         self.tToolTipTextInfos[nCurrentIndex].sTexture = nil

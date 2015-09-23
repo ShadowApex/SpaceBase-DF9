@@ -6,7 +6,7 @@ EnvObjectData.tMenus=
 {
     ALL={ 'Door','Airlock','HeavyDoor','FirePanel','EmergencyAlarm',},
     POWER={ 'Generator', },
-    LIFESUPPORT={},
+    LIFESUPPORT={'AirScrubber', 'OxygenRecycler', 'OxygenRecyclerLevel2', 'OxygenRecyclerLevel3', 'OxygenRecyclerLevel4'},
     RESIDENCE={},
     GARDEN={},
     PUB={'Bar','Fridge','FridgeLvl2','Stove','StandingTable','BurgerSign','PizzaSign','FriesSign',},
@@ -15,6 +15,7 @@ EnvObjectData.tMenus=
     FITNESS={},
     INFIRMARY={},
     RESEARCH={},
+	COMMAND={},
 }
 
 EnvObjectData.tObjects=
@@ -349,9 +350,9 @@ EnvObjectData.tObjects=
         maintainJob=Character.TECHNICIAN,
         createJob=Character.BUILDER,
         bBlocksPathing=true,
-		matterCost=250,
+		matterCost=300,
         -- This gets added to this tile every 1/10 of a second.
-        oxygenLevel=200,
+        oxygenLevel=300,
         clickSound = 'oxygenrecycler',
         ambientSound = 'oxygenrecyclerloop',
         portrait = 'Env_LifeSupport_OxygenRecycler2',
@@ -377,8 +378,8 @@ EnvObjectData.tObjects=
 		maintainJob = Character.TECHNICIAN,
 		createJob = Character.BUILDER,
 		bBlocksPathing = true,
-		matterCost = 350,
-		oxygenLevel = 350,
+		matterCost = 450,
+		oxygenLevel = 600,
 		clickSound = 'oxygenrecycler',
 		ambientSound = 'oxygenrecyclerloop',
 		portrait = 'Env_LifeSupport_OxygenRecycler2', -- inspector portrait
@@ -389,8 +390,8 @@ EnvObjectData.tObjects=
 		nPowerDraw = 35,
 		sFlavorText = 'RECYCLE003TEXT',  -- no idea what this does (This is the text that shows up in the items description when you click on it)
 		bCanDeactivate = true,
-		spriteName = 'oxygen_recycler_level2', -- the name of the model to use
-		sSpriteSheet = 'Environments/Objects' -- the file in which the model is located
+		spriteName = 'O2Gen3',
+		spriteSheetPath = 'Environments/O2Gen3'
 	},
 	OxygenRecyclerLevel4=
 	{
@@ -405,20 +406,20 @@ EnvObjectData.tObjects=
 		maintainJob = Character.TECHNICIAN,
 		createJob = Character.BUILDER,
 		bBlocksPathing = true,
-		matterCost = 450,
-		oxygenLevel = 500,
+		matterCost = 600,
+		oxygenLevel = 900,
 		clickSound = 'oxygenrecycler',
 		ambientSound = 'oxygenrecyclerloop',
-		portrait = 'Env_LifeSupport_OxygenRecycler2', -- inspector portrait
+		portrait = 'Env_LifeSupport_OxygenRecycler2',
 		placeSound = 'placerecycler',
 		sidebarIcon = 'icon_oxygen_recycler',
 		researchPrereq = 'OxygenRecyclerLevel4',
 		sFunctionality = 'OxygenRecycler',
 		nPowerDraw = 35,
-		sFlavorText = 'RECYCLE006TEXT',  -- no idea what this does
+		sFlavorText = 'RECYCLE006TEXT',
 		bCanDeactivate = true,
-		spriteName = 'oxygen_recycler_level2', -- the name of the model to use
-		sSpriteSheet = 'Environments/Objects' -- the file in which the model is located
+		spriteName = 'O2Gen4',
+		spriteSheetPath = 'Environments/O2Gen4'
 	},
     AirScrubber=
     {
@@ -947,6 +948,29 @@ EnvObjectData.tObjects=
         sidebarIcon = 'icon_research_desk',
 		nPowerDraw = 50,
 		sFlavorText = 'OBFLAV006TEXT',
+		bCanDeactivate = true,
+    },
+	SecurityDesk=
+    {
+        spriteName='research_desk',
+        zoneName='COMMAND',
+        friendlyNameLinecode='COMMAND016TEXT',
+        COMMAND017TEXT='PROPSX061TEXT',
+        width=2,
+        height=1,
+        margin=1,
+        decayPerSecond=0.005,
+        maintainJob=Character.EMERGENCY,
+        createJob=Character.BUILDER,
+        explodeOnFailure=true,
+        bBlocksPathing=true,
+        clickSound = 'spacebed',
+        portrait = 'Env_Research_Desk',
+		matterCost=300,
+        placeSound = 'placebed',
+        sidebarIcon = 'icon_research_desk',
+		nPowerDraw = 50,
+		sFlavorText = 'COMMAND018TEXT',
 		bCanDeactivate = true,
     },
 	WallMountedTurret=

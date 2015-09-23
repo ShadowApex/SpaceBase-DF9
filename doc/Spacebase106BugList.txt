@@ -1,0 +1,210 @@
+This is a listing of all the official bugs from the original v1.06 that
+i could find across the internet that need to be looked into.
+
+Please add more if you find any. So far, they only need to be looked at
+or replicated as much as possible, but not fixed unless you can see the
+problem. We'll do bug fixes after releases and only on our stuff for
+starters. Churning out as much game data as possible is priority 1.
+
+format:
+
+****************************************************
+Bug: 
+Bug Location Found: 
+Additional Info: 
+Possible Location: 
+Status:
+Assigned to:
+
+****************************************************
+
+Bug: what the bug is
+
+Bug Location Found: where the bug was brought to your attention
+Additional Info: any info about the bug or anything about changes
+requested Possible Location: where the bug might be, or somewhere to
+look for it.  Status: is anyone looking at it? (unchecked or looking
+into it) Assigned to: if so, who is looking at it? (open or someones
+name)
+
+
+
+GENERAL:
+
+****************************************************
+Bug: Far too many tantrums, especially scientists (suspect angry values are too high)
+Bug Location Found: bahnours list of bugs
+Additional Info: linked to morale rebalancing.  Affects both Windows and Linux.
+Possible Location: linked to morale and rebalancing of morale
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Raider ship still moves away while game is paused
+Bug Location Found: bahnours list of bugs
+Additional Info: Affects both Windows and Linux.
+Possible Location: animation check and loading/unloading of the raider ships. confirm that this is a universal thing
+Status: unchecked
+Assigned to: open
+
+
+
+WINDOWS:
+
+****************************************************
+Bug: Oxygenation process in gamespeed changes
+Bug Location Found: Spacebase Steam forums - http://steamcommunity.com/app/246090/discussions/0/520518688947277107/
+Additional Info: "If your framerate gets too low oxygen will stop propogating, which creates a vacuum inside your spacestation. The end result is everyone gets pushed into the no oxygen zones and suffocates."
+Possible location: Check out the oxygenation process in relation to rooms and gamespeeds. It should speed up with the gamespeed which should negate the issue and fix the problem
+Status: unchecked
+Assigned to: Rick (skenners)
+
+****************************************************
+Bug: New Game Risk Selection requires balancing
+Bug Location Found: Spacebase Steam forums - http://steamcommunity.com/app/246090/discussions/0/520519112493729488/
+Additional Info: weighting regards to how often raiders come in needs to be in alignment with where in the star system they set their spacebase
+Possible Location: requires looking at all the raider aspects in regards to how and when they come about, then apply the proper modifiers
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Positive Morale requires balancing
+Bug Location Found: Spacebase Steam forums - http://steamcommunity.com/app/246090/discussions/0/520519112493729488/
+Additional Info: weighting regards to morale needs to be redone to make sure positive aspects can be upped
+Possible Location: requires looking at all the morale modifiers on people, interaction and objects
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: doesn't seem to update zone description in inspector tab after selecting new zone, only after closing and reopening inspector tab
+Bug Location Found: bahnours list of bugs
+Additional Info: none
+Possible Location: check loading of inspector tab and its requirements
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Scripts/String/MainGame_enUS.lua exists and appears to be orphaned (isn't used by anything)
+Bug Location Found: bahnours list of bugs
+Additional Info: On Linux there is no Scripts/String/ subdir at all.
+Possible Location: requires going through the files to see what's orphaned and what isn't
+Status: looking into it
+Assigned to: Rick (skenners)
+
+****************************************************
+Bug: Rug on one of the angles isn't aligned correctly, suspect the texture loading needs to be fixed
+Bug Location Found: bahnours list of bugs
+Additional Info: none
+Possible Location: check loading item loading for that specific item
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Changing a character from mining job to a different job with matter in hand, they take the chunck back to base instead of finishing up or dropping the chunk near the refinery
+Bug Location Found: bahnours list of bugs
+Additional Info: none
+Possible Location: pickups.lua and pickup rocks areas to modify where they take the chunk
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Garden pods don't appear to draw any power
+Bug Location Found: bahnours list of bugs
+Additional Info: none
+Possible Location: item information change. it should be minor.
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Dead people don't change from outside animation to inside when built into a room
+Bug Location Found: bahnours list of bugs
+Additional Info: Dead people in space use a floating animation, when you build a room around them with O2 they still float.
+Possible Location: check room information and clarify if any dead people, to change them back.
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Changing job keeps current activity (fixing could be a good way to fix activity related bugs)
+Bug Location Found: bahnours list of bugs
+Additional Info: none
+Possible Location: look at job allocation and change
+Status: unchecked
+Assigned to: open
+
+****************************************************
+Bug: Research screen isn't updated with new research zones until game reload
+Bug Location Found: bahnours list of bugs
+Additional Info: none
+Possible Location:  add a refresh when opening research screen.
+Status: unchecked
+Assigned to: open
+
+
+
+LINUX:
+
+****************************************************
+Bug: reading the modding directory
+Bug Location Found: DF bug Forums
+Additional Info: Apparently no modding files are read in the mod
+directory, also problem with MAC and lesser degree WINDOWS
+Possible Location: Reading of the mod files is done in the executable, which we have no control over
+Status: unchecked
+Assigned to: none
+
+****************************************************
+Bug: Abnormal path completion - subpath find failure
+Bug Location Found: Play log file (Bryce Harrington)
+Additional Info: 
+  stack traceback:
+      Data/Common/DFCommon/Util.lua:59: in function 'Print'
+      Data/Scripts/Pathfinder.lua:1408: in function 'increment'
+      Data/Scripts/Pathfinder.lua:1644: in function 'tick'
+      Data/Scripts/Utility/Task.lua:569: in function 'tickWalk'
+      Data/Scripts/Utility/Tasks/Patrol.lua:125: in function 'onUpdate'
+      Data/Scripts/Utility/Task.lua:265: in function 'update'
+      Data/Scripts/Character.lua:2388: in function 'updateAI'
+      Data/Scripts/CharacterManager.lua:419: in function 'onTick'
+      Data/Scripts/GameRules.lua:398: in function 'onTick'
+      Data/Scripts/main.lua:227: in function <Data/Scripts/main.lua:215>
+  ERROR Abnormal path completion: subpath find failure. Previous node type (none). Reason: path size 0
+Possible Location: Unknown
+Status: unchecked
+Assigned to: none
+
+****************************************************
+Bug: Cache miss on Citizen_Eat_Birdshark.anim
+Bug Location Found: Play log file (Bryce Harrington)
+Additional Info: 
+  Cache miss:  Linux/Munged/Characters/Citizen_Base/Animations/Citizen_Eat_Birdshark.anim
+  WARN Can't open file:  Linux/Munged/Characters/Citizen_Base/Animations/Citizen_Eat_Birdshark.anim
+Possible Location: Unknown
+Status: unchecked
+Assigned to: none
+****************************************************
+
+****************************************************
+Bug: WARN Incorrect reservation clear.
+Bug Location Found: Play log file (Bryce Harrington)
+Additional Info:  Occurs repeatedly in game log
+Possible Location: Unknown
+Status: unchecked
+Assigned to: none
+****************************************************
+
+
+
+
+
+
+MAC:
+
+****************************************************
+Bug: reading the modding directory
+Bug Location Found: DF bug Forums
+Additional Info: Apparently no modding files are read in the mod directory, also problem with LINUX and lesser degree WINDOWS
+Possible Location: Reading of the mod files is done in the executable, which we have no control over
+Status: unchecked
+Assigned to: none
+
+****************************************************

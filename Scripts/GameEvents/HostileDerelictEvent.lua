@@ -11,18 +11,21 @@ local CharacterManager = require('CharacterManager')
 local MiscUtil = require('MiscUtil')
 
 HostileDerelictEvent.sEventType = 'hostileDerelictEvents'
+HostileDerelictEvent.DEFAULT_WEIGHT = 10.0
 
 function HostileDerelictEvent.getSpawnLocationModifier()
     return Event._getExpMod('derelict') * Event.getHostilityMod(true)
 end
 
 function HostileDerelictEvent.getWeight(nPop,nElapsed,bForecast)
-    if bForecast then return 10.0 end
+    if bForecast then
+       return HostileDerelictEvent.DEFAULT_WEIGHT
+    end
     
     local _,nPlayerRooms,nHiddenRooms = Room.getRoomsOfTeam(Character.TEAM_ID_PLAYER)
     local bAllowDerelict = nHiddenRooms < DerelictEvent.nMaxUndiscoveredRooms
     if bAllowDerelict then
-        return 10.0
+        return HostileDerelictEvent.DEFAULT_WEIGHT
     end
     if nHiddenRooms > DerelictEvent.nMaxUndiscoveredRooms * .5 then
         return 6.0
