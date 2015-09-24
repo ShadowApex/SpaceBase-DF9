@@ -1136,7 +1136,12 @@ function Character:_getCoopTaskOption(sMyTaskName,sYourTaskName,rAskingChar)
 			    tData.targetLocationFn=function(rChar, rAO) return self:_coopTaskLocationCallback(rChar,rAO) end
             elseif sYourTaskName == 'FieldScanAndHeal' then
 			    tData.utilityGateFn=function(rChar, rThisActivityOption) 
+					--Things should always refuse checkups a bit hacky now, but they are a bit too easy
+					if self:getHasMaladyType('Thing') then
+						return false
+					end
                     -- don't get a checkup too often, but if stuff is real bad, we can get fixed up.
+	
                     if self:getPerceivedDiseaseSeverity(self:retrieveMemory(Malady.MEMORY_HP_HEALED_RECENTLY) == nil) == 1 and Malady.getNextCurableMalady(self,rChar:getJobLevel(Character.DOCTOR)) then
                         return true
                     end
@@ -5395,9 +5400,11 @@ end
 --Quick and dirty function for infecting, without worrying about the details too much.
 function Character:infestFromObject(rSource, sDiseaseName)
 	--I am creating this for other maladies we might want to infect people with, like zombisim for example.
-	if rSource and rSource.tStats  and rSource.tStats.sMaladyHolder then
-	--Grab the disease if it exists, if not create a new strain
+	if rSource and rSource.tStats then
+		if rSource.tStats.sMaladyHolder then
+		--Grab the disease if it exists, if not create a new strain
 		self:diseaseInteraction(nil,Malady.getMalady(sDiseaseName,rSource.tStats.sMaladyHolder))
+		end
 	end
 end
 
@@ -6134,7 +6141,7 @@ function Character:getHealth()
     if Malady.isIncapacitated(self) then
         return Character.STATUS_INCAPACITATED
     end
-	--The Thing tries to hide itself from the player a big red 'Ill" would just give it away
+	--The Thing tries to hide itself from the player a big red 'Ill" would just give it away, but for the first stage, showing ill is fine (person is being transformed)
     if self:getPerceivedDiseaseSeverity() > .1 then
 		if not self:getHasMaladyType('Thing') then
 			return Character.STATUS_ILL
@@ -6257,7 +6264,7 @@ function Character:spawnThing()
         --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
         return false
     end
-    if g_Config:getConfigValue('disable_hostiles') then
+    if g_Config:getConfigValue('disable_hostiles')  or not self then
         return false
     end
 	--Loop through the illness list to find a specific malady type

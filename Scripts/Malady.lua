@@ -342,11 +342,14 @@ end
 -- TODO / HACKY STRAIN-NAME CREATION:
 -- For now just takes an existing friendly name and adds a number to the end. Need something more like Topic.tTopics.
 function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOverride)
+
     local i = 0
     
     assert(tMaladySpec.bCreateStrains)
+	
     local sMaladyType = tMaladySpec.sMaladyType
     local sMaladyName = sMaladyType .. i
+	
 	
     while Malady.tS.tMaladyStrains[sMaladyName] do
         i = i+1
@@ -354,6 +357,11 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
     end
 	
     local sFriendlyName = Malady.getNewDiseaseName(sMaladyType)
+	
+	if sMaladyType == 'Thing' then
+	    bRequireResearch = true
+	    nResearchTimeOverride = math.random(500)+200
+	end
 
 	
     Malady.tS.tMaladyStrains[sMaladyName] = { sMaladyName=sMaladyName, sMaladyType=sMaladyType, sFriendlyName=sFriendlyName }
@@ -435,7 +443,7 @@ function Malady.getMalady(sMaladyType,s2MaladyName)
             if Malady.tS and Malady.tS.tMaladyStrains then
                 for sStrainName, tStrainData in pairs(Malady.tS.tMaladyStrains) do
 				--Loop through strain list to find a strain with the correct id or friendly name
-                    if tStrainData[sStrainName].sMaladyName == s2MaladyName  or tStrainData[sStrainName].sFriendlyName==s2MaladyName then
+                    if tStrainData.sMaladyName == s2MaladyName  or tStrainData.sFriendlyName==s2MaladyName then
                         table.insert(tStrains, sStrainName)
 						print(tStrainData.sMaladyName)
                     end
