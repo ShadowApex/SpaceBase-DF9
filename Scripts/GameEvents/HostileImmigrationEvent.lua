@@ -16,13 +16,17 @@ HostileImmigrationEvent.sAlertLC = 'ALERTS028TEXT'
 HostileImmigrationEvent.sFailureLC = 'ALERTS024TEXT'
 HostileImmigrationEvent.sDialogSet = 'hostileImmigrationEvents'
 HostileImmigrationEvent.DEFAULT_WEIGHT = 15.0
+HostileImmigrationEvent.nMinPopulation = 6
+HostileImmigrationEvent.nMaxPopulation = -1
+HostileImmigrationEvent.nMinTime = 60*12
+HostileImmigrationEvent.nMaxTime = -1
 
 function HostileImmigrationEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
 end
 
 function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 6 or GameRules.elapsedTime > 60*12
+    return nPopulation > HostileImmigrationEvent.nMinPopulation or GameRules.elapsedTime > HostileImmigrationEvent.nMinTime
 end
 
 function HostileImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

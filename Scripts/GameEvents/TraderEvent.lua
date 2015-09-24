@@ -11,10 +11,15 @@ TraderEvent.sAlertLC = 'ALERTS028TEXT'
 TraderEvent.sFailureLC = 'ALERTS024TEXT'
 TraderEvent.sDialogSet = 'traderEvents'
 TraderEvent.DEFAULT_WEIGHT = 25.0
+TraderEvent.nMinPopulation = 6
+TraderEvent.nMaxPopulation = -1
+TraderEvent.nMinTime = 60*12
+TraderEvent.nMaxTime = 0
 
 function TraderEvent.allowEvent( nPopulation, nElapsedTime)
-	print("Checking if traderEvents is allowed",nPopulation > 6 or GameRules.elapsedTime > 60*12)
-	return nPopulation > 6 or GameRules.elapsedTime > 60*12
+	print("Checking if traderEvents is allowed ",
+	      nPopulation > TraderEvent.nMinPopulation or GameRules.elapsedTime > TraderEvent.nMinTime)
+	return nPopulation > TraderEvent.nMinPopulation or GameRules.elapsedTime > TraderEvent.nMinTime
 end
 
 function  TraderEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

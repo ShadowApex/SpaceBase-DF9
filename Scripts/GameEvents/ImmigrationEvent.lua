@@ -39,13 +39,13 @@ ImmigrationEvent.sRejectionSuccessAlert='ALERTS024TEXT'
 ImmigrationEvent.sAcceptedSuccessAlert='ALERTS030TEXT'
 ImmigrationEvent.sDialogSkippedAlert='ALERTS041TEXT'
 ImmigrationEvent.DEFAULT_WEIGHT = 50
+ImmigrationEvent.nMinPopulation = -1
+ImmigrationEvent.nMaxPopulation = g_nPopulationCap
+ImmigrationEvent.nMinTime = -1
+ImmigrationEvent.nMaxTime = -1
 
 function ImmigrationEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(false)
-end
-
-function ImmigrationEvent.allowEvent()
-    return true
 end
 
 function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)

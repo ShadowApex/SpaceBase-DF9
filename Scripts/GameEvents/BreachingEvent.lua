@@ -22,13 +22,17 @@ BreachingEvent.sEventType = "breachingEvents"
 BreachingEvent.sAlertString = "ALERTS031TEXT"
 BreachingEvent.nCharactersToSpawn = { 1, 3 }
 BreachingEvent.bSkipAlert = true
+BreachingEvent.nMinPopulation = 6
+BreachingEvent.nMaxPopulation = -1
+BreachingEvent.nMinTime = 60 * 10
+BreachingEvent.nMaxPopulation = -1
 
 function BreachingEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
 end
 
 function BreachingEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 6 or GameRules.elapsedTime > 60 * 10
+    return nPopulation > BreachingEvent.nMinPopulation or GameRules.elapsedTime > BreachingEvent.nMinTime
 end
 
 function BreachingEvent.getWeight(nPopulation, nElapsedTime, bForecast)

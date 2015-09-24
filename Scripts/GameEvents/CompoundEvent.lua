@@ -27,13 +27,19 @@ CompoundEvent.sEventType = "CompoundEvent"
 CompoundEvent.sAlertLC = 'ALERTS040TEXT'
 CompoundEvent.sDialogSet = 'CompoundEvent'
 CompoundEvent.bSkipAlert = true
+CompoundEvent.nMinPopulation = 15
+CompoundEvent.nMaxPopulation = -1
+CompoundEvent.nMinTime = 60*20
+CompoundEvent.nMaxTime = -1
 
 function CompoundEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
 end
 
 function CompoundEvent.allowEvent(nPopulation, nElapsedTime)
-    return not g_Config:getConfigValue('disable_hostiles') and not g_Config:getConfigValue('disable_hostile_events') and (nPopulation > 15 or GameRules.elapsedTime > 60*20)
+    return not g_Config:getConfigValue('disable_hostiles') and
+       not g_Config:getConfigValue('disable_hostile_events') and
+       (nPopulation > CompoundEvent.nMinPopulation or GameRules.elapsedTime > CompoundEvent.nMinTime)
 end
 
 function CompoundEvent.getWeight(nPopulation, nElapsedTime)
