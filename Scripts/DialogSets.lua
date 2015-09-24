@@ -7,7 +7,7 @@ local t=
     {
         {
             title='DOCKUI145TEXT',request='DOCKUI146TEXT',acceptButton='DOCKUI147TEXT',rejectButton='DOCKUI148TEXT',
-			-- can't avoid final siege with dialog, just different responses
+            -- can't avoid final siege with dialog, just different responses
             acceptedResponse='DOCKUI150TEXT',acceptedResponseButton='DOCKUI149TEXT',
             rejectedResponse='DOCKUI151TEXT',rejectedResponseButton='DOCKUI149TEXT',
             screwYouResponse='DOCKUI151TEXT',screwYouResponseButton='DOCKUI149TEXT',
@@ -128,7 +128,7 @@ local t=
             rejectedResponse='DOCKUI120TEXT',rejectedResponseButton='DOCKUI121TEXT',
             screwYouResponse='DOCKUI122TEXT',screwYouResponseButton='DOCKUI123TEXT',
         },
-		{   --hero trap.
+        {   --hero trap.
            title='DOCKUI222TEXT',request='DOCKUI223TEXT',acceptButton='DOCKUI224TEXT',rejectButton='DOCKUI225TEXT',
            acceptedResponse='DOCKUI226TEXT',acceptedResponseButton='DOCKUI227TEXT',
            rejectedResponse='DOCKUI228TEXT',rejectedResponseButton='DOCKUI229TEXT',
@@ -140,7 +140,8 @@ local t=
     dockingEvents=
     {
         ambiguous={
-            {   --jake's original ambiguous offering, hostile OR friendly
+            {
+                --jake's original ambiguous offering, hostile OR friendly
                 title='DOCKUI002TEXT',request='DOCKUI003TEXT',acceptButton='DOCKUI040TEXT',rejectButton='DOCKUI041TEXT',
                 acceptedResponse='DOCKUI042TEXT',acceptedResponseButton='DOCKUI046TEXT',
                 rejectedResponse='DOCKUI043TEXT',rejectedResponseButton='DOCKUI103TEXT',
@@ -162,7 +163,7 @@ local t=
                 rejectedResponse='DOCKUI016TEXT',rejectedResponseButton='DOCKUI036TEXT',
                 screwYouResponse='DOCKUI015TEXT',screwYouResponseButton='DOCKUI027TEXT',
             },
-		    {
+            {
                 --In the way of a hostile construction fleet
                 title='DOCKUI202TEXT',request='DOCKUI203TEXT',acceptButton='DOCKUI204TEXT',rejectButton='DOCKUI205TEXT',
                 acceptedResponse='DOCKUI206TEXT',acceptedResponseButton='DOCKUI207TEXT',
