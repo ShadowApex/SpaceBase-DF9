@@ -147,6 +147,19 @@
 	DISEAS073TEXT = { sLine = "Monster", },
 	DISEAS074TEXT = { sLine = "Eater", },
 	
+	--Speeed Adjectives
+	DISEAS074TEXT = { sLine = "Speedy", },
+    DISEAS075TEXT = { sLine = "Fast", },
+    DISEAS076TEXT = { sLine = "Hyper", },
+	DISEAS077TEXT = { sLine = "Hyperspeed", },
+    DISEAS078TEXT = { sLine = "Hypercrashfu", },
+	DISEAS079TEXT = { sLine = "Fastcrashfu", },
+	DISEAS080TEXT = { sLine = "Hyperfastfu", },
+	DISEAS081TEXT = { sLine = "Speed", },
+	DISEAS082TEXT = { sLine = "Lightspeed", },
+	
+	DISEAS083TEXT = { sLine = 'A retrovirus that makes people move quicker , work quicker, do everything quicker however this unfortunately also includes starving quicker and dying quicker, it also makes them angrier quicker.', },
+	
     DOCKUI001TEXT = { sLine = "INCOMING DOCKING REQUEST FROM:", },
     DOCKUI002TEXT = { sLine = "Starship Information Unavailable", },
     DOCKUI003TEXT = { sLine = "Greetings, Spaceb&##ase.As you can see our trasSS MISsion relay is having some issues.  Not artificially jammed.\n\nWe AR**|*E NOT P|RATES this is real. Please allow us to dock with your base. With your bountiful resources we will make a great team and you can;uk]Ahelp a stranger out. Not pirates or raiders.", },

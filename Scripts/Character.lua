@@ -6134,8 +6134,13 @@ function Character:getHealth()
     if Malady.isIncapacitated(self) then
         return Character.STATUS_INCAPACITATED
     end
+	--The Thing tries to hide itself from the player a big red 'Ill" would just give it away
     if self:getPerceivedDiseaseSeverity() > .1 then
-        return Character.STATUS_ILL
+		if not self:getHasMaladyType('Thing') then
+			return Character.STATUS_ILL
+			elseif not  self.tStatus.tMaladies['Thing'].sSpecial=='thing'  then
+			return Character.STATUS_ILL
+		end
     end
     local hp = self:getHP()
     if hp < Character.HURT_THRESHOLD then
@@ -6213,12 +6218,39 @@ function Character:getAdjustedSpeed()
     elseif self.tStats.nMorale < -Character.MORALE_SPEED_THRESHOLD then
 		nMoraleMod = 1 + Character.MORALE_LOW_SPEED_MODIFIER
 	end
-    return self.tStats.speed * nMoraleMod
+	local speed = self.tStats.speed * nMoraleMod
+	
+    if self:getHasMaladyType('Hyper') then
+		speed = speed*4
+    end
+	
+    return speed
 end
 
 ------------------------------------------------
 -- MALADIES
 ------------------------------------------------
+function Character:getHasMaladyType(sDiseaseName)
+	bInfected=false
+	-- consant time checks for a malady of a specifc type a person cannot have 2 diseases of the same type at the same time, so this works
+	if self.tStatus.tMaladies[sDiseaseName] then
+		bInfected=true
+	end
+	return bInfected
+end
+
+function Character:getHasMaladyOfName(sDiseaseName)
+--Linear checks for friendly name
+	bInfected=false
+	local tIllList, nNum = self:getIllnesses()
+	for i, tStrainData in pairs (tIllList) do
+          if  tStrainData.sFriendlyName == sDiseaseName then
+			bInfected=true
+          end
+	end
+	return bInfected
+end
+
 function Character:spawnThing()
 
     if self:wearingSpacesuit() then
