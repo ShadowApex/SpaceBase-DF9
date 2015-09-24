@@ -135,31 +135,31 @@
     DISEAS063TEXT = { sLine = "Cramps", },
     DISEAS064TEXT = { sLine = "Syndrome", },
     DISEAS065TEXT = { sLine = "Flux", },
-	
-	--Spoiler diseases
-	DISEAS066TEXT = { sLine = "Infestation", },
+
+    --Spoiler diseases
+    DISEAS066TEXT = { sLine = "Infestation", },
     DISEAS067TEXT = { sLine = "Infection", },
     DISEAS068TEXT = { sLine = "Retrovirus", },
-	DISEAS069TEXT = { sLine = "Transformation", },
+    DISEAS069TEXT = { sLine = "Transformation", },
     DISEAS070TEXT = { sLine = "Changeling", },
-	DISEAS071TEXT = { sLine = "Infester", },
-	DISEAS072TEXT = { sLine = "Thing", },
-	DISEAS073TEXT = { sLine = "Monster", },
-	DISEAS074TEXT = { sLine = "Eater", },
-	
-	--Speeed Adjectives
-	DISEAS074TEXT = { sLine = "Speedy", },
+    DISEAS071TEXT = { sLine = "Infester", },
+    DISEAS072TEXT = { sLine = "Thing", },
+    DISEAS073TEXT = { sLine = "Monster", },
+    DISEAS074TEXT = { sLine = "Eater", },
+
+    --Speed Adjectives
+    DISEAS074TEXT = { sLine = "Speedy", },
     DISEAS075TEXT = { sLine = "Fast", },
     DISEAS076TEXT = { sLine = "Hyper", },
-	DISEAS077TEXT = { sLine = "Hyperspeed", },
+    DISEAS077TEXT = { sLine = "Hyperspeed", },
     DISEAS078TEXT = { sLine = "Hypercrashfu", },
-	DISEAS079TEXT = { sLine = "Fastcrashfu", },
-	DISEAS080TEXT = { sLine = "Hyperfastfu", },
-	DISEAS081TEXT = { sLine = "Speed", },
-	DISEAS082TEXT = { sLine = "Lightspeed", },
-	
-	DISEAS083TEXT = { sLine = 'A retrovirus that makes people move quicker , work quicker, do everything quicker however this unfortunately also includes starving quicker and dying quicker, it also makes them angrier quicker.', },
-	
+    DISEAS079TEXT = { sLine = "Fastcrashfu", },
+    DISEAS080TEXT = { sLine = "Hyperfastfu", },
+    DISEAS081TEXT = { sLine = "Speed", },
+    DISEAS082TEXT = { sLine = "Lightspeed", },
+
+    DISEAS083TEXT = { sLine = 'A retrovirus that makes people move quicker , work quicker, do everything quicker however this unfortunately also includes starving quicker and dying quicker, it also makes them angrier quicker.', },
+
     DOCKUI001TEXT = { sLine = "INCOMING DOCKING REQUEST FROM:", },
     DOCKUI002TEXT = { sLine = "Starship Information Unavailable", },
     DOCKUI003TEXT = { sLine = "Greetings, Spaceb&##ase.As you can see our trasSS MISsion relay is having some issues.  Not artificially jammed.\n\nWe AR**|*E NOT P|RATES this is real. Please allow us to dock with your base. With your bountiful resources we will make a great team and you can;uk]Ahelp a stranger out. Not pirates or raiders.", },
@@ -344,18 +344,18 @@
     DOCKUI179TEXT = { sLine = "Good Friday to YOU, sir!", },
     DOCKUI180TEXT = { sLine = "Wait, I can figure this out, I'll use my brains.", },
     DOCKUI181TEXT = { sLine = "Do you really believe that's wise?", },
-	
-	DOCKUI182TEXT = { sLine = "Dark Side of the Moon Mining Group", },
-	DOCKUI183TEXT = { sLine = "Hello? Is there anybody in there? Just nod if you can hear me! Is there anyone home?\n\n And can we join you?", },
-	DOCKUI184TEXT = { sLine = "Well, I can ease your pain and get you on your feet again. Come Aboard!", },
-	DOCKUI185TEXT = { sLine = "Buzz Off Hippy!", },
-	DOCKUI186TEXT = { sLine = "Awesome. We'll float on over when our hands dont feel like two balloons!", },
-	DOCKUI187TEXT = { sLine = "Ok, but I'll need some information first, Just the basic facts", },
-	DOCKUI188TEXT = { sLine = "Awww duuuuuude.. you're harshing my vibe!", },
-	DOCKUI189TEXT = { sLine = "Get a haircut!", },
-	
-	--Buzzers Guide to the galaxy.
-	DOCKUI192TEXT = { sLine = "Unmarked Escape Pod", },
+
+    DOCKUI182TEXT = { sLine = "Dark Side of the Moon Mining Group", },
+    DOCKUI183TEXT = { sLine = "Hello? Is there anybody in there? Just nod if you can hear me! Is there anyone home?\n\n And can we join you?", },
+    DOCKUI184TEXT = { sLine = "Well, I can ease your pain and get you on your feet again. Come Aboard!", },
+    DOCKUI185TEXT = { sLine = "Buzz Off Hippy!", },
+    DOCKUI186TEXT = { sLine = "Awesome. We'll float on over when our hands dont feel like two balloons!", },
+    DOCKUI187TEXT = { sLine = "Ok, but I'll need some information first, Just the basic facts", },
+    DOCKUI188TEXT = { sLine = "Awww duuuuuude.. you're harshing my vibe!", },
+    DOCKUI189TEXT = { sLine = "Get a haircut!", },
+
+    --Buzzers Guide to the galaxy.
+    DOCKUI192TEXT = { sLine = "Unmarked Escape Pod", },
     DOCKUI193TEXT = { sLine = "Hello, I am an explorer who buzzes around the galaxy to gather info about it and update my e-book. However I recently lost my towel. Can I come aboard?", },
     DOCKUI194TEXT = { sLine = "Of course, we have plenty of towels!", },
     DOCKUI195TEXT = { sLine = "Um... we can't help you. We are..um..out of towels.", },
@@ -366,8 +366,8 @@
     DOCKUI200TEXT = { sLine = "I need a towel badly! I'm coming aboard.", },
     DOCKUI201TEXT = { sLine = "Our towels are for us and NOBODY else! We wont let you have any, we swear.", },
 
-	--Hostile construction fleet
-	DOCKUI202TEXT = { sLine = "Hyper-galactic construction vessel", },
+    --Hostile construction fleet
+    DOCKUI202TEXT = { sLine = "Hyper-galactic construction vessel", },
     DOCKUI203TEXT = { sLine = "Hello, your base is in the way of our construction plans, move your base or be docked and deconstructed! ", },
     DOCKUI204TEXT = { sLine = "Do you have a deed of some kind?", },
     DOCKUI205TEXT = { sLine = "Im sorry, but our base is Immobile..", },
@@ -377,9 +377,9 @@
     DOCKUI209TEXT = { sLine = "Good riddence.", },
     DOCKUI210TEXT = { sLine = "Im sorry, but if we dont complete this job our boss will kill us! Prepare to be deconstructed!", },
     DOCKUI211TEXT = { sLine = "Typical", },
-	
-	--A different spacebase failed
-	DOCKUI212TEXT = { sLine = "Ship Information Unavailable", },
+
+    --A different spacebase failed
+    DOCKUI212TEXT = { sLine = "Ship Information Unavailable", },
     DOCKUI213TEXT = { sLine = "Hello, we are refugees from another spacebase about 66 parsecs from here, Something horrible happened on our base..and..we..errm.. we need... well... a new place to stay. Can you help us?", },
     DOCKUI214TEXT = { sLine = "Come aboard we have plenty of room.", },
     DOCKUI215TEXT = { sLine = "Uh, No we can't help you, go away please.", },
@@ -389,8 +389,9 @@
     DOCKUI219TEXT = { sLine = "Im sure another base will have room for you.", },
     DOCKUI220TEXT = { sLine = "We just went through a blackhole and back, we are coming in no matter what!", },
     DOCKUI221TEXT = { sLine = "What if something horrible happens to you again? Would you reconsider?", },
-	--Hero Trap
-	DOCKUI222TEXT = { sLine = "Ship Information Unavailable", },
+
+    --Hero Trap
+    DOCKUI222TEXT = { sLine = "Ship Information Unavailable", },
     DOCKUI223TEXT = { sLine = "Hello,...we need help....our lives are at stake.", },
     DOCKUI224TEXT = { sLine = "Always a pleasure to help a person in need. Come aboard.", },
     DOCKUI225TEXT = { sLine = "Uh, No we can't help you, go away please.", },
@@ -400,7 +401,7 @@
     DOCKUI229TEXT = { sLine = "I'm sure another base will be able to 'Help' you", },
     DOCKUI230TEXT = { sLine = "I shouldn't have even asked, we never needed help, prepare to be boarded.", },
     DOCKUI231TEXT = { sLine = "Pirates! I KNEW YOU WERE SHADY!", },
-	
+
     DUTIES001TEXT = { sLine = "Unassigned", },
     DUTIES002TEXT = { sLine = "No Primary Duty", },
     DUTIES003TEXT = { sLine = "Builder", },
@@ -1736,12 +1737,12 @@
     SFDOCT001CITZ = { sLine = "Thank goodness we know how to treat /DISEASE/.", },
     SFDOCT002CITZ = { sLine = "Mending a broken leg. Be more careful next time, /PATIENT/!", },
     SFDOCT003CITZ = { sLine = "Oh dear... I'm afraid /PATIENT/ has /DISEASE/, but the cure eludes us. Hopefully we can research it in enough time.", },
-	SFDOCT004CITZ = { sLine = "VACANT", },
-	SFDOCT005CITZ = { sLine = "VACANT", },
-	SFDOCT006CITZ = { sLine = "VACANT", },
-	SFDOCT007CITZ = { sLine = "/PATIENT/ has /DISEASE/, but my skills are useless - useless!! - until we can research a cure!", },
+    SFDOCT004CITZ = { sLine = "VACANT", },
+    SFDOCT005CITZ = { sLine = "VACANT", },
+    SFDOCT006CITZ = { sLine = "VACANT", },
+    SFDOCT007CITZ = { sLine = "/PATIENT/ has /DISEASE/, but my skills are useless - useless!! - until we can research a cure!", },
     SFDOCT008CITZ = { sLine = "VACANT", },
-	SFDOCT009CITZ = { sLine = "It's so terrible to see people suffer injuries like this. I'm just glad I can do something about it.", tTags = { "lovesjob", },},
+    SFDOCT009CITZ = { sLine = "It's so terrible to see people suffer injuries like this. I'm just glad I can do something about it.", tTags = { "lovesjob", },},
     SFDOCT010CITZ = { sLine = "I really hope this case of /DISEASE/ doesn't turn into a full-on epidemic...", },
     SFDOCT011CITZ = { sLine = "In earlier, more barbaric times, /DISEASE/ might have killed poor /PATIENT/ here. Thank goodness for research!", },
     SFDOCT012CITZ = { sLine = "When I heal someone from the brink of death like this, it's its own reward. Still. Treating me to some /FAVORITEFOOD/ would be nice.", tTags = { "gourmand", },},
@@ -1750,23 +1751,23 @@
     SFDOCT015CITZ = { sLine = "How did /PATIENT/ even get /DISEASE/? Hm, probably shouldn't post about this on Spaceface... something about confidentiality?", },
     SFDOCT016CITZ = { sLine = "We need to get on top of this /DISEASE/ outbreak before it takes a toll on base population. Scary stuff.", },
     SFDOCT017CITZ = { sLine = "VACANT", },
-	SFDOCT018CITZ = { sLine = "VACANT", },
-	SFDOCT019CITZ = { sLine = "VACANT", },
-	SFDOCT020CITZ = { sLine = "VACANT", },
-	SFDOCT021CITZ = { sLine = "/DOCTOR/ does a pretty good job keeping us all healthy, I guess. I should tell them that more often.", },
+    SFDOCT018CITZ = { sLine = "VACANT", },
+    SFDOCT019CITZ = { sLine = "VACANT", },
+    SFDOCT020CITZ = { sLine = "VACANT", },
+    SFDOCT021CITZ = { sLine = "/DOCTOR/ does a pretty good job keeping us all healthy, I guess. I should tell them that more often.", },
     SFDOCT022CITZ = { sLine = "Uh oh, I think I'm coming down with something. Hope it's not /RANDOMDISEASE/.", },
     SFDOCT023CITZ = { sLine = "Well, the doc said I've got /DISEASE/. That sounds real bad, doesn't it?", },
     SFDOCT024CITZ = { sLine = "I feel... terrible. Just gonna lie here for a while.", },
     SFDOCT025CITZ = { sLine = "Aaaagh. Hurt. Badly. Could use some help here.", },
     SFDOCT026CITZ = { sLine = "Looks like /PATIENT/ is free from any infections. No news is good news, eh?", },
     SFDOCT027CITZ = { sLine = "VACANT", },
-	SFDOCT028CITZ = { sLine = "VACANT", },
-	SFDOCT029CITZ = { sLine = "VACANT", },
-	SFDOCT030CITZ = { sLine = "VACANT", },
-	SFDOCT031CITZ = { sLine = "VACANT", },
-	SFDOCT032CITZ = { sLine = "VACANT", },
-	SFDOCT033CITZ = { sLine = "VACANT", },
-	SFDOCT034CITZ = { sLine = "Thank goodness, another patient in fine health.", },
+    SFDOCT028CITZ = { sLine = "VACANT", },
+    SFDOCT029CITZ = { sLine = "VACANT", },
+    SFDOCT030CITZ = { sLine = "VACANT", },
+    SFDOCT031CITZ = { sLine = "VACANT", },
+    SFDOCT032CITZ = { sLine = "VACANT", },
+    SFDOCT033CITZ = { sLine = "VACANT", },
+    SFDOCT034CITZ = { sLine = "Thank goodness, another patient in fine health.", },
     SFDOCT035CITZ = { sLine = "I doubt /PATIENT/ appreciates the work I do, keeping this base healthy. No matter, I'm motivated by higher principles.", tTags = { "egoist", },},
     SFDOCT036CITZ = { sLine = "Phew, glad my scan came up fine. I've kinda been doing some hard living lately, y'know?", tTags = { "boozer", },},
     SFDOCT037CITZ = { sLine = "Every day /DOCTOR/ scans me and tells me I'm not dying is a good day.", tTags = { "pessimist", },},
@@ -1796,8 +1797,8 @@
     SFDOCT061CITZ = { sLine = "That injury probably would've gone away on its own, but it's best to be safe.", },
     SFDOCT062CITZ = { sLine = "Nobody appreciates my work keeping this station from dying horribly. They'll rue the day they crossed a doctor.", tTags = { "angry", },},
     SFDOCT063CITZ = { sLine = "What was that look, /PATIENT/? I'm your doctor and I'm having a bad day. Don't mess with me.", tTags = { "angry", },},
-	SFDOCT064CITZ = { sLine = "VACANT", tTags = { "angry", },},
-	SFDRNK001CITZ = { sLine = "Knockin' back a /RANDOMDRINKNAME/. Good times.", },
+    SFDOCT064CITZ = { sLine = "VACANT", tTags = { "angry", },},
+    SFDRNK001CITZ = { sLine = "Knockin' back a /RANDOMDRINKNAME/. Good times.", },
     SFDRNK003CITZ = { sLine = "Honestly? I drink to forget.", tTags = { "boozer", },},
     SFDRNK005CITZ = { sLine = "This place pours a fantastic /RANDOMDRINKNAME/. I can't believe my luck, ending up on this base with /CURRENTROOM/.", tTags = { "optimist", },},
     SFDRNK006CITZ = { sLine = "Guh. With everything that's been happening to me lately, I zurn well deserve this /RANDOMDRINKNAME/.", tTags = { "pessimist", },},
@@ -2703,7 +2704,7 @@
     UITASK079TEXT = { sLine = "Incinerating Something", },
     UITASK080TEXT = { sLine = "Dropping Something", },
     UITASK081TEXT = { sLine = "Displaying Something", },
-	UITASK082TEXT = { sLine = "Cleaning up", },
+    UITASK082TEXT = { sLine = "Cleaning up", },
     ZONEUI001TEXT = { sLine = "Life Support", },
     ZONEUI002TEXT = { sLine = "Provides oxygen. Must be monitored by technicians.", },
     ZONEUI003TEXT = { sLine = "Reactor", },
