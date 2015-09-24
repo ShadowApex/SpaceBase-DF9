@@ -31,9 +31,9 @@ EventController.nEventForecastMax = 15
 EventController.nPrevEventsCount = 10
 
 -- final siege after 4 hours
-EventController.nFinalSiegeTime = 60 * 60 * 4
+EventController.nFinalSiegeTime = 60 * 60 * 6
 -- Cap playtime at 8 hours with regard to difficulty and various curves
-EventController.nMaxPlaytime = 60 * 60 * 8
+EventController.nMaxPlaytime = 60 * 60 * 16
 
 EventController.tFirstEventTimeRange = { 400, 440 }
 EventController.tAlertTimeRange = { 45, 45 }
