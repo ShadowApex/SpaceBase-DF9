@@ -67,25 +67,25 @@ local t=
             screwYouResponse='DOCKUI142TEXT',screwYouResponseButton='DOCKUI143TEXT',
         },
 
-	{   --
+	{   -- kessel runner
            title='DOCKUI152TEXT',request='DOCKUI153TEXT',acceptButton='DOCKUI154TEXT',rejectButton='DOCKUI155TEXT',
            acceptedResponse='DOCKUI156TEXT',acceptedResponseButton='DOCKUI157TEXT',
            rejectedResponse='DOCKUI158TEXT',rejectedResponseButton='DOCKUI159TEXT',
            screwYouResponse='DOCKUI160TEXT',screwYouResponseButton='DOCKUI161TEXT',
 	},
-	{   --
+	{   -- lister
            title='DOCKUI162TEXT',request='DOCKUI163TEXT',acceptButton='DOCKUI164TEXT',rejectButton='DOCKUI165TEXT',
            acceptedResponse='DOCKUI166TEXT',acceptedResponseButton='DOCKUI167TEXT',
            rejectedResponse='DOCKUI168TEXT',rejectedResponseButton='DOCKUI169TEXT',
            screwYouResponse='DOCKUI170TEXT',screwYouResponseButton='DOCKUI171TEXT',
 	},
-	{   --
+	{   --holiday confusion
            title='DOCKUI172TEXT',request='DOCKUI173TEXT',acceptButton='DOCKUI174TEXT',rejectButton='DOCKUI175TEXT',
            acceptedResponse='DOCKUI176TEXT',acceptedResponseButton='DOCKUI177TEXT',
            rejectedResponse='DOCKUI178TEXT',rejectedResponseButton='DOCKUI179TEXT',
            screwYouResponse='DOCKUI180TEXT',screwYouResponseButton='DOCKUI181TEXT',
 	},
-	{   --
+	{   --Dark Side of the Moon
            title='DOCKUI182TEXT',request='DOCKUI183TEXT',acceptButton='DOCKUI184TEXT',rejectButton='DOCKUI185TEXT',
            acceptedResponse='DOCKUI186TEXT',acceptedResponseButton='DOCKUI187TEXT',
            rejectedResponse='DOCKUI188TEXT',rejectedResponseButton='DOCKUI189TEXT',
