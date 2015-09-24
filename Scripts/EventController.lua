@@ -51,7 +51,7 @@ local MeteorEvent = require('GameEvents.MeteorEvent')
 local HostileDockingEvent = require('GameEvents.HostileDockingEvent')
 local HostileDerelictEvent = require('GameEvents.HostileDerelictEvent')
 local CompoundEvent = require('GameEvents.CompoundEvent')
-local TraderEvent = require('GameEvents.TraderEvent')
+--local TraderEvent = require('GameEvents.TraderEvent')
 EventController.tEventClasses = {
     [ImmigrationEvent.sEventType]         = ImmigrationEvent,
     [HostileImmigrationEvent.sEventType]  = HostileImmigrationEvent,
@@ -62,7 +62,7 @@ EventController.tEventClasses = {
     [HostileDockingEvent.sEventType]              = HostileDockingEvent,
     [HostileDerelictEvent.sEventType]              = HostileDerelictEvent,
     [CompoundEvent.sEventType]              = CompoundEvent,
-    [TraderEvent.sEventType] = TraderEvent,
+    --[TraderEvent.sEventType] = TraderEvent,
 }
 
 --- Initializes the event controller.
@@ -123,9 +123,10 @@ function EventController.getTeamForEvent(eFactionBehavior)
         if eFactionBehavior == Character.FACTION_BEHAVIOR.Friendly and EventController.tCurrentEventPersistentState.nFriendlyFactionTeam then
             return EventController.tCurrentEventPersistentState.nFriendlyFactionTeam
         end
-        if eFactionBehavior == Character.FACTION_BEHAVIOR.Trader and EventController.tCurrentEventPersistentState.nTraderFactionTeam then
-            return EventController.tCurrentEventPersistentState.nTraderFactionTeam
-        end
+        --Trader Stuff
+        --if eFactionBehavior == Character.FACTION_BEHAVIOR.Trader and EventController.tCurrentEventPersistentState.nTraderFactionTeam then
+        --    return EventController.tCurrentEventPersistentState.nTraderFactionTeam
+        --end
     end
     local nTeam = Base.createNewTeamID(eFactionBehavior)
     if EventController.tCurrentEventPersistentState then
@@ -135,9 +136,10 @@ function EventController.getTeamForEvent(eFactionBehavior)
         if eFactionBehavior == Character.FACTION_BEHAVIOR.Friendly then
             EventController.tCurrentEventPersistentState.nFriendlyFactionTeam = nTeam
         end
-        if eFactionBehavior == Character.FACTION_BEHAVIOR.Trader then
-            EventController.tCurrentEventPersistentState.nTraderFactionTeam = nTeam
-        end
+        --Trader Stuff
+        --if eFactionBehavior == Character.FACTION_BEHAVIOR.Trader then
+        --    EventController.tCurrentEventPersistentState.nTraderFactionTeam = nTeam
+        --end
     end
     return nTeam
 end
