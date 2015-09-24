@@ -2410,9 +2410,10 @@ function Character:updateAI(dt)
 
 	if not self.rCurrentTask then
 		self.nWaitingTime = self.nWaitingTime+dt
-		if self.nWaitingTime > 5 then
-			print(TT_Warning,'Character stalled waiting on task update.',self:getUniqueID(),self.nWaitingTime)
-		end
+		-- FIXME: Too spammy due to Trader
+		--if self.nWaitingTime > 5 then
+		--	print(TT_Warning,'Character stalled waiting on task update.',self:getUniqueID(),self.nWaitingTime)
+		--end
 		-- waiting for CharacterManager to get around to updating us.
 	else
 		--local key = "Task"..self.rCurrentTask.activityName

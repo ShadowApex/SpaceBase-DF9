@@ -19,6 +19,10 @@ DockingEvent.sAlertLC = 'ALERTS028TEXT'
 DockingEvent.sFailureLC = 'ALERTS024TEXT'
 DockingEvent.sDialogSet = 'dockingEvents'
 DockingEvent.DEFAULT_WEIGHT = 5.0
+DockingEvent.nMinPopulation = 4
+DockingEvent.nMaxPopulation = -1
+DockingEvent.nMinTime = 60*10
+DockingEvent.nMaxTime = -1
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
@@ -36,7 +40,7 @@ function DockingEvent.getWeight(nPopulation, nElapsedTime)
 end
 
 function DockingEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 4 or GameRules.elapsedTime > 60*10
+    return nPopulation > DockingEvent.nMinPopulation or GameRules.elapsedTime > DockingEvent.nMinTime
 end
 
 function DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

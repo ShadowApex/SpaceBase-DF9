@@ -20,13 +20,17 @@ MeteorEvent.sAlertLC = 'ALERTS026TEXT'
 MeteorEvent.sFailureLC = 'ALERTS027TEXT'
 MeteorEvent.METEOR_STRIKE_RADIUS=256*3
 MeteorEvent.DEFAULT_WEIGHT = 10.0
+MeteorEvent.nMinPopulation = 4
+MeteorEvent.nMaxPopulation = -1
+MeteorEvent.nMinTime = 60*10
+MeteorEvent.nMaxTime = -1
 
 function MeteorEvent.getSpawnLocationModifier()
     return Event._getExpMod('asteroids')
 end
 
 function MeteorEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 4 or GameRules.elapsedTime > 60*10
+    return nPopulation > MeteorEvent.nMinPopulation or GameRules.elapsedTime > MeteorEvent.nMinTime
 end
 
 function MeteorEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

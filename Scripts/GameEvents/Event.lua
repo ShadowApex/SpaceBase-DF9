@@ -16,6 +16,11 @@ local DFUtil = require('DFCommon.Util')
 local Docking = require('Docking')
 local Room = require('Room')
 
+Event.nMinPopulation = 0
+Event.nMaxPopulation = -1
+Event.nMinTime = 0
+Event.nMaxTime = -1
+
 Event.nAllowedSetupFailures = 30
 
 Event.nDebugLineLength = 40

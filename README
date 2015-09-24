@@ -40,6 +40,8 @@ will. There’s a good amount of info on debugging on the wiki.
 
   http://spacebasedf9.gamepedia.com/Source_Documentation
 
+See DebugMenu.lua for how to implement new debugging operations.
+
 Code Style
 ==========
 The code uses 'hungarian notation'.  For an explanation, see
@@ -48,5 +50,4 @@ The code uses 'hungarian notation'.  For an explanation, see
 
 We believe the meaning is:  n is Number, b is Boolean, t is Table, r is
 Reference, e is Enum.
-
 

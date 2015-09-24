@@ -16,6 +16,10 @@ local MiscUtil = require('MiscUtil')
 
 HostileDockingEvent.sEventType = 'hostileDockingEvents'
 HostileDockingEvent.DEFAULT_WEIGHT = 5.0
+HostileDockingEvent.nMinPopulation = 4
+HostileDockingEvent.nMaxPopulation = -1
+HostileDockingEvent.nMinTime = 60*10
+HostileDockingEvent.nMaxTime = -1
 
 function HostileDockingEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
