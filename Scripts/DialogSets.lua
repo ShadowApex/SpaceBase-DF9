@@ -18,37 +18,37 @@ local t=
     -- has been reached.  Occurs more frequently in early portion of the game.
     immigrationEvents=
     {
-        {   -- lost in space         
+        {   -- lost in space
             title='DOCKUI006TEXT',request='DOCKUI007TEXT',acceptButton='DOCKUI028TEXT',rejectButton='DOCKUI029TEXT',
             acceptedResponse='DOCKUI030TEXT',acceptedResponseButton='DOCKUI035TEXT',
             rejectedResponse='DOCKUI031TEXT',rejectedResponseButton='DOCKUI034TEXT',
             screwYouResponse='DOCKUI033TEXT',screwYouResponseButton='DOCKUI033TEXT',
         },
-        {   -- just out of cryogenesis         
+        {   -- just out of cryogenesis
             title='DOCKUI052TEXT',request='DOCKUI047TEXT',acceptButton='DOCKUI048TEXT',rejectButton='DOCKUI049TEXT',
             acceptedResponse='DOCKUI050TEXT',acceptedResponseButton='DOCKUI054TEXT',
             rejectedResponse='DOCKUI051TEXT',rejectedResponseButton='DOCKUI055TEXT',
             screwYouResponse='DOCKUI053TEXT',screwYouResponseButton='DOCKUI056TEXT',
         },
-        {   -- apt seekers         
+        {   -- apt seekers
             title='DOCKUI057TEXT',request='DOCKUI058TEXT',acceptButton='DOCKUI061TEXT',rejectButton='DOCKUI059TEXT',
             acceptedResponse='DOCKUI062TEXT',acceptedResponseButton='DOCKUI064TEXT',
             rejectedResponse='DOCKUI060TEXT',rejectedResponseButton='DOCKUI063TEXT',
             screwYouResponse='DOCKUI065TEXT',screwYouResponseButton='DOCKUI066TEXT',
         },
-        {   -- cruisin' around         
+        {   -- cruisin' around
             title='DOCKUI068TEXT',request='DOCKUI067TEXT',acceptButton='DOCKUI069TEXT',rejectButton='DOCKUI070TEXT',
             acceptedResponse='DOCKUI071TEXT',acceptedResponseButton='DOCKUI074TEXT',
             rejectedResponse='DOCKUI072TEXT',rejectedResponseButton='DOCKUI075TEXT',
             screwYouResponse='DOCKUI073TEXT',screwYouResponseButton='DOCKUI076TEXT',
         },
-        {   -- ambiguous request         
+        {   -- ambiguous request
             title='DOCKUI079TEXT',request='DOCKUI012TEXT',acceptButton='DOCKUI077TEXT',rejectButton='DOCKUI008TEXT',
             acceptedResponse='DOCKUI009TEXT',acceptedResponseButton='DOCKUI078TEXT',
             rejectedResponse='DOCKUI080TEXT',rejectedResponseButton='DOCKUI081TEXT',
             screwYouResponse='DOCKUI010TEXT',screwYouResponseButton='DOCKUI082TEXT',
         },
-        {   -- robot sounding request        
+        {   -- robot sounding request
             title='DOCKUI083TEXT',request='DOCKUI084TEXT',acceptButton='DOCKUI085TEXT',rejectButton='DOCKUI086TEXT',
             acceptedResponse='DOCKUI087TEXT',acceptedResponseButton='DOCKUI088TEXT',
             rejectedResponse='DOCKUI089TEXT',rejectedResponseButton='DOCKUI090TEXT',
@@ -67,47 +67,47 @@ local t=
             screwYouResponse='DOCKUI142TEXT',screwYouResponseButton='DOCKUI143TEXT',
         },
 
-	{   -- kessel runner
+        {   -- kessel runner
            title='DOCKUI152TEXT',request='DOCKUI153TEXT',acceptButton='DOCKUI154TEXT',rejectButton='DOCKUI155TEXT',
            acceptedResponse='DOCKUI156TEXT',acceptedResponseButton='DOCKUI157TEXT',
            rejectedResponse='DOCKUI158TEXT',rejectedResponseButton='DOCKUI159TEXT',
            screwYouResponse='DOCKUI160TEXT',screwYouResponseButton='DOCKUI161TEXT',
-	},
-	{   -- lister
+        },
+        {   -- lister
            title='DOCKUI162TEXT',request='DOCKUI163TEXT',acceptButton='DOCKUI164TEXT',rejectButton='DOCKUI165TEXT',
            acceptedResponse='DOCKUI166TEXT',acceptedResponseButton='DOCKUI167TEXT',
            rejectedResponse='DOCKUI168TEXT',rejectedResponseButton='DOCKUI169TEXT',
            screwYouResponse='DOCKUI170TEXT',screwYouResponseButton='DOCKUI171TEXT',
-	},
-	{   --holiday confusion
+        },
+        {   --holiday confusion
            title='DOCKUI172TEXT',request='DOCKUI173TEXT',acceptButton='DOCKUI174TEXT',rejectButton='DOCKUI175TEXT',
            acceptedResponse='DOCKUI176TEXT',acceptedResponseButton='DOCKUI177TEXT',
            rejectedResponse='DOCKUI178TEXT',rejectedResponseButton='DOCKUI179TEXT',
            screwYouResponse='DOCKUI180TEXT',screwYouResponseButton='DOCKUI181TEXT',
-	},
-	{   --Dark Side of the Moon
+        },
+        {   --Dark Side of the Moon
            title='DOCKUI182TEXT',request='DOCKUI183TEXT',acceptButton='DOCKUI184TEXT',rejectButton='DOCKUI185TEXT',
            acceptedResponse='DOCKUI186TEXT',acceptedResponseButton='DOCKUI187TEXT',
            rejectedResponse='DOCKUI188TEXT',rejectedResponseButton='DOCKUI189TEXT',
            screwYouResponse='DOCKUI190TEXT',screwYouResponseButton='DOCKUI191TEXT',
-	},
-	{   --Hitchhikers Guide to the galaxy reference
+        },
+        {   --Hitchhikers Guide to the galaxy reference
            title='DOCKUI192TEXT',request='DOCKUI193TEXT',acceptButton='DOCKUI194TEXT',rejectButton='DOCKUI195TEXT',
            acceptedResponse='DOCKUI196TEXT',acceptedResponseButton='DOCKUI197TEXT',
            rejectedResponse='DOCKUI198TEXT',rejectedResponseButton='DOCKUI199TEXT',
            screwYouResponse='DOCKUI200TEXT',screwYouResponseButton='DOCKUI201TEXT',
-	},
-	{   --Bad thing happened
+        },
+        {   --Bad thing happened
            title='DOCKUI212TEXT',request='DOCKUI213TEXT',acceptButton='DOCKUI214TEXT',rejectButton='DOCKUI215TEXT',
            acceptedResponse='DOCKUI216TEXT',acceptedResponseButton='DOCKUI217TEXT',
            rejectedResponse='DOCKUI218TEXT',rejectedResponseButton='DOCKUI219TEXT',
            screwYouResponse='DOCKUI220TEXT',screwYouResponseButton='DOCKUI221TEXT',
-	},
+        },
     },
-	
+
     -- Ship drops off 1-2 raiders who attack crew and/or try to board station
     -- if the station has at least 6 crew members.
-	hostileImmigrationEvents=
+    hostileImmigrationEvents=
     {
         {
             -- fake service call
@@ -133,7 +133,7 @@ local t=
            acceptedResponse='DOCKUI226TEXT',acceptedResponseButton='DOCKUI227TEXT',
            rejectedResponse='DOCKUI228TEXT',rejectedResponseButton='DOCKUI229TEXT',
            screwYouResponse='DOCKUI230TEXT',screwYouResponseButton='DOCKUI231TEXT',
-	},
+        },
     },
 
     -- Attempts a dock a derelict to the station
@@ -187,8 +187,8 @@ local t=
             acceptedResponse='TRADE005TEXT',acceptedResponseButton='TRADE006TEXT',
             rejectedResponse='TRADE007TEXT',rejectedResponseButton='TRADE008TEXT',
             screwYouResponse='TRADE009TEXT',screwYouResponseButton='TRADE010TEXT',
-        },   
-    },    
+        },
+    },
 }
 
 return t
