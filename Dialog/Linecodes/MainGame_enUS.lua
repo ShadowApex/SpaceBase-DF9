@@ -342,8 +342,8 @@
     DOCKUI177TEXT = { sLine = "Happy Boxing Day!", },
     DOCKUI178TEXT = { sLine = "Maundy Thursday! Maundy Thursday!", },
     DOCKUI179TEXT = { sLine = "Good Friday to YOU, sir!", },
-    DOCKUI180TEXT = { sLine = "Wait, I can figure this out, I'll use my brains.", },
-    DOCKUI181TEXT = { sLine = "Do you really believe that's wise?", },
+    DOCKUI180TEXT = { sLine = "I guess since we'll be docking with you anyway, this'll be your first Berth Day.", },
+    DOCKUI181TEXT = { sLine = "Guess you could say, we're out of womb!", },
 
     DOCKUI182TEXT = { sLine = "Dark Side of the Moon Mining Group", },
     DOCKUI183TEXT = { sLine = "Hello? Is there anybody in there? Just nod if you can hear me! Is there anyone home?\n\n And can we join you?", },
