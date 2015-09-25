@@ -3,6 +3,17 @@
 STEAM_COMMON=~/.steam/steam/steamapps/common/
 SBDF9_BACKUP=~/.local/share/doublefine/spacebasedf9/Saves/
 
+if [ "$1" = "restore" ]; then
+    if [ ! -d ${STEAM_COMMON}/SpacebaseDF9.v1 ]; then
+	echo "Missing original version of game to be restored"
+	echo "Try manually re-installing through Steam"
+    else
+	rm -rf ${STEAM_COMMON}/SpacebaseDF9
+	mv ${STEAM_COMMON}/SpacebaseDF9.v1 ${STEAM_COMMON}/SpacebaseDF9
+    fi
+    exit
+fi
+
 ## Backup if needed
 if [ ! -e ${STEAM_COMMON}/SpacebaseDF9.v1 ]; then
     echo "Backing up original SpacebaseDF9 code and game save"
