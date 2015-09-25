@@ -144,7 +144,7 @@
     DISEAS070TEXT = { sLine = "Changeling", },
     DISEAS071TEXT = { sLine = "Infester", },
     DISEAS072TEXT = { sLine = "Thing", },
-    DISEAS073TEXT = { sLine = "Monster", },
+    DISEAS073TEXT = { sLine = "Doppleganger", },
     DISEAS074TEXT = { sLine = "Eater", },
 
     --Speed Adjectives
@@ -158,7 +158,7 @@
     DISEAS081TEXT = { sLine = "Speed", },
     DISEAS082TEXT = { sLine = "Lightspeed", },
 
-    DISEAS083TEXT = { sLine = 'A retrovirus that makes people move quicker , work quicker, do everything quicker however this unfortunately also includes starving quicker and dying quicker, it also makes them angrier quicker.', },
+    DISEAS083TEXT = { sLine = 'An engineered retrovirus from now-forgotten battlefields, that makes men move quicker, work quicker, fight quicker... yet tragically rage and starve and die all the quicker too.', },
 
     DOCKUI001TEXT = { sLine = "INCOMING DOCKING REQUEST FROM:", },
     DOCKUI002TEXT = { sLine = "Starship Information Unavailable", },
