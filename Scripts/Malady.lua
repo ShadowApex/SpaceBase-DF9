@@ -83,7 +83,7 @@ function Malady._updateMaladySaveData()
     end
 end
 
-local tDIseaseSpecific = {'thing','Thing'}
+local tDIseaseSpecific = {'thing','Thing',"Hyper","hyper"}
 
 local tDiseaseAdjectives = {
    default = {
