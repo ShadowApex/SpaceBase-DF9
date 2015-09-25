@@ -2946,7 +2946,7 @@
     DEBUG007TEXT = { sLine = "Infect Character", },
     DEBUG008TEXT = { sLine = "Random Code Test", },
 
-    DISEASTHINGTEXT = { sLine = "DUN DUN...dun.SHH.dun..dun..dun..DUN DUN...dun.SHH.dun..dun..dun", },
+    DISEASTHINGTEXT = { sLine = "A parasitical intracosmic lifeform that assimilates biologicals and metamorphasizes to imitate host organisms.", },
     SFTHING01 = { sLine = "*darts eyes uncontrollably*", },
     SFTHING02 = { sLine = "*is scheming*", },
     SFTHING03 = { sLine = "*Stares at a wall*", },
