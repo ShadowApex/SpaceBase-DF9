@@ -83,7 +83,7 @@ function Malady._updateMaladySaveData()
     end
 end
 
-local tDIseaseSpecific = {'thing','Thing',"Hyper","hyper"}
+local tDiseaseSpecific = {'thing','Thing','Hyper','hyper'}
 
 local tDiseaseAdjectives = {
    default = {
@@ -152,7 +152,7 @@ function Malady.getDiseaseName(sDiseaseType)
        sName = require('Topics').getRandomProvenance() .. ' '
    end
    
-	for key, value in pairs(tDIseaseSpecific) do 
+	for key, value in pairs(tDiseaseSpecific) do 
 	    if value == sDiseaseType then
 		bIsSpecial=true
 	    end
