@@ -2950,4 +2950,11 @@
 	SFTHING05 = { sLine = "Hahaha, I figured out the password...errmm.. I mean, I haven't written a log in awhile.", },
 	SFTHING06 = { sLine = "I do love a bit of inf--err..socialization.", },
 	SFTHING07 = { sLine = "I am feeling extremely hungry today, might feed soon",},
+	
+	JB01 = { sLine = " The Jukebox in /CURRENTROOM/ has every song I like on it!",},
+	JB02 = { sLine = "Just listened to some pre-collapse tunes on the jukebox, nostalgia baby",},
+	--Don't know the command to get a bandname.
+	JB03 = { sLine = "I'm so glad the adminstrator saw it fit to get a jukebox put in  /CURRENTROOM/ without it I couldnt listen to my favorite music!",},
+	JB04 = { sLine = "Just listening to tunes in /CURRENTROOM/ #Nightlife ",},
+
 }

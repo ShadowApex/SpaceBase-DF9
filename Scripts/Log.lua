@@ -234,6 +234,11 @@ Log.tTypes = {
 		lineCodes={ 'SFCHAT013CITZ', 'SFCHAT014CITZ', 'SFCHAT015CITZ', 'SFCHAT016CITZ', 'SFCHAT017CITZ', 'SFCHAT018CITZ' },
 		priority=2,
 	},
+	--Jukebox
+	JUKEBOX_GENERIC={
+		lineCodes={ 'JB01', 'JB02', 'JB03', 'JB04' },
+		priority=3,
+	},
 	-- trading
 	CHAT_TRADE={
 		lineCodes={ 'SFCHAT019CITZ', 'SFTRAD007CITZ', 'SFTRAD008CITZ', 'SFTRAD009CITZ',
