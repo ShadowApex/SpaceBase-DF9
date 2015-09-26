@@ -88,6 +88,22 @@ local t=
         nResearchUnits=1000,
 		sIcon = 'ui_jobs_iconJobUnemployed',
     },
+    GeneratorLevel3=
+    {
+		-- sItemForDesc corresponds with an EnvObjectData entry
+        sItemForDesc='GeneratorLevel3',
+        tPrereqs={'GeneratorLevel2'},
+        nResearchUnits=1500,
+		sIcon = 'ui_jobs_iconJobUnemployed',
+    },
+    GeneratorLevel4=
+    {
+		-- sItemForDesc corresponds with an EnvObjectData entry
+        sItemForDesc='GeneratorLevel4',
+        tPrereqs={'GeneratorLevel3'},
+        nResearchUnits=2000,
+		sIcon = 'ui_jobs_iconJobUnemployed',
+    },	
     AirScrubber=
     {
         sItemForDesc='AirScrubber',
