@@ -24,6 +24,7 @@ if [ ! -e ${SBDF9_BACKUP}/Archives/SpacebaseDF9AutoSave-v1.sav ]; then
     rsync -avz ${SBDF9_BACKUP}/SpacebaseDF9AutoSave.sav ${SBDF9_BACKUP}/Archives/SpacebaseDF9AutoSave-v1.sav 
 fi
 
+rsync -avz build.string ${STEAM_COMMON}/SpacebaseDF9/Data/
 rsync -avz Dialog ${STEAM_COMMON}/SpacebaseDF9/Data/
 rsync -avz Scripts ${STEAM_COMMON}/SpacebaseDF9/Data/
 rsync -avz UILayouts ${STEAM_COMMON}/SpacebaseDF9/Data/
