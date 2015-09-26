@@ -32,7 +32,10 @@ function MenuManager.new(_guiManager)
 		guiManager:hideStuff()
 		active = name
 		if g_GameRules.getTimeScale() ~= 0 then
+            self.bWasPaused = false
             g_GameRules.togglePause()
+        else
+            self.bWasPaused = true
         end
 	end
 	
