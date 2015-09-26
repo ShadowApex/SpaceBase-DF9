@@ -352,6 +352,9 @@ end
 
 -- Used by tasks to see if the beacon they started out for is still active.
 function EmergencyBeacon:stillActive(rChar, wx,wy,rTargetObject,beaconType)
+	if not rChar:getSquadName() then
+		return false
+	end
 	if self.tBeacons[rChar:getSquadName()].tx and self.tBeacons[rChar:getSquadName()].ty then
 		local tx,ty = g_World._getTileFromWorld(wx,wy)
 		if tx == self.tBeacons[rChar:getSquadName()].tx and ty == self.tBeacons[rChar:getSquadName()].ty and beaconType == self.tBeacons[rChar:getSquadName()].tMode then
