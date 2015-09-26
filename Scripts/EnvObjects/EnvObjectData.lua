@@ -226,10 +226,9 @@ EnvObjectData.tObjects=
         matterCost=2000,
 		nPowerOutput = 5000,
         nSabotageDuration = 30,
-		bCanDeactivate = true,
-		sFlavorText = 'OBFLAV037TEXT',
-		spriteName = 'ReactorGen3',
-		spriteSheetPath = 'Environments/ReactorGen3'
+        bCanDeactivate = true,
+        sFlavorText = 'OBFLAV037TEXT',
+        spriteSheetPath = 'Environments/ReactorGen3',
     },	
     GeneratorLevel4=
     {
@@ -254,10 +253,9 @@ EnvObjectData.tObjects=
         matterCost=5000,
 		nPowerOutput = 10000,
         nSabotageDuration = 30,
-		bCanDeactivate = true,
-		sFlavorText = 'OBFLAV038TEXT',
-		spriteName = 'ReactorGen4',
-		spriteSheetPath = 'Environments/ReactorGen4'
+        bCanDeactivate = true,
+        sFlavorText = 'OBFLAV038TEXT',
+        spriteSheetPath = 'Environments/ReactorGen4',
     },		
 	
     --[[
