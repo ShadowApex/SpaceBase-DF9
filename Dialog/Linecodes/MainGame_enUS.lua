@@ -2955,7 +2955,6 @@
     DISEASTHINGTEXT = { sLine = "A parasitical intracosmic lifeform that assimilates biologicals and metamorphasizes to imitate host organisms.", },
     SFTHING01 = { sLine = "*darts eyes uncontrollably*", },
     SFTHING02 = { sLine = "*is scheming*", },
-<<<<<<< HEAD
 	SFTHING03 = { sLine = "*Stares at a wall*", },
 	SFTHING04 = { sLine = "*Deceivingly staring*", },
 	SFTHING05 = { sLine = "Hahaha, I figured out the password...errmm.. I mean, I haven't written a log in awhile.", },
@@ -2968,11 +2967,4 @@
 	JB03 = { sLine = "I'm so glad the adminstrator saw it fit to get a jukebox put in  /CURRENTROOM/ without it I couldnt listen to my favorite music!",},
 	JB04 = { sLine = "Just listening to tunes in /CURRENTROOM/ #Nightlife ",},
 
-=======
-    SFTHING03 = { sLine = "*Stares at a wall*", },
-    SFTHING04 = { sLine = "*Deceivingly staring*", },
-    SFTHING05 = { sLine = "Hahaha, I figured out the password...errmm.. I mean, I haven't written a log in awhile.", },
-    SFTHING06 = { sLine = "I do love a bit of inf--err..socialization.", },
-    SFTHING07 = { sLine = "I am feeling extremely hungry today, might feed soon",},
->>>>>>> 931fa8e3fde3e4621c281a61c180ad204d1f7d8e
 }
