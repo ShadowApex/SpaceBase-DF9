@@ -32,6 +32,22 @@ JP - Oct 27, 2014
 
     -- http://steamcommunity.com/games/246090/announcements/detail/216497448170557993
 
+Installation
+============
+
+Linux: 
+
+  $ ./linux_install.sh
+
+This will copy the modified game files on top of your Steam installation
+of the game (after backing it up of course!)  To restore the original
+game, just run:
+
+  $ ./linux_install.sh restore
+
+Or else just direct Steam to re-install Spacebase DF-9.
+
+
 Debugging
 =========
 To test events more quickly you can toggle the dev debug stuff so you
