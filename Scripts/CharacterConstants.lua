@@ -522,6 +522,7 @@ CharacterConstants.CAUSE_OF_DEATH = {
     PARASITE = 8,
     STARVATION = 9,
     COMBAT_MELEE = 10,
+    THING = 11,
 }
 
 CharacterConstants.INFESTATION_CHANCE = .025 -- chance a random character will be infested
@@ -543,6 +544,7 @@ CharacterConstants.tDeathCauses=
 	[CharacterConstants.CAUSE_OF_DEATH.PARASITE] = 'INSPEC104TEXT',
 	[CharacterConstants.CAUSE_OF_DEATH.STARVATION] = 'INSPEC099TEXT',
 	[CharacterConstants.CAUSE_OF_DEATH.COMBAT_MELEE] = 'INSPEC101TEXT',
+    [CharacterConstants.CAUSE_OF_DEATH.THING] = 'INSPEC200TEXT',
 }
 
 -- job-related
