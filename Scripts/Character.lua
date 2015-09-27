@@ -513,6 +513,9 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 			elseif cause == Character.CAUSE_OF_DEATH.PARASITE then
 				sDeathAnim = 'death_shot'
 				bBloodDecal = true
+			elseif cause == Character.CAUSE_OF_DEATH.THING then
+				sDeathAnim = 'death_shot'
+				bBloodDecal = true
 			elseif cause == Character.CAUSE_OF_DEATH.STARVATION then
 				sDeathAnim = 'death_suffocate'
 			else
@@ -6287,8 +6290,8 @@ function Character:spawnThing()
     if not self:isDead() then
     local tLogData = {}
 		--Kill and delete for "things".
-		Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
-		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.PARASITE)
+		Log.add(Log.tTypes.DEATH_THING, self, tLogData)
+		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.THING)
     end
     CharacterManager.deleteCharacter(self)
 
