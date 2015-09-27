@@ -1,5 +1,6 @@
 #!/bin/bash
 
+VERSION=1.07
 STEAM_COMMON=~/.steam/steam/steamapps/common/
 SBDF9_BACKUP=~/.local/share/doublefine/spacebasedf9/Saves/
 
@@ -11,6 +12,11 @@ if [ "$1" = "restore" ]; then
 	rm -rf ${STEAM_COMMON}/SpacebaseDF9
 	mv ${STEAM_COMMON}/SpacebaseDF9.v1 ${STEAM_COMMON}/SpacebaseDF9
     fi
+    exit
+elif [ $1 = "dist" ]; then
+    prefix=spacebase-df9-v${VERSION}
+    git archive --format=tar HEAD --prefix=${prefix}/ | bzip2 >${prefix}.tar.bz
+    ls -l spacebase-df9-v${VERSION}.tar.bz
     exit
 fi
 
