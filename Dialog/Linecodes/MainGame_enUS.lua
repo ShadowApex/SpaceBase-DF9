@@ -2963,11 +2963,11 @@
     SFTHING06 = { sLine = "I do love a bit of inf--err..socialization.", },
     SFTHING07 = { sLine = "I am feeling extremely hungry today, might feed soon",},
 	
-    SFTHICIT01= { sLine="Well, I guess its time to transform..ARRRGHHHH"}
-    SFTHICIT02= { sLine="Foolish breathers...they never expected me..ARGHHHHHH!" }
-    SFTHICIT03= { sLine="Whom shall I assimilate first..ARGHHHHHH!" }
-    SFTHICIT04= { sLine="Well, transforming will probably be painful..but I am quite hungry ARGHHHHHHH!" }
-    SFTHICIT05= { sLine="ARGHHHHHHH!" }	
+    SFTHICIT01= { sLine="Well, I guess its time to transform..ARRRGHHHH",},
+    SFTHICIT02= { sLine="Foolish breathers...they never expected me..ARGHHHHHH!", },
+    SFTHICIT03= { sLine="Whom shall I assimilate first..ARGHHHHHH!", },
+    SFTHICIT04= { sLine="Well, transforming will probably be painful..but I am quite hungry ARGHHHHHHH!" ,},
+    SFTHICIT05= { sLine="ARGHHHHHHH!" ,},
 	
     JB01 = { sLine = " The Jukebox in /CURRENTROOM/ has every song I like on it!",},
     JB02 = { sLine = "Just listened to some pre-collapse tunes on the jukebox, nostalgia baby",},
