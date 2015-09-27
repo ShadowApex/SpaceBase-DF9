@@ -29,4 +29,6 @@ rsync -avz Dialog ${STEAM_COMMON}/SpacebaseDF9/Data/
 rsync -avz Scripts ${STEAM_COMMON}/SpacebaseDF9/Data/
 rsync -avz UILayouts ${STEAM_COMMON}/SpacebaseDF9/Data/
 
+# Treat Win directory as authoritative for graphics
+rsync -avz Win/* ${STEAM_COMMON}/SpacebaseDF9/Linux/
 
