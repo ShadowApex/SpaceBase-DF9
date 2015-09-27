@@ -5679,6 +5679,10 @@ function Character:getPerceivedDiseaseSeverity(bIncludeHP)
             end
         end
     end
+	--for things
+    if self:getHasMaladyType('Thing') then
+        nSev=0
+    end
     return nSev
 end
 
