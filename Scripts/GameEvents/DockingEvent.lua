@@ -58,19 +58,19 @@ function DockingEvent.preExecuteSetup(rController, tUpcomingEventPersistentState
             -- nothing
         else
             AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-                tUpcomingEventPersistentState)
+                                           tUpcomingEventPersistentState)
             return false, ImmigrationEvent.sRejectionSuccessAlert
         end
     end
 
     -- check if the module data from onqueue is still valid
     if Event._verifyDockingData(rController, tUpcomingEventPersistentState) then
-            AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-            tUpcomingEventPersistentState)
+        AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
+                                       tUpcomingEventPersistentState)
         return true
     else
         AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-            tUpcomingEventPersistentState)
+                                       tUpcomingEventPersistentState)
         return false
     end
 end
@@ -133,7 +133,7 @@ function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientE
     if not tTransientEventState.tDialogStatus.tDlgSet then
         local rClass = rController.tEventClasses[tPersistentEventState.sEventType]
         tTransientEventState.tDialogStatus.tDlgSet = rClass._getDialogSet()
-    
+
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true
         tTransientEventState.tDialogStatus.sPortrait = Portraits.getRandomPortrait()

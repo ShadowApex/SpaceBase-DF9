@@ -35,9 +35,9 @@ end
 
 function MeteorEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    
+
     tUpcomingEventPersistentState.nDuration =
-        12 + ((DFMath.randomFloat(0, 2) + 6) * tUpcomingEventPersistentState.nDifficulty) 
+        12 + ((DFMath.randomFloat(0, 2) + 6) * tUpcomingEventPersistentState.nDifficulty)
 end
 
 function MeteorEvent.onAlertShown(rController, tUpcomingEventPersistentState)
@@ -91,29 +91,29 @@ function MeteorEvent.tick(rController, dT, tCurrentEventPersistentState, tCurren
 
     if not tTransientState.bStarted then
         if not tPersistentState.tx then
-            -- MTF TODO BIG HACK: 
+            -- MTF TODO BIG HACK:
             -- The alert was sometimes not being shown, and we'd get a crash because that's where we determine the x and y.
-            -- So for now I pretend the alert was shown. 
+            -- So for now I pretend the alert was shown.
             -- But really we should ensure it gets shown!
             -- Not sure on the repro. Might be loading a game with an inprogress strike.
             MeteorEvent.onAlertShown(rController, tPersistentState)
         end
-        
+
         local tx,ty = tPersistentState.tx, tPersistentState.ty
         local wx,wy = g_World._getWorldFromTile(tx,ty)
         Base.eventOccurred(Base.EVENTS.EventAlert, {wx=wx,wy=wy,sLineCode="ALERTS033TEXT", tPersistentData=tPersistentState})
-    
+
         local nDuration = tPersistentState.nDuration
         local nPeakIntensity = tPersistentState.nDuration * 0.65
-    
+
         local nStartTime = GameRules.elapsedTime
         local nEndTime = GameRules.elapsedTime+nDuration
-        
+
         -- hide visual indicator thingy
         rController.hideMeteorStrikeIndicator()
-        
+
         tTransientState.tMeteors = {}
-    
+
         SoundManager.playSfx("SFX/SFX/MeteorAppear")
 
         for i=1,nDuration do
@@ -124,7 +124,7 @@ function MeteorEvent.tick(rController, dT, tCurrentEventPersistentState, tCurren
                 nIntensity = (nDuration-i+1)/(nDuration-nPeakIntensity+1)
             end
             nIntensity = nIntensity * nIntensity
-    
+
             local nNumMeteors = 2+math.floor(nIntensity*3)
             for j=1,nNumMeteors do
                 local nMeteorSize = (j==1 and nIntensity) or math.random()*nIntensity*.5
@@ -197,12 +197,12 @@ function MeteorEvent.tick(rController, dT, tCurrentEventPersistentState, tCurren
 
                         local nDamage = g_World.TILE_STARTING_HIT_POINTS * t.nSize * .3
                         --[[
-                        -- MTF TEMP HACK:
-                        -- avoid causing breaches for now, until we fix breach repair AI.
-                        local tHealth = g_World.getTileHealth(t.tx,t.ty)
-                        if tHealth then 
+                            -- MTF TEMP HACK:
+                            -- avoid causing breaches for now, until we fix breach repair AI.
+                            local tHealth = g_World.getTileHealth(t.tx,t.ty)
+                            if tHealth then
                             nDamage = math.max(0,math.min(math.floor(tHealth.nHitPoints*.75),nDamage))
-                        end
+                            end
                         ]]--
                         tDamage.nDamage = nDamage
 
@@ -217,7 +217,7 @@ function MeteorEvent.tick(rController, dT, tCurrentEventPersistentState, tCurren
     end
 
     if bDone then
-        return true    
+        return true
     end
 end
 

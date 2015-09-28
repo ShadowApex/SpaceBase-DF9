@@ -17,23 +17,23 @@ TraderEvent.nMinTime = 60*12
 TraderEvent.nMaxTime = 0
 
 function TraderEvent.allowEvent( nPopulation, nElapsedTime)
-	print("Checking if traderEvents is allowed ",
-	      nPopulation > TraderEvent.nMinPopulation or GameRules.elapsedTime > TraderEvent.nMinTime)
-	return nPopulation > TraderEvent.nMinPopulation or GameRules.elapsedTime > TraderEvent.nMinTime
+    print("Checking if traderEvents is allowed ",
+          nPopulation > TraderEvent.nMinPopulation or GameRules.elapsedTime > TraderEvent.nMinTime)
+    return nPopulation > TraderEvent.nMinPopulation or GameRules.elapsedTime > TraderEvent.nMinTime
 end
 
 function  TraderEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-	print("traderEvent queued")
-	ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    print("traderEvent queued")
+    ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 
-	tUpcomingEventPersistentState.bTrader = true
+    tUpcomingEventPersistentState.bTrader = true
 
-	TraderEvent._prerollTrader(rController, tUpcomingEventPersistentState)
+    TraderEvent._prerollTrader(rController, tUpcomingEventPersistentState)
 end
 
 function TraderEvent._prerollTrader( rController, tUpcomingEventPersistentState )
-	tUpcomingEventPersistentState.tCharSpawnStats = require('EventController').rollRandomTrader()
-	tUpcomingEventPersistentState.nNumSpawns = 1
+    tUpcomingEventPersistentState.tCharSpawnStats = require('EventController').rollRandomTrader()
+    tUpcomingEventPersistentState.nNumSpawns = 1
 end
 
 return TraderEvent
