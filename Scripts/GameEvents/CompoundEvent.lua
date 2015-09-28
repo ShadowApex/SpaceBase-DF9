@@ -1,5 +1,6 @@
 local Class = require('Class')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local CompoundEvent = Class.create(Event)
 
 local DFMath = require('DFCommon.Math')
@@ -10,7 +11,6 @@ local CharacterManager = require('CharacterManager')
 local DFUtil = require('DFCommon.Util')
 local SoundManager = require('SoundManager')
 local GenericDialog = require('UI.GenericDialog')
-local DialogSets = require('DialogSets')
 local Portraits = require('UI.Portraits')
 local Character = require('Character')
 local Room = require('Room')
@@ -242,7 +242,7 @@ function CompoundEvent.dialogTick(rController, tPersistentEventState, tTransient
     end
 
     if not tTransientEventState.tDialogStatus.tDlgSet then
-        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(DialogSets[tPersistentEventState.sEventType])
+        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(EventData[tPersistentEventState.sEventType])
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true
         tTransientEventState.tDialogStatus.sPortrait = Portraits.getRandomPortrait()

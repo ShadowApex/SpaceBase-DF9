@@ -1,13 +1,13 @@
 local Class = require('Class')
 local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local DockingEvent = Class.create(ImmigrationEvent)
 
 local GameRules = require('GameRules')
 local Docking = require('Docking')
 local DFUtil = require('DFCommon.Util')
 local GenericDialog = require('UI.GenericDialog')
-local DialogSets = require('DialogSets')
 local SoundManager = require('SoundManager')
 local Portraits = require('UI.Portraits')
 local AlertEntry = require('UI.AlertEntry')
@@ -119,7 +119,7 @@ end
 
 function DockingEvent._getDialogSet()
     local sKey = 'ambiguous'
-    return DFUtil.arrayRandom(DialogSets['dockingEvents'][sKey])
+    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
 end
 
 
