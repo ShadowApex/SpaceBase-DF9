@@ -205,14 +205,14 @@ function SoundManager.initialize( tSoundProjects )
         MOAIFmodEventMgr.init( tInitParams )
 		if tSoundProjects.tFEV then
 			for _, sProject in pairs( tSoundProjects.tFEV ) do
-                print(string.format("Loading project %s", sProject))
+                --print(string.format("Loading project %s", sProject))
 				print(MOAIFmodEventMgr.loadProject( DFFile.getAudioPath( sProject ) ) )
 			end
 		end
 		
 		if tSoundProjects.tFSB then
 			for _,sProject in ipairs( tSoundProjects.tFSB ) do
-				print(MOAIFmodEventMgr.loadVoiceProject( DFFile.getAudioPath( sProject ) ))
+				--print(MOAIFmodEventMgr.loadVoiceProject( DFFile.getAudioPath( sProject ) ))
 			end	
 		end
 		

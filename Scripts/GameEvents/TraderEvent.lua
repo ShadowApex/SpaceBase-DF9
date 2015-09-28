@@ -13,12 +13,12 @@ TraderEvent.sDialogSet = 'traderEvents'
 TraderEvent.DEFAULT_WEIGHT = 25.0
 
 function TraderEvent.allowEvent( nPopulation, nElapsedTime)
-	print("Checking if traderEvents is allowed",nPopulation > 6 or GameRules.elapsedTime > 60*12)
+	--print("Checking if traderEvents is allowed",nPopulation > 6 or GameRules.elapsedTime > 60*12)
 	return nPopulation > 6 or GameRules.elapsedTime > 60*12
 end
 
 function  TraderEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-	print("traderEvent queued")
+	--print("traderEvent queued")
 	ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 
 	tUpcomingEventPersistentState.bTrader = true

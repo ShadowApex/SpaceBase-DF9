@@ -13,11 +13,11 @@ function Jukebox:init(sName, wx, wy, bFlipX, bForce, tSaveData, nTeam)
 	EnvObject.init(self, sName, wx, wy, bFlipX, bForce, tSaveData, nTeam)
 	self.bIsOn = false
 	self.rMusic = nil
-	print("Jukebox created!")
+	--print("Jukebox created!")
 end
 
 function Jukebox:setOn(isOn)
-	print("Trying to switch jukebox")
+	--print("Trying to switch jukebox")
 	if self.bIsOn == isOn then return end
 
 	self.bIsOn = isOn
@@ -30,7 +30,7 @@ function Jukebox:setOn(isOn)
 		--self.rMusic = SoundManager.playSfx3D("fridgeopen", self.wx, self.wy, 0)
 	end
 
-	print(string.format("Jukebox status changed to %s", self.bIsOn))
+	--print(string.format("Jukebox status changed to %s", self.bIsOn))
 	--return self.bIsOn
 end
 
