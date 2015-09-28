@@ -4834,10 +4834,8 @@ function Character:getWalkAnim()
 	elseif self.tStatus.bLowOxygen or nIllnesses > 0 then
 	--Things hide their illnesses, we need to figure out a way of doing this without a bunch of if statements, a special character object would work well for "things".
         if not self:getHasMaladyType('Thing') then
-				print("Is running this code but isnt Thing?")
             sWalk = 'walk_low_oxygen'
         else
-		print("Is Thing")
             sWalk= 'walk'
          end
 	elseif self.tStats.nMorale > Character.MORALE_SPEED_THRESHOLD then
