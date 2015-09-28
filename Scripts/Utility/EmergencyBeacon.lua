@@ -544,7 +544,7 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
 		return
 	end
 	if not self.tBeacons[self.rSelectedSquad.getName()] then
-		print("EmergencyBeacon:attachTo() self.tBeacons["..self.rSelectedSquad.getName().."] not found")
+		print("EmergencyBeacon:attachTo() self.tBeacons["..self.rSelectedSquad.getName().."] not found") -- i blame skenners for this crap
 		self:newBeacon(self.rSelectedSquad.getName())
 	end
 	self.tBeacons[self.rSelectedSquad.getName()].beaconHigh:clearAttrLink(MOAIProp.INHERIT_LOC)

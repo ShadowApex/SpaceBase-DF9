@@ -259,6 +259,7 @@ Base._tDeathAlerts=
     [Character.CAUSE_OF_DEATH.PARASITE]="ALERTS016TEXT",
     [Character.CAUSE_OF_DEATH.STARVATION]="ALERTS018TEXT",
     [Character.CAUSE_OF_DEATH.COMBAT_MELEE]="ALERTS015TEXT",
+    [Character.CAUSE_OF_DEATH.THING]="ALERTS043TEXT",
 }
 
 -- TEMP VERSION: just creates the single-event string. 
