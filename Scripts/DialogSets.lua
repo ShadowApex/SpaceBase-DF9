@@ -12,6 +12,13 @@ local t=
             rejectedResponse='DOCKUI151TEXT',rejectedResponseButton='DOCKUI149TEXT',
             screwYouResponse='DOCKUI151TEXT',screwYouResponseButton='DOCKUI149TEXT',
         },
+        {
+            title='DOCKUI232TEXT',request='DOCKUI233TEXT',acceptButton='DOCKUI234TEXT',rejectButton='DOCKUI235TEXT',
+            -- can't avoid final siege with dialog, just different responses
+            acceptedResponse='DOCKUI236TEXT',acceptedResponseButton='DOCKUI238TEXT',
+            rejectedResponse='DOCKUI237TEXT',rejectedResponseButton='DOCKUI238TEXT',
+            screwYouResponse='DOCKUI237TEXT',screwYouResponseButton='DOCKUI238TEXT',
+        },
     },
 
     -- Brings 1-2 new crew members to the station unless population cap
@@ -147,6 +154,13 @@ local t=
                 rejectedResponse='DOCKUI043TEXT',rejectedResponseButton='DOCKUI103TEXT',
                 screwYouResponse='DOCKUI044TEXT',screwYouResponseButton='DOCKUI045TEXT',
             },
+            {
+                -- Unknown vessel
+                title='DOCKUI239TEXT',request='DOCKUI240TEXT',acceptButton='DOCKUI241TEXT',rejectButton='DOCKUI242TEXT',
+                acceptedResponse='DOCKUI243TEXT',acceptedResponseButton='DOCKUI246TEXT',
+                rejectedResponse='DOCKUI244TEXT',rejectedResponseButton='DOCKUI247TEXT',
+                screwYouResponse='DOCKUI245TEXT',screwYouResponseButton='DOCKUI248TEXT',
+            },
         },
         hostile={
             {
@@ -177,6 +191,13 @@ local t=
             acceptedResponse='DOCKUI097TEXT',acceptedResponseButton='DOCKUI101TEXT',
             rejectedResponse='DOCKUI099TEXT',rejectedResponseButton='DOCKUI100TEXT',
             screwYouResponse='DOCKUI098TEXT',screwYouResponseButton='DOCKUI102TEXT',
+        },
+        {
+            -- lottery winner
+            title='DOCKUI249TEXT',request='DOCKUI250TEXT',acceptButton='DOCKUI251TEXT',rejectButton='DOCKUI252TEXT',
+            acceptedResponse='DOCKUI253TEXT',acceptedResponseButton='DOCKUI256TEXT',
+            rejectedResponse='DOCKUI254TEXT',rejectedResponseButton='DOCKUI257TEXT',
+            screwYouResponse='DOCKUI255TEXT',screwYouResponseButton='DOCKUI258TEXT',
         },
     },
 
