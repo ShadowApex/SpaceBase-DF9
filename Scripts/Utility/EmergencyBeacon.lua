@@ -539,7 +539,7 @@ function EmergencyBeacon:attachTo(rTargetObject, nCount)
 	local tx, ty, tz = rTargetObject:getTileLoc()
 	local tMode = EmergencyBeacon.MODE_TRAVELTO
 	local nTargetTeam = rTargetObject:getTeam()
-	if not sSquadName then
+	if not self.rSelectedSquad.getName() then
 		print("EmergencyBeacon:attachTo() Error: No squad selected")
 		return
 	end
