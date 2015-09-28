@@ -2608,7 +2608,7 @@
     UIMISC019TEXT = { sLine = "The Rain in Space Falls Mainly on the Base", },
     UIMISC020TEXT = { sLine = "The Terrible Secrets of Space", },
     UIMISC021TEXT = { sLine = "Doctors With Boarders", },
-    UIMISC022TEXT = { sLine = "Latest Transmission from Team Spacebase:", },
+    UIMISC022TEXT = { sLine = "We are Derelict Games and we are in control now MUAHAHAHAHAH!", }, -- Latest Transmission from Team Spacebase:
     UIMISC023TEXT = { sLine = "RESUME", },
     UIMISC024TEXT = { sLine = "NEW BASE", },
     UIMISC025TEXT = { sLine = "SETTINGS", },
