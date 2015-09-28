@@ -4832,7 +4832,14 @@ function Character:getWalkAnim()
 	elseif self:hasUtilityStatus(Character.STATUS_RAMPAGE) then
 		sWalk = 'walk_tantrum'
 	elseif self.tStatus.bLowOxygen or nIllnesses > 0 then
-		sWalk = 'walk_low_oxygen'
+	--Things hide their illnesses, we need to figure out a way of doing this without a bunch of if statements, a special character object would work well for "things".
+        if not self:getHasMaladyType('Thing') then
+				print("Is running this code but isnt Thing?")
+            sWalk = 'walk_low_oxygen'
+        else
+		print("Is Thing")
+            sWalk= 'walk'
+         end
 	elseif self.tStats.nMorale > Character.MORALE_SPEED_THRESHOLD then
 		sWalk = 'walk_happy'
 	elseif self.tStats.nMorale < -Character.MORALE_SPEED_THRESHOLD then
@@ -5682,6 +5689,7 @@ function Character:getPerceivedDiseaseSeverity(bIncludeHP)
 	--for things
     if self:getHasMaladyType('Thing') then
         nSev=0
+        return nSev
     end
     return nSev
 end
@@ -6247,9 +6255,13 @@ end
 ------------------------------------------------
 function Character:getHasMaladyType(sDiseaseName)
 	bInfected=false
-	-- consant time checks for a malady of a specifc type a person cannot have 2 diseases of the same type at the same time, so this works
-	if self.tStatus.tMaladies[sDiseaseName] then
-		bInfected=true
+	-- wasnt working correctly
+	bInfected=false
+	local tIllList, nNum = self:getIllnesses()
+	for i, tStrainData in pairs (tIllList) do
+          if  tStrainData.sMaladyType == sDiseaseName then
+			bInfected=true
+          end
 	end
 	return bInfected
 end
