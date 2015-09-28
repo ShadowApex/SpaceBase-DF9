@@ -19,6 +19,10 @@ DerelictEvent.sAlertLC = 'ALERTS023TEXT'
 DerelictEvent.nCharactersToSpawn= { 1, 3 }
 DerelictEvent.bSkipAlert = true
 DerelictEvent.nAlertPriority = 0
+DerelictEvent.nMinPopulation = 4
+DerelictEvent.nMaxPopulation = -1
+DerelictEvent.nMinTime = 10*60
+DerelictEvent.nMaxTime = -1
 
 function DerelictEvent.getSpawnLocationModifier()
     return Event._getExpMod('derelict') * Event.getHostilityMod(false)
@@ -40,7 +44,7 @@ function DerelictEvent.getWeight(nPopulation, nElapsedTime, bForecast)
 end
 
 function DerelictEvent.allowEvent(nPopulation, nElapsedTime)
-    return (nPopulation > 4 or GameRules.elapsedTime > 10*60)
+    return (nPopulation > DerelictEvent.nMinPopulation or GameRules.elapsedTime > DerelictEvent.nMinTime)
 end
 
 function DerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)

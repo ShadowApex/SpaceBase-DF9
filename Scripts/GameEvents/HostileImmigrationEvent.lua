@@ -16,13 +16,17 @@ HostileImmigrationEvent.sAlertLC = 'ALERTS028TEXT'
 HostileImmigrationEvent.sFailureLC = 'ALERTS024TEXT'
 HostileImmigrationEvent.sDialogSet = 'hostileImmigrationEvents'
 HostileImmigrationEvent.DEFAULT_WEIGHT = 15.0
+HostileImmigrationEvent.nMinPopulation = 6
+HostileImmigrationEvent.nMaxPopulation = -1
+HostileImmigrationEvent.nMinTime = 60*12
+HostileImmigrationEvent.nMaxTime = -1
 
 function HostileImmigrationEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
 end
 
 function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 6 or GameRules.elapsedTime > 60*12
+    return nPopulation > HostileImmigrationEvent.nMinPopulation or GameRules.elapsedTime > HostileImmigrationEvent.nMinTime
 end
 
 function HostileImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
@@ -53,9 +57,9 @@ function HostileImmigrationEvent.getModuleContentsDebugString(rController, tPers
     local s2 = nil
     local tAtkStances = {}
     for i=1,tPersistentState.nNumSpawns do
-		if tPersistentState.tCharSpawnStats then
-			s = s..tostring(tPersistentState.tCharSpawnStats[i].nChallengeLevel)..', '
-		end
+        if tPersistentState.tCharSpawnStats then
+            s = s..tostring(tPersistentState.tCharSpawnStats[i].nChallengeLevel)..', '
+        end
     end
     if tPersistentState.nNumMaladies > 0 and tPersistentState.tPrerolledMalady then
         s2 = Event.getMaladyDebugString(tPersistentState, tPersistentState.nNumMaladies)

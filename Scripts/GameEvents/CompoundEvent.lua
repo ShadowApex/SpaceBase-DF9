@@ -1,5 +1,6 @@
 local Class = require('Class')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local CompoundEvent = Class.create(Event)
 
 local DFMath = require('DFCommon.Math')
@@ -10,7 +11,6 @@ local CharacterManager = require('CharacterManager')
 local DFUtil = require('DFCommon.Util')
 local SoundManager = require('SoundManager')
 local GenericDialog = require('UI.GenericDialog')
-local DialogSets = require('DialogSets')
 local Portraits = require('UI.Portraits')
 local Character = require('Character')
 local Room = require('Room')
@@ -27,18 +27,24 @@ CompoundEvent.sEventType = "CompoundEvent"
 CompoundEvent.sAlertLC = 'ALERTS040TEXT'
 CompoundEvent.sDialogSet = 'CompoundEvent'
 CompoundEvent.bSkipAlert = true
+CompoundEvent.nMinPopulation = 15
+CompoundEvent.nMaxPopulation = -1
+CompoundEvent.nMinTime = 60*20
+CompoundEvent.nMaxTime = -1
 
 function CompoundEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
 end
 
 function CompoundEvent.allowEvent(nPopulation, nElapsedTime)
-    return not g_Config:getConfigValue('disable_hostiles') and not g_Config:getConfigValue('disable_hostile_events') and (nPopulation > 15 or GameRules.elapsedTime > 60*20)
+    return not g_Config:getConfigValue('disable_hostiles') and
+        not g_Config:getConfigValue('disable_hostile_events') and
+        (nPopulation > CompoundEvent.nMinPopulation or GameRules.elapsedTime > CompoundEvent.nMinTime)
 end
 
 function CompoundEvent.getWeight(nPopulation, nElapsedTime)
     local rController = require('EventController')
-	-- next compound event will be the mega event
+    -- next compound event will be the mega event
     if nElapsedTime > rController.nFinalSiegeTime and not rController.tS.bRanMegaEvent then
         return 60
     end
@@ -155,31 +161,31 @@ function CompoundEvent.preExecuteSetup(rController, tPersistentState, tTransient
     if tPersistentState.bMega and rController.tS.bRanMegaEvent then
         return false
     end
-        
+
     local bValid = Event.preExecuteSetup(rController, tPersistentState)
     if not bValid then return false end
-    
+
     tTransientState.tEvents = {}
 
     for i,v in ipairs(tPersistentState.tEvents) do
         local rClass = rController.tEventClasses[v.sEventType]
 
-        if rClass.skipDialog then 
+        if rClass.skipDialog then
             rClass.skipDialog(rController, v, tTransientState.tEvents[i])
-        end        
+        end
 
         bValid = rClass.preExecuteSetup(rController, v)
         if not bValid then return false end
-        
-        tTransientState.tEvents[i] = {}        
+
+        tTransientState.tEvents[i] = {}
     end
-    
+
     return true
 end
 
 function CompoundEvent.tick(rController, dt, tPersistentState,tTransientState)
     CompoundEvent._tickAlerts(rController, tPersistentState, tTransientState)
-    
+
     if not tTransientState.bStarted and tPersistentState.bMega then
         if GameRules.getTimeScale() > 0 then
             tTransientState.nStartingTimeScale = GameRules.getTimeScale()
@@ -200,14 +206,14 @@ function CompoundEvent.tick(rController, dt, tPersistentState,tTransientState)
         end
         return
     end
-    
+
     local n=#tPersistentState.tEvents
     for i=n,1,-1 do
         local v = tPersistentState.tEvents[i]
         local rEventClass = rController.tEventClasses[v.sEventType]
         if GameRules.elapsedTime > v.nStartTime and rEventClass.tick then
             if rEventClass.tick(rController, dt, v, tTransientState.tEvents[i]) then
-                
+
                 table.insert(tPersistentState.tFinishedEvents,v)
                 table.remove(tPersistentState.tEvents,i)
                 table.remove(tTransientState.tEvents,i)
@@ -215,7 +221,7 @@ function CompoundEvent.tick(rController, dt, tPersistentState,tTransientState)
             end
         end
     end
-    
+
     if not next(tPersistentState.tEvents) then
         if tPersistentState.bMega then
             rController.tS.bRanMegaEvent = true
@@ -236,7 +242,7 @@ function CompoundEvent.dialogTick(rController, tPersistentEventState, tTransient
     end
 
     if not tTransientEventState.tDialogStatus.tDlgSet then
-        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(DialogSets[tPersistentEventState.sEventType])
+        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(EventData[tPersistentEventState.sEventType])
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true
         tTransientEventState.tDialogStatus.sPortrait = Portraits.getRandomPortrait()
@@ -245,9 +251,9 @@ function CompoundEvent.dialogTick(rController, tPersistentEventState, tTransient
             tTransientEventState.bDialogAccepted = bAccepted
         end
         local rRequestUI = GenericDialog.new('UILayouts/DockingRequestLayout',
-            onDialogClick, 'DockingButton')
+                                             onDialogClick, 'DockingButton')
         rRequestUI:setTemplateUITexture('Picture',
-            tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
+                                        tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
         local tReplacements= {
             Title = tDlgSet.title,
             DockMessage = tDlgSet.request,
@@ -285,7 +291,7 @@ function CompoundEvent.dialogTick(rController, tPersistentEventState, tTransient
             sOnClickAlert = rClass.sAcceptedSuccessAlert
         end
         sOnClickAlert = 'ALERTS040TEXT'
-        
+
         tTransientEventState.bSpawn = bSpawn
         tTransientEventState.bWaitingOnDialog = true
 
@@ -294,9 +300,9 @@ function CompoundEvent.dialogTick(rController, tPersistentEventState, tTransient
             tTransientEventState.bDialogAccepted = bAccepted
             Base.eventOccurred(Base.EVENTS.EventAlert,{sLineCode=sOnClickAlert, tPersistentData=tPersistentEventState, nLogVisibleTime=15, nPriority=0,})
         end
-        local rRequestUI = GenericDialog.new('UILayouts/DockingResponseLayout', onDialogClick)        
+        local rRequestUI = GenericDialog.new('UILayouts/DockingResponseLayout', onDialogClick)
         rRequestUI:setTemplateUITexture('Picture',
-            tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
+                                        tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
         rRequestUI:replaceText(tReplacements)
         g_GuiManager.addToPopupQueue(rRequestUI, true)
         tTransientEventState.tDialogStatus.bRequestUI = true

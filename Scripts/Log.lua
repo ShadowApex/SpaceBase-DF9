@@ -234,6 +234,11 @@ Log.tTypes = {
 		lineCodes={ 'SFCHAT013CITZ', 'SFCHAT014CITZ', 'SFCHAT015CITZ', 'SFCHAT016CITZ', 'SFCHAT017CITZ', 'SFCHAT018CITZ' },
 		priority=2,
 	},
+	--Jukebox
+	JUKEBOX_GENERIC={
+		lineCodes={ 'JB01', 'JB02', 'JB03', 'JB04' },
+		priority=3,
+	},
 	-- trading
 	CHAT_TRADE={
 		lineCodes={ 'SFCHAT019CITZ', 'SFTRAD007CITZ', 'SFTRAD008CITZ', 'SFTRAD009CITZ',
@@ -331,6 +336,10 @@ Log.tTypes = {
     DEATH_CHESTBURST={ 
         lineCodes={ 'SFPARA010CITZ','SFPARA011CITZ','SFPARA012CITZ','SFPARA013CITZ','SFPARA014CITZ',
                     'SFPARA015CITZ','SFPARA016CITZ','SFPARA017CITZ','SFPARA018CITZ', },
+        priority=4,
+    },
+    DEATH_THING={ 
+        lineCodes={ 'SFTHICIT01','SFTHICIT02','SFTHICIT03','SFTHICIT04','SFTHICIT05', },
         priority=4,
     },
 	DEATH_SUFFOCATION={

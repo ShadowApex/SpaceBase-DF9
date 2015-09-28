@@ -102,8 +102,8 @@ local t=
             {
                 tTimeToSymptoms={60*1,60*2},
                 tReduceMods={
-                    Hunger=3,
-				    Social=10,
+                    Hunger=2,
+				    Social=4,
                 },
 			sSymptomLog=Log.tTypes.HEALTH_CITIZEN_IS_THING,
             },
@@ -113,6 +113,29 @@ local t=
             },
         },
     },
+ 
+	 Hyper=
+    {
+        sDesc='DISEAS083TEXT',
+	    bSpreadSneeze=true,
+        bSpreadTouch=false,
+        nSeverity=1,
+		nDifficulty=.6,
+	    tTimeToContagious={30,60},
+        tTimeToSymptoms={60,120},
+        nAdditionalDeadliness=.5,
+        nPerceivedSeverity=.4,
+        nFieldTreatSkill=6,
+        bCreateStrains=true,
+		tReduceMods={
+            Duty=4,
+            Hunger=8,
+            Energy=8,
+		    Social=4,
+            Amusement=4,
+        },
+    },
+	
     SpaceFlu=
     {
         sDesc='DISEAS024TEXT',

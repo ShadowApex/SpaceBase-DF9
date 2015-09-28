@@ -513,6 +513,9 @@ function Character:_kill( callback, bStartDead, cause, tAdditionalInfo )
 			elseif cause == Character.CAUSE_OF_DEATH.PARASITE then
 				sDeathAnim = 'death_shot'
 				bBloodDecal = true
+			elseif cause == Character.CAUSE_OF_DEATH.THING then
+				sDeathAnim = 'death_shot'
+				bBloodDecal = true
 			elseif cause == Character.CAUSE_OF_DEATH.STARVATION then
 				sDeathAnim = 'death_suffocate'
 			else
@@ -1136,7 +1139,12 @@ function Character:_getCoopTaskOption(sMyTaskName,sYourTaskName,rAskingChar)
 			    tData.targetLocationFn=function(rChar, rAO) return self:_coopTaskLocationCallback(rChar,rAO) end
             elseif sYourTaskName == 'FieldScanAndHeal' then
 			    tData.utilityGateFn=function(rChar, rThisActivityOption) 
+					--Things should always refuse checkups a bit hacky now, but they are a bit too easy
+					if self:getHasMaladyType('Thing') then
+						return false
+					end
                     -- don't get a checkup too often, but if stuff is real bad, we can get fixed up.
+	
                     if self:getPerceivedDiseaseSeverity(self:retrieveMemory(Malady.MEMORY_HP_HEALED_RECENTLY) == nil) == 1 and Malady.getNextCurableMalady(self,rChar:getJobLevel(Character.DOCTOR)) then
                         return true
                     end
@@ -2405,9 +2413,10 @@ function Character:updateAI(dt)
 
 	if not self.rCurrentTask then
 		self.nWaitingTime = self.nWaitingTime+dt
-		if self.nWaitingTime > 5 then
-			print(TT_Warning,'Character stalled waiting on task update.',self:getUniqueID(),self.nWaitingTime)
-		end
+		-- FIXME: Too spammy due to Trader
+		--if self.nWaitingTime > 5 then
+		--	print(TT_Warning,'Character stalled waiting on task update.',self:getUniqueID(),self.nWaitingTime)
+		--end
 		-- waiting for CharacterManager to get around to updating us.
 	else
 		--local key = "Task"..self.rCurrentTask.activityName
@@ -4823,7 +4832,14 @@ function Character:getWalkAnim()
 	elseif self:hasUtilityStatus(Character.STATUS_RAMPAGE) then
 		sWalk = 'walk_tantrum'
 	elseif self.tStatus.bLowOxygen or nIllnesses > 0 then
-		sWalk = 'walk_low_oxygen'
+	--Things hide their illnesses, we need to figure out a way of doing this without a bunch of if statements, a special character object would work well for "things".
+        if not self:getHasMaladyType('Thing') then
+				print("Is running this code but isnt Thing?")
+            sWalk = 'walk_low_oxygen'
+        else
+		print("Is Thing")
+            sWalk= 'walk'
+         end
 	elseif self.tStats.nMorale > Character.MORALE_SPEED_THRESHOLD then
 		sWalk = 'walk_happy'
 	elseif self.tStats.nMorale < -Character.MORALE_SPEED_THRESHOLD then
@@ -5395,9 +5411,11 @@ end
 --Quick and dirty function for infecting, without worrying about the details too much.
 function Character:infestFromObject(rSource, sDiseaseName)
 	--I am creating this for other maladies we might want to infect people with, like zombisim for example.
-	if rSource and rSource.tStats  and rSource.tStats.sMaladyHolder then
-	--Grab the disease if it exists, if not create a new strain
+	if rSource and rSource.tStats then
+		if rSource.tStats.sMaladyHolder then
+		--Grab the disease if it exists, if not create a new strain
 		self:diseaseInteraction(nil,Malady.getMalady(sDiseaseName,rSource.tStats.sMaladyHolder))
+		end
 	end
 end
 
@@ -5667,6 +5685,11 @@ function Character:getPerceivedDiseaseSeverity(bIncludeHP)
                 nSev = math.min(.95, nSev+nPerceivedSeverity)
             end
         end
+    end
+	--for things
+    if self:getHasMaladyType('Thing') then
+        nSev=0
+        return nSev
     end
     return nSev
 end
@@ -6134,8 +6157,13 @@ function Character:getHealth()
     if Malady.isIncapacitated(self) then
         return Character.STATUS_INCAPACITATED
     end
+	--The Thing tries to hide itself from the player a big red 'Ill" would just give it away, but for the first stage, showing ill is fine (person is being transformed)
     if self:getPerceivedDiseaseSeverity() > .1 then
-        return Character.STATUS_ILL
+		if not self:getHasMaladyType('Thing') then
+			return Character.STATUS_ILL
+			elseif not  self.tStatus.tMaladies['Thing'].sSpecial=='thing'  then
+			return Character.STATUS_ILL
+		end
     end
     local hp = self:getHP()
     if hp < Character.HURT_THRESHOLD then
@@ -6213,19 +6241,50 @@ function Character:getAdjustedSpeed()
     elseif self.tStats.nMorale < -Character.MORALE_SPEED_THRESHOLD then
 		nMoraleMod = 1 + Character.MORALE_LOW_SPEED_MODIFIER
 	end
-    return self.tStats.speed * nMoraleMod
+	local speed = self.tStats.speed * nMoraleMod
+	
+    if self:getHasMaladyType('Hyper') then
+		speed = speed*4
+    end
+	
+    return speed
 end
 
 ------------------------------------------------
 -- MALADIES
 ------------------------------------------------
+function Character:getHasMaladyType(sDiseaseName)
+	bInfected=false
+	-- wasnt working correctly
+	bInfected=false
+	local tIllList, nNum = self:getIllnesses()
+	for i, tStrainData in pairs (tIllList) do
+          if  tStrainData.sMaladyType == sDiseaseName then
+			bInfected=true
+          end
+	end
+	return bInfected
+end
+
+function Character:getHasMaladyOfName(sDiseaseName)
+--Linear checks for friendly name
+	bInfected=false
+	local tIllList, nNum = self:getIllnesses()
+	for i, tStrainData in pairs (tIllList) do
+          if  tStrainData.sFriendlyName == sDiseaseName then
+			bInfected=true
+          end
+	end
+	return bInfected
+end
+
 function Character:spawnThing()
 
     if self:wearingSpacesuit() then
         --Print(TT_Info,"Tried to spawn Monster in spacesuit, not gonna happen.")
         return false
     end
-    if g_Config:getConfigValue('disable_hostiles') then
+    if g_Config:getConfigValue('disable_hostiles')  or not self then
         return false
     end
 	--Loop through the illness list to find a specific malady type
@@ -6247,8 +6306,8 @@ function Character:spawnThing()
     if not self:isDead() then
     local tLogData = {}
 		--Kill and delete for "things".
-		Log.add(Log.tTypes.DEATH_CHESTBURST, self, tLogData)
-		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.PARASITE)
+		Log.add(Log.tTypes.DEATH_THING, self, tLogData)
+		CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.THING)
     end
     CharacterManager.deleteCharacter(self)
 

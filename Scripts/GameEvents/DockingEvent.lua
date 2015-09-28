@@ -1,13 +1,13 @@
 local Class = require('Class')
 local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local DockingEvent = Class.create(ImmigrationEvent)
 
 local GameRules = require('GameRules')
 local Docking = require('Docking')
 local DFUtil = require('DFCommon.Util')
 local GenericDialog = require('UI.GenericDialog')
-local DialogSets = require('DialogSets')
 local SoundManager = require('SoundManager')
 local Portraits = require('UI.Portraits')
 local AlertEntry = require('UI.AlertEntry')
@@ -19,6 +19,10 @@ DockingEvent.sAlertLC = 'ALERTS028TEXT'
 DockingEvent.sFailureLC = 'ALERTS024TEXT'
 DockingEvent.sDialogSet = 'dockingEvents'
 DockingEvent.DEFAULT_WEIGHT = 5.0
+DockingEvent.nMinPopulation = 4
+DockingEvent.nMaxPopulation = -1
+DockingEvent.nMinTime = 60*10
+DockingEvent.nMaxTime = -1
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
@@ -36,7 +40,7 @@ function DockingEvent.getWeight(nPopulation, nElapsedTime)
 end
 
 function DockingEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 4 or GameRules.elapsedTime > 60*10
+    return nPopulation > DockingEvent.nMinPopulation or GameRules.elapsedTime > DockingEvent.nMinTime
 end
 
 function DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
@@ -54,19 +58,19 @@ function DockingEvent.preExecuteSetup(rController, tUpcomingEventPersistentState
             -- nothing
         else
             AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-                tUpcomingEventPersistentState)
+                                           tUpcomingEventPersistentState)
             return false, ImmigrationEvent.sRejectionSuccessAlert
         end
     end
 
     -- check if the module data from onqueue is still valid
     if Event._verifyDockingData(rController, tUpcomingEventPersistentState) then
-            AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-            tUpcomingEventPersistentState)
+        AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
+                                       tUpcomingEventPersistentState)
         return true
     else
         AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-            tUpcomingEventPersistentState)
+                                       tUpcomingEventPersistentState)
         return false
     end
 end
@@ -115,7 +119,7 @@ end
 
 function DockingEvent._getDialogSet()
     local sKey = 'ambiguous'
-    return DFUtil.arrayRandom(DialogSets['dockingEvents'][sKey])
+    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
 end
 
 
@@ -129,7 +133,7 @@ function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientE
     if not tTransientEventState.tDialogStatus.tDlgSet then
         local rClass = rController.tEventClasses[tPersistentEventState.sEventType]
         tTransientEventState.tDialogStatus.tDlgSet = rClass._getDialogSet()
-    
+
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true
         tTransientEventState.tDialogStatus.sPortrait = Portraits.getRandomPortrait()

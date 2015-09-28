@@ -36,13 +36,13 @@ end
 
 function Jukebox:isOn()
 	--print("Checking if Jukebox is on")
-	if self.bDestoryed or self.nCondition < 1 then
-		--print("Junkebox isn't active")
+	if self.bDestroyed or self.nCondition < 1 then
+		--print("Jukebox isn't active")
 		return false
 	end
 
 	if self.bIsOn then
-		--print("Junkebox is active")
+		--print("Jukebox is active")
 		return true
 	end
 
@@ -54,7 +54,7 @@ end
 function Jukebox:_listenGate(rChar)
 	--print("Using listen gate")
 	if not self:isOn() then
-		return false, 'Jukebox insn\'t on or wrong zone'
+		return false, 'Jukebox isn\'t on or wrong zone'
 	end
 	return true
 end

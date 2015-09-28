@@ -22,19 +22,23 @@ BreachingEvent.sEventType = "breachingEvents"
 BreachingEvent.sAlertString = "ALERTS031TEXT"
 BreachingEvent.nCharactersToSpawn = { 1, 3 }
 BreachingEvent.bSkipAlert = true
+BreachingEvent.nMinPopulation = 6
+BreachingEvent.nMaxPopulation = -1
+BreachingEvent.nMinTime = 60 * 10
+BreachingEvent.nMaxPopulation = -1
 
 function BreachingEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(true)
 end
 
 function BreachingEvent.allowEvent(nPopulation, nElapsedTime)
-    return nPopulation > 6 or GameRules.elapsedTime > 60 * 10
+    return nPopulation > BreachingEvent.nMinPopulation or GameRules.elapsedTime > BreachingEvent.nMinTime
 end
 
 function BreachingEvent.getWeight(nPopulation, nElapsedTime, bForecast)
     if bForecast then return 10.0 end
     -- increase chance of breach attacks if no exterior rooms for docking
-    local nExteriorRooms = 0    
+    local nExteriorRooms = 0
     local tRooms = Room.getRoomsOfTeam(Character.TEAM_ID_PLAYER)
     for room,id in pairs(tRooms) do
         if room.bExterior then
@@ -110,22 +114,22 @@ end
 
 function BreachingEvent.preExecuteSetup(rController, tUpcomingEventPersistentState)
     local bValid = Event.preExecuteSetup(rController, tUpcomingEventPersistentState)
-    
+
     -- choose where to breach
     tUpcomingEventPersistentState.tx, tUpcomingEventPersistentState.ty = BreachingEvent._getBreachLoc()
     if not tUpcomingEventPersistentState.tx then
         return false
     end
-    
+
     return bValid
 end
 
 function BreachingEvent.tick(rController, dT, tCurrentEventPersistentState, tCurrentEventTransientState)
     local tPersistentState, tTransientState = tCurrentEventPersistentState, tCurrentEventTransientState
 
-	if tTransientState.rShip and tTransientState.rShip.bExploded then
-		return true
-	end
+    if tTransientState.rShip and tTransientState.rShip.bExploded then
+        return true
+    end
 
     if not tTransientState.sPhase then
         tTransientState.sPhase = 'flyIn'
@@ -135,31 +139,31 @@ function BreachingEvent.tick(rController, dT, tCurrentEventPersistentState, tCur
         local x1, y1, x2, y2 = g_World.getBounds()
         local midpointX,midpointY = (x2-x1)*.5, (y2-y1)*.5
 
-        -- Pick a path to the dest. 
+        -- Pick a path to the dest.
         -- Pick a random angle. If the dist from world bounds to the dest loc is sufficient, use that angle.
         -- Otherwise, use the opposite angle.
-       
+
         local angle = math.random(0,360)
         local dx,dy = math.cos(angle),math.sin(angle)
         local tPoints = BreachingEvent._lineWorldBoundsIntersect(tTransientState.wxDest,tTransientState.wyDest,tTransientState.wxDest+dx*100,tTransientState.wyDest+dy*100, g_World.height*.3)
         local tPoint = MiscUtil.randomValue(tPoints)
         tTransientState.wxStart,tTransientState.wyStart = tPoint.x,tPoint.y
-        
+
         tTransientState.nTeam = require('EventController').getTeamForEvent(Character.FACTION_BEHAVIOR.EnemyGroup)
         tTransientState.rShip = require('WorldObjects.BreachShip').new(tTransientState.wxStart,tTransientState.wyStart,nil,tTransientState.nTeam)
         local dx,dy = tTransientState.wxDest-tTransientState.wxStart, tTransientState.wyDest-tTransientState.wyStart
         local dist = math.sqrt(dx*dx+dy*dy)
         tTransientState.rShip:setFacingVec(dx,dy)
-    
+
         local nDuration = dist * .0075
-        tTransientState.nStartTime = GameRules.elapsedTime 
+        tTransientState.nStartTime = GameRules.elapsedTime
         tTransientState.nEndTime = GameRules.elapsedTime + nDuration
-        
+
         Base.eventOccurred(Base.EVENTS.EventAlert, {rReporter=tTransientState.rShip,sLineCode=BreachingEvent.sAlertString, tPersistentData=tCurrentEventPersistentState})
         if GameRules.getTimeScale() > 1 and g_Config:getConfigValue('normal_speed_on_alerts') then
             GameRules.setTimeScale(1)
         end
-    
+
         tTransientState.curve = MOAIAnimCurve.new()
         tTransientState.curve:reserveKeys(2)
         tTransientState.curve:setKey(1, 0, 0, MOAIEaseType.EASE_IN)
@@ -168,7 +172,7 @@ function BreachingEvent.tick(rController, dT, tCurrentEventPersistentState, tCur
     end
 
     if tTransientState.rShip then tTransientState.rShip:setVelocity(0,0) end
-            
+
     -- TICKING CURRENT PHASE
     if GameRules.elapsedTime < tTransientState.nEndTime then
         if tTransientState.sPhase == 'flyIn' then

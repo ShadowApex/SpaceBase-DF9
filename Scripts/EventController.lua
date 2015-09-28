@@ -59,15 +59,15 @@ EventController.tEventClasses = {
     [DerelictEvent.sEventType]            = DerelictEvent,
     [DockingEvent.sEventType]             = DockingEvent,
     [MeteorEvent.sEventType]              = MeteorEvent,
-    [HostileDockingEvent.sEventType]              = HostileDockingEvent,
-    [HostileDerelictEvent.sEventType]              = HostileDerelictEvent,
-    [CompoundEvent.sEventType]              = CompoundEvent,
+    [HostileDockingEvent.sEventType]      = HostileDockingEvent,
+    [HostileDerelictEvent.sEventType]     = HostileDerelictEvent,
+    [CompoundEvent.sEventType]            = CompoundEvent,
     --[TraderEvent.sEventType] = TraderEvent,
 }
 
 --- Initializes the event controller.
 function EventController.init()
-    EventController.nEventsThisPlaySession = 0    
+    EventController.nEventsThisPlaySession = 0
 
     EventController.hideMeteorStrikeIndicator()
     SoundManager = require('SoundManager')
@@ -94,17 +94,17 @@ function EventController.setBaseSeeds()
     print('total',nTotal,'out of',nClasses)
     local nAvg = nTotal / nClasses
     -- perfectly average is about
-    
+
     -- We're probably looking at something around nMinAvg - nMaxAvg
     -- We want to map this to a time-between-events of between 600 seconds and 135 seconds, average
     -- around... 200 seconds.
-    
+
     -- These averages are just what I found to be rough bounds while clicking around the map.
     -- An "average" spot, reasonably proximal warpgate etc., scores around 134, which comes out to 1/3 of the range.
     local nMinAvg = 78/130
     local nMaxAvg = 244/130
     local nRange = nMaxAvg-nMinAvg
-    
+
     nAvg = math.min(math.max(nMinAvg,nAvg),nMaxAvg)
     nAvg = (nAvg-nMinAvg)/nRange -- remap to 0-1
     nAvg = 1-nAvg
@@ -118,7 +118,7 @@ function EventController.getTeamForEvent(eFactionBehavior)
 
     if EventController.tCurrentEventPersistentState then
         if eFactionBehavior == Character.FACTION_BEHAVIOR.EnemyGroup and EventController.tCurrentEventPersistentState.nEnemyFactionTeam then
-            return EventController.tCurrentEventPersistentState.nEnemyFactionTeam 
+            return EventController.tCurrentEventPersistentState.nEnemyFactionTeam
         end
         if eFactionBehavior == Character.FACTION_BEHAVIOR.Friendly and EventController.tCurrentEventPersistentState.nFriendlyFactionTeam then
             return EventController.tCurrentEventPersistentState.nFriendlyFactionTeam
@@ -190,37 +190,37 @@ function EventController.fromSaveData(tSaveData)
     EventController.fnOngoingEventTick = nil
     EventController.tCurrentEventPersistentState = nil
 
-    if tSaveData then 
+    if tSaveData then
         tSaveData = EventController._portOldSaves(tSaveData)
     end
-    
+
     EventController.tS = tSaveData or {}
     EventController.tS.nSaveVersion = EventController.nSaveVersion
-    
+
     local defaults = {
         tEventForecast = {},
         tPrevEventInfo = {},
         tSpawnModifiers = {},
     }
-    
+
     local bRegenSeeds = EventController.tS.tSpawnModifiers == nil
     if not bRegenSeeds then
         for _, rClass in pairs(EventController.tEventClasses) do
-            if not EventController.tS.tSpawnModifiers[rClass.sEventType] then 
+            if not EventController.tS.tSpawnModifiers[rClass.sEventType] then
                 bRegenSeeds = true
                 break
             end
         end
     end
-    
+
     for k,v in pairs(defaults) do
         if not EventController.tS[k] then EventController.tS[k] = v end
     end
-    
+
     if bRegenSeeds then
         EventController.setBaseSeeds()
     end
-    
+
     -- determine the next event unique id
     if EventController.tS.tEventForecast and #EventController.tS.tEventForecast > 0 then
         local n = #EventController.tS.tEventForecast
@@ -275,7 +275,7 @@ function EventController._forceNextEvent()
         EventController.tS.tNextEventData.nAlertTime = GameRules.elapsedTime
         EventController.tS.tNextEventData.bDebugQueued = true
         nDelta = nOldStart - EventController.tS.tNextEventData.nStartTime
-        
+
         if nDelta > 0 then
             for idx, tEvent in ipairs(EventController.tS.tEventForecast) do
                 tEvent.nStartTime = tEvent.nStartTime - nDelta
@@ -286,7 +286,7 @@ function EventController._forceNextEvent()
 end
 
 function EventController.DBG_forceQueue(sEventName, bDBGForceHostile, nDelay)
-	nDelay = nDelay or 0
+    nDelay = nDelay or 0
 
     local nStartTime = GameRules.elapsedTime + nDelay
 
@@ -301,9 +301,9 @@ function EventController.DBG_forceQueue(sEventName, bDBGForceHostile, nDelay)
     EventController.stNextEventID = EventController.stNextEventID + 1
     EventController.tS.tNextEventData.bDBGForceHostile = bDBGForceHostile
     EventController.tS.tNextEventData.bAlertedNextEvent = false
-    
+
     EventController.tEventClasses[sEventName].onQueue(
-        EventController, EventController.tS.tNextEventData, 
+        EventController, EventController.tS.tNextEventData,
         CharacterManager.getOwnedCitizenPopulation(), nStartTime)
 
     return EventController.tS.tNextEventData
@@ -326,7 +326,7 @@ end
 -- @param tNextEventData the persistent state table for the next event
 function EventController.attemptExecuteEvent(tNextEventData)
     local rEventClass = EventController.tEventClasses[tNextEventData.sEventType]
-	
+
     local tTransientState = {}
     -- pre execute setup can fail, e.g. cannot find suitable docking point.
     local bSuccess, sFailMsg = rEventClass.preExecuteSetup(EventController, tNextEventData, tTransientState)
@@ -334,7 +334,7 @@ function EventController.attemptExecuteEvent(tNextEventData)
         if GameRules.elapsedTime - AutoSave.nTimeSinceLastSave > 45 then
             AutoSave.saveGame()
         end
-    
+
         -- handle to the event tick func
         EventController.fnOngoingEventTick = rEventClass.tick
         -- Events have a persistent state and a transient state. Persistent
@@ -352,7 +352,7 @@ function EventController.attemptExecuteEvent(tNextEventData)
     end
 end
 
---- 
+---
 -- @param id the event's unique ID
 function EventController.clearCurrentEventFromSaveTable(id)
     if EventController.tS.tNextEventData and EventController.tS.tNextEventData.nUniqueID == id then
@@ -403,7 +403,7 @@ function EventController._eventCompleted(tEventPersistentState)
     -- in case of silent failures, try out another event immediately.
     if tEventPersistentState.bFailed and not tEventPersistentState.sFailureMessage then
         EventController._forceNextEvent()
-    end    
+    end
 end
 
 --- Begins a camera movement towards the given location.
@@ -427,12 +427,12 @@ end
 --- Moves the camera an increment towards the new location.
 -- Updates the tCutscene object accordingly.
 -- @param dt time delta for the move
--- @param tCutscene 
+-- @param tCutscene
 function EventController.tickCamera(dt,tCutscene)
     tCutscene.nElapsed=tCutscene.nElapsed+dt
     local t = math.min(tCutscene.nElapsed / tCutscene.nDuration, 1)
     local newX,newY =  DFMath.lerp(tCutscene.xStart, tCutscene.xEnd, t),
-                       DFMath.lerp(tCutscene.yStart, tCutscene.yEnd, t)
+    DFMath.lerp(tCutscene.yStart, tCutscene.yEnd, t)
     GameRules.setCameraLoc(newX,newY,tCutscene.zStart)
     tCutscene.t = t
     return t == 1
@@ -441,50 +441,50 @@ end
 function EventController._doAlert(tEventData)
     local rNextEventClass = EventController.tEventClasses[tEventData.sEventType]
 
-                if rNextEventClass.preAlertSetup then
-                    if not rNextEventClass.preAlertSetup(EventController, tEventData) then
-                        EventController._failed(tEventData)
-                        return false
-                    end
-                end
-                if not rNextEventClass.bSkipAlert then
-                    EventController.tEventClasses[tEventData.sEventType].onAlertShown(EventController, tEventData)
-                    local wx, wy = nil,nil
-                    if tEventData.tx then
-                        wx, wy = g_World._getWorldFromTile(tEventData.tx, tEventData.ty)
-                    end
-                    Base.eventOccurred(Base.EVENTS.EventAlert,
-                        {
-                            sLineCode = rNextEventClass.sAlertLC,
-                            tPersistentData = tEventData,
-                            nPriority = rNextEventClass.nAlertPriority,
-                            wx=wx,wy=wy,
-                        })
-                end
-                return true
+    if rNextEventClass.preAlertSetup then
+        if not rNextEventClass.preAlertSetup(EventController, tEventData) then
+            EventController._failed(tEventData)
+            return false
+        end
+    end
+    if not rNextEventClass.bSkipAlert then
+        EventController.tEventClasses[tEventData.sEventType].onAlertShown(EventController, tEventData)
+        local wx, wy = nil,nil
+        if tEventData.tx then
+            wx, wy = g_World._getWorldFromTile(tEventData.tx, tEventData.ty)
+        end
+        Base.eventOccurred(Base.EVENTS.EventAlert,
+                           {
+                               sLineCode = rNextEventClass.sAlertLC,
+                               tPersistentData = tEventData,
+                               nPriority = rNextEventClass.nAlertPriority,
+                               wx=wx,wy=wy,
+                           })
+    end
+    return true
 end
 
 --- Trigger per-tick event activities.
 -- This operates event execution, alerts, and event setup
 -- @param dt time delta
 function EventController.onTick(dt)
-	-- pulse meteor indicator
+    -- pulse meteor indicator
     -- TODO generalize this into a table of sprites needed by the event manager,
     -- not just a specific indicator sprite for a single event
-	if EventController.rMeteorIndicator then
-		local r,g,b = unpack(Gui.RED)
-		local a = math.abs(math.sin(GameRules.elapsedTime * 4)) / 2 + 0.5
-		r,g,b = r*a, g*a, b*a
-		EventController.rMeteorIndicator:setColor(r, g, b)
-	end
-	
+    if EventController.rMeteorIndicator then
+        local r,g,b = unpack(Gui.RED)
+        local a = math.abs(math.sin(GameRules.elapsedTime * 4)) / 2 + 0.5
+        r,g,b = r*a, g*a, b*a
+        EventController.rMeteorIndicator:setColor(r, g, b)
+    end
+
     if CharacterManager.getOwnedCitizenPopulation() > 0 then
         if EventController.fnOngoingEventTick then
             if EventController.fnOngoingEventTick(EventController, dt, EventController.tCurrentEventPersistentState, EventController.tCurrentEventTransientState) then
                 EventController._eventCompleted(EventController.tCurrentEventPersistentState)
             end
         elseif EventController.tS.tNextEventData then
-            local tNextEvent = EventController.tS.tNextEventData 
+            local tNextEvent = EventController.tS.tNextEventData
             local rNextEventClass = EventController.tEventClasses[EventController.tS.tNextEventData.sEventType]
             if GameRules.elapsedTime >= EventController.tS.tNextEventData.nStartTime then
                 EventController.attemptExecuteEvent(EventController.tS.tNextEventData)
@@ -516,15 +516,15 @@ function EventController._getNextEventTimeDelta()
     local nTimeBetween = EventController.tS.tSpawnModifiers.nAvgTimeBetweenEvents
     if not nTimeBetween then
         local tBetweenEventTimeRange = { 100, 240 }
-        t = tBetweenEventTimeRange[1] * alpha + 
-              tBetweenEventTimeRange[2] * (1.0 - alpha) + 
-              math.random(-30, 30)
+        t = tBetweenEventTimeRange[1] * alpha +
+            tBetweenEventTimeRange[2] * (1.0 - alpha) +
+            math.random(-30, 30)
     else
         local nMin = .6 * nTimeBetween
         local nMax = 1.4 * nTimeBetween
-        t = nMin * alpha + 
-              nMax * (1.0 - alpha) + 
-              math.random(-20,20)
+        t = nMin * alpha +
+            nMax * (1.0 - alpha) +
+            math.random(-20,20)
     end
 
     return t
@@ -570,16 +570,16 @@ function EventController.generateEventForecast(nForcePop,nForceTime)
         local nCount = 0
         for sEventType, rClass in pairs(EventController.tEventClasses) do
             if (nConsecutiveEvents < 3 or (i > 1 and sEventType ~= EventController.tS.tEventForecast[i-1].sEventType))
-	    and rClass.allowEvent(nPopulationEstimate, nTimeEstimate) then
+            and rClass.allowEvent(nPopulationEstimate, nTimeEstimate) then
 
-	       if rClass.DEFAULT_WEIGHT then
-		  weight = rClass.DEFAULT_WEIGHT
-	       else
-		  weight = rClass.getWeight(nPopulationEstimate, nTimeEstimate)
-	       end
-	       print('weight for',sEventType,'is',weight)
-	       tWeights[sEventType] = weight * EventController.tS.tSpawnModifiers[sEventType]
-	       nCount = nCount + 1
+                if rClass.DEFAULT_WEIGHT then
+                    weight = rClass.DEFAULT_WEIGHT
+                else
+                    weight = rClass.getWeight(nPopulationEstimate, nTimeEstimate)
+                end
+                print('weight for',sEventType,'is',weight)
+                tWeights[sEventType] = weight * EventController.tS.tSpawnModifiers[sEventType]
+                nCount = nCount + 1
             end
         end
         if nCount == 0 then
@@ -619,17 +619,17 @@ function EventController.generateEventForecast(nForcePop,nForceTime)
         -- update estimates used by weighting and event setup
         if sNextEventType == ImmigrationEvent.sEventType then
             nPopulationDeltaEstimate = nPopulationDeltaEstimate + tEventData.nNumSpawns
-        elseif sNextEventType == DockingEvent.sEventType 
-                or sNextEventType == DerelictEvent.sEventType then
+        elseif sNextEventType == DockingEvent.sEventType
+        or sNextEventType == DerelictEvent.sEventType then
             if tEventData.bValidDockingData then
                 for _, sLoc in pairs(tEventData.tCrewData) do
                     nPopulationDeltaEstimate = nPopulationDeltaEstimate + 1
                 end
             end
-        elseif sNextEventType == HostileDockingEvent.sEventType 
-                or sNextEventType == HostileDerelictEvent.sEventType 
-                or sNextEventType == HostileImmigrationEvent.sEventType
-                or sNextEventType == CompoundEvent.sEventType then
+        elseif sNextEventType == HostileDockingEvent.sEventType
+            or sNextEventType == HostileDerelictEvent.sEventType
+            or sNextEventType == HostileImmigrationEvent.sEventType
+        or sNextEventType == CompoundEvent.sEventType then
             nPopulationDeltaEstimate = nPopulationDeltaEstimate - 1
         end
         nTimeDeltaEstimate = nTimeDeltaEstimate + nEventTimeDelta
@@ -687,18 +687,18 @@ function EventController.rollRandomRaiders(nDifficulty, bAllowKillbots)
         nDifficulty = nDifficulty * .85
     end
 
-    
+
     local tCharSpawnStats = {}
     local Event=require('GameEvents.Event')
     -- difficulty of each raider is difficulty of event +/- 15%
     for i=1,nRaiders do
-        tCharSpawnStats[i] = 
+        tCharSpawnStats[i] =
             {
                 nChallengeLevel = Event.getChallengeLevel(nDifficulty),
                 sName = 'Raider',
                 nJob = Character.RAIDER
             }
-        
+
         if tCharSpawnStats[i].nChallengeLevel > .75 and bAllowKillbots and math.random() > .5 then
             tCharSpawnStats[i].nRace = Character.RACE_KILLBOT
             tCharSpawnStats[i].sName = 'Kill Bot'
@@ -728,13 +728,13 @@ function EventController.spawnModuleEntities(tEventData, tModuleData, tTeams)
         return
     end
     local sEventType = tEventData.sEventType
-    
+
     local Spawner = require('EnvObjects.Spawner')
     local EnvObject = require('EnvObjects.EnvObject')
     local ShipModules = require('ModuleData')
     local Pickup = require('Pickups.Pickup')
     local Base = require('Base')
-    
+
     local tLocs = Spawner.getAllOnTeam(tTeams.nDefaultTeam)
     if not tLocs then
         return
@@ -752,7 +752,7 @@ function EventController.spawnModuleEntities(tEventData, tModuleData, tTeams)
         end
         return nTeam
     end
-    
+
     -- spawn crew and objects from the module
     local tSpawnTypes = {
         crew = tCrewData, objects = tObjectData
@@ -761,60 +761,60 @@ function EventController.spawnModuleEntities(tEventData, tModuleData, tTeams)
         -- spawnData has been prerolled
         for sLocName, spawnData in pairs(tCrewOrObjectDataTable) do
             if tLocs[sLocName] then
-				if sDataType == "crew" then
-					local tData = {}
-					local tCopiedTables={'tStatus','tStats','tNeeds',}
-					for _,tblName in ipairs(tCopiedTables) do
-						if spawnData[tblName] then
-							tData[tblName] = {}
-							for k,v in pairs(spawnData[tblName]) do
-								tData[tblName][k] = v
-							end
-						end
-					end
-					tData.x,tData.y = tLocs[sLocName]:getLoc()
-					local tx,ty = g_World._getTileFromWorld(tData.x,tData.y)
-					if g_World._getTileValue(tx,ty) == g_World.logicalTiles.SPACE then
-						tData.tStatus.bSpacewalking = true
-					end
-					local nTeam = fnGetTeam(spawnData,tTeams)
-					local rNewChar = CharacterManager.addNewCharacter(nil, nil, tData, nTeam)
-					-- afflict with malady if necessary
-					if tMaladyData and spawnData.bSpawnWithMalady then
-						local tMaladyInstance = Malady.reproduceMalady(tMaladyData)
-						rNewChar:diseaseInteraction(nil, tMaladyInstance)
-					end
-				elseif sDataType == "objects" then
-					local wx,wy = tLocs[sLocName]:getLoc()
-					local bFlipX, bFlipY = tLocs[sLocName].bFlipX, tLocs[sLocName].bFlipY
-					if spawnData.bInvItem then
-						local tItem
-						if spawnData.sTemplate then
-							tItem = Inventory.createItem(spawnData.sTemplate, spawnData.tSaveData)
-						else
-							tItem = Inventory.createRandomStartingStuff()
-						end
-						Pickup.dropInventoryItemAt(tItem,wx,wy)
-					else
-						-- nothing in module data seems to use sType?
-						-- keep it in for possible save back compat
-						local tData, bPickup = EnvObject.getObjectData(spawnData.sType or spawnData.sTemplate)
-						if tData then
-							local nTeam = fnGetTeam(spawnData,tTeams)
-							if bPickup then
-								Pickup.createPickupAt(spawnData.sType, wx,wy, spawnData.tSaveData, nTeam)
-							else
-								EnvObject.createEnvObject(spawnData.sType or spawnData.sTemplate, wx, wy, bFlipX, bFlipY, true, spawnData.tSaveData, nTeam)
-							end
-						else
-							Print(TT_Error, "Invalid object type in save data: "..tostring(spawnData.sType))
-						end
-					end
+                if sDataType == "crew" then
+                    local tData = {}
+                    local tCopiedTables={'tStatus','tStats','tNeeds',}
+                    for _,tblName in ipairs(tCopiedTables) do
+                        if spawnData[tblName] then
+                            tData[tblName] = {}
+                            for k,v in pairs(spawnData[tblName]) do
+                                tData[tblName][k] = v
+                            end
+                        end
+                    end
+                    tData.x,tData.y = tLocs[sLocName]:getLoc()
+                    local tx,ty = g_World._getTileFromWorld(tData.x,tData.y)
+                    if g_World._getTileValue(tx,ty) == g_World.logicalTiles.SPACE then
+                        tData.tStatus.bSpacewalking = true
+                    end
+                    local nTeam = fnGetTeam(spawnData,tTeams)
+                    local rNewChar = CharacterManager.addNewCharacter(nil, nil, tData, nTeam)
+                    -- afflict with malady if necessary
+                    if tMaladyData and spawnData.bSpawnWithMalady then
+                        local tMaladyInstance = Malady.reproduceMalady(tMaladyData)
+                        rNewChar:diseaseInteraction(nil, tMaladyInstance)
+                    end
+                elseif sDataType == "objects" then
+                    local wx,wy = tLocs[sLocName]:getLoc()
+                    local bFlipX, bFlipY = tLocs[sLocName].bFlipX, tLocs[sLocName].bFlipY
+                    if spawnData.bInvItem then
+                        local tItem
+                        if spawnData.sTemplate then
+                            tItem = Inventory.createItem(spawnData.sTemplate, spawnData.tSaveData)
+                        else
+                            tItem = Inventory.createRandomStartingStuff()
+                        end
+                        Pickup.dropInventoryItemAt(tItem,wx,wy)
+                    else
+                        -- nothing in module data seems to use sType?
+                        -- keep it in for possible save back compat
+                        local tData, bPickup = EnvObject.getObjectData(spawnData.sType or spawnData.sTemplate)
+                        if tData then
+                            local nTeam = fnGetTeam(spawnData,tTeams)
+                            if bPickup then
+                                Pickup.createPickupAt(spawnData.sType, wx,wy, spawnData.tSaveData, nTeam)
+                            else
+                                EnvObject.createEnvObject(spawnData.sType or spawnData.sTemplate, wx, wy, bFlipX, bFlipY, true, spawnData.tSaveData, nTeam)
+                            end
+                        else
+                            Print(TT_Error, "Invalid object type in save data: "..tostring(spawnData.sType))
+                        end
+                    end
                 end
             end
         end
     end
-    
+
     -- remove spawners
     for sName,rLoc in pairs(tLocs) do
         rLoc:remove()
@@ -823,7 +823,7 @@ end
 
 function EventController.getForecastDebugText()
     local s = ""
-    if EventController.tS and EventController.tS.tEventForecast then        
+    if EventController.tS and EventController.tS.tEventForecast then
         -- current event coming up
         local tNextEvent = EventController.tS.tNextEventData
         s = s .. "Next Event"

@@ -32,6 +32,8 @@ function ListenToJukebox:onComplete( bSuccess )
 		return
 	end
 	self.rChar:alterMorale(Character.MORALE_DID_HOBBY, self.activityName)
+	tType = Log.tTypes.JUKEBOX_GENERIC
+	Log.add(tType, self.rChar)
 end
 
 function ListenToJukebox:onUpdate( dt )

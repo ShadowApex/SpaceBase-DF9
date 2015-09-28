@@ -1,5 +1,6 @@
 local Class = require('Class')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local ImmigrationEvent = Class.create(Event)
 
 local GameRules = require('GameRules')
@@ -15,7 +16,6 @@ local CharacterManager = require('CharacterManager')
 local Character = require('Character')
 local MiscUtil = require('MiscUtil')
 local GenericDialog = require('UI.GenericDialog')
-local DialogSets = require('DialogSets')
 local Portraits = require('UI.Portraits')
 local Malady = require('Malady')
 local Room = require('Room')
@@ -39,13 +39,13 @@ ImmigrationEvent.sRejectionSuccessAlert='ALERTS024TEXT'
 ImmigrationEvent.sAcceptedSuccessAlert='ALERTS030TEXT'
 ImmigrationEvent.sDialogSkippedAlert='ALERTS041TEXT'
 ImmigrationEvent.DEFAULT_WEIGHT = 50
+ImmigrationEvent.nMinPopulation = -1
+ImmigrationEvent.nMaxPopulation = g_nPopulationCap
+ImmigrationEvent.nMinTime = -1
+ImmigrationEvent.nMaxTime = -1
 
 function ImmigrationEvent.getSpawnLocationModifier()
     return Event.getPopulationMod() * Event.getHostilityMod(false)
-end
-
-function ImmigrationEvent.allowEvent()
-    return true
 end
 
 function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)
@@ -53,10 +53,10 @@ function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)
     if nPopulation >= g_nPopulationCap then
         return 0
     end
-	-- in early game try to help player get to a minimum viable population size
-	if nElapsedTime < ImmigrationEvent.EARLY_POPULATION_TIME and nPopulation < ImmigrationEvent.EARLY_POPULATION_THRESHOLD then
-		return ImmigrationEvent.DEFAULT_WEIGHT * 1.5
-	end
+    -- in early game try to help player get to a minimum viable population size
+    if nElapsedTime < ImmigrationEvent.EARLY_POPULATION_TIME and nPopulation < ImmigrationEvent.EARLY_POPULATION_THRESHOLD then
+        return ImmigrationEvent.DEFAULT_WEIGHT * 1.5
+    end
     return ImmigrationEvent.DEFAULT_WEIGHT
 end
 
@@ -67,7 +67,7 @@ function ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nP
     tUpcomingEventPersistentState.nNumSpawns = math.random(tRange[1],tRange[2])
 
     Event._preRollMalady(rController,tUpcomingEventPersistentState, nElapsedTime)
-    
+
     tUpcomingEventPersistentState.nNumMaladies = 0
     for i=1,tUpcomingEventPersistentState.nNumSpawns do
         if math.random(0,100) <= rController.tEventClasses[tUpcomingEventPersistentState.sEventType].nChanceOfMalady then
@@ -85,7 +85,7 @@ end
 
 function ImmigrationEvent.onAlertShown(rController, tUpcomingEventPersistentState)
     AlertEntry.dOnClick:register(ImmigrationEvent.onAlertClick, tUpcomingEventPersistentState)
-	
+
     if GameRules.getTimeScale() > 1 and g_Config:getConfigValue('normal_speed_on_alerts') then
         GameRules.setTimeScale(1)
     end
@@ -101,13 +101,13 @@ function ImmigrationEvent.preExecuteSetup(rController, tUpcomingEventPersistentS
     Event.preExecuteSetup(rController, tUpcomingEventPersistentState)
 
     local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
-    
+
     -- if didn't click on alert, treat as a "no."
     if not tUpcomingEventPersistentState.bClickedAlert then
         if rClass._ignoreRefusal(tUpcomingEventPersistentState) or tUpcomingEventPersistentState.bSkipDialog then
         else
             AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-                tUpcomingEventPersistentState)
+                                           tUpcomingEventPersistentState)
             return false, ImmigrationEvent.sRejectionSuccessAlert
         end
     end
@@ -115,12 +115,12 @@ function ImmigrationEvent.preExecuteSetup(rController, tUpcomingEventPersistentS
     -- popcap if not a hostile event
     if not (tUpcomingEventPersistentState.bHostile or tUpcomingEventPersistentState.bTrader) and CharacterManager.getOwnedCitizenPopulation() >= g_nPopulationCap then
         AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
-            tUpcomingEventPersistentState)
+                                       tUpcomingEventPersistentState)
         return false, ImmigrationEvent.sRejectionSuccessAlert
     end
 
     tUpcomingEventPersistentState.tx, tUpcomingEventPersistentState.ty = Event._getTileInOpenSpace()
-        
+
     if not tUpcomingEventPersistentState.tx then
         return false, ImmigrationEvent.sRejectionSuccessAlert
     end
@@ -201,46 +201,46 @@ function ImmigrationEvent.tick(rController, dT, tCurrentEventPersistentState, tC
         tTransientState.shipStartX = wx - nDist * tTransientState.ndx
         tTransientState.shipStartY = wy - nDist * tTransientState.ndy
         tTransientState.rShip = DFGraphics.newSprite3D('spacebus',
-            Renderer.getRenderLayer(rController.RENDER_LAYER_BG),
-            'Environments/Objects',
-            tTransientState.shipStartX,
-            tTransientState.shipStartY)
+                                                       Renderer.getRenderLayer(rController.RENDER_LAYER_BG),
+                                                       'Environments/Objects',
+                                                       tTransientState.shipStartX,
+                                                       tTransientState.shipStartY)
         tTransientState.rShip:setScl(tTransientState.nFlip, 1, 1)
         tTransientState.rShip:setPriority(-10000)
 
         --local rot = DFMath.getAngleBetween( 0, 1, ndx,ndy)
         --tTransientState.rShip:setRot(rot,0,0)
-    
+
         tTransientState.nDuration = 1.5
         tTransientState.nElapsed = 0
-        
+
         SoundManager.playSfx3D('spacetaxi', tTransientState.shipStartX,
-            tTransientState.shipStartY, 0)
+                               tTransientState.shipStartY, 0)
         tTransientState.bStartedSpawn = true
         return
     end
-        
+
     if not tTransientState.bFinishedSpawning then
         if tTransientState.nElapsed < tTransientState.nDuration then
             local nStep = dT
             tTransientState.nElapsed = tTransientState.nElapsed + nStep
             local t = tTransientState.nElapsed / tTransientState.nDuration
             local newX = DFMath.lerp(tTransientState.shipStartX,
-                tTransientState.wxEnd, t)
+                                     tTransientState.wxEnd, t)
             local newY = DFMath.lerp(tTransientState.shipStartY,
-                tTransientState.wyEnd, t)
+                                     tTransientState.wyEnd, t)
             tTransientState.rShip:setLoc(newX,newY,z)
-            
+
             return
         end
-        
+
         local nNumFailures = 0
         local nFactionBehavior = (tPersistentState.bHostile
-            and Character.FACTION_BEHAVIOR.EnemyGroup)
-            or (tPersistentState.bTrader and Character.FACTION_BEHAVIOR.Trader) 
+                                      and Character.FACTION_BEHAVIOR.EnemyGroup)
+            or (tPersistentState.bTrader and Character.FACTION_BEHAVIOR.Trader)
             or Character.FACTION_BEHAVIOR.Citizen
         local nTeam = require('EventController').getTeamForEvent(nFactionBehavior)
-        
+
         local nSpawns = tPersistentState.nNumSpawns
         while nSpawns > 0 and nNumFailures < 20 do
             local dx, dy = math.random(100,300), math.random(200,350)
@@ -259,7 +259,7 @@ function ImmigrationEvent.tick(rController, dT, tCurrentEventPersistentState, tC
                     tData.tStats = DFUtil.deepCopy(tPersistentState.tCharSpawnStats[nSpawns])
                 end
                 local rNewChar = CharacterManager.addNewCharacter(nwx,nwy, tData, nTeam)
-                
+
                 -- afflict with malady if necessary
                 if tPersistentState.tPrerolledMalady and nSpawns <= tPersistentState.nNumMaladies then
                     local tMaladyInstance = Malady.reproduceMalady(tPersistentState.tPrerolledMalady)
@@ -270,11 +270,11 @@ function ImmigrationEvent.tick(rController, dT, tCurrentEventPersistentState, tC
                 nNumFailures = nNumFailures + 1
             end
         end
-        
+
         tTransientState.bFinishedSpawning = true
-        
+
         rController.clearCurrentEventFromSaveTable(tCurrentEventPersistentState.nUniqueID)
-        
+
         tTransientState.sPhase = 'wait'
         tTransientState.nEndTime = GameRules.elapsedTime+2
         return
@@ -282,7 +282,7 @@ function ImmigrationEvent.tick(rController, dT, tCurrentEventPersistentState, tC
 
     if GameRules.elapsedTime < tTransientState.nEndTime then
         if tTransientState.sPhase == 'flyAway' then
-            local t = (GameRules.elapsedTime - tPersistentState.nStartTime) / 
+            local t = (GameRules.elapsedTime - tPersistentState.nStartTime) /
                 (tTransientState.nEndTime-tPersistentState.nStartTime)
             local newX = DFMath.lerp(tTransientState.shipStartX, tTransientState.shipEndX, t)
             local newY = DFMath.lerp(tTransientState.shipStartY, tTransientState.shipEndY, t)
@@ -326,7 +326,7 @@ function ImmigrationEvent.dialogTick(rController, tPersistentEventState, tTransi
     end
 
     if not tTransientEventState.tDialogStatus.tDlgSet then
-        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(DialogSets[tPersistentEventState.sEventType])
+        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(EventData[tPersistentEventState.sEventType])
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true
         tTransientEventState.tDialogStatus.sPortrait = Portraits.getRandomPortrait()
@@ -335,9 +335,9 @@ function ImmigrationEvent.dialogTick(rController, tPersistentEventState, tTransi
             tTransientEventState.bDialogAccepted = bAccepted
         end
         local rRequestUI = GenericDialog.new('UILayouts/DockingRequestLayout',
-            onDialogClick, 'DockingButton')
+                                             onDialogClick, 'DockingButton')
         rRequestUI:setTemplateUITexture('Picture',
-            tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
+                                        tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
         local tReplacements= {
             Title = tDlgSet.title,
             DockMessage = tDlgSet.request,
@@ -374,7 +374,7 @@ function ImmigrationEvent.dialogTick(rController, tPersistentEventState, tTransi
             }
             sOnClickAlert = rClass.sAcceptedSuccessAlert
         end
-        
+
         tTransientEventState.bSpawn = bSpawn
         tTransientEventState.bWaitingOnDialog = true
 
@@ -384,9 +384,9 @@ function ImmigrationEvent.dialogTick(rController, tPersistentEventState, tTransi
             local wx,wy = g_World._getWorldFromTile(tPersistentEventState.tx, tPersistentEventState.ty)
             Base.eventOccurred(Base.EVENTS.EventAlert,{sLineCode=sOnClickAlert, wx=wx, wy=wy, tPersistentData=tPersistentEventState, nLogVisibleTime=15, nPriority=0,})
         end
-        local rRequestUI = GenericDialog.new('UILayouts/DockingResponseLayout', onDialogClick)        
+        local rRequestUI = GenericDialog.new('UILayouts/DockingResponseLayout', onDialogClick)
         rRequestUI:setTemplateUITexture('Picture',
-            tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
+                                        tTransientEventState.tDialogStatus.sPortrait, Portraits.PORTRAIT_PATH)
         rRequestUI:replaceText(tReplacements)
         g_GuiManager.addToPopupQueue(rRequestUI, true)
         tTransientEventState.tDialogStatus.bRequestUI = true

@@ -77,7 +77,7 @@ return
             pos = { nMOTDX, 150 },
 			linecode = 'UIMISC022TEXT',
             style = 'dosissemibold38',
-            rect = { 0, 50, 705, 0 },
+            rect = { 0, 50, 1300, 0 },
             hAlign = MOAITextBox.LEFT_JUSTIFY,
             vAlign = MOAITextBox.LEFT_JUSTIFY,
             color = Gui.AMBER,

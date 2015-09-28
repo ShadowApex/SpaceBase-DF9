@@ -16,6 +16,11 @@ local DFUtil = require('DFCommon.Util')
 local Docking = require('Docking')
 local Room = require('Room')
 
+Event.nMinPopulation = 0
+Event.nMaxPopulation = -1
+Event.nMinTime = 0
+Event.nMaxTime = -1
+
 Event.nAllowedSetupFailures = 30
 
 Event.nDebugLineLength = 40
@@ -32,8 +37,12 @@ Event.tMaladyProbabilities = {
         nChanceOfNewStrain = 0,
     },
     Thing = {
-        nChanceOfAffliction = 15,
+        nChanceOfAffliction = 4,
         nChanceOfNewStrain = 100,
+    },
+    Hyper = {
+        nChanceOfAffliction = 4,
+        nChanceOfNewStrain = 50,
     },
     SpaceFlu = {
         nChanceOfAffliction = 50,
@@ -226,7 +235,7 @@ function Event._attemptDock(rController, tPersistentState)
     local tDockingData = Docking.attemptQueueEvent(
         tPersistentState.sEventType,
         tPersistentState.nDifficulty)
-    
+
     if tDockingData then
         for k, v in pairs(tDockingData) do
             tPersistentState[k] = v
@@ -249,11 +258,11 @@ end
 -- TODO place this in a subclass of Event, DockingEvent
 function Event._verifyDockingData(rController, tPersistentState)
     if tPersistentState.bValidDockingData and tPersistentState.bPrerolledSpawns then
-        if Docking.testModuleFitAtOffset(tPersistentState.sEventType, 
-                ModuleData[tPersistentState.sEventType][tPersistentState.sModuleEventName], 
-                tPersistentState.sSetName,
-                tPersistentState.sModuleName,
-                tPersistentState.tx, tPersistentState.ty) then
+        if Docking.testModuleFitAtOffset(tPersistentState.sEventType,
+                                         ModuleData[tPersistentState.sEventType][tPersistentState.sModuleEventName],
+                                         tPersistentState.sSetName,
+                                         tPersistentState.sModuleName,
+                                         tPersistentState.tx, tPersistentState.ty) then
             return true
         else
             return Event._attemptDock(rController, tPersistentState)
@@ -358,14 +367,14 @@ function Event._preRollMalady(rController, tPersistentState, nElapsedTime)
             nResearchTime = tPersistentState.nDifficulty * 1200
         end
     end
-    
+
     tPersistentState.tPrerolledMalady = Malady.createNewMaladyInstance(sMaladyTypeChoice, not bMakeNewStrain, bRequireResearch, nResearchTime)
 end
 
 function Event.getModuleContentsDebugString(rController, tPersistentState)
     local s = ""
     local s2 = nil
-    
+
     if tPersistentState.bValidDockingData and tPersistentState.bPrerolledSpawns then
         if tPersistentState.tCrewData then
             local tCrewTypes = {}
@@ -470,8 +479,8 @@ function Event.getDebugString(rController, tPersistentState, tTransientState)
         name = MiscUtil.padString(name, 11, true)
         local sModuleInfo1, sModuleInfo2 = rController.tEventClasses[tPersistentState.sEventType].getModuleContentsDebugString(rController, tPersistentState)
         s = string.format("%s [%1.2f] %s", name, tPersistentState.nDifficulty, sModuleInfo1)
-		s = MiscUtil.padString(s, Event.nDebugLineLength, true)
-		s = s .. MiscUtil.formatTime(n)
+                s = MiscUtil.padString(s, Event.nDebugLineLength, true)
+                s = s .. MiscUtil.formatTime(n)
         if sModuleInfo2 then
             s = s .. string.format("\n    %s", sModuleInfo2)
         end

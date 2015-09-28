@@ -1,3 +1,4 @@
+
 local Class = require('Class')
 local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
 local TraderEvent = Class.create(ImmigrationEvent)

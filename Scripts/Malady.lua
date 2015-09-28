@@ -83,7 +83,7 @@ function Malady._updateMaladySaveData()
     end
 end
 
-local tDIseaseSpecific = {'thing','Thing'}
+local tDiseaseSpecific = {'thing','Thing','Hyper','hyper'}
 
 local tDiseaseAdjectives = {
    default = {
@@ -113,6 +113,10 @@ local tDiseaseAdjectives = {
    'DISEAS053TEXT', 'DISEAS054TEXT', 'DISEAS055TEXT',
    'DISEAS056TEXT', 'DISEAS057TEXT', 'DISEAS058TEXT', 
    'DISEAS059TEXT',},
+    Hyper = {
+   'DISEAS074TEXT', 'DISEAS075TEXT', 'DISEAS076TEXT', 
+   'DISEAS077TEXT', 'DISEAS078TEXT', 'DISEAS079TEXT',
+   'DISEAS080TEXT', 'DISEAS081TEXT', 'DISEAS082TEXT',},
 			  
 }
 
@@ -121,7 +125,12 @@ Thing = {
 'DISEAS066TEXT','DISEAS067TEXT','DISEAS068TEXT',
 'DISEAS069TEXT','DISEAS070TEXT','DISEAS071TEXT',
 'DISEAS072TEXT','DISEAS073TEXT','DISEAS074TEXT'},
-			
+Hyper = {
+'DISEAS007TEXT', 'DISEAS008TEXT', 'DISEAS009TEXT',
+'DISEAS010TEXT', 'DISEAS013TEXT', 'DISEAS017TEXT',
+'DISEAS019TEXT', 'DISEAS020TEXT','DISEAS060TEXT', 
+'DISEAS061TEXT', 'DISEAS062TEXT', 'DISEAS063TEXT',
+'DISEAS064TEXT', 'DISEAS065TEXT',},			
 default = {
 'DISEAS007TEXT', 'DISEAS008TEXT', 'DISEAS009TEXT',
 'DISEAS010TEXT', 'DISEAS013TEXT', 'DISEAS017TEXT',
@@ -143,7 +152,7 @@ function Malady.getDiseaseName(sDiseaseType)
        sName = require('Topics').getRandomProvenance() .. ' '
    end
    
-	for key, value in pairs(tDIseaseSpecific) do 
+	for key, value in pairs(tDiseaseSpecific) do 
 	    if value == sDiseaseType then
 		bIsSpecial=true
 	    end
@@ -333,11 +342,14 @@ end
 -- TODO / HACKY STRAIN-NAME CREATION:
 -- For now just takes an existing friendly name and adds a number to the end. Need something more like Topic.tTopics.
 function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOverride)
+
     local i = 0
     
     assert(tMaladySpec.bCreateStrains)
+	
     local sMaladyType = tMaladySpec.sMaladyType
     local sMaladyName = sMaladyType .. i
+	
 	
     while Malady.tS.tMaladyStrains[sMaladyName] do
         i = i+1
@@ -345,6 +357,11 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
     end
 	
     local sFriendlyName = Malady.getNewDiseaseName(sMaladyType)
+	
+	if sMaladyType == 'Thing' then
+	    bRequireResearch = true
+	    nResearchTimeOverride = math.random(500)+200
+	end
 
 	
     Malady.tS.tMaladyStrains[sMaladyName] = { sMaladyName=sMaladyName, sMaladyType=sMaladyType, sFriendlyName=sFriendlyName }
@@ -426,7 +443,7 @@ function Malady.getMalady(sMaladyType,s2MaladyName)
             if Malady.tS and Malady.tS.tMaladyStrains then
                 for sStrainName, tStrainData in pairs(Malady.tS.tMaladyStrains) do
 				--Loop through strain list to find a strain with the correct id or friendly name
-                    if tStrainData[sStrainName].sMaladyName == s2MaladyName  or tStrainData[sStrainName].sFriendlyName==s2MaladyName then
+                    if tStrainData.sMaladyName == s2MaladyName  or tStrainData.sFriendlyName==s2MaladyName then
                         table.insert(tStrains, sStrainName)
 						print(tStrainData.sMaladyName)
                     end
