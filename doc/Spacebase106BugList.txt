@@ -60,15 +60,6 @@ Status: unchecked
 Assigned to: Rick
 
 ****************************************************
-Bug: dead body hints are still referencing doctors and are unable to be removed
-Bug Location Found: linecode
-Version Seen: 1.07
-Additional Info: quick change of the main linecode file
-Possible Location: linecode file
-Status: unchecked
-Assigned to: Rick
-
-****************************************************
 Bug: new data class when building new items crashes the game.
 Bug Location Found: Skenners and emailed bug
 Version Seen: 1.07
@@ -76,10 +67,6 @@ Additional Info: It might have to do with the save file and not saving new objec
 Possible Location: unknown
 Status: unchecked
 Assigned to: Rick
-
-
-
-
 
 WINDOWS:
 
