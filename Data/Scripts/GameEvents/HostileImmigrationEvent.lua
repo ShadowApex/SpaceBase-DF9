@@ -1,8 +1,9 @@
 local Class = require('Class')
+local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
 local HostileImmigrationEvent = Class.create(ImmigrationEvent)
 
-local Event = require('GameEvents.Event')
 local Docking = require('Docking')
 local CharacterManager = require('CharacterManager')
 local Character = require('Character')

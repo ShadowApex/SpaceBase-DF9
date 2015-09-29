@@ -1,8 +1,8 @@
 local Class = require('Class')
-local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
-local DockingEvent = require('GameEvents.DockingEvent')
 local Event = require('GameEvents.Event')
 local EventData = require('GameEvents.EventData')
+local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
+local DockingEvent = require('GameEvents.DockingEvent')
 local HostileDockingEvent = Class.create(DockingEvent)
 
 local GameRules = require('GameRules')
@@ -39,7 +39,7 @@ function HostileDockingEvent._getDialogSet()
     if math.random() > .3 then
         sKey = 'hostile'
     end
-    return DFUtil.arrayRandom(DialogSets['dockingEvents'][sKey])
+    return DFUtil.arrayRandom(GameData['dockingEvents'][sKey])
 end
 
 return HostileDockingEvent

@@ -1,10 +1,10 @@
-
 local Class = require('Class')
+local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
 local TraderEvent = Class.create(ImmigrationEvent)
 
 local GameRules = require('GameRules')
-local Event = require('GameEvents.Event')
 
 TraderEvent.sEventType = 'traderEvents'
 TraderEvent.bSkipAlert = false

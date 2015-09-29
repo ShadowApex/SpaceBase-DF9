@@ -1,7 +1,9 @@
 local Class = require('Class')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local DerelictEvent = require('GameEvents.DerelictEvent')
 local HostileDerelictEvent = Class.create(DerelictEvent)
+
 local Base = require('Base')
 local GameRules = require('GameRules')
 local Docking = require('Docking')

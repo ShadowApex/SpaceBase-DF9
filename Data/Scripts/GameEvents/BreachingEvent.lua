@@ -1,5 +1,6 @@
 local Class = require('Class')
 local Event = require('GameEvents.Event')
+local EventData = require('GameEvents.EventData')
 local BreachingEvent = Class.create(Event)
 
 local DFMath = require('DFCommon.Math')

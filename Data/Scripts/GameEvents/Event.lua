@@ -1,6 +1,6 @@
 local Class = require('Class')
-
 local Event = Class.create(nil)
+local EventData = require('GameEvents.EventData')
 
 local CharacterManager = require('CharacterManager')
 local Character = require('Character')
