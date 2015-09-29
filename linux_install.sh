@@ -13,7 +13,7 @@ if [ "$1" = "restore" ]; then
 	mv ${STEAM_COMMON}/SpacebaseDF9.v1 ${STEAM_COMMON}/SpacebaseDF9
     fi
     exit
-elif [ $1 = "dist" ]; then
+elif [ "$1" = "dist" ]; then
     prefix=spacebase-df9-v${VERSION}
     git archive --format=tar HEAD --prefix=${prefix}/ | bzip2 >${prefix}.tar.bz
     ls -l spacebase-df9-v${VERSION}.tar.bz
