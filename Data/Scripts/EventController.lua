@@ -577,7 +577,7 @@ function EventController.generateEventForecast(nForcePop,nForceTime)
                 else
                     weight = rClass.getWeight(nPopulationEstimate, nTimeEstimate)
                 end
-                print('weight for',sEventType,'is',weight)
+                --print('weight for',sEventType,'is',weight)
                 tWeights[sEventType] = weight * EventController.tS.tSpawnModifiers[sEventType]
                 nCount = nCount + 1
             end
