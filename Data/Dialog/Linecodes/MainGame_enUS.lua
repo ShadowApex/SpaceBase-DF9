@@ -354,6 +354,8 @@
     DOCKUI187TEXT = { sLine = "Ok, but I'll need some information first, Just the basic facts", },
     DOCKUI188TEXT = { sLine = "Awww duuuuuude.. you're harshing my vibe!", },
     DOCKUI189TEXT = { sLine = "Get a haircut!", },
+	DOCKUI190TEXT = { sline = "Well, I might just have a poke around anyway. I know Jeff, do you know him? he said i could. Thanks Pal!",},
+	DOCKUI191TEXT = { sline = "Woah. You have some Aura problems, man. Ill come right over and cleanse it for you anyway. Ill trade you some beads!",},
 
     --Buzzers Guide to the galaxy.
     DOCKUI192TEXT = { sLine = "Unmarked Escape Pod", },
