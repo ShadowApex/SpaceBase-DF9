@@ -560,7 +560,7 @@
     HINTSX043TEXT = { sLine = "Only Scientists can recover Research Datacubes. Use the Roster to assign citizens to Scientist duty.", },
     HINTSX044TEXT = { sLine = "Doctors can only recycle corpses at a Matter Refinery. Construct one in a Refinery Zone.", },
     HINTSX045TEXT = { sLine = "A citizen is in an Infirmary zone awaiting treatment. Assign a citizen to Doctor duty.", },
-    HINTSX046TEXT = { sLine = "Only Doctors can recycle corpses at a Matter Refinery. Assign a citizen to Doctor duty.", },
+    HINTSX046TEXT = { sLine = "Only Janitors can recycle corpses at a Matter Refinery. Assign a citizen to Janitor duty.", },
     HINTSX047TEXT = { sLine = "Your citizens are sick, but have no Doctor to treat them. Assign a citizen to Doctor duty.", },
     HINTSX048TEXT = { sLine = "Your citizens are ill with a disease whose cure is unknown. Scientists can research the cure in a Reseach Zone.", },
     HINTSX049TEXT = { sLine = "A citizen has been injured and is incapacitated. Assign a citizen to Doctor duty to treat them.", },

@@ -576,9 +576,27 @@ function HintChecks.haveDoctor()
     return false
 end
 
-function HintChecks.corpseNoDoctor()
-    -- true when: corpse, no doctor
-    if HintChecks.haveDoctor() then
+function HintChecks.haveJanitor()
+    -- returns # of /non-incapacitated/ janitors
+    -- (if all your janitors are incapacitated, you effectively have none
+    -- because they can't heal themselves!)
+    if CharacterManager.tJobCount[Character.JANITOR] == 0 then
+        return false
+    end
+    local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
+    local nJanitors = 0
+	for _,rChar in pairs(tChars) do
+        if rChar:getJob() == Character.JANITOR and not Malady.isIncapacitated(rChar) then
+            return true
+        end
+    end
+    return false
+end
+
+
+function HintChecks.corpseNoJanitor()
+    -- true when: corpse, no janitor
+    if HintChecks.haveJanitor() then
         return false
     end
     return HintChecks.haveCorpse()

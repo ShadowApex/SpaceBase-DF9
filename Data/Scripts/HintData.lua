@@ -196,9 +196,9 @@ HintData.tHints =
         checkFn=HintChecks.corpseNoRefinery,
     },
     {
-        name='CorpseNoDoctor',
+        name='CorpseNoJanitor',
         lineCode='HINTSX046TEXT',
-        checkFn=HintChecks.corpseNoDoctor,
+        checkFn=HintChecks.corpseNoJanitor,
     },
     {
         name='PatientNoDoctor',
