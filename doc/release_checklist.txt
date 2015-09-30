@@ -1,0 +1,26 @@
+* What was the most recently added feature to the game?  Make doubly
+  sure to test that one extra hard, since it'll have received the least
+  testing during development.
+
+* Make sure all items added have necessary artwork and icons, not just
+  placeholder art.  Otherwise the game will look incomplete to users.
+
+* Make sure several people have played the release candidate at least an
+  hour each before releasing, to make sure there aren't any head-slapper
+  dumb bugs that everyone's going to run into.
+
+* Have at least one different person test each of the release packages
+  (ideally on virgin systems) BEFORE posting them on the website, to
+  catch installer goofs.
+
+* Have there been any significant changes to the UI?  If so, make sure
+  to document the changes prominently in the release.  Inevitably
+  *someone* will find them confusing.  And sometimes the simple act of
+  documenting them will help in spotting usability clunkiness -- if it
+  takes a lot of words to describe the change, the UI is probably not as
+  efficient as it should be.
+
+* Remember that especially for games, a picture is worth a thousand
+  words.  Nice, well-composed screenshots can be the best way to
+  showcase our changes.
+  
