@@ -10,8 +10,15 @@ local EmergencyBeacon = require('Utility.EmergencyBeacon')
 local World = require('World')
 local SquadList = require('SquadList')
 local BeaconMenuEntry = require('UI.BeaconMenuEntry')
+local BeaconMenuEdit = require('UI.BeaconMenuEdit')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
+
+-- Things not working:
+--
+--    - Scrollbar displaying on right instead of left
+--    - Arrow texture not correct (waiting for ed to get back to me)
+--    - When scrolling, items that are off the scrollbar are still visible
 
 function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
@@ -25,52 +32,39 @@ function m.create()
 	local rThreatHighButton, rThreatMediumButton, rThreatLowButton, rStandDownButton
 	local rThreatHighLabel, rThreatMediumLabel, rThreatLowLabel, rStandDownLabel
 	local rThreatHighHotkey, rThreatMediumHotkey, rThreatLowHotkey, rStandDownHotkey
+	local rBeaconMenuEdit
+	local nBeaconMenuEditXLoc = 385
 
-    function Ob:init()
+    function Ob:init(_menuManager)
         Ob.Parent.init(self)
         self:processUIInfo(sUILayoutFileName)
 
         self.rDoneButton = self:getTemplateElement('DoneButton')
+		self.rCreateSquadButton = self:getTemplateElement('CreateSquadButton')
 		rScrollableUI = self:getTemplateElement('ScrollPane')
-		rThreatHighButton = self:getTemplateElement('ThreatHighButton')
-		rThreatMediumButton = self:getTemplateElement('ThreatMediumButton')
-		rThreatLowButton = self:getTemplateElement('ThreatLowButton')
-		rStandDownButton = self:getTemplateElement('StandDownButton')
-		rThreatHighLabel = self:getTemplateElement('ThreatHighLabel')
-		rThreatMediumLabel = self:getTemplateElement('ThreatMediumLabel')
-		rThreatLowLabel = self:getTemplateElement('ThreatLowLabel')
-		rStandDownLabel = self:getTemplateElement('StandDownLabel')
-		rThreatHighHotkey = self:getTemplateElement('ThreatHighHotkey')
-		rThreatMediumHotkey = self:getTemplateElement('ThreatMediumHotkey')
-		rThreatLowHotkey = self:getTemplateElement('ThreatLowHotkey')
-		rStandDownHotkey = self:getTemplateElement('StandDownHotkey')
+		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
+		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
 
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
-		rThreatHighButton:addPressedCallback(self.onThreatHighButtonPressed, self)
-		rThreatMediumButton:addPressedCallback(self.onThreatMediumButtonPressed, self)
-		rThreatLowButton:addPressedCallback(self.onThreatLowButtonPressed, self)
-		rStandDownButton:addPressedCallback(self.onStandDownButtonPressed, self)
+		self.rCreateSquadButton:addPressedCallback(self.onCreateSquadButtonPressed, self)
         
         self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
-		self:addHotkey('z', rThreatHighButton)
-		self:addHotkey('x', rThreatMediumButton)
-		self:addHotkey('c', rThreatLowButton)
-		self:addHotkey('v', rStandDownButton)
+		self:addHotkey(self:getTemplateElement('CreateSquadHotkey').sText, self.rCreateSquadButton)
+		rBeaconMenuEdit = BeaconMenuEdit.new(self, _menuManager)
 		
-		-- rThreatHighButton:setEnabled(false)
-		rThreatHighLabel:setVisible(false)
-		rThreatHighHotkey:setVisible(false)
-		-- rThreatMediumButton:setEnabled(false)
-		rThreatMediumLabel:setVisible(false)
-		rThreatMediumHotkey:setVisible(false)
-		-- rThreatLowButton:setEnabled(false)
-		rThreatLowLabel:setVisible(false)
-		rThreatLowHotkey:setVisible(false)
-		rStandDownButton:setVisible(false)
-		rStandDownLabel:setVisible(false)
-		rStandDownHotkey:setVisible(false)
+		self:addElement(rBeaconMenuEdit)
+		rBeaconMenuEdit:hide()
+		rBeaconMenuEdit:setLoc(-300, 300) -- appearing for no apparent reason, so move it off screen
 		self:_calcDimsFromElements()
+		
+		self:addHotkey(rBeaconMenuEdit:getTemplateElement('HighViolenceHotkey').sText, rBeaconMenuEdit.rHighViolenceButton)
+		self:addHotkey(rBeaconMenuEdit:getTemplateElement('MedViolenceHotkey').sText, rBeaconMenuEdit.rMedViolenceButton)
+		self:addHotkey(rBeaconMenuEdit:getTemplateElement('LowViolenceHotkey').sText, rBeaconMenuEdit.rLowViolenceButton)
+		self:addHotkey(rBeaconMenuEdit:getTemplateElement('NoViolenceHotkey').sText, rBeaconMenuEdit.rNoViolenceButton)
+		self:addHotkey(rBeaconMenuEdit:getTemplateElement('EditSquadHotkey').sText, rBeaconMenuEdit.rEditSquadButton)
+		self:addHotkey(rBeaconMenuEdit:getTemplateElement('DisbandSquadHotkey').sText,rBeaconMenuEdit.rDisbandSquadButton)
+		
     end
 
     function Ob:addHotkey(sKey, rButton)
@@ -121,6 +115,14 @@ function m.create()
         end
     end
 	
+	function Ob:onCreateSquadButtonPressed(rButton, eventType)
+		if eventType == DFInput.TOUCH_UP then
+			local squadList = require('World').getSquadList()
+			squadList.newSquad()
+			self:updateDisplay()
+		end
+	end
+	
 	function Ob:onSlotButtonPressed(rEntry, sName)
 		local rSquad = squadList.getSquad(sName)
 		if not rSquad then
@@ -132,15 +134,6 @@ function m.create()
 			activeEntry:setSelected(false)
 			activeEntry = nil
 		else
-			rThreatHighLabel:setVisible(true)
-			rThreatHighHotkey:setVisible(true)
-			rThreatMediumLabel:setVisible(true)
-			rThreatMediumHotkey:setVisible(true)
-			rThreatLowLabel:setVisible(true)
-			rThreatLowHotkey:setVisible(true)
-			rStandDownLabel:setVisible(true)
-			rStandDownHotkey:setVisible(true)
-			rThreatMediumButton:setSelected(true)
 			g_ERBeacon:setViolence(sName, EmergencyBeacon.VIOLENCE_DEFAULT)
 		end
 		rEntry:setSelected(true)
@@ -151,71 +144,33 @@ function m.create()
 		elseif g_ERBeacon:getViolence(sName) == 'Low' then
 			rThreatLowButton:setSelected(true)
 		end
-		
 		activeEntry = rEntry
-	end
-	
-	function Ob:onThreatHighButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearThreatButton()
-			activeThreatButton = rButton
-			rButton:setSelected(true)
-			g_ERBeacon:setViolence(activeEntry:getName(), EmergencyBeacon.VIOLENCE_LETHAL)
-		end
-	end
-	
-	function Ob:onThreatMediumButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearThreatButton()
-			activeThreatButton = rButton
-			rButton:setSelected(true)
-			g_ERBeacon:setViolence(activeEntry:getName(), EmergencyBeacon.VIOLENCE_DEFAULT)
-		end
-	end
-	
-	function Ob:onThreatLowButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearThreatButton()
-			activeThreatButton = rButton
-			rButton:setSelected(true)
-			g_ERBeacon:setViolence(activeEntry:getName(), EmergencyBeacon.VIOLENCE_NONLETHAL)
-		end
-	end
-	
-	function Ob:onStandDownButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-			self:clearThreatButton()
-			g_ERBeacon:hideSelectedBeacon()
-		end
-	end
-	
-	function Ob:clearThreatButton()
-		if activeThreatButton ~= nil then
-			activeThreatButton:setSelected(false)
-			activeThreatButton = nil
-		end
+		rBeaconMenuEdit:setSquad(rSquad)
+		rBeaconMenuEdit:setLoc(nBeaconMenuEditXLoc, activeEntry.nYLoc - 60 + rScrollableUI:getScrollDistance())
+		rBeaconMenuEdit:show()
 	end
 	
 	function Ob:updateDisplay()
 		squadList = World.getSquadList()
 		local tSquads = squadList.getList()
-		local count = 0
 		if nNumEntries ~= squadList.numSquads() then
 			for k,v in pairs(tBeaconMenuEntries) do
 				if not tSquads[k] then
 					tBeaconMenuEntries[k]:hide(false)
 					tBeaconMenuEntries[k] = nil
+					nNumEntries = nNumEntries - 1
 				end
 			end
 		end
 		for k,v in pairs(tSquads) do
 			if not tBeaconMenuEntries[k] then
-				self:addEntry(k)
+				local rNewEntry = self:addEntry(k)
+				local w, h = rNewEntry:getDims()
+				rNewEntry:setLoc(0, h * (rNewEntry:getIndex() - 1))
 			else
 				local w, h = tBeaconMenuEntries[k]:getDims()
-				tBeaconMenuEntries[k]:setLoc(0, h * count)
+				tBeaconMenuEntries[k]:setLoc(0, h * (tBeaconMenuEntries[k]:getIndex() - 1))
 			end
-			count = count + 1
 		end
 		rScrollableUI:refresh()
 	end
@@ -224,42 +179,28 @@ function m.create()
 		local rNewEntry = BeaconMenuEntry.new()
         local w,h = rNewEntry:getDims()
         local nYLoc = h * nNumEntries - 1
-        rNewEntry:setLoc(0, nYLoc)
+        rNewEntry:setLoc(20, nYLoc)
         self:_calcDimsFromElements()
         rScrollableUI:addScrollingItem(rNewEntry)
-		local sHotkey = ''..(nNumEntries + 1)
-		rNewEntry:setName(sName, sHotkey..'.', self.onSlotButtonPressed)
+		local sHotkey = ''..(math.fmod(nNumEntries + 1, 10))
+		rNewEntry:setName(squadList.getSquad(sName), sHotkey..'.', self.onSlotButtonPressed)
 		self:addHotkey(sHotkey, rNewEntry:getTemplateElement("NameButton"))
 		tBeaconMenuEntries[sName] = rNewEntry
+		tBeaconMenuEntries[sName].nYLoc = nYLoc
 		nNumEntries = nNumEntries + 1
+		return rNewEntry
 	end
 
     function Ob:show(basePri)
-		if activeEntry then
-			rThreatHighLabel:setVisible(true)
-			rThreatHighHotkey:setVisible(true)
-			rThreatMediumLabel:setVisible(true)
-			rThreatMediumHotkey:setVisible(true)
-			rThreatLowLabel:setVisible(true)
-			rThreatLowHotkey:setVisible(true)
-			rStandDownLabel:setVisible(true)
-			rStandDownHotkey:setVisible(true)
-		end
         local nPri = Ob.Parent.show(self, basePri)
         g_GameRules.setUIMode(g_GameRules.MODE_BEACON)
+		rScrollableUI:reset()
 		self:updateDisplay()
         return nPri
     end
 
     function Ob:hide()
-		rThreatHighLabel:setVisible(false)
-		rThreatHighHotkey:setVisible(false)
-		rThreatMediumLabel:setVisible(false)
-		rThreatMediumHotkey:setVisible(false)
-		rThreatLowLabel:setVisible(false)
-		rThreatLowHotkey:setVisible(false)
-		rStandDownLabel:setVisible(false)
-		rStandDownHotkey:setVisible(false)
+		rBeaconMenuEdit:hide()
         Ob.Parent.hide(self)
         g_GameRules.setUIMode(g_GameRules.MODE_INSPECT)
     end

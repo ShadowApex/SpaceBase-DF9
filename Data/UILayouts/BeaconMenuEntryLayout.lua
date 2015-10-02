@@ -1,6 +1,6 @@
 local Gui = require('UI.Gui')
 
-local nButtonWidth, nButtonHeight = 400, 50
+local nButtonWidth, nButtonHeight = 400, 100
 
 return
 {
@@ -34,6 +34,14 @@ return
 					color = Gui.BLACK,
 				},
 				{
+                    key = 'SizeLabel',
+                    color = Gui.BLACK,
+                },
+				{
+                    key = 'StatusLabel',
+                    color = Gui.BLACK,
+                },
+				{
 					playSfx = 'hilight',
 				},
             },
@@ -51,28 +59,58 @@ return
 					key = 'Hotkey', 
 					color = Gui.AMBER,
 				},
+				{
+                    key = 'SizeLabel',
+                    color = Gui.AMBER,
+                },
+				{
+                    key = 'StatusLabel',
+                    color = Gui.AMBER,
+                },
             },
         },
 		{
             key = 'NameLabel',
             type = 'textBox',
-            pos = { 50, 0 },
+            pos = { 100, 0 },
             text = "I'm a Turkey!",
             style = 'dosissemibold35',
-            rect = { 0, 50, 400, 0 },
+            rect = { 0, nButtonHeight - 50, nButtonWidth, 0 },
             hAlign = MOAITextBox.LEFT_JUSTIFY,
-            vAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.CENTER_JUSTIFY,
             color = Gui.AMBER,
         },
 		{
             key = 'Hotkey',
             type = 'textBox',
-            pos = { 10, 0 },
+            pos = { nButtonWidth - 25, -nButtonHeight + 40 },
             text = '0',
             style = 'dosissemibold22',
             rect = { 0, 50, 20, 0 },
             hAlign = MOAITextBox.RIGHT_JUSTIFY,
             vAlign = MOAITextBox.CENTER_JUSTIFY,
+            color = Gui.AMBER,
+        },
+		{
+            key = 'SizeLabel',
+            type = 'textBox',
+            pos = { 100, -nButtonHeight + 40 },
+            text = "Size: 0",
+            style = 'dosissemibold20',
+            rect = { 0, 50, 100, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.LEFT_JUSTIFY,
+            color = Gui.AMBER,
+        },
+		{
+            key = 'StatusLabel',
+            type = 'textBox',
+            pos = { nButtonWidth / 2 + 10, -nButtonHeight + 40 },
+            text = "Status: Available",
+            style = 'dosissemibold20',
+            rect = { 0, 50, 150, 0 },
+            hAlign = MOAITextBox.LEFT_JUSTIFY,
+            vAlign = MOAITextBox.LEFT_JUSTIFY,
             color = Gui.AMBER,
         },
 	},

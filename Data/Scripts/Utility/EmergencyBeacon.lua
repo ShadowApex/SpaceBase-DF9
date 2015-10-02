@@ -112,6 +112,13 @@ function EmergencyBeacon:newBeacon(sSquadName)
 	self.tBeacons[sSquadName].beaconHigh = beaconHigh
 end
 
+function EmergencyBeacon:getGraphics(sSquadName)
+	if not self.tBeacons[sSquadName] then
+		self:newBeacon(sSquadName)
+	end
+	return self.tBeacons[sSquadName].beaconLow.deck, self.tBeacons[sSquadName].beaconMed.deck, self.tBeacons[sSquadName].beaconHigh.deck
+end
+
 function EmergencyBeacon:_generateGraphics()
 	local totalWidth, totalHeight = 100, 100
 	local iconWidth, iconHeight = totalWidth - (totalWidth / 3), totalHeight - (totalHeight / 3) -- total width/height of the icon part

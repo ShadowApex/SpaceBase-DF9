@@ -210,7 +210,7 @@ function m.create()
     
     function Ob:onBackButtonPressed(rButton, eventType)
         if eventType == DFInput.TOUCH_UP then
-			menuManager.showMenu("SquadMenu")
+			menuManager.closeMenu()
 			SoundManager.playSfx('degauss')
         end
     end

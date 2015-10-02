@@ -174,6 +174,8 @@ return
             type = 'uiTexture',
             textureName = 'ui_hud_iconMatter',
             sSpritesheetPath = 'UI/HUD',
+--			textureName = 'Triangle',
+--            sSpritesheetPath = 'UI/BeaconMenu',
             pos = { 320, -70 },
             scale = { 1.4, 1.4 },
             color = Gui.AMBER,

@@ -34,43 +34,86 @@ local SquadList = {}
 
 local Squad = require('Squad')
 
+local tSquadNames = { {name='SQUAD009TEXT', isUsed=false}, {name='SQUAD010TEXT', isUsed=false}, {name='SQUAD011TEXT', isUsed=false}, {name='SQUAD012TEXT', isUsed=false}, 
+						{name='SQUAD013TEXT', isUsed=false}, {name='SQUAD014TEXT', isUsed=false}, {name='SQUAD015TEXT', isUsed=false}, {name='SQUAD016TEXT', isUsed=false}, 
+						{name='SQUAD017TEXT', isUsed=false}, {name='SQUAD018TEXT', isUsed=false},}
+
+
 function SquadList.new()
 	local self = {}
 	local tSquads = {}
 	local nSize = 0
+	local MAX_SQUADS = 10
+	local nSquadIndex = 1
+	
+	function self.init()
+		self.shuffleSquadNames()
+	end
 	
 	function self.loadSaveData(tSquadData)
 		for k,v in pairs(tSquadData) do
-			self.addSquad(v.name, Squad.new(v.name, v.status, v.members))
-			nSize = nSize + 1
+			if not self.getSquad(v.name) then
+				self.addSquad(v.name, Squad.new(v.name, v.status, v.members))
+				nSize = nSize + 1
+			end
 		end
-		require("UI.GuiManager").updateSquadMenu() -- we cannot guarantee that SquadList will be loaded before SquadMenu, so let's update it
+	end
+	
+	function self.shuffleSquadNames()
+		local rand = math.random
+		local iterations = #tSquadNames
+		local j
+		for i = iterations, 2, -1 do
+			j = rand(i)
+			tSquadNames[i], tSquadNames[j] = tSquadNames[j], tSquadNames[i]
+		end
 	end
 
 	function self.getList()
 		return tSquads
 	end
+	
+	function self.newSquad()
+		if nSize < MAX_SQUADS then
+			local sName = self._getUnusedSquadname()
+			self.addSquad(sName, Squad.new(sName))			
+		end
+	end
+	
+	function self._getUnusedSquadname()
+		local sName = g_LM.line(tSquadNames[nSquadIndex].name)
+		if not self.getSquad(sName) then
+			return sName
+		else
+			if nSquadIndex < #tSquadNames then
+				nSquadIndex = nSquadIndex + 1
+			else
+				nSquadIndex = 0
+			end
+			return self._getUnusedSquadname()
+		end
+	end
 
-	function self.addSquad(name, squad)
-		tSquads[name] = squad
+	function self.addSquad(sName, squad)
+		tSquads[sName] = squad
 		nSize = nSize + 1
 	end
 
-	function self.remSquad(name)
-		tSquads[name] = nil
+	function self.remSquad(sName)
+		tSquads[sName] = nil
 		nSize = nSize - 1
 	end
 	
-	function self.getSquad(name)
-		return tSquads[name] or nil
+	function self.getSquad(sName)
+		return tSquads[sName] or nil
 	end
 
 	function self.numSquads()
 		return nSize
 	end
 
-	function self.disbandSquad(name)
-		local tMembers = tSquads[name].getMembers()
+	function self.disbandSquad(sName)
+		local tMembers = tSquads[sName].getMembers()
 		local CharacterManager = require('CharacterManager')
 		local Character = require('Character')
 		local tChars = CharacterManager.getTeamCharacters(Character.TEAM_ID_PLAYER)
@@ -79,7 +122,7 @@ function SquadList.new()
 				v:setSquadName(nil)
 			end
 		end
-		tSquads[name] = nil
+		tSquads[sName] = nil
 		nSize = nSize - 1
 	end
 	
@@ -93,6 +136,7 @@ function SquadList.new()
 		return tSquadData
 	end
 	
+	self.init()
 	return self
 end
 

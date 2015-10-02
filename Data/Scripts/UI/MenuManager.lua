@@ -10,27 +10,30 @@ function MenuManager.new(_guiManager)
 		
 	end
 	
-	function self.addMenu(name, rMenu)
-		list[name] = rMenu
+	function self.addMenu(sName, rMenu)
+		list[sName] = rMenu
 	end
 	
-	function self.getMenu(name)
-		return list[name]
+	function self.getMenu(sName)
+		if sName and list[sName] then
+			return list[sName]
+		end
+		return nil
 	end
 	
 	--
 	--	show given menu and hide all the others
 	--
-	function self.showMenu(name)
+	function self.showMenu(sName)
 		for k,v in pairs(list) do
-			if k == name then
+			if k == sName then
 				v:show()
 			else
 				v:hide(true)
 			end
 		end
 		guiManager:hideStuff()
-		active = name
+		active = sName
 		if g_GameRules.getTimeScale() ~= 0 then
             self.bWasPaused = false
             g_GameRules.togglePause()

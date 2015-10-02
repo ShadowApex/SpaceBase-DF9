@@ -134,7 +134,7 @@ function m.create()
 		------------------------------------------------
         self:setExpanded(false)
 
-		self.rBeaconMenu = BeaconMenu.new()
+		self.rBeaconMenu = BeaconMenu.new(menuManager)
         self.rMineMenu = MineMenu.new()
         self.rConstructMenu = ConstructMenu.new()
         self.rInspectMenu = NewInspectMenu.new()
