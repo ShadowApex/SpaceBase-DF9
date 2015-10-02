@@ -34,7 +34,6 @@ local ProgressBar = require('UI.ProgressBar')
 local WorldToolTip = require('UI.WorldToolTip')
 local Profile = require('Profile')
 local MenuManager = require('UI.MenuManager')
-local SquadMenu = require('UI.SquadMenu')
 local SquadEditMenu = require('UI.SquadEditMenu')
 
 local Cursor=nil
@@ -89,7 +88,6 @@ function GuiManager.init()
 	--------------------------------
 	GuiManager.menuManager = MenuManager.new(GuiManager)
 	local squadEditMenu = SquadEditMenu.new(GuiManager.menuManager)
-	GuiManager.menuManager.addMenu("SquadMenu", SquadMenu.new(GuiManager.menuManager, squadEditMenu))
 	GuiManager.menuManager.addMenu("SquadEditMenu", squadEditMenu)
 	---------------------------------------
     GuiManager.newSideBar = NewSideBar.new(GuiManager.menuManager)
@@ -143,10 +141,6 @@ function GuiManager.init()
     end
 
     g_GuiManager.bFinishedInit = true
-end
-
-function GuiManager.updateSquadMenu()
-	GuiManager.menuManager.getMenu("SquadMenu").loadSaveData()
 end
 
 function GuiManager.showCursorSprite(bShowSprite)

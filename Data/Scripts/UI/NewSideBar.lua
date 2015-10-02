@@ -491,17 +491,6 @@ function m.create()
             self:openSubmenu(self.rDisasterMenu)
         end
     end
-	
-	-------------------------------------------------
-	function Ob:onSquadButtonPressed(rButton, eventType)
-		if eventType == DFInput.TOUCH_UP then
-            if g_GameRules.currentMode == g_GameRules.MODE_BEACON then
-                g_GameRules.setUIMode(g_GameRules.MODE_INSPECT)
-            end
-			self.menuManager.showMenu("SquadMenu")
-        end
-	end
-	------------------------------------------------------
 
     function Ob:onFinger(touch, x, y, props)
         if self.rSubmenu then
