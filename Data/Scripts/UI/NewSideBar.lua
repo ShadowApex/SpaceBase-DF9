@@ -106,13 +106,6 @@ function m.create()
         self:addHotkey(self.rBeaconHotKey.sText, self.rBeaconButton)
 		
 		-----------------------------------------------
-		self.rSquadLabel = self:getTemplateElement('SquadLabel')
-		self.rSquadIcon = self:getTemplateElement('SquadIcon')
-		self.rSquadButton = self:getTemplateElement('SquadButton')
-		self.rSquadHotKey = self:getTemplateElement('SquadHotkey')
-		self.rSquadHotKeyExpanded = self:getTemplateElement('SquadHotkeyExpanded')
-		self.rSquadButton:addPressedCallback(self.onSquadButtonPressed, self)
-		self:addHotkey(self.rSquadHotKey.sText, self.rSquadButton)
 		
 		self.rDebugLabel = self:getTemplateElement('DebugLabel')
 		self.rDebugIcon = self:getTemplateElement('DebugIcon')
@@ -163,7 +156,7 @@ function m.create()
         self:setElementHidden(self.rDisasterIcon, false)
         self:setElementHidden(self.rDisasterHotKey, false)
         -- #s taken from SideBarLayout
-        local nButtonHeight, nButtons = 81, 8
+        local nButtonHeight, nButtons = 81, 7
 		if DFSpace.isDev() then
 			nButtons = nButtons + 1
 		end
@@ -193,7 +186,7 @@ function m.create()
         end
 		if not self.postInitComplete then
 			if DFSpace.isDev() then
-				local nButtonHeight, nButtons = 81, 9
+				local nButtonHeight, nButtons = 81, 8
 				self.rEndCap:setLoc(-152, -nButtonHeight * nButtons)
 				self.rEndCapExpanded:setLoc(0, -nButtonHeight * nButtons)
 				self.rSmallBarButton:setScl(104, nButtonHeight * nButtons)
@@ -244,7 +237,6 @@ function m.create()
             self.rDisasterButton:setEnabled(bEnabled)
         end
 		-------------------------------------
-		self.rSquadButton:setEnabled(bEnabled)
 		if DFSpace.isDev() then
 			self.rDebugButton:setEnabled(bEnabled)
 		end
@@ -310,10 +302,6 @@ function m.create()
         end
 		
 		----------------------------------------------
-		self:setElementHidden(self.rSquadButton, not bExpanded)
-		self:setElementHidden(self.rSquadLabel, not bExpanded)
-		self:setElementHidden(self.rSquadHotKey, bExpanded)
-		self:setElementHidden(self.rSquadHotKeyExpanded, not bExpanded)
 		if DFSpace.isDev() then
 			self:setElementHidden(self.rDebugButton, not bExpanded)
 			self:setElementHidden(self.rDebugLabel, not bExpanded)
