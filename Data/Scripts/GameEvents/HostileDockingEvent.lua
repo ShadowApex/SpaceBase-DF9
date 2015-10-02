@@ -39,7 +39,7 @@ function HostileDockingEvent._getDialogSet()
     if math.random() > .3 then
         sKey = 'hostile'
     end
-    return DFUtil.arrayRandom(GameData['dockingEvents'][sKey])
+    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
 end
 
 return HostileDockingEvent
