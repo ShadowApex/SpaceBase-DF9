@@ -160,16 +160,6 @@ Possible Location: look at job allocation and change
 Status: unchecked
 Assigned to: open
 
-****************************************************
-Bug: Research screen isn't updated with new research zones until game reload
-Bug Location Found: bahnours list of bugs
-Version Seen: 1.06
-Additional Info: none
-Possible Location:  add a refresh when opening research screen.
-Status: unchecked
-Assigned to: open
-
-
 
 LINUX:
 
