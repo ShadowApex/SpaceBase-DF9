@@ -5,7 +5,6 @@ Please add more if you find any. So far, they only need to be looked at
 or replicated as much as possible, but not fixed unless you can see the
 problem. We'll do bug fixes after releases and only on our stuff for
 starters. Churning out as much game data as possible is priority 1.
-test
 
 format:
 
