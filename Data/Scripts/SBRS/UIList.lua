@@ -44,11 +44,11 @@ function m.create()
 			return
 		end
 		tList[sName] = rElement
-		nSize = nSize + 1
 		tList[sName].nOrder = nSize
 		self:addElement(rElement)
 		self:_updateElement(sName)
 		tList[sName]:show()
+		nSize = nSize + 1
 	end
 	
 	function Ob:addList(_tList)
@@ -76,8 +76,7 @@ function m.create()
 	function Ob:_updateElement(sName)
 		local x, y = self:getLoc()
 		local w, h = tList[sName]:getDims()
-		print(y + h * tList[sName].nOrder)
-		tList[sName]:setLoc(x, y + h * tList[sName].nOrder)
+		tList[sName]:setLoc(x, h * tList[sName].nOrder)
 	end
 	
 	function Ob:hide(bKeepAlive)
