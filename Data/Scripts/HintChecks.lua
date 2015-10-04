@@ -322,7 +322,7 @@ end
 
 function HintChecks.noMoraleObjects()
 	-- true when less then 2 plants or less then 2 monitors
-	return self:getNumMonitors() < 2  or self:getNumPlants() < 2
+	return HintChecks.getNumMonitors() < 2  or HintChecks.getNumPlants() < 2
 end
 
 function HintChecks.getNumMonitors()
