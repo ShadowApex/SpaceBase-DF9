@@ -9,6 +9,11 @@ HintData.tHints =
         -- lineCode='HINTSX029TEXT',
         -- checkFn=HintChecks.waitingAtBeacon,
     -- },
+	 {
+        name='noMoraleObjects',
+        lineCode='HINTSX059TEXT',
+        checkFn=HintChecks.noMoraleObjects,
+    },
 	{
         name='YouCanForceOpenADoor',
         lineCode='HINTSX027TEXT',

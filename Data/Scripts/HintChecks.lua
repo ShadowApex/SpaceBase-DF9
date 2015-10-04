@@ -320,6 +320,33 @@ function HintChecks.fireNoExtinguisher()
 	return false
 end
 
+function HintChecks.noMoraleObjects()
+	-- true when less then 2 plants or less then 2 monitors
+	return self:getNumMonitors() < 2  or self:getNumPlants() < 2
+end
+
+function HintChecks.getNumMonitors()
+	local tPlants = EnvObject.getObjectsOfType('TVScreen1', true)
+	local nSeeded = 0
+	for _,plant in pairs(tPlants) do
+		if plant.bSeeded then
+			nSeeded = nSeeded + 1
+		end
+	end
+	return nSeeded
+end
+
+function HintChecks.getNumPlants()
+	local tPlants = EnvObject.getObjectsOfType('HousePlant', true)
+	local nSeeded = 0
+	for _,plant in pairs(tPlants) do
+		if plant.bSeeded then
+			nSeeded = nSeeded + 1
+		end
+	end
+	return nSeeded
+end
+
 function HintChecks.roomButNeverZoned()
 	-- true when: >=1 fully enclosed room, no zoning, first time only
 	if GameRules.bHasZoned or HintChecks.noEnclosedRooms() then
