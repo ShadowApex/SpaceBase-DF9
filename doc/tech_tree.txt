@@ -1,0 +1,126 @@
+Design for a New Technology Research Tree
+-----------------------------------------
+
+Currently there's about two dozen technologies to research in the game.
+In efficient play it's feasible to research all of them.  Unfortunately,
+this means for a skilled player we are only providing one game play
+experience.
+
+This proposal seeks to significantly expand the number of research items
+beyond what can be achieved in a single game play.  These items are
+organized into several separate lines or fields of research, so that
+different research choices can lead to a variety of different game play
+experiences.  A typical game play experience should enable researching
+most of the items in one field, plus small chunks of some of the others.
+A skillful player may be able to master two fields fairly fully.  A
+player dedicated to research as a primary objective might be able to
+achieve three fields - about half the available tech in the game.
+
+A design intent is to make each of the fields relatively self-contained,
+so that important enhancements (like improved O2) can be attained
+several different ways - via genetically enhanced plants if your
+research focuses on organics, or via scrubbing machinery if you're more
+physics oriented.  Indeed, several research paths will end up being
+mutually exclusive.
+
+We anticipate that different types of players will wish to play
+different types of games - some enjoy the challenge of battle and will
+wish to strengthen their military prowess.  Others will prefer to focus
+on building and not having to deal with crew unhappiness so much.
+
+Each of the fields will provide one or two important research
+opportunities at entry level, so a player specialized in one field can
+still get their basic necessities from other fields.
+
+Six fields of research are identified, to reflect the six sides of a
+hexagon:
+
+
+Tactics: For players seeking a more combat oriented style of play,
+    this field provides an efficient path to strong weaponry, defenses,
+    and battle enhancements.
+
+    Research in this branch is fairly linear giving incremental combat
+    upgrades and ways to stifle morale, O2, and power needs if the
+    player needs it.  But we expect competitive players are going to
+    make a bee-line towards the formiddable battle gear at the far
+    end, so we don't bother them with a lot of unnecessary choices.
+
+    There are a modest number of relatively "rich" research items in
+    this tree.  Since these players will prefer to keep their attention
+    to battle, we won't trouble them needing to keep clicking on new
+    research; instead each level provides a collection of upgrades and
+    new functions.
+
+    A consequence of researching Tactics is that the game will know
+    you're interested in war, and so will work to delivery it.  Hostile
+    encounters will be ramped up, and will grow in difficulty as you
+    go.
+
+
+Energetics: Players desiring to strategically harness the unrestrained
+    forces of the universe to their own ends will be drawn to this
+    field.  This field contains a very large number of research items,
+    organized along multiple different, deep branches.  A player will
+    need to be selective in what paths they take, but in so doing will
+    unlock the most powerful devices and capabilities (and disasters!)
+    in the game.  One way or another, a choice for this field is a
+    Choice For Fun!
+    
+    A player interested in shock-and-awe battle will be drawn to
+    Energetics for its uber-WMDs and powerful shields, but these
+    technologies will draw attention of quite powerful adversaries.
+    (After all, if you researched it you're probably looking forward to
+    using it!)
+
+    Alternatively, players wishing to be left alone will enjoy exploring
+    trying on the cloaking technologies for size.  Of course, a
+    consequence of cloaking is that immigrants, traders, and other
+    friendlies will be leaving you alone as well!
+    
+
+Physics: The meat and potatoes of research, Physics focuses on
+    fundamental research that will help in developing a highly effective
+    base.  The research options are wide open, with nearly as many items
+    as Energetics but on much shorter trees.  This enables builder
+    oriented players to choose the technologies they need, when they
+    need it.
+
+    Compared to the other branches, Physics is the most self-contained.
+    A novice player could stick with this field and get all their
+    research needs met: All the basic station functionalities and their
+    core power and O2 upgrades, decent weapons, and some morale boosting
+    entertainment.
+
+    Even experienced players choosing to specialize in one of the other
+    fields will appreciate being able to tune their research program by
+    selecting a few of the entry-level Physics options.
+
+
+Organics: What appears to be a simple field at its most basics, quickly
+    branches into a huge tree covering biological food and O2
+    production, genetic engineering, insectoid warriors, and organic
+    based ship construction.  Players will enjoy the unique novelties
+    this field provides, forcing new thinking for solving the various
+    problems in the game.  Things that would be problems, such as
+    Maladies, now become important tools; things that were important
+    tools, such as nuclear power plants, now become irritating
+    problems.
+
+    Good luck, and maybe research the flame thrower from Physics, just
+    in case.
+
+
+Mathematics:  In many ways the soul of the other trees, Mathematics is
+    effectively a set of keys that unlock the most powerful secrets
+    hidden in other trees.
+
+    Specialization in Mathematics is key for becoming a dominant player
+    in the intergalactic merchantile network, as it provides a wealth of
+    trade opportunities.  And just as in the 21st century, money means
+    power, and so Mathematics empowers the player to much more easily
+    control and manipulate outside interactions.  If the player wishes
+    to stop hostiles, a mercenary force is mere credits away.  Should
+    they wish more space for their crew, pre-built ship modules are
+    simply imported.  Morale problems can be tackled with bonus payouts.  
+
