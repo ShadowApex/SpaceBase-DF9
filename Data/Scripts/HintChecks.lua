@@ -331,7 +331,6 @@ function HintChecks.getNumMonitors()
 	for _,plant in pairs(tPlants) do
 			nSeeded = nSeeded + 1
 		end
-	end
 	return nSeeded
 end
 
@@ -341,7 +340,6 @@ function HintChecks.getNumPlants()
 	for _,plant in pairs(tPlants) do
 			nSeeded = nSeeded + 1
 		end
-	end
 	return nSeeded
 end
 
