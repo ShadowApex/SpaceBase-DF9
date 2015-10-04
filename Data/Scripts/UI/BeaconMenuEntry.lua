@@ -8,6 +8,7 @@ local Gui = require("UI.Gui")
 local Renderer = require('Renderer')
 local MOAIPropExt = require('SBRS.MOAIPropExt')
 local EmergencyBeacon = require('Utility.EmergencyBeacon')
+--local BeaconMenu = require('UI.BeaconMenu')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuEntryLayout'
 
@@ -16,10 +17,12 @@ function m.create()
 	local rSquad
 	local nIndex
 	local bDisabled = false
+	local rBeaconMenu
+	local sHotkey
 	
-	function Ob:init()
+	function Ob:init(_rBeaconMenu)
 --        self:setRenderLayer('UIScrollLayerLeft')
-
+		rBeaconMenu = _rBeaconMenu
         Ob.Parent.init(self)
         self:processUIInfo(sUILayoutFileName)
 		self.rNameLabel = self:getTemplateElement('NameLabel')
@@ -34,9 +37,9 @@ function m.create()
 	
 	function Ob:setName(_rSquad, _sHotkey, rCallback)
 		rSquad = _rSquad
-		nIndex = tonumber(_sHotkey)
+		sHotkey = _sHotkey
 		self.rNameLabel:setString(rSquad.getName())
-		self.rHotKey:setString(_sHotkey)
+		self.rHotKey:setString(sHotkey)
 		self.rSizeLabel:setString('Size: '..rSquad.getSize())
 		self.rStatusLabel:setString('Status: '..rSquad.getStatusString())
 		local rDeckLow, rDeckMed, rDeckHigh = g_ERBeacon:getGraphics(rSquad.getName())
@@ -71,8 +74,13 @@ function m.create()
 		return rSquad.getName()
 	end
 	
-	function Ob:getIndex()
-		return nIndex
+	function Ob:setHotkey(_sHotkey)
+		if sHotkey then
+			rBeaconMenu:remHotkey(sHotkey)
+		end
+		sHotkey = _sHotkey
+		self.rHotKey:setString(sHotkey)
+		rBeaconMenu:addHotkey(sHotkey, self:getTemplateElement("NameButton"))
 	end
 	
 	function Ob:setSelected(isSelected)

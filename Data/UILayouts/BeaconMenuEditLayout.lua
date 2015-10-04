@@ -18,7 +18,7 @@ return
 			key = '_',
 			type = 'onePixel',
 			pos = { 0, 0 },
-			scale = { 100, 200 },
+			scale = { 100, 250 },
 			color = Gui.BLACK,
 		},
 		{

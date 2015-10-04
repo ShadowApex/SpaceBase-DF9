@@ -58,13 +58,14 @@ function m.create()
 	end
 	
 	function Ob:remove(sName)
+		local nOrder = tList[sName].nOrder
 		tList[sName]:hide()
 		tList[sName] = nil
 		nSize = nSize - 1
 		for k,v in pairs(tList) do
-			if v.nOrder >= nSize then
+			if k ~= sName and v.nOrder >= nOrder then
 				v.nOrder = v.nOrder - 1
-				self:_updateElement(sName)
+				self:_updateElement(k)
 			end
 		end
 	end
@@ -74,13 +75,15 @@ function m.create()
 	end
 	
 	function Ob:_updateElement(sName)
+		print("UIList:_updateElement("..sName..")")
 		local x, y = self:getLoc()
 		local w, h = tList[sName]:getDims()
 		tList[sName]:setLoc(x, h * tList[sName].nOrder)
+		tList[sName]:setHotkey(''..(tList[sName].nOrder + 1))
 	end
 	
 	function Ob:hide(bKeepAlive)
-        Ob.Parent.hide(self,bKeepAlive)
+        Ob.Parent.hide(self, bKeepAlive)
     end
 
     function Ob:show(nMaxPri)

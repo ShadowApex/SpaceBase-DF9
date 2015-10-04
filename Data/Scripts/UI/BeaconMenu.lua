@@ -11,6 +11,7 @@ local World = require('World')
 local SquadList = require('SquadList')
 local BeaconMenuEntry = require('UI.BeaconMenuEntry')
 local BeaconMenuEdit = require('UI.BeaconMenuEdit')
+local UIList = require('SBRS.UIList')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
 
@@ -27,13 +28,14 @@ function m.create()
 	local squadList = World.getSquadList()
 	local tBeaconMenuEntries = {}
 	local activeEntry = nil
-	local rScrollableUI
+--	local rScrollableUI
 	local nNumEntries = 0
 	local rThreatHighButton, rThreatMediumButton, rThreatLowButton, rStandDownButton
 	local rThreatHighLabel, rThreatMediumLabel, rThreatLowLabel, rStandDownLabel
 	local rThreatHighHotkey, rThreatMediumHotkey, rThreatLowHotkey, rStandDownHotkey
 	local rBeaconMenuEdit
-	local nBeaconMenuEditXLoc = 385
+	local nBeaconMenuEditXLoc = 400
+	local rUIList = UIList.new()
 
     function Ob:init(_menuManager)
         Ob.Parent.init(self)
@@ -41,9 +43,12 @@ function m.create()
 
         self.rDoneButton = self:getTemplateElement('DoneButton')
 		self.rCreateSquadButton = self:getTemplateElement('CreateSquadButton')
-		rScrollableUI = self:getTemplateElement('ScrollPane')
-		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
-		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
+--		rScrollableUI = self:getTemplateElement('ScrollPane')
+--		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
+--		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
+--		rScrollableUI:addElement(rUIList)
+		self:addElement(rUIList)
+		rUIList:setLoc(0, -134)
 
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
 		self.rCreateSquadButton:addPressedCallback(self.onCreateSquadButtonPressed, self)
@@ -88,6 +93,27 @@ function m.create()
     
         self.tHotkeyButtons[keyCode] = rButton
     end
+	
+	function Ob:remHotkey(sKey)
+		sKey = string.lower(sKey)
+    
+        local keyCode = -1
+    
+        if sKey == "esc" then
+            keyCode = 27
+        elseif sKey == "ret" or sKey == "ent" then
+            keyCode = 13
+        elseif sKey == "spc" then
+            keyCode = 32
+        else
+            keyCode = string.byte(sKey)
+            
+            -- also store the uppercase version because hey why not
+            local uppercaseKeyCode = string.byte(string.upper(sKey))
+            self.tHotkeyButtons[uppercaseKeyCode] = nil
+        end
+		self.tHotkeyButtons[keyCode] = nil
+	end
     
     -- returns true if key was handled
     function Ob:onKeyboard(key, bDown)
@@ -146,7 +172,8 @@ function m.create()
 		end
 		activeEntry = rEntry
 		rBeaconMenuEdit:setSquad(rSquad)
-		rBeaconMenuEdit:setLoc(nBeaconMenuEditXLoc, activeEntry.nYLoc - 60 + rScrollableUI:getScrollDistance())
+		local x,y = activeEntry:getLoc()
+		rBeaconMenuEdit:setLoc(nBeaconMenuEditXLoc, y - 60 + rUIList:getScrollDistance())
 		rBeaconMenuEdit:show()
 	end
 	
@@ -156,6 +183,7 @@ function m.create()
 		if nNumEntries ~= squadList.numSquads() then
 			for k,v in pairs(tBeaconMenuEntries) do
 				if not tSquads[k] then
+					rUIList:remove(k)
 					tBeaconMenuEntries[k]:hide(false)
 					tBeaconMenuEntries[k] = nil
 					nNumEntries = nNumEntries - 1
@@ -165,28 +193,29 @@ function m.create()
 		for k,v in pairs(tSquads) do
 			if not tBeaconMenuEntries[k] then
 				local rNewEntry = self:addEntry(k)
-				local w, h = rNewEntry:getDims()
-				rNewEntry:setLoc(0, h * (rNewEntry:getIndex() - 1))
+--				local w, h = rNewEntry:getDims()
+--				rNewEntry:setLoc(0, h * (rNewEntry:getIndex() - 1))
 			else
-				local w, h = tBeaconMenuEntries[k]:getDims()
-				tBeaconMenuEntries[k]:setLoc(0, h * (tBeaconMenuEntries[k]:getIndex() - 1))
+--				local w, h = tBeaconMenuEntries[k]:getDims()
+--				tBeaconMenuEntries[k]:setLoc(0, h * (tBeaconMenuEntries[k]:getIndex() - 1))  -- getIndex() is wrong
 			end
 		end
-		rScrollableUI:refresh()
+--		rScrollableUI:refresh()
 	end
 	
 	function Ob:addEntry(sName)
-		local rNewEntry = BeaconMenuEntry.new()
+		local rNewEntry = BeaconMenuEntry.new(self)
         local w,h = rNewEntry:getDims()
-        local nYLoc = h * nNumEntries - 1
-        rNewEntry:setLoc(20, nYLoc)
+--        local nYLoc = h * nNumEntries - 1
+--        rNewEntry:setLoc(20, nYLoc)
         self:_calcDimsFromElements()
-        rScrollableUI:addScrollingItem(rNewEntry)
+--        rScrollableUI:addScrollingItem(rNewEntry)
 		local sHotkey = ''..(math.fmod(nNumEntries + 1, 10))
 		rNewEntry:setName(squadList.getSquad(sName), sHotkey..'.', self.onSlotButtonPressed)
+		rUIList:add(sName, rNewEntry)
 		self:addHotkey(sHotkey, rNewEntry:getTemplateElement("NameButton"))
 		tBeaconMenuEntries[sName] = rNewEntry
-		tBeaconMenuEntries[sName].nYLoc = nYLoc
+--		tBeaconMenuEntries[sName].nYLoc = nYLoc
 		nNumEntries = nNumEntries + 1
 		return rNewEntry
 	end
@@ -194,7 +223,7 @@ function m.create()
     function Ob:show(basePri)
         local nPri = Ob.Parent.show(self, basePri)
         g_GameRules.setUIMode(g_GameRules.MODE_BEACON)
-		rScrollableUI:reset()
+--		rScrollableUI:reset()
 		self:updateDisplay()
         return nPri
     end
