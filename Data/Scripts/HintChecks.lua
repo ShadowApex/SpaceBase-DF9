@@ -329,7 +329,6 @@ function HintChecks.getNumMonitors()
 	local tPlants = EnvObject.getObjectsOfType('TVScreen1', true)
 	local nSeeded = 0
 	for _,plant in pairs(tPlants) do
-		if plant.bSeeded then
 			nSeeded = nSeeded + 1
 		end
 	end
@@ -340,7 +339,6 @@ function HintChecks.getNumPlants()
 	local tPlants = EnvObject.getObjectsOfType('HousePlant', true)
 	local nSeeded = 0
 	for _,plant in pairs(tPlants) do
-		if plant.bSeeded then
 			nSeeded = nSeeded + 1
 		end
 	end
