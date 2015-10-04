@@ -54,7 +54,6 @@ function SquadList.new()
 		for k,v in pairs(tSquadData) do
 			if not self.getSquad(v.name) then
 				self.addSquad(v.name, Squad.new(v.name, v.status, v.members))
-				nSize = nSize + 1
 			end
 		end
 	end
