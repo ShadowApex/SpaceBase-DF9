@@ -657,7 +657,18 @@ end
 
 function Character:setJob(job, bLoading)
 	if self:getJob() == Character.EMERGENCY and self:getSquadName() and job ~= Character.EMERGENCY then
-		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
+		local rSquadList = World.getSquadList()
+		if rSquadList then
+			local rSquad = rSquadList.getSquad(self:getSquadName())
+			if rSquad then
+				rSquad.remMember(self:getUniqueID())
+			else
+				print('Character:setJob() rSquad == nil')
+			end
+		else
+			print('Character:setJob() rSquadList == nil')
+		end
+--		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
 		self:setSquadName(nil)
 	end
     assertdev(Character.JOB_NAMES[job])
