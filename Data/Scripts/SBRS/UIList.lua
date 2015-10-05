@@ -75,7 +75,7 @@ function m.create()
 	end
 	
 	function Ob:_updateElement(sName)
-		print("UIList:_updateElement("..sName..")")
+		--print("UILIST.LUA:_updateElement("..sName..")")
 		local x, y = self:getLoc()
 		local w, h = tList[sName]:getDims()
 		tList[sName]:setLoc(x, h * tList[sName].nOrder)

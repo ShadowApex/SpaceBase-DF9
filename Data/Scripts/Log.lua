@@ -785,7 +785,7 @@ function Log.add(tLogType, rChar, tData)
         tLogType = Log.tTypes.KILLBOT_GENERIC
     end
 	if not tLogType.lineCodes or #tLogType.lineCodes == 0 then
-		Print(TT_Warning, 'LOG: linecode not found for log type '..tLogType)
+		Print(TT_Warning, 'LOG.LUA: linecode not found for log type '..tLogType)
 		return
 	end
 	-- sort group of linecodes based on tag scores, pick best
@@ -823,7 +823,7 @@ function Log.add(tLogType, rChar, tData)
 	-- do replacements for linecode's string based on context
 	local sLine, tLines = Log.getReplacements(sBestLine, rChar, tData)
 	if not sLine or not tLines then
-		Print(TT_Warning, "LOG: couldn't parse replacements for log with linecode "..sBestLine)
+		Print(TT_Warning, "LOG.LUA: couldn't parse replacements for log with linecode "..sBestLine)
 		return
 	end
     -- compile entry data
@@ -978,7 +978,7 @@ function Log.getReplacement(tSub, rChar, tData)
 		-- use a tData key for the replacementink
 		return tData[tSub.keyName]
 	else
-		print("LOG: no evalFn or keyName for replacement "..tSub)
+		print("LOG.LUA: no evalFn or keyName for replacement "..tSub)
 		return 'ERROR'
 	end
 end

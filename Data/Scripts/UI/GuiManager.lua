@@ -1019,7 +1019,7 @@ end
 
 function GuiManager.getUIViewportSizeX()
     if not Renderer.getViewport() or not Renderer.getViewport().sizeX then
-        Print(TT_Warning, "Getting ui viewport sizex without viewport")
+        Print(TT_Warning, "GUIMANAGER.LUA: Getting ui viewport sizex without viewport")
         return Renderer.ScreenBufferWidth 
     end
     return Renderer.getViewport().sizeX
@@ -1027,7 +1027,7 @@ end
 
 function GuiManager.getUIViewportSizeY()
     if not Renderer.getViewport() or not Renderer.getViewport().sizeX then
-        Print(TT_Warning, "Getting ui viewport sizey without viewport")
+        Print(TT_Warning, "GUIMANAGER.LUA: Getting ui viewport sizey without viewport")
         return Renderer.ScreenBufferHeight
     end
     return Renderer.getViewport().sizeY

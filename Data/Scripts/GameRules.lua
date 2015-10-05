@@ -817,7 +817,7 @@ function GameRules.loadModule(setName,moduleName)
     local tCreationData = ShipModules[setName][moduleName]
 
     if not tCreationData then
-        Print(TT_Error, 'Failed to find module:',setName,moduleName)
+        Print(TT_Error, 'GAMERULES: Failed to find module:',setName,moduleName)
         assertdev(false)
         return
     end
@@ -848,7 +848,7 @@ function GameRules.loadModule(setName,moduleName)
     tModuleData.bHostile = bHostile or false
     
     if not filename then
-        Print(TT_Warning, 'No filename for module '..setName..','..moduleName)
+        Print(TT_Warning, 'GAMERULES: No filename for module '..setName..','..moduleName)
         return tModuleData
     end
 
@@ -1136,7 +1136,7 @@ function GameRules.setTimeScale(timeScale)
     MOAIActionMgr.setTimeScaleByType(ACTIONTYPE_GAMEPLAY, timeScale)
     DFSpace.setGlobalTimeScale(timeScale);
     DFEffects.setGlobalTimeScale(timeScale);
-	print("Time Scale:",GameRules.playerTimeScale)
+	print("GAMERULES: Time Scale:",GameRules.playerTimeScale)
 end
 
 function GameRules.loadRandomFromSet(setName)
@@ -1318,7 +1318,7 @@ function GameRules.setCameraLoc(x,y,z)
     z = z or oldZ
     x,y = World.clampToBounds(x,y)
     if x == math.inf or y == math.inf or z == math.inf or x ~= x or y ~= y or z ~= z then
-        Print(TT_Error, 'Attempt to move camera to NaN.')
+        Print(TT_Error, 'GAMERULES: Attempt to move camera to NaN.')
     else
         local xDelta = oldX - x
         local yDelta = oldY - y

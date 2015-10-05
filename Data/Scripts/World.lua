@@ -350,7 +350,7 @@ end
 function World._setZoneAtAddr(addr, zoneName)
     local tileX, tileY = World.pathGrid:cellAddrToCoord(addr)
     if not World.countsAsFloor(World.pathGrid:getTileValue(tileX,tileY)) then
-        Print(TT_Warning,'Attempt to set non-floor to zone',zoneName)
+        Print(TT_Warning,'WORLD.LUA: Attempt to set non-floor to zone',zoneName)
 --         World._setTile(tileX, tileY, World.logicalTiles.ASTEROID_VALUE_START)
     else
         World._setTile(tileX, tileY, World.logicalTiles[zoneName])
@@ -860,7 +860,7 @@ function World.loadSaveData(nSavegameVersion, saveData)
     ]]--
 
     World.tileHealth = saveData.tileHealth or {}
-    print('a')
+    print('WORLD.LUA: a')
     World.roomGrid:fill(0)
     World.pathGrid = LuaGrid.fromSaveData(saveData.pathGrid, false, {nDefaultVal=World.logicalTiles.SPACE})
     local tTiles = World.pathGrid.tTiles
@@ -881,10 +881,10 @@ function World.loadSaveData(nSavegameVersion, saveData)
             World._dirtyTile(x,y,true)
         end
     end
-    print('b')
+    print('WORLD.LUA: b')
     World.loadOtherTypes(nSavegameVersion, saveData)
     
-    print('c')
+    print('WORLD.LUA: c')
 	World.tilesToExplore = {}
 	if saveData.tilesToExplore then
 		for _,v in ipairs(saveData.tilesToExplore) do
@@ -892,7 +892,7 @@ function World.loadSaveData(nSavegameVersion, saveData)
 		end
 	end
     
-    print('d')
+    print('WORLD.LUA: d')
 
     -- using the fixupVisuals approach since just save/loading the saved tile data gives us ugly
     -- results when we update our tiles.    
@@ -911,7 +911,7 @@ function World.loadSaveData(nSavegameVersion, saveData)
         end
     end
 
-    print('f')
+    print('WORLD.LUA: f')
 end
 
 function World.updateSavegame(nSavegameVersion, saveData)
@@ -1356,7 +1356,7 @@ function World._clearPropReservation(tx, ty, propName, roomID)
         end
     else
         if not World.bLoadingGame and not World.bLoadingModule then
-            Print(TT_Warning, 'Incorrect reservation clear.')
+            Print(TT_Warning, 'WORLD.LUA: Incorrect reservation clear.')
         end
     end
 end
@@ -2398,14 +2398,14 @@ function World._getWallTileDetails(tileX, tileY)
 	local topTile = MiscUtil.weightedRandom(top, addr)
 	-- use fallback "error" art if this tile isn't found
 	if not World.layers.worldWall.spriteSheet.names[topTile] then
-		print('World._getWallTileDetails: '..topTile..' not found')
+		print('WORLD.LUA: World._getWallTileDetails: '..topTile..' not found')
 		topTile = fallBack
 	else
 		topTile = World.layers.worldWall.spriteSheet.names[topTile]
 	end
 	local bottomTile = MiscUtil.weightedRandom(bottom, addr)
 	if not World.layers.worldWall.spriteSheet.names[bottomTile] then
-		print('World._getWallTileDetails: '..bottomTile..' not found')
+		print('WORLD.LUA: World._getWallTileDetails: '..bottomTile..' not found')
 		bottomTile = fallBack
 	else
 		bottomTile = World.layers.worldWall.spriteSheet.names[bottomTile]
@@ -2826,9 +2826,9 @@ function World._dumpBlobs()
     for addr,tBlob in pairs(World.tWallAddrToBlob) do
         if not tMarked[tBlob] then
             tMarked[tBlob] = true
-            print('Blob: ')
+            print('WORLD.LUA: Blob: ')
             for blobAddr,_ in pairs(tBlob.tWallAddrs) do
-                print('   ',World.pathGrid:cellAddrToCoord(blobAddr))
+                print('WORLD.LUA:    ',World.pathGrid:cellAddrToCoord(blobAddr))
             end
         end
     end

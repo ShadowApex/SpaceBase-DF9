@@ -33,7 +33,7 @@ DBG_START_IN_EDIT_MODE = false
 
 -- check for luajit status
 local jit = require("jit")    
-print("jit status: " .. tostring(jit.status()))
+print("MAIN.LUA: jit status - " .. tostring(jit.status()))
 
 local function _initGarbageCollector()
 	-- Setup the garbage collector
@@ -130,9 +130,9 @@ local function _initGame(windowWidth, windowHeight)
             g_GuiManager.fadeInCentered("2HB",1) --JM: draw the logo centered instead of stretched across the screen
             DFUtil.sleep(3)
             
-            print('StartThread a')
+            print('MAIN.LUA: StartThread a')
 			DFGraphics.blockOnAsyncTextureLoad()    
-            print('StartThread b')
+            print('MAIN.LUA: StartThread b')
             
             coroutine.yield()
             coroutine.yield()
@@ -153,9 +153,9 @@ local function _initGame(windowWidth, windowHeight)
                 end ]]--    
             end
             
-            print('StartThread c')
+            print('MAIN.LUA: StartThread c')
 			DFGraphics.blockOnAsyncTextureLoad()
-            print('StartThread d')
+            print('MAIN.LUA: StartThread d')
             if bLoaded then GameRules.startLoop() end
             g_GuiManager.fadeOutFullScreen()
             
@@ -163,7 +163,7 @@ local function _initGame(windowWidth, windowHeight)
                 g_GuiManager.showNewBaseScreen()
             else
                 g_GuiManager.showStartMenu(true)
-				print('StartMenu Load')
+				print('MAIN.LUA: StartMenu Load')
                 if g_Config:getConfigValue('auto_start') then
                     g_GuiManager.startMenu:resume()
                 end
@@ -186,7 +186,7 @@ function main()
 	local data = file:read('*all')
 	file:close()
 	data = data:gsub('\n', '')
-    print('LAUNCHING SPACEBASE BUILD: '..data)
+    print('MAIN.LUA: LAUNCHING SPACEBASE BUILD '..data)
     MOAIEnvironment.appVersion = data
 
     -- Setup linecode

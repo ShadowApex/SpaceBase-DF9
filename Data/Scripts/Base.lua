@@ -372,14 +372,14 @@ end
 function Base._fillInTeamBehaviorForOldSaves(rEnt,nTeam)
     if rEnt.tStats and rEnt.tStats.nFactionBehavior then 
         Base.tS.tTeamIDToFactionBehavior[nTeam] = rEnt.tStats.nFactionBehavior
-        print('Writing faction behavior for team ',nTeam,' Setting to: ',rEnt.tStats.nFactionBehavior)
+        print('BASE.LUA: Writing faction behavior for team ',nTeam,' Setting to: ',rEnt.tStats.nFactionBehavior)
     else
         if nTeam == Character.TEAM_ID_PLAYER then 
             Base.tS.tTeamIDToFactionBehavior[nTeam] = Character.FACTION_BEHAVIOR.Citizen
             --print('Writing player faction behavior for team ',nTeam)
         else
             Base.tS.tTeamIDToFactionBehavior[nTeam] = Character.FACTION_BEHAVIOR.EnemyGroup
-            print('Guessing at faction behavior',(rEnt.getUniqueID and rEnt:getUniqueID()) or 'unnamed',nTeam)
+            print('BASE.LUA: Guessing at faction behavior',(rEnt.getUniqueID and rEnt:getUniqueID()) or 'unnamed',nTeam)
         end
     end
     return Base.tS.tTeamIDToFactionBehavior[nTeam]
@@ -406,7 +406,7 @@ function Base._characterInit(tStats)
     if not tStats or not tStats.nTeam or not tStats.nFactionBehavior then return end
     
     if tStats.nTeam > Character.TEAM_ID_PLAYER and tStats.nTeam < Character.TEAM_ID_FIRST_USABLE then
-        Print(TT_Warning, "Character initializing with debug team ID.", tStats.sUniqueID, tStats.nTeam, tStats.nFactionBehavior)
+        Print(TT_Warning, "BASE.LUA: Character initializing with debug team ID.", tStats.sUniqueID, tStats.nTeam, tStats.nFactionBehavior)
     end
     
     if not Base.tS.tTeamIDToFactionBehavior[tStats.nTeam] then

@@ -89,9 +89,9 @@ function EventController.setBaseSeeds()
         local nWeight = rClass.getWeight(25, 60*60*2, true)
         nTotal = nTotal + nMod * nWeight
         nClasses = nClasses + nWeight
-        print('    ',rClass.sEventType,nMod,'weight:',nWeight)
+        print('EVENTCONTROLLER.LUA:     ',rClass.sEventType,nMod,'weight:',nWeight)
     end
-    print('total',nTotal,'out of',nClasses)
+    print('EVENTCONTROLLER.LUA: total',nTotal,'out of',nClasses)
     local nAvg = nTotal / nClasses
     -- perfectly average is about
 
@@ -110,7 +110,7 @@ function EventController.setBaseSeeds()
     nAvg = 1-nAvg
     nAvg = nAvg*nAvg*nAvg*nAvg -- curve it out! still 0-1, but the av
     local nTimeBetween = 135 + nAvg * 465
-    print('avg time between events',nTimeBetween)
+    print('EVENTCONTROLLER.LUA: avg time between events',nTimeBetween)
     EventController.tS.tSpawnModifiers.nAvgTimeBetweenEvents = nTimeBetween
 end
 
@@ -360,7 +360,7 @@ function EventController.clearCurrentEventFromSaveTable(id)
     else
         if EventController.tS.tNextEventData and EventController.tS.tNextEventData.sEventType == 'CompoundEvent' then
         else
-            Print(TT_Warning, 'not clearing event id',id)
+            Print(TT_Warning, 'EVENTCONTROLLER.LUA: not clearing event id',id)
             --assertdev(false)
             EventController.tS.tNextEventData = nil
         end
@@ -536,7 +536,7 @@ function EventController.DBG_fakeLateForecast()
         table.insert(EventController.tS.tPrevEventInfo, {})
     end
     EventController.generateEventForecast(30,60*60*2)
-    print(EventController.getForecastDebugText())
+    print("EVENTCONTROLLER.LUA: "..EventController.getForecastDebugText())
 end
 
 --- Create upcoming events
@@ -807,7 +807,7 @@ function EventController.spawnModuleEntities(tEventData, tModuleData, tTeams)
                                 EnvObject.createEnvObject(spawnData.sType or spawnData.sTemplate, wx, wy, bFlipX, bFlipY, true, spawnData.tSaveData, nTeam)
                             end
                         else
-                            Print(TT_Error, "Invalid object type in save data: "..tostring(spawnData.sType))
+                            Print(TT_Error, "EVENTCONTROLLER.LUA: Invalid object type in save data: "..tostring(spawnData.sType))
                         end
                     end
                 end

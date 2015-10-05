@@ -297,7 +297,7 @@ function Character:setLoc(x,y,z,bForce,bLoading)
 			if bHidden then
 				--                print(TT_Warning, "Attempt to put character into a wall.",self:getUniqueID())
 				if bLoading then
-					Print(TT_Warning, "Invalid position was stored in savegame. Attempting to fix.")
+					Print(TT_Warning, "CHARACTER.LUA: Invalid position was stored in savegame. Attempting to fix.")
 
 					local testFn = function(testTX,testTY)
 									   return World._isPathable(testTX,testTY) and Oxygen.getOxygen(World._getWorldFromTile(testTX,testTY)) > Character.OXYGEN_SUFFOCATING
@@ -305,7 +305,7 @@ function Character:setLoc(x,y,z,bForce,bLoading)
 					local newTX,newTY = World.isAdjacentToFn(tx,ty, testFn, true)
 					if newTX and newTY then
 						local newWX,newWY = World._getWorldFromTile(newTX,newTY)
-						Print(TT_Gameplay,'Moving character to new tile.',newTX,newTY,"World:",newWX,newWY)
+						Print(TT_Gameplay,'CHARACTER.LUA: Moving character to new tile.',newTX,newTY,"World:",newWX,newWY)
 						self:setLoc(newWX,newWY,z)
 						return true
 					end
@@ -323,7 +323,7 @@ function Character:setLoc(x,y,z,bForce,bLoading)
 		end
 
 		if x == math.inf or y == math.inf or x ~= x or y ~= y or (z and (z == math.inf or z ~= z)) then
-			Print(TT_Error, 'Attempt to move character to NaN.')
+			Print(TT_Error, 'CHARACTER.LUA: Attempt to move character to NaN.')
 			assertdev(false)
 			return false
 		end
@@ -663,10 +663,10 @@ function Character:setJob(job, bLoading)
 			if rSquad then
 				rSquad.remMember(self:getUniqueID())
 			else
-				print('Character:setJob() rSquad == nil')
+				print('CHARACTER.LUA: Character:setJob() rSquad == nil')
 			end
 		else
-			print('Character:setJob() rSquadList == nil')
+			print('CHARACTER.LUA: Character:setJob() rSquadList == nil')
 		end
 --		World.getSquadList().getSquad(self:getSquadName()).remMember(self:getUniqueID())
 		self:setSquadName(nil)
@@ -703,7 +703,7 @@ function Character:getAnimDuration(sAnimName, rRig)
     end
 	local tAnimData = tAnimSetData[sAnimName]
     if not tAnimData then
-		Print(TT_Warning, "Missing anim:"..sAnimName)
+		Print(TT_Warning, "CHARACTER.LUA: Missing anim:"..sAnimName)
         return
     end
 	if tAnimData.sFilename then
@@ -877,7 +877,7 @@ function Character:playAnim(sAnimName, bPlayOnce)
 	if tAnimData.sAnimPath then
 		self.rCurrentRig:playAnimation(tAnimData)
 	else
-		Print(TT_Warning, "Failed to play animation",sAnimName,"on",self:getUniqueID())
+		Print(TT_Warning, "CHARACTER.LUA: Failed to play animation",sAnimName,"on",self:getUniqueID())
 	end
 end
 
@@ -900,7 +900,7 @@ function Character:playOverlayAnim(sAnimName, bPlayOnce)
 		tAnimData.animPriority = DFAnimController.PRIORITY_OVERLAY
 		self.rCurrentRig:playAnimation(tAnimData)
 	else
-		Print(TT_Warning, "Failed to play OVERLAY animation",sAnimName,"on",self:getUniqueID())
+		Print(TT_Warning, "CHARACTER.LUA: Failed to play OVERLAY animation",sAnimName,"on",self:getUniqueID())
 	end
 end
 
@@ -1779,7 +1779,7 @@ function Character:setElevatedSpacewalk(bElevated, bForce)
 	if bElevated == self.tStatus.bElevatedSpacewalk and not bForce then return end
 
 	if self.tStatus.bElevatedSpacewalk and not bElevated and not self:canDeElevate() then
-		Print(TT_Warning, 'Ignoring request to de-elevate character inside.')
+		Print(TT_Warning, 'CHARACTER.LUA: Ignoring request to de-elevate character inside.')
 		return
 	end
 
@@ -2781,7 +2781,7 @@ function Character:forcePuppet(rMarionette, bErrorOnFailure)
 		self:forceTask(rTask)
 		return true
 	elseif bErrorOnFailure then
-		Print(TT_Error, 'Failed to move character to puppet priority.')
+		Print(TT_Error, 'CHARACTER.LUA: Failed to move character to puppet priority.')
 	end
 end
 
@@ -2890,11 +2890,11 @@ function Character:_selectTask()
 
 	if bPrintLog then
 		Print(TT_Gameplay,logStr)
-		Print(TT_Gameplay,'-- DECISION COMPLETE',self.tStats.sUniqueID,g_GameRules.elapsedTimeRaw)
+		Print(TT_Gameplay,'CHARACTER.LUA: -- DECISION COMPLETE',self.tStats.sUniqueID,g_GameRules.elapsedTimeRaw)
 		if rNewOption then
-			Print(TT_Gameplay,'  - Selected:',rNewOption.name,nNewUtility)
+			Print(TT_Gameplay,'CHARACTER.LUA:   - Selected:',rNewOption.name,nNewUtility)
 		else
-			Print(TT_Gameplay,'  - No option found.')
+			Print(TT_Gameplay,'CHARACTER.LUA:   - No option found.')
 		end
 	end
 
@@ -3404,7 +3404,7 @@ function Character:_setStats( tData )
 			nNumJobs = nNumJobs - 1
 		end
 		if nPoints > 0 then
-			Print(TT_Info, 'Duty skill point distribution for '..self.tStats.sUniqueID..' completed with '..nPoints..' points remaining.')
+			Print(TT_Info, 'CHARACTER.LUA: Duty skill point distribution for '..self.tStats.sUniqueID..' completed with '..nPoints..' points remaining.')
 		end
 	else
 		-- if we added a new job since this savegame was made, just randomize
@@ -3568,7 +3568,7 @@ function Character:_setRig( tData, tHackEntity )
 	self:_updateVariation() --turn on/off model subsets
 
 	if not self.rRig:setTexturePath( tSubsetReplacements ) then
-		Print(TT_Warning,'Bad texture replacements for',self:getUniqueID())
+		Print(TT_Warning,'CHARACTER.LUA: Bad texture replacements for',self:getUniqueID())
 	end
 
 	self.tAnimations[self.rRig] = DFUtil.deepCopy( require(sAnimDefPath) )
@@ -3587,7 +3587,7 @@ function Character:_setRig( tData, tHackEntity )
 		self:_setSpacesuitHandAccessoryTextures( tSpaceSuitReplacements )
 
 		if not self.rSpacesuitRig:setTexturePath( tSpaceSuitReplacements ) then
-			Print(TT_Warning,'Bad spacesuit texture replacements for',self:getUniqueID())
+			Print(TT_Warning,'CHARACTER.LUA: Bad spacesuit texture replacements for',self:getUniqueID())
 		end
 	end
 	self:setScl(nScl)
@@ -4017,10 +4017,10 @@ function Character:_setJobOutfit( bLoading, nJobOverride ) -- sets up job relate
 	self:_updateVariation()
 	self:_updateSpacesuitVariation()
 	if not self.rRig:setTexturePath( tJobSubsetReplacements ) then --set textures for model subsets
-		Print(TT_Warning,'Bad job texture replacements for',self:getUniqueID())
+		Print(TT_Warning,'CHARACTER.LUA: Bad job texture replacements for',self:getUniqueID())
 	end
 	if self.rSpacesuitRig and not self.rSpacesuitRig:setTexturePath( tSpacesuitJobSubsetReplacements ) then --set textures for model subsets
-		Print(TT_Warning,'Bad spacesuit job texture replacements for',self:getUniqueID())
+		Print(TT_Warning,'CHARACTER.LUA: Bad spacesuit job texture replacements for',self:getUniqueID())
 	end
 end
 
@@ -4147,7 +4147,7 @@ function Character:spacesuitOff()
 	assert(o2 > Character.OXYGEN_LOW)
 	local r = self:getRoom()
 	if not r or r.bBreach or r == Room.getSpaceRoom() then
-		print(TT_Warning, 'Taking off spacesuit in a breached room.')
+		print(TT_Warning, 'CHARACTER.LUA: Taking off spacesuit in a breached room.')
 	end
 
 	local ctx, cty = self:getLoc()
@@ -5054,7 +5054,7 @@ function Character:pickUpItem(tItem, bForceInHands)
         -- already got it.
     elseif self.tInventory[sName] then
         if Inventory.getMaxStacks(tItem) == 1 then
-            Print(TT_Warning, "Character attempted to pick up non-stackable item they already had: "..tItem.sName)
+            Print(TT_Warning, "CHARACTER.LUA: Character attempted to pick up non-stackable item they already had: "..tItem.sName)
             ObjectList.removeObject(ObjectList.getTag(tItem))
             return sName
         end
@@ -5317,7 +5317,7 @@ function Character:_factionSetup(bLoading)
             self.tStats.tPersonality.nBravery = .8+.2*math.random()
         elseif self:getJob() == Character.RAIDER then
             if not self.tStats.nSpawnedWithChallenge then
-                Print(TT_Warning, 'Spawning a raider without a challenge level.')
+                Print(TT_Warning, 'CHARACTER.LUA: Spawning a raider without a challenge level.')
             end
         end
         
@@ -5329,14 +5329,14 @@ function Character:_factionSetup(bLoading)
         end
 
         if self.tStats.nTeam == 1 then
-            Print(TT_Error, "Attempt to spawn enemy on player's team. Hackily setting to team 2.")
+            Print(TT_Error, "CHARACTER.LUA: Attempt to spawn enemy on player's team. Hackily setting to team 2.")
             self.tStats.nTeam = 2
             self.tStats.nOriginalTeam = 2
         end
 
     elseif nBehavior == Character.FACTION_BEHAVIOR.Friendly then
         if self.tStats.nTeam == 1 then
-            Print(TT_Error, "Attempt to spawn enemy on player's team. Hackily setting to team 2.")
+            Print(TT_Error, "CHARACTER.LUA: Attempt to spawn enemy on player's team. Hackily setting to team 2.")
             self.tStats.nTeam = 2
             self.tStats.nOriginalTeam = 2
         end
@@ -5797,7 +5797,7 @@ function Character:alterMorale(amount, reason)
 	m = math.min(math.max(m, Character.MORALE_MIN), Character.MORALE_MAX)
 	self.tStats.nMorale = m
 	if logMorale then
-		Print(TT_Info,'MORALE '..self.tStats.sUniqueID..': '..amount..' ('..reason..') boost:' .. math.abs(amount))
+		Print(TT_Info,'CHARACTER.LUA: MORALE '..self.tStats.sUniqueID..': '..amount..' ('..reason..') boost:' .. math.abs(amount))
 	end
     -- add to "recent morale events" log
     local timestamp = GameRules.sStarDate .. ':' .. GameRules.getStardateMinuteString()
