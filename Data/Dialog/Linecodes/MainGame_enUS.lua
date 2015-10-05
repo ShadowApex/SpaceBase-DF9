@@ -575,7 +575,7 @@
     HINTSX056TEXT = { sLine = "Since the introduction of the Power system, a 10-minute Power Holiday is in effect. Build Reactors to ensure your base's power demands are met.", },
     HINTSX057TEXT = { sLine = "A violent individual has been subdued. You can jail them until they cool off by selecting them and assigning them to a Brig zone.", },
     HINTSX058TEXT = { sLine = "You have at least one Miner and Refinery sitting idle. Give your Miners mining orders or consider reassigning them.", },
-    HINTSX059TEXT = { sLine = "Plants and Monitors increase morale dramatically, without them people get bored and sad and mad and start causing trouble (sometimes excessive amounts of trouble), we doubt you want trouble! build a couple!", },
+    HINTSX059TEXT = { sLine = "Plants and Monitors increase morale dramatically, without them people get bored and sad and mad and start causing trouble (sometimes excessive amounts of trouble), we doubt you want trouble! build a couple! (at least 2 of each)", },
     HUDHUD001TEXT = { sLine = "Last clicked:", },
     HUDHUD002TEXT = { sLine = "Matter", },
     HUDHUD003TEXT = { sLine = "O2 Capacity", },
