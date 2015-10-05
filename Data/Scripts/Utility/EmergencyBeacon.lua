@@ -65,6 +65,7 @@ function EmergencyBeacon:setSelectedSquad(rSquad)
 		self:newBeacon(rSquad.getName())
 	end
 	self.rSelectedSquad = rSquad
+	self:updatePreview(rSquad.getName())
 end
 
 function EmergencyBeacon:getViolence(sSquadName)
@@ -80,6 +81,10 @@ function EmergencyBeacon:setViolence(sSquadName, eViolence)
 		self:newBeacon(sSquadName)
 	end
 	self.tBeacons[sSquadName].eViolence = eViolence
+	self:updatePreview(sSquadName)
+end
+
+function EmergencyBeacon:updatePreview(sSquadName)
 	if self.rSelectedSquad then
 		local beacon = self:_getCurrentBeacon(sSquadName)
 		self.rPreviewProp:setDeck(beacon.deck)

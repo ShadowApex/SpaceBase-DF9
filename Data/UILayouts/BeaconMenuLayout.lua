@@ -31,7 +31,7 @@ return
         {
             key = 'LargeBar',
             type = 'onePixel',
-            pos = { 20, 0 },
+            pos = { 0, 0 },
             scale = { nButtonWidth,  nLargeBarHeight},
             color = Gui.SIDEBAR_BG,
         },
@@ -55,13 +55,13 @@ return
                 { key = 'DoneHotkey', color = Gui.AMBER, },
             },
         },
-		{
-            key = 'ScrollPane',
-            type = 'scrollPane',
-            pos = { 0, nButtonStartY },
-            rect = { 0, 0, nButtonWidth, nLargeBarHeight - 400 },
-			scissorLayerName='UIScrollLayerLeft',
-        },
+--		{
+--            key = 'ScrollPane',
+--            type = 'scrollPane',
+--            pos = { 0, nButtonStartY },
+--            rect = { 0, 0, nButtonWidth, nLargeBarHeight - 400 },
+--			scissorLayerName='UIScrollLayerLeft',
+--        },
         {
             key = 'MenuSublabel',
             type = 'textBox',
