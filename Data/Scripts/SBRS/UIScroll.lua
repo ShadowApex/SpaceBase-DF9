@@ -34,67 +34,29 @@ local UIElement = require('UI.UIElement')
 
 local m = {}
 
+m.SCROLL_LOCATION_LEFT = 1
+m.SCROLL_LOCATION_RIGHT = 2
+
 function m.create()
 	local Ob = DFUtil.createSubclass(UIElement.create())
-	local tList = {}
-	local nSize = 0
+	local rElement
+	local scrollY = 0
 	
-	function Ob:add(sName, rElement)
-		if not sName then
-			return
-		end
-		tList[sName] = rElement
-		tList[sName].nOrder = nSize
-		self:addElement(rElement)
-		self:_updateElement(sName)
-		tList[sName]:show()
-		nSize = nSize + 1
+	function Ob:init(width, height, scrollLocation)
+		scrollLocation = scrollLocation or m.SCROLL_LOCATION_RIGHT
+		self.uiWidth, self.uiHeight = width, height
+		self:setScl(width, height)
 	end
 	
-	function Ob:addList(_tList)
-		for k,v in pairs(_tList) do
-			self:add(k, v)
-		end
+	function Ob:addElement(_rElement)
+		rElement = _rElement
+		Ob.Parent:addElement(rElement)
+		self:_update()
 	end
 	
-	function Ob:remove(sName)
-		local nOrder = tList[sName].nOrder
-		tList[sName]:hide()
-		tList[sName] = nil
-		nSize = nSize - 1
-		for k,v in pairs(tList) do
-			if k ~= sName and v.nOrder >= nOrder then
-				v.nOrder = v.nOrder - 1
-				self:_updateElement(k)
-			end
-		end
+	function Ob:_update()
+		rElement:setLoc(0, scrollY)
 	end
-	
-	function Ob:getScrollDistance()  -- fix this
-		return 0
-	end
-	
-	function Ob:_updateElement(sName)
-		local x, y = self:getLoc()
-		local w, h = tList[sName]:getDims()
-		tList[sName]:setLoc(x, h * tList[sName].nOrder)
-		tList[sName]:update(self)
-	end
-	
-	function Ob:getOrder(sName)
-		if not sName or not tList[sName] then
-			return -1
-		end
-		return tList[sName].nOrder
-	end
-	
-	function Ob:hide(bKeepAlive)
-        Ob.Parent.hide(self, bKeepAlive)
-    end
-
-    function Ob:show(nMaxPri)
-        return Ob.Parent.show(self, nMaxPri)
-    end
 	
 	return Ob
 end

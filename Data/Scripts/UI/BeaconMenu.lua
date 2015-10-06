@@ -12,13 +12,14 @@ local SquadList = require('SquadList')
 local BeaconMenuEntry = require('UI.BeaconMenuEntry')
 local BeaconMenuEdit = require('UI.BeaconMenuEdit')
 local UIList = require('SBRS.UIList')
+local UIScroll = require('SBRS.UIScroll')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
 
 -- Things not working:
 --
 --    - Scrollbar displaying on right instead of left
---    - Arrow texture not correct (waiting for ed to get back to me)
+--    - Arrow texture not correct, have to figure out post effects
 --    - When scrolling, items that are off the scrollbar are still visible
 
 function m.create()
@@ -28,7 +29,7 @@ function m.create()
 	local squadList = World.getSquadList()
 	local tBeaconMenuEntries = {}
 	local activeEntry = nil
---	local rScrollableUI
+	local rScrollableUI
 	local nNumEntries = 0
 	local rThreatHighButton, rThreatMediumButton, rThreatLowButton, rStandDownButton
 	local rThreatHighLabel, rThreatMediumLabel, rThreatLowLabel, rStandDownLabel
@@ -43,13 +44,17 @@ function m.create()
 
         self.rDoneButton = self:getTemplateElement('DoneButton')
 		self.rCreateSquadButton = self:getTemplateElement('CreateSquadButton')
---		rScrollableUI = self:getTemplateElement('ScrollPane')
---		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
---		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
---		rScrollableUI:addElement(rUIList)
-		self:addElement(rUIList)
-		rUIList:setLoc(0, -134)
-
+		rScrollableUI = self:getTemplateElement('ScrollPane')
+		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
+		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
+		rScrollableUI:addElement(rUIList)
+--		self:addElement(rUIList)
+		
+--		local rUIScroll = UIScroll.new(400, 1000)
+--		rUIScroll:addElement(rUIList)
+--		self:addElement(rUIScroll)
+--		rUIList:setLoc(0, -134)
+		
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
 		self.rCreateSquadButton:addPressedCallback(self.onCreateSquadButtonPressed, self)
         
@@ -192,30 +197,18 @@ function m.create()
 		end
 		for k,v in pairs(tSquads) do
 			if not tBeaconMenuEntries[k] then
-				local rNewEntry = self:addEntry(k)
---				local w, h = rNewEntry:getDims()
---				rNewEntry:setLoc(0, h * (rNewEntry:getIndex() - 1))
-			else
---				local w, h = tBeaconMenuEntries[k]:getDims()
---				tBeaconMenuEntries[k]:setLoc(0, h * (tBeaconMenuEntries[k]:getIndex() - 1))  -- getIndex() is wrong
+				self:addEntry(k)
 			end
 		end
---		rScrollableUI:refresh()
 	end
 	
 	function Ob:addEntry(sName)
 		local rNewEntry = BeaconMenuEntry.new(self)
         local w,h = rNewEntry:getDims()
---        local nYLoc = h * nNumEntries - 1
---        rNewEntry:setLoc(20, nYLoc)
         self:_calcDimsFromElements()
---        rScrollableUI:addScrollingItem(rNewEntry)
-		local sHotkey = ''..(math.fmod(nNumEntries + 1, 10))
-		rNewEntry:setName(squadList.getSquad(sName), sHotkey..'.', self.onSlotButtonPressed)
+		rNewEntry:setName(squadList.getSquad(sName), self.onSlotButtonPressed)
 		rUIList:add(sName, rNewEntry)
-		self:addHotkey(sHotkey, rNewEntry:getTemplateElement("NameButton"))
 		tBeaconMenuEntries[sName] = rNewEntry
---		tBeaconMenuEntries[sName].nYLoc = nYLoc
 		nNumEntries = nNumEntries + 1
 		return rNewEntry
 	end
@@ -223,8 +216,8 @@ function m.create()
     function Ob:show(basePri)
         local nPri = Ob.Parent.show(self, basePri)
         g_GameRules.setUIMode(g_GameRules.MODE_BEACON)
---		rScrollableUI:reset()
 		self:updateDisplay()
+		rBeaconMenuEdit:show()
         return nPri
     end
 

@@ -1,6 +1,5 @@
 return {
     texture = 'MATT_White.png',
---	texture = 'bacon_ts.jpg',
     frames = {
             {
                 name = "Triangle",

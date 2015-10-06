@@ -399,7 +399,9 @@ function m.create()
                     sRenderLayerName = rElement.sElementLayerOverride
                 end
                 if not rElement.hideOverride then Renderer.getRenderLayer(sRenderLayerName):insertProp(rElement) end
-                rElement:setPriority(basePri)
+				if rElement.setPriority then
+					rElement:setPriority(basePri)
+				end
                 return basePri + 1
             end
 		else
@@ -551,6 +553,26 @@ function m.create()
                         print("ERROR(UI): Could not load UI texture "..tElementInfo.textureName)
                     end
                 end
+			elseif tElementInfo.type == 'uiTextureSingle' then
+				if tElementInfo.path and tElementInfo.rect and tElementInfo.pos then
+					local quad = MOAIGfxQuad2D.new()
+					quad:setTexture('Texture/'..tElementInfo.path)
+					quad:setRect(unpack(tElementInfo.rect))
+					local rProp = MOAIProp2D.new()
+					rProp:setDeck(quad)
+					Renderer.getRenderLayer(self:getRenderLayerName()):insertProp(rProp)
+					if tElementInfo.scale then
+						rProp:setScl(unpack(tElementInfo.scale))
+					end
+					rProp:setVisible(true)
+					rProp:setLoc(unpack(tElementInfo.pos))
+					if rProp then
+						rProp:setAttrLink(MOAITransform.INHERIT_TRANSFORM, self, MOAITransform.TRANSFORM_TRAIT)
+						self.tTemplateElements[sElementName] = rProp
+					else
+						print("UIElement:_addTemplateElement() uiTextureSingle - unable to load texture: "..tElementInfo.path)
+					end
+				end
             elseif tElementInfo.type == 'textBox' then
                 if tElementInfo.style then
                     local sString = ''

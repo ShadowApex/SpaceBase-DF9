@@ -8,7 +8,6 @@ local Gui = require("UI.Gui")
 local Renderer = require('Renderer')
 local MOAIPropExt = require('SBRS.MOAIPropExt')
 local EmergencyBeacon = require('Utility.EmergencyBeacon')
---local BeaconMenu = require('UI.BeaconMenu')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuEntryLayout'
 
@@ -21,12 +20,11 @@ function m.create()
 	local sHotkey
 	
 	function Ob:init(_rBeaconMenu)
---        self:setRenderLayer('UIScrollLayerLeft')
 		rBeaconMenu = _rBeaconMenu
         Ob.Parent.init(self)
         self:processUIInfo(sUILayoutFileName)
 		self.rNameLabel = self:getTemplateElement('NameLabel')
-		self.rHotKey = self:getTemplateElement('Hotkey')
+		self.rHotkey = self:getTemplateElement('Hotkey')
 		self.rSizeLabel = self:getTemplateElement('SizeLabel')
 		self.rStatusLabel = self:getTemplateElement('StatusLabel')
 		self.rNameButton = self:getTemplateElement('NameButton')
@@ -35,11 +33,9 @@ function m.create()
 		self:_calcDimsFromElements()
 	end
 	
-	function Ob:setName(_rSquad, _sHotkey, rCallback)
+	function Ob:setName(_rSquad, rCallback)
 		rSquad = _rSquad
-		sHotkey = _sHotkey
 		self.rNameLabel:setString(rSquad.getName())
-		self.rHotKey:setString(sHotkey)
 		self.rSizeLabel:setString('Size: '..rSquad.getSize())
 		self.rStatusLabel:setString('Status: '..rSquad.getStatusString())
 		local rDeckLow, rDeckMed, rDeckHigh = g_ERBeacon:getGraphics(rSquad.getName())
@@ -55,16 +51,11 @@ function m.create()
 		self.rBeaconHigh:setScl(0.5, 0.5, 0.5)
 		self.rBeaconMed:setScl(0.5, 0.5, 0.5)
 		self.rBeaconLow:setScl(0.5, 0.5, 0.5)
---		local x, y = self:getLoc()
 		local xOffset, yOffset = 50, -50
-
 		self.rCallback = rCallback
 		self:addElement(self.rBeaconHigh)
 		self:addElement(self.rBeaconMed)
 		self:addElement(self.rBeaconLow)
---		self:addTexture(self.rBeaconHigh, 50, -50)
---		self:addTexture(self.rBeaconMed, 50, -50)
---		self:addTexture(self.rBeaconLow, 50, -50)
 		self.rBeaconHigh:setLoc(xOffset, yOffset)
 		self.rBeaconMed:setLoc(xOffset, yOffset)
 		self.rBeaconLow:setLoc(xOffset, yOffset)
@@ -74,13 +65,16 @@ function m.create()
 		return rSquad.getName()
 	end
 	
-	function Ob:setHotkey(_sHotkey)
+	function Ob:update(rSource)
+		local sNewHotkey = tostring(math.fmod(rSource:getOrder(rSquad.getName()) + 1, 10))
 		if sHotkey then
 			rBeaconMenu:remHotkey(sHotkey)
 		end
-		sHotkey = _sHotkey
-		self.rHotKey:setString(sHotkey)
-		rBeaconMenu:addHotkey(sHotkey, self:getTemplateElement("NameButton"))
+		if not sHotkey or sHotkey ~= sNewHotkey then
+			sHotkey = sNewHotkey
+			rBeaconMenu:addHotkey(sHotkey, self:getTemplateElement("NameButton"))
+			self.rHotkey:setString(sHotkey)
+		end
 	end
 	
 	function Ob:setSelected(isSelected)

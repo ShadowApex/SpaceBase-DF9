@@ -27,6 +27,7 @@ function m.create()
 		self.rNoViolenceButton = self:getTemplateElement('NoViolenceButton')
 		self.rEditSquadButton = self:getTemplateElement('EditSquadButton')
 		self.rDisbandSquadButton = self:getTemplateElement('DisbandSquadButton')
+		self.rArrow = self:getTemplateElement('Arrow')
 		
 		self.rHighViolenceButton:addPressedCallback(self.onHighViolenceButtonPressed, self)
 		self.rMedViolenceButton:addPressedCallback(self.onMedViolenceButtonPressed, self)
@@ -77,11 +78,12 @@ function m.create()
     end
 	
 	function Ob:show(basePri)
-		
+		if self.rArrow then self.rArrow:setVisible(true) end
 		return Ob.Parent.show(self, basePri)
 	end
 	
 	function Ob:hide()
+		if self.rArrow then self.rArrow:setVisible(false) end
 		Ob.Parent.hide(self)
 	end
 	
