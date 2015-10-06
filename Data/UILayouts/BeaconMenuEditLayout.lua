@@ -1,7 +1,8 @@
 local Gui = require('UI.Gui')
 
 local nButtonWidth, nButtonHeight = 400, 50
-local nButtonXStart = 100
+--local nButtonXStart = 100
+local nButtonXStart = 0
 
 return
 {
@@ -21,7 +22,7 @@ return
 			scale = { 100, 250 },
 			color = Gui.BLACK,
 		},
-		{
+--		{
 --			key = 'Arrow',
 --			type = 'uiTexture',
 --			textureName = 'MATT_White',
@@ -31,16 +32,16 @@ return
 --			pos = { 0, -74 },
 ----			color = Gui.AMBER,
 ----			scale = { 1.0, 1.0 },
-		},
-		{
-			key = 'Arrow',
-			type = 'uiTextureSingle',
-			path = 'MATT_White.png',
-			rect = { 0, 0, 100, 100 },
-			pos = { -13, -179 },
-			scale = { 1.1, 1.1},
-			color = Gui.AMBER,
-		},
+--		},
+--		{
+--			key = 'Arrow',
+--			type = 'uiTextureSingle',
+--			path = 'MATT_White.png',
+--			rect = { 0, 0, 100, 100 },
+--			pos = { -13, -179 },
+--			scale = { 1.1, 1.1},
+--			color = Gui.AMBER,
+--		},
 		{
             key = 'HighViolenceButton',
             type = 'onePixelButton',
