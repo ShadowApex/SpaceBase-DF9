@@ -18,6 +18,7 @@ function m.create()
 	local bDisabled = false
 	local rBeaconMenu
 	local sHotkey
+	local isSelected = false
 	
 	function Ob:init(_rBeaconMenu)
 		rBeaconMenu = _rBeaconMenu
@@ -77,8 +78,13 @@ function m.create()
 		end
 	end
 	
-	function Ob:setSelected(isSelected)
+	function Ob:setSelected(_isSelected)
+		isSelected = _isSelected
 		self.rNameButton:setSelected(isSelected)
+	end
+	
+	function Ob:isSelected()
+		return isSelected
 	end
 	
 	function Ob:setViolence(eViolence)

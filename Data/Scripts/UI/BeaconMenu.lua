@@ -182,7 +182,7 @@ function m.create()
 		rBeaconMenuEdit:show()
 	end
 	
-	function Ob:updateDisplay()
+	function Ob:updateDisplay(isSelectionDisbanded)
 		squadList = World.getSquadList()
 		local tSquads = squadList.getList()
 		if nNumEntries ~= squadList.numSquads() then
@@ -199,6 +199,9 @@ function m.create()
 			if not tBeaconMenuEntries[k] then
 				self:addEntry(k)
 			end
+		end
+		if isSelectionDisbanded then
+			activeEntry = nil
 		end
 	end
 	
@@ -217,7 +220,9 @@ function m.create()
         local nPri = Ob.Parent.show(self, basePri)
         g_GameRules.setUIMode(g_GameRules.MODE_BEACON)
 		self:updateDisplay()
-		rBeaconMenuEdit:show()
+		if not activeEntry then
+			rBeaconMenuEdit:hide()
+		end
         return nPri
     end
 

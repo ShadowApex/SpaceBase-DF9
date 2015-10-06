@@ -140,7 +140,7 @@ function m.create()
 		if eventType == DFInput.TOUCH_UP then
 			local squadList = require('World').getSquadList()
 			squadList.disbandSquad(self.rSquad.getName())
-			rBeaconMenu:updateDisplay()
+			rBeaconMenu:updateDisplay(true)
 			self:hide()
 		end
 	end
