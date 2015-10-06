@@ -51,6 +51,7 @@ function SquadList.new()
 	end
 	
 	function self.loadSaveData(tSquadData)
+		if not tSquadData then return end
 		for k,v in pairs(tSquadData) do
 			if not self.getSquad(v.name) then
 				self.addSquad(v.name, Squad.new(v.name, v.status, v.members))
@@ -93,12 +94,14 @@ function SquadList.new()
 		end
 	end
 
-	function self.addSquad(sName, squad)
-		tSquads[sName] = squad
+	function self.addSquad(sName, rSquad)
+		if not sName or not rSquad then return end
+		tSquads[sName] = rSquad
 		nSize = nSize + 1
 	end
 
 	function self.remSquad(sName)
+		if not sName then return end
 		tSquads[sName] = nil
 		nSize = nSize - 1
 	end
@@ -112,6 +115,9 @@ function SquadList.new()
 	end
 
 	function self.disbandSquad(sName)
+		if not sName or not tSquads[sName] then
+			return
+		end
 		local tMembers = tSquads[sName].getMembers()
 		local CharacterManager = require('CharacterManager')
 		local Character = require('Character')
