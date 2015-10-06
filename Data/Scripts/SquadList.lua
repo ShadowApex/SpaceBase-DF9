@@ -43,7 +43,7 @@ function SquadList.new()
 	local self = {}
 	local tSquads = {}
 	local nSize = 0
-	local MAX_SQUADS = 10
+	local MAX_SQUADS = 5
 	local nSquadIndex = 1
 	
 	function self.init()

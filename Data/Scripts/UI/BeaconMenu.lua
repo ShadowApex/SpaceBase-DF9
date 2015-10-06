@@ -12,7 +12,7 @@ local SquadList = require('SquadList')
 local BeaconMenuEntry = require('UI.BeaconMenuEntry')
 local BeaconMenuEdit = require('UI.BeaconMenuEdit')
 local UIList = require('SBRS.UIList')
-local UIScroll = require('SBRS.UIScroll')
+--local UIScroll = require('SBRS.UIScroll')
 
 local sUILayoutFileName = 'UILayouts/BeaconMenuLayout'
 
@@ -29,7 +29,7 @@ function m.create()
 	local squadList = World.getSquadList()
 	local tBeaconMenuEntries = {}
 	local activeEntry = nil
-	local rScrollableUI
+--	local rScrollableUI
 	local nNumEntries = 0
 	local rThreatHighButton, rThreatMediumButton, rThreatLowButton, rStandDownButton
 	local rThreatHighLabel, rThreatMediumLabel, rThreatLowLabel, rStandDownLabel
@@ -44,16 +44,16 @@ function m.create()
 
         self.rDoneButton = self:getTemplateElement('DoneButton')
 		self.rCreateSquadButton = self:getTemplateElement('CreateSquadButton')
-		rScrollableUI = self:getTemplateElement('ScrollPane')
-		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
-		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
-		rScrollableUI:addElement(rUIList)
---		self:addElement(rUIList)
+--		rScrollableUI = self:getTemplateElement('ScrollPane')
+--		rScrollableUI:setRenderLayer('UIScrollLayerLeft')
+--		rScrollableUI:setScissorLayer('UIScrollLayerLeft')
+--		rScrollableUI:addElement(rUIList)
+		self:addElement(rUIList)
 		
 --		local rUIScroll = UIScroll.new(400, 1000)
 --		rUIScroll:addElement(rUIList)
 --		self:addElement(rUIScroll)
---		rUIList:setLoc(0, -134)
+		rUIList:setLoc(0, -134)
 		
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
 		self.rCreateSquadButton:addPressedCallback(self.onCreateSquadButtonPressed, self)

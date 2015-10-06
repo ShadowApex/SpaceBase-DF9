@@ -51,12 +51,21 @@ function m.create()
 	function Ob:addElement(_rElement)
 		rElement = _rElement
 		Ob.Parent:addElement(rElement)
+		rElement:show()
 		self:_update()
 	end
 	
 	function Ob:_update()
 		rElement:setLoc(0, scrollY)
 	end
+	
+	function Ob:hide(bKeepAlive)
+        Ob.Parent.hide(self, bKeepAlive)
+    end
+
+    function Ob:show(nMaxPri)
+        return Ob.Parent.show(self, nMaxPri)
+    end
 	
 	return Ob
 end
