@@ -30,6 +30,8 @@ if [ ! -e ${SBDF9_BACKUP}/Archives/SpacebaseDF9AutoSave-v1.sav ]; then
     rsync -avz ${SBDF9_BACKUP}/SpacebaseDF9AutoSave.sav ${SBDF9_BACKUP}/Archives/SpacebaseDF9AutoSave-v1.sav 
 fi
 
+rsync -avz README ${STEAM_COMMON}/SpacebaseDF9/
+
 rsync -avz Data/* ${STEAM_COMMON}/SpacebaseDF9/Data/
 
 # Treat Win directory as authoritative for graphics
