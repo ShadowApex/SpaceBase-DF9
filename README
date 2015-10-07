@@ -2,7 +2,49 @@ Spacebase DF-9 v2 - Space station building game
 
 This is a community maintained fork of DoubleFine's original game, which
 was open sourced May 12, 2015 under the Common Public Attribution
-License (CPAL-1.0: http://opensource.org/licenses/cpal_1.0).
+License (CPAL-1.0: http://opensource.org/licenses/cpal_1.0).  (See
+Licensing History below for more discussion).
+
+
+Installation
+============
+
+Linux: 
+
+  $ ./linux_install.sh
+
+This will copy the modified game files on top of your Steam installation
+of the game (after backing it up of course!)  To restore the original
+game, just run:
+
+  $ ./linux_install.sh restore
+
+Or else just direct Steam to re-install Spacebase DF-9.
+
+
+Debugging
+=========
+To test events more quickly you can toggle the dev debug stuff so you
+can generate a new list of events and activate them at your
+will. There’s a good amount of info on debugging on the wiki.
+
+  http://spacebasedf9.gamepedia.com/Source_Documentation
+
+See DebugMenu.lua for how to implement new debugging operations.
+
+
+Code Style
+==========
+The code uses 'hungarian notation'.  For an explanation, see
+
+  http://blogs.msdn.com/b/ericlippert/archive/2003/09/12/52989.aspx
+
+We believe the meaning is:  n is Number, b is Boolean, t is Table, r is
+Reference, e is Enum.
+check email
+
+
+== Licensing History ==
 
 Path v1.07 Unofficial - Sep 27, 2015
     The official Unofficial Patch of v1.07 was released. A few bugs were recorded in emails, in forums and between us in the Slack system.
@@ -36,39 +78,3 @@ JP - Oct 27, 2014
     what you can do with this.
 
     -- http://steamcommunity.com/games/246090/announcements/detail/216497448170557993
-
-Installation
-============
-
-Linux: 
-
-  $ ./linux_install.sh
-
-This will copy the modified game files on top of your Steam installation
-of the game (after backing it up of course!)  To restore the original
-game, just run:
-
-  $ ./linux_install.sh restore
-
-Or else just direct Steam to re-install Spacebase DF-9.
-
-
-Debugging
-=========
-To test events more quickly you can toggle the dev debug stuff so you
-can generate a new list of events and activate them at your
-will. There’s a good amount of info on debugging on the wiki.
-
-  http://spacebasedf9.gamepedia.com/Source_Documentation
-
-See DebugMenu.lua for how to implement new debugging operations.
-
-Code Style
-==========
-The code uses 'hungarian notation'.  For an explanation, see
-
-  http://blogs.msdn.com/b/ericlippert/archive/2003/09/12/52989.aspx
-
-We believe the meaning is:  n is Number, b is Boolean, t is Table, r is
-Reference, e is Enum.
-check email
