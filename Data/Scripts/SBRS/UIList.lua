@@ -90,6 +90,10 @@ function m.create()
 		return tList[sName].nOrder
 	end
 	
+	function Ob:getList()
+		return tList
+	end
+	
 	function Ob:hide(bKeepAlive)
         Ob.Parent.hide(self, bKeepAlive)
     end
