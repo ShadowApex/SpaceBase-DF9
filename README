@@ -32,8 +32,11 @@ files won't necessarily be backwards compatible!
 Bugs
 ====
 If you need to report a bug, please send us an email at spacebasehub at
-gmail dot com, including your log file and a screenshot if you think
-it'd be useful.  You can find your game log at:
+gmail dot com, including a description of what you were doing, your log
+file and a screenshot of the bug - whatever you think would best help us
+understand the problem.
+
+You can find your game log at:
 
   Windows
   <drive>:\Program Files (x86)\steam\steamapps\common\SpacebaseDF9\moai_log_space.txt 
