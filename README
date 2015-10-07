@@ -54,6 +54,24 @@ will. There’s a good amount of info on debugging on the wiki.
 See DebugMenu.lua for how to implement new debugging operations.
 
 
+Contributing
+============
+Derelict Games is at heart a collaborative open source project, and
+as such welcomes community contributions.  You're welcome to send
+new art, one-off patches, content suggestions, and good ideas via the
+usual bug reporting instructions outlined above.
+
+Those wishing to do more substantial code contributions may wish to look
+at our repository on gitlab.  Send us a pull request if you have
+something cool to include.
+
+If you'd like to participate more deeply and directly, that's great!
+We've got a "2 contributions" rule as an entry requirement, so get a
+couple patches accepted, or thumbs up from the art crew on a couple
+pieces of art or sound or whatnot.  Then, just ask one of the current
+team and we'll get you hooked in!
+
+
 Code Style
 ==========
 The code uses 'hungarian notation'.  For an explanation, see
