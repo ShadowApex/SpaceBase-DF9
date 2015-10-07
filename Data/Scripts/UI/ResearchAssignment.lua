@@ -199,13 +199,11 @@ function m.create()
 	
 	function Ob:grabZones()
 		-- do similar for zone list
-		print("test")
 		local tResearchZones = self:getAllZoneItems()
 		nTotalItems = #tResearchZones
 		nCurrentItems = table.getn(self.tResearchZoneEntries)
 		if nTotalItems > nCurrentItems then
 			for i,tProject in ipairs(tResearchZones) do
-				print("test2")
 				self:addZoneEntry(i)
 			end
 		end
@@ -215,7 +213,6 @@ function m.create()
 			local nYLoc = (h - nMargin) * (i - 1) - 80
 			rEntry:setLoc(0, nYLoc)
             if tResearchZones[i] then
-				print("test3")
                 self:setElementHidden(rEntry,false)
                 rEntry:show()
                 rEntry:setZone(tResearchZones[i])
