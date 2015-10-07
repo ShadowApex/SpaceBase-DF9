@@ -14,12 +14,19 @@ Linux:
   $ ./linux_install.sh
 
 This will copy the modified game files on top of your Steam installation
-of the game (after backing it up of course!)  To restore the original
-game, just run:
+of the game (after backing it up of course!)  This assumes you let Steam
+install to its default location (i.e. under ~/.steam/).  If you need to
+override the Steam path, this can be done with the STEAM_COMMON env
+variable:
+
+  $ STEAM_COMMON="~/Foo/steam/steamapps/common/" ./linux_install.sh
+
+To restore the original game, just run:
 
   $ ./linux_install.sh restore
 
-Or else just direct Steam to re-install Spacebase DF-9.
+Or else just direct Steam to re-install Spacebase DF-9.  Note that save
+files won't necessarily be backwards compatible!
 
 
 Bugs

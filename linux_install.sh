@@ -1,8 +1,10 @@
 #!/bin/bash
 
 VERSION=1.07
-STEAM_COMMON=~/.steam/steam/steamapps/common/
-SBDF9_BACKUP=~/.local/share/doublefine/spacebasedf9/Saves/
+
+# Accept STEAM_COMMON and SBDF9_SAVES as env variables
+: ${STEAM_COMMON:=~/.steam/steam/steamapps/common/}
+: ${SBDF9_SAVES:=~/.local/share/doublefine/spacebasedf9/Saves/}
 
 if [ "$1" = "restore" ]; then
     if [ ! -d ${STEAM_COMMON}/SpacebaseDF9.v1 ]; then
@@ -25,9 +27,9 @@ if [ ! -e ${STEAM_COMMON}/SpacebaseDF9.v1 ]; then
     echo "Backing up original SpacebaseDF9 code and game save"
     rsync -avz ${STEAM_COMMON}/SpacebaseDF9/ ${STEAM_COMMON}/SpacebaseDF9.v1
 fi
-if [ ! -e ${SBDF9_BACKUP}/Archives/SpacebaseDF9AutoSave-v1.sav ]; then
-    mkdir -p ${SBDF9_BACKUP}/Archives
-    rsync -avz ${SBDF9_BACKUP}/SpacebaseDF9AutoSave.sav ${SBDF9_BACKUP}/Archives/SpacebaseDF9AutoSave-v1.sav 
+if [ ! -e ${SBDF9_SAVES}/Archives/SpacebaseDF9AutoSave-v1.sav ]; then
+    mkdir -p ${SBDF9_SAVES}/Archives
+    rsync -avz ${SBDF9_SAVES}/SpacebaseDF9AutoSave.sav ${SBDF9_SAVES}/Archives/SpacebaseDF9AutoSave-v1.sav 
 fi
 
 rsync -avz README ${STEAM_COMMON}/SpacebaseDF9/
