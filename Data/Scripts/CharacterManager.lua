@@ -101,7 +101,7 @@ function CharacterManager.addNewCharacter(x,y,tData,nTeam)
 				category = Topics.getRandomCategory()
 			end
 			Topics.addTopic(category)
-			Print(TT_Info, 'New topic created in category '..category)
+			Print(TT_Info, 'CHARACTERMANAGER.LUA: New topic created in category '..category)
 		end
     end
 	-- remember "join date"
