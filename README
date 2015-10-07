@@ -22,6 +22,27 @@ game, just run:
 Or else just direct Steam to re-install Spacebase DF-9.
 
 
+Bugs
+====
+If you need to report a bug, please send us an email at spacebasehub at
+gmail dot com, including your log file and a screenshot if you think
+it'd be useful.  You can find your game log at:
+
+  Windows
+  <drive>:\Program Files (x86)\steam\steamapps\common\SpacebaseDF9\moai_log_space.txt 
+
+  Linux
+  ~/.steam/steam/steamapps/common/SpacebaseDF9/moai_log_Space.txt
+
+If you can, also attach the save game located at:
+
+  Windows
+  <drive>:\Users\<your user name>\Documents\SpacebaseDF9\saves\ 
+
+  Linux
+  ~/.local/share/doublefine/spacebasedf9/Saves/
+
+
 Debugging
 =========
 To test events more quickly you can toggle the dev debug stuff so you
