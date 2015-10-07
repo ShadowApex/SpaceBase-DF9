@@ -58,6 +58,7 @@ function m.create()
 	end
 	
 	function Ob:remove(sName)
+		if not sName then return end
 		local nOrder = tList[sName].nOrder
 		tList[sName]:hide()
 		tList[sName] = nil
@@ -75,6 +76,7 @@ function m.create()
 	end
 	
 	function Ob:_updateElement(sName)
+		if not sName then return end
 		local x, y = self:getLoc()
 		local w, h = tList[sName]:getDims()
 		tList[sName]:setLoc(x, h * tList[sName].nOrder)
