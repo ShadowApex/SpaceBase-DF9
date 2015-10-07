@@ -27,7 +27,6 @@ function m.create()
     Ob.rSelectedButton = nil
 	local activeThreatButton = nil
 	local squadList = World.getSquadList()
-	local tBeaconMenuEntries = {}
 	local activeEntry = nil
 --	local rScrollableUI
 	local nNumEntries = 0
@@ -185,18 +184,20 @@ function m.create()
 	function Ob:updateDisplay(isSelectionDisbanded)
 		squadList = World.getSquadList()
 		local tSquads = squadList.getList()
+		local tList = rUIList.getList()
 		if nNumEntries ~= squadList.numSquads() then
-			for k,v in pairs(tBeaconMenuEntries) do
+			for k,v in pairs(tList) do
 				if not tSquads[k] then
 					rUIList:remove(k)
-					tBeaconMenuEntries[k]:hide(false)
-					tBeaconMenuEntries[k] = nil
+					v:hide(false)
+					v:setLoc(-500, 500)
+					v = nil
 					nNumEntries = nNumEntries - 1
 				end
 			end
 		end
 		for k,v in pairs(tSquads) do
-			if not tBeaconMenuEntries[k] then
+			if not tList[k] then
 				self:addEntry(k)
 			end
 		end
@@ -211,7 +212,6 @@ function m.create()
         self:_calcDimsFromElements()
 		rNewEntry:setName(squadList.getSquad(sName), self.onSlotButtonPressed)
 		rUIList:add(sName, rNewEntry)
-		tBeaconMenuEntries[sName] = rNewEntry
 		nNumEntries = nNumEntries + 1
 		return rNewEntry
 	end
