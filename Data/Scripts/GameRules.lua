@@ -45,6 +45,7 @@ local GameScreen = nil
 
 local SAVE_TYPES={ObjectList.ROOM, ObjectList.ENVOBJECT, ObjectList.CHARACTER, ObjectList.RESERVATION}
 
+local speed = 3
 -- state/preset data for tutorials
 -- list order determines tutorial stage order
 local tStartingTutorialState = {
@@ -308,19 +309,19 @@ function GameRules.checkCameraPan(dt)
     local rKeyboard = MOAIInputMgr.device.keyboard
  
     if rKeyboard:keyIsDown(string.byte("w")) or rKeyboard:keyIsDown(MOAIKeyboardSensor.UP) then
-        dy = dy + 1
+        dy = dy + speed
     end
     
     if rKeyboard:keyIsDown(string.byte("s")) or rKeyboard:keyIsDown(MOAIKeyboardSensor.DOWN) then        
-        dy = dy - 1       
+        dy = dy - speed       
     end
     
     if rKeyboard:keyIsDown(string.byte("a")) or rKeyboard:keyIsDown(MOAIKeyboardSensor.LEFT) then        
-        dx = dx - 1
+        dx = dx - speed
     end
     
     if rKeyboard:keyIsDown(string.byte("d")) or rKeyboard:keyIsDown(MOAIKeyboardSensor.RIGHT) then
-        dx = dx + 1
+        dx = dx + speed
     end
     
     local camSpeed = 300.0
