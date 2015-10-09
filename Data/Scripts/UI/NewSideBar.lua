@@ -32,10 +32,7 @@ function m.create()
         Ob.Parent.init(self)
 
         self:processUIInfo(sUILayoutFileName)
---push!
-		--------------------------------------------------------
 		self.menuManager = menuManager
-		----------------------------------------------------------------
         self.rSmallBarButton = self:getTemplateElement('SmallBarButton')
         if self.rSmallBarButton then
             self.rSmallBarButton:addHoverCallback(self.onSmallbarHovered, self)
@@ -96,7 +93,6 @@ function m.create()
         self.rBeaconButton:addPressedCallback(self.onBeaconButtonPressed, self)
         self.rDisasterButton:addPressedCallback(self.onDisasterButtonPressed, self)
 
-        self.tHotkeyButtons = {}
         self:addHotkey(self.rInspectHotkey.sText, self.rInspectButton)
         self:addHotkey(self.rAssignHotKey.sText, self.rAssignButton)
         self:addHotkey(self.rResearchHotKey.sText, self.rResearchButton)
@@ -104,8 +100,6 @@ function m.create()
         self:addHotkey(self.rConstructHotKey.sText, self.rConstructButton)
         self:addHotkey(self.rMineHotKey.sText, self.rMineButton)
         self:addHotkey(self.rBeaconHotKey.sText, self.rBeaconButton)
-		
-		-----------------------------------------------
 		
 		self.rDebugLabel = self:getTemplateElement('DebugLabel')
 		self.rDebugIcon = self:getTemplateElement('DebugIcon')
@@ -124,7 +118,6 @@ function m.create()
 			self:setElementHidden(self.rDebugHotKeyExpanded, true)
 		end
 		self.postInitComplete = false
-		------------------------------------------------
         self:setExpanded(false)
 
 		self.rBeaconMenu = BeaconMenu.new(menuManager)
@@ -200,28 +193,6 @@ function m.create()
         if self.rSubmenu and self.rSubmenu.refresh then
             self.rSubmenu:refresh()
         end
-    end
-
-    function Ob:addHotkey(sKey, rButton)
-        sKey = string.lower(sKey)
-
-        local keyCode = -1
-
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
-        else
-            keyCode = string.byte(sKey)
-
-            -- also store the uppercase version because hey why not
-            local uppercaseKeyCode = string.byte(string.upper(sKey))
-            self.tHotkeyButtons[uppercaseKeyCode] = rButton
-        end
-
-        self.tHotkeyButtons[keyCode] = rButton
     end
 
     function Ob:setButtonsLocked(bDisabled, bHoveredOverride)
@@ -499,25 +470,6 @@ function m.create()
             return Ob.Parent.onFinger(self, touch, x, y, props)
         end
         return false
-    end
-
-    -- returns true if key was handled
-    function Ob:onKeyboard(key, bDown)
-        local bHandled = false
-
-        if not self.rSubmenu then
-            if bDown and self.tHotkeyButtons[key] then
-                local rButton = self.tHotkeyButtons[key]
-                rButton:keyboardPressed()
-                bHandled = true
-            end
-        end
-
-        if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
-            bHandled = self.rSubmenu:onKeyboard(key, bDown)
-        end
-
-        return bHandled
     end
 
     function Ob:inside(wx, wy)

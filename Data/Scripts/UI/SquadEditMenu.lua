@@ -41,7 +41,6 @@ function m.create()
 		rAvailableCountLabel = self:getTemplateElement('AvailableCountLabel')
 		rMembersCountLabel = self:getTemplateElement('MembersCountLabel')
         rScrollableUI = self:getTemplateElement('ScrollPane')
-        self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
 	end
 	
@@ -164,49 +163,6 @@ function m.create()
 		end
 		rChar:setSquadName(squad.getName())
 	end
-
-    function Ob:addHotkey(sKey, rButton)
-        sKey = string.lower(sKey)
-    
-        local keyCode = -1
-    
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" or sKey == "ent" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
-        else
-            keyCode = string.byte(sKey)
-            
-            -- also store the uppercase version because hey why not
-            local uppercaseKeyCode = string.byte(string.upper(sKey))
-            self.tHotkeyButtons[uppercaseKeyCode] = rButton
-        end
-    
-        self.tHotkeyButtons[keyCode] = rButton
-    end
-    
-    -- returns true if key was handled
-    function Ob:onKeyboard(key, bDown)
-        local bHandled = false
-
-        if not self.rSubmenu then
-            if bDown and self.tHotkeyButtons[key] then
-                local rButton = self.tHotkeyButtons[key]
-                
-                -- you pressed the button
-                bHandled = true
-                rButton:keyboardPressed()
-            end
-        end
-        
-        if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
-            bHandled = self.rSubmenu:onKeyboard(key, bDown)
-        end
-        
-        return bHandled
-    end
     
     function Ob:onBackButtonPressed(rButton, eventType)
         if eventType == DFInput.TOUCH_UP then
