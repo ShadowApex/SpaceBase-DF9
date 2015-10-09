@@ -31,44 +31,7 @@ Event.nChanceOfMalady = 15
 Event.PROBABILITY_REQUIRES_RESEARCH = .66
 -- affliction probabilities are used in a MiscUtil.weightedRandom
 -- new strain probabilities are used as out of 100
-Event.tMaladyProbabilities = {
-    Parasite = {
-        nChanceOfAffliction = 4,
-        nChanceOfNewStrain = 0,
-    },
-    Thing = {
-        nChanceOfAffliction = 4,
-        nChanceOfNewStrain = 100,
-    },
-    Hyper = {
-        nChanceOfAffliction = 4,
-        nChanceOfNewStrain = 50,
-    },
-    SpaceFlu = {
-        nChanceOfAffliction = 50,
-        nChanceOfNewStrain = 50,
-    },
-    Dysentery = {
-        nChanceOfAffliction = 20,
-        nChanceOfNewStrain = 10,
-    },
-    SlackersDisease = {
-        nChanceOfAffliction = 15,
-        nChanceOfNewStrain = 50,
-    },
-    AntisocialDisease = {
-        nChanceOfAffliction = 10,
-        nChanceOfNewStrain = 50,
-    },
-    HighEnergyLowEnergy = {
-        nChanceOfAffliction = 15,
-        nChanceOfNewStrain = 50,
-    },
-    Plague = {
-        nChanceOfAffliction = 4,
-        nChanceOfNewStrain = 50,
-    },
-}
+Event.tMaladyProbabilities = require('NewMaladyData')
 
 Event.nAlertPriority = 1
 Event.DEFAULT_WEIGHT = 5
@@ -353,7 +316,9 @@ function Event._preRollMalady(rController, tPersistentState, nElapsedTime)
     -- choose which malady
     local tChoices = {}
     for sName, tData in pairs(rController.tEventClasses[tPersistentState.sEventType].tMaladyProbabilities) do
+    if not tData.bIsInjury==true then
         tChoices[sName] = tData.nChanceOfAffliction or 0
+    end
     end
     local sMaladyTypeChoice = MiscUtil.weightedRandom(tChoices)
     -- decide if you should make a new strain
