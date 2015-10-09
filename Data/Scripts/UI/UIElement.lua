@@ -38,6 +38,9 @@ function m.create()
     end
 	
 	function Ob:addHotkey(sKey, rButton)
+		if not self.tHotkeyButtons then
+			self.tHotkeyButtons = {}
+		end
         sKey = string.lower(sKey)
     
         local keyCode = -1

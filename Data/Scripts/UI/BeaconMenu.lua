@@ -57,7 +57,7 @@ function m.create()
         self.rDoneButton:addPressedCallback(self.onDoneButtonPressed, self)
 		self.rCreateSquadButton:addPressedCallback(self.onCreateSquadButtonPressed, self)
         
-        self.tHotkeyButtons = {}
+--        self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('DoneHotkey').sText, self.rDoneButton)
 		self:addHotkey(self:getTemplateElement('CreateSquadHotkey').sText, self.rCreateSquadButton)
 		rBeaconMenuEdit = BeaconMenuEdit.new(self, _menuManager)
@@ -74,66 +74,6 @@ function m.create()
 		self:addHotkey(rBeaconMenuEdit:getTemplateElement('EditSquadHotkey').sText, rBeaconMenuEdit.rEditSquadButton)
 		self:addHotkey(rBeaconMenuEdit:getTemplateElement('DisbandSquadHotkey').sText,rBeaconMenuEdit.rDisbandSquadButton)
 		
-    end
-
-    function Ob:addHotkey(sKey, rButton)
-        sKey = string.lower(sKey)
-    
-        local keyCode = -1
-    
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" or sKey == "ent" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
-        else
-            keyCode = string.byte(sKey)
-            
-            -- also store the uppercase version because hey why not
-            local uppercaseKeyCode = string.byte(string.upper(sKey))
-            self.tHotkeyButtons[uppercaseKeyCode] = rButton
-        end
-    
-        self.tHotkeyButtons[keyCode] = rButton
-    end
-	
-	function Ob:remHotkey(sKey)
-		sKey = string.lower(sKey)
-    
-        local keyCode = -1
-    
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" or sKey == "ent" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
-        else
-            keyCode = string.byte(sKey)
-            
-            -- also store the uppercase version because hey why not
-            local uppercaseKeyCode = string.byte(string.upper(sKey))
-            self.tHotkeyButtons[uppercaseKeyCode] = nil
-        end
-		self.tHotkeyButtons[keyCode] = nil
-	end
-    
-    -- returns true if key was handled
-    function Ob:onKeyboard(key, bDown)
-        local bHandled = false
-
-        if not self.rSubmenu then
-            if bDown and self.tHotkeyButtons[key] then
-                local rButton = self.tHotkeyButtons[key]
-                rButton:keyboardPressed()
-                bHandled = true
-            end
-        end
-        if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
-            bHandled = self.rSubmenu:onKeyboard(key, bDown)
-        end
-        return bHandled
     end
     
     function Ob:onDoneButtonPressed(rButton, eventType)

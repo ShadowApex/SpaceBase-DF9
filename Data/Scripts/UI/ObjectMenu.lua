@@ -73,7 +73,6 @@ function m.create()
         self.rCancelButton:addPressedCallback(self.onCancelButtonPressed, self)
         self.rConfirmButton:addPressedCallback(self.onConfirmButtonPressed, self)
 
-        self.tHotkeyButtons = {}
         self:addHotkey(self:getTemplateElement('BackHotkey').sText, self.rBackButton)
         self:addHotkey(self:getTemplateElement('AllHotkey').sText, self.rAllButton)
         self:addHotkey(self:getTemplateElement('AirlockHotkey').sText, self.rAirlockButton)
@@ -99,49 +98,6 @@ function m.create()
         self:setMatterCostVisible(false)
     end
 
-    function Ob:addHotkey(sKey, rButton)
-        sKey = string.lower(sKey)
-
-        local keyCode = -1
-    
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
-        elseif sKey == "bksp" then
-            keyCode = 8
-        else
-            keyCode = string.byte(sKey)
-            
-            -- also store the uppercase version because hey why not
-            local uppercaseKeyCode = string.byte(string.upper(sKey))
-            self.tHotkeyButtons[uppercaseKeyCode] = rButton
-        end
-    
-        self.tHotkeyButtons[keyCode] = rButton
-    end
-    
-    -- returns true if key was handled
-    function Ob:onKeyboard(key, bDown)
-        local bHandled = false
-
-        if not self.rSubmenu then
-            if bDown and self.tHotkeyButtons[key] then
-                local rButton = self.tHotkeyButtons[key]
-                rButton:keyboardPressed()
-                bHandled = true
-            end
-        end
-        
-        if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
-            bHandled = self.rSubmenu:onKeyboard(key, bDown)
-        end
-        
-        return bHandled
-    end
-    
     function Ob:onBackButtonPressed(rButton, eventType)
         if eventType == DFInput.TOUCH_UP then
             if g_GuiManager.newSideBar then
