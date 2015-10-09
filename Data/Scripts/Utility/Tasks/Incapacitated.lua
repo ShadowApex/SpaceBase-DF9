@@ -23,7 +23,7 @@ end
 
 function checkforForKnockOut()
     for k,v in pairs(self.rChar.tMaladies) do
-        if (k.bIsInjury and k.bIsInjury==true and k.bIncapacitated and k.bIncapacitated==true)
+        if k.bIsInjury and k.bIsInjury==true and k.bIncapacitated and k.bIncapacitated==true then
             return true
         end
     end

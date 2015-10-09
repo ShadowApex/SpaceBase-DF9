@@ -236,7 +236,6 @@ tInjuryNames = {}
         end
     end
 return tInjuryNames
-}
 end
 
 function Malady.getNextUndiagnosedMalady(rChar)
