@@ -227,6 +227,18 @@ function Malady.updateSavedMaladies(tMaladies)
     end
 end
 
+--retrieves an injury type from the list
+function getInjuryFromList()
+tInjuryNames = {}
+    for k,v in pairs(MaladyData) do
+        if k.bIsInjury and k.bIsInjury==true then
+            table.insert(tInjuryNames, k)
+        end
+    end
+return tInjuryNames
+}
+end
+
 function Malady.getNextUndiagnosedMalady(rChar)
     local tMaladies = rChar.tStatus.tMaladies
     if not tMaladies then return end
