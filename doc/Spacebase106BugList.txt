@@ -160,6 +160,14 @@ Possible Location: look at job allocation and change
 Status: unchecked
 Assigned to: open
 
+****************************************************
+Bug: \Data\Scripts\Pickups\Rock.lua missing
+Bug Location Found: Various, see https://gitlab.com/derelictgames/spacebase-v2-updated-code/issues/5
+Version Seen: 1.06, 1.07, 1.07.1
+Additional Info: Get file https://gitlab.com/derelictgames/spacebase-v2-updated-code/uploads/c9784ec11b8e2d6b92ca877cf47b5ce0/Rock.lua
+Possible Location: \Data\Scripts\Pickups\
+Status: More or Less Resolved
+Assigned to: Rick (skenners)
 
 LINUX:
 
