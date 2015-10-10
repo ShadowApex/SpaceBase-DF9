@@ -232,12 +232,13 @@ function Malady.getInjuryFromList()
 tInjuryNames = {}
 n=0
     for k,v in pairs(MaladyData) do
-        if k.bIsInjury and k.bIsInjury==true then
-            n=n+1
-            table.insert(tInjuryNames, k)
+        if Malady.isInjury(k) then
+             n=n+1
+             print(k)
+             table.insert(tInjuryNames, k)
         end
     end
-return tInjuryNames, n
+return tInjuryNames, n-1
 end
 
 function Malady.getNextUndiagnosedMalady(rChar)

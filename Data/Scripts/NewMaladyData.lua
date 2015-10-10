@@ -105,7 +105,7 @@ local tMaladyList = {
      BrokenRib=
     {
         sFriendlyName='DISEASTYPE07TEXT',
-        sDesc=' DISEASDESC12TEXT',
+        sDesc='DISEASDESC12TEXT',
         bIncapacitated=false,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
