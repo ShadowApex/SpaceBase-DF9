@@ -316,9 +316,9 @@ function Event._preRollMalady(rController, tPersistentState, nElapsedTime)
     -- choose which malady
     local tChoices = {}
     for sName, tData in pairs(rController.tEventClasses[tPersistentState.sEventType].tMaladyProbabilities) do
-    if not tData.bisInjury and not sName == 'Default' then
+        if tData.nChanceOfAffliction then
         tChoices[sName] = tData.nChanceOfAffliction or 0
-    end
+        end
     end
     local sMaladyTypeChoice = MiscUtil.weightedRandom(tChoices)
     -- decide if you should make a new strain
