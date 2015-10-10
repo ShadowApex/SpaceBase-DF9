@@ -58,8 +58,8 @@ local tMaladyList = {
 	
     BrokenLeg=
     {
-        sFriendlyName='DISEAS002TEXT',
-        sDesc='DISEAS022TEXT',
+        sFriendlyName='DISEASTYPE02TEXT',
+        sDesc='DISEASDESC01TEXT',
         bIncapacitated=true,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
@@ -73,8 +73,8 @@ local tMaladyList = {
 
     KnockedOut=
     {
-        sFriendlyName='DISEAS032TEXT',
-        sDesc='DISEAS033TEXT',
+        sFriendlyName='DISEASTYPE04TEXT',
+        sDesc='DISEASDESC08TEXT',
         bIncapacitated=true,
         tDurationRange={60*2.5,60*5},
         nFieldTreatSkill=0,
@@ -89,8 +89,8 @@ local tMaladyList = {
 --Our injuries
     CrackedSkull=
     {
-        sFriendlyName='DISEAS004TEXT',
-        sDesc='DISEAS022TEXT',
+        sFriendlyName='DISEASTYPE05TEXT',
+        sDesc='DISEASDESC11TEXT',
         bIncapacitated=true,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
@@ -104,8 +104,8 @@ local tMaladyList = {
     
      BrokenRib=
     {
-        sFriendlyName='DISEAS004TEXT',
-        sDesc='DISEAS022TEXT',
+        sFriendlyName='DISEASTYPE07TEXT',
+        sDesc=' DISEASDESC12TEXT',
         bIncapacitated=false,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
@@ -118,8 +118,8 @@ local tMaladyList = {
     },
     BrokenNose=
     {
-        sFriendlyName='DISEAS004TEXT',
-        sDesc='DISEAS022TEXT',
+        sFriendlyName='DISEASTYPE06TEXT',
+        sDesc='DISEASDESC13TEXT',
         bIncapacitated=true,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
@@ -135,7 +135,7 @@ local tMaladyList = {
 --doublefine diseases we will keep (for the moment)
  AntisocialDisease=
     {
-        sDesc='DISEAS026TEXT',
+        sDesc='DISEASDESC05TEXT',
        	nChanceOfAffliction = 50,
         nChanceOfNewStrain = 50,
         bSpreadSneeze=true,
@@ -155,8 +155,8 @@ local tMaladyList = {
     ,
     Parasite=
     {
-        sFriendlyName='DISEAS003TEXT',
-        sDesc='DISEAS023TEXT',
+        sFriendlyName='DISEASTYPE03TEXT',
+        sDesc='DISEASDESC02TEXT',
 	    nChanceOfAffliction = 4,
         nChanceOfNewStrain = 0,
         nSeverity=1,
@@ -216,7 +216,7 @@ local tMaladyList = {
  
 	 Hyper=
     {
-        sDesc='DISEAS083TEXT',
+        sDesc='DISEASDESC10TEXT',
 		nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,
 	    bSpreadSneeze=true,
@@ -241,7 +241,7 @@ local tMaladyList = {
 
     Dysentery=
     {
-        sDesc='DISEAS034TEXT',
+        sDesc='DISEASDESC09TEXT',
 	    nChanceOfAffliction = 20,
         nChanceOfNewStrain = 10,
         bSpreadSneeze=false,
@@ -285,7 +285,7 @@ local tMaladyList = {
 	--An extremely contagious disease, though non-deadly
 	Rhinovirus=
     {
-        sDesc='DISEAS034TEXT',
+        sDesc='DISEASDESC07TEXT',
 		nChanceOfAffliction = 50,
         nChanceOfNewStrain = 50,
         nChanceToInfectCharacter=.5,
@@ -317,7 +317,7 @@ local tMaladyList = {
 	--Really unpleasent and kills slowly, and less noticeable then a parasite., spreads more easily
 	SpacePlague=
     {
-        sDesc='DISEAS034TEXT',
+        sDesc='DISEASDESC03TEXT',
 		nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,
         bSpreadSneeze=true,
@@ -367,7 +367,7 @@ local tMaladyList = {
     --The hippo virus is deadly if left for awhile, t spreads , and very unpleasent, kills quickly
 	Hippovirus=
     {
-        sDesc='DISEAS034TEXT',
+        sDesc='DISEASDESC04TEXT',
 		nChanceOfAffliction = 50,
         nChanceOfNewStrain = 20,
         bSpreadSneeze=false,
@@ -409,8 +409,8 @@ local tMaladyList = {
 	--madcow should make the infected attack people, for now it just amuses them then kills them
 	Crazies=
     {
-        sDesc='DISEAS034TEXT',
-		nChanceOfAffliction = 4,
+        sDesc='DISEASDESC14TEXT',
+		nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,
         bSpreadSneeze=true,
         bSpreadTouch=true,
@@ -455,7 +455,7 @@ local tMaladyList = {
     --More specific diseases
     Workaholic=
     {
-        sDesc='DISEAS025TEXT',
+        sDesc='DISEASDESC15TEXT',
         nChanceOfAffliction = 50,
         nChanceOfNewStrain = 30,
         bSpreadSneeze=true,
@@ -476,7 +476,7 @@ local tMaladyList = {
     --sneeze on people when socializing
     SuperSocial=
     {
-        sDesc='DISEAS025TEXT',
+        sDesc='DISEASDESC16TEXT',
         nChanceOfAffliction = 50,
         nChanceOfNewStrain = 30,
         bSpreadSneeze=true,
@@ -490,14 +490,14 @@ local tMaladyList = {
         bCreateStrains=true,
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
-            Social=3;
+            Social=3,
         },
     },
     
     --No amusement
     NotAmused=
     {
-        sDesc='DISEAS025TEXT',
+        sDesc='DISEASDESC17TEXT',
         nChanceOfAffliction = 50,
         nChanceOfNewStrain = 30,
         bSpreadSneeze=true,
@@ -511,13 +511,13 @@ local tMaladyList = {
         bCreateStrains=true,
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
-            Amusement = 3;
+            Amusement = 3,
         },
     },
     --No energy
     SleepyDisease=
     {
-        sDesc='DISEAS025TEXT',
+        sDesc='DISEASDESC18TEXT',
         nChanceOfAffliction = 50,
         nChanceOfNewStrain = 30,
         bSpreadSneeze=true,
@@ -533,6 +533,32 @@ local tMaladyList = {
         tReduceMods={
             Social=.2,
             Energy=4,
+        },
+    },
+    --All the effects of the simpler diseases piled into one game ending evil infection.
+    AllBadDisease=
+    {
+        sDesc='DISEASDESC19TEXT',
+        nChanceOfAffliction = 4,
+        nChanceOfNewStrain = 90,
+        nChanceToInfectCharacter=.9,
+        nChanceToInfectObject=.9,
+        bSpreadSneeze=true,
+        bSpreadTouch=true,
+        nPerceivedSeverity=.3,
+        nSeverity=.5,
+		nDifficulty=.5,
+        tTimeToContagious={1,10},
+        tTimeToSymptoms={10,11},
+        nFieldTreatSkill=5,
+        bCreateStrains=true,
+		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
+        tReduceMods={
+            Energy=4,
+            Amusement = 3,
+            Social = 3,
+            Hunger = 8,
+            Duty=0,
         },
     },
 
