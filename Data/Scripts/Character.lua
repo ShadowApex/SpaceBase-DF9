@@ -5462,8 +5462,8 @@ function Character:takeDamage(rAttacker, tDamage)
 
         local bIncapacitate = math.random() * 1.5 * Character.STARTING_HIT_POINTS < nDamage
         if bIncapacitate then
-        local tInjuries = Malady.getInjuryFromList()
-            local sMalady = (tInjuries[math.random(0,#tInjuries)] )
+       local tInjuries, num = Malady.getInjuryFromList()
+           local sMalady = tInjuries[math.random(num)]
             if self:diseaseInteraction(nil,Malady.createNewMaladyInstance(sMalady)) then
                 if self:retrieveMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY) then
                     -- log about being incapacitated :[

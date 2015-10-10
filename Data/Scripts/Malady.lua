@@ -228,14 +228,16 @@ function Malady.updateSavedMaladies(tMaladies)
 end
 
 --retrieves an injury type from the list
-function getInjuryFromList()
+function Malady.getInjuryFromList()
 tInjuryNames = {}
+n=0
     for k,v in pairs(MaladyData) do
         if k.bIsInjury and k.bIsInjury==true then
+            n=n+1
             table.insert(tInjuryNames, k)
         end
     end
-return tInjuryNames
+return tInjuryNames, n
 end
 
 function Malady.getNextUndiagnosedMalady(rChar)

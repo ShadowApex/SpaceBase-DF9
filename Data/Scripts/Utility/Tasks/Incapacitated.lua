@@ -13,7 +13,7 @@ function Incapacitated:init(rChar,tPromisedNeeds,rActivityOption)
     self.duration = 9999
     if self.rChar.tStatus.bCuffed then
         self.rChar:playAnim("incapacitated_cuffed")
-    elseif self.rChar.tMaladies and checkforForKnockOut() then
+    elseif self.rChar.tMaladies and self.checkForKnockOut() then
         self.rChar:playAnim("incapacitated")
     else
         self.rChar:playAnim("sleep")
@@ -21,11 +21,13 @@ function Incapacitated:init(rChar,tPromisedNeeds,rActivityOption)
 end
 
 
-function checkforForKnockOut()
+function Incapacitated:checkForKnockOut()
+    if self.rChar.tMaladies then
     for k,v in pairs(self.rChar.tMaladies) do
         if k.bIsInjury and k.bIsInjury==true and k.bIncapacitated and k.bIncapacitated==true then
             return true
         end
+    end
     end
     return false
 end

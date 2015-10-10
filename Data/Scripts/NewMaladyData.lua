@@ -31,7 +31,7 @@
 
 local Log=require('Log')
 
-local tMaladyList{
+local tMaladyList = {
  Default=
     {
     --The "default" malady
@@ -85,6 +85,7 @@ local tMaladyList{
 		-- "injury" flag denotes it in a separate UI section
 		bIsInjury=true,
     },
+
 --Our injuries
     CrackedSkull=
     {
@@ -536,6 +537,5 @@ local tMaladyList{
     },
 
 
-},
-
+}
 return tMaladyList

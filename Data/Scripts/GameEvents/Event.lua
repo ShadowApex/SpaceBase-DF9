@@ -1,11 +1,11 @@
 local Class = require('Class')
 local Event = Class.create(nil)
 local EventData = require('GameEvents.EventData')
-
 local CharacterManager = require('CharacterManager')
 local Character = require('Character')
 local GameRules = require('GameRules')
 local ModuleData = require('ModuleData')
+local MaladyData = require('NewMaladyData')
 local Base = require('Base')
 local Malady = require('Malady')
 local MiscUtil = require('MiscUtil')
@@ -31,7 +31,7 @@ Event.nChanceOfMalady = 15
 Event.PROBABILITY_REQUIRES_RESEARCH = .66
 -- affliction probabilities are used in a MiscUtil.weightedRandom
 -- new strain probabilities are used as out of 100
-Event.tMaladyProbabilities = require('NewMaladyData')
+Event.tMaladyProbabilities = MaladyData
 
 Event.nAlertPriority = 1
 Event.DEFAULT_WEIGHT = 5
@@ -316,7 +316,7 @@ function Event._preRollMalady(rController, tPersistentState, nElapsedTime)
     -- choose which malady
     local tChoices = {}
     for sName, tData in pairs(rController.tEventClasses[tPersistentState.sEventType].tMaladyProbabilities) do
-    if not tData.bIsInjury==true then
+    if not tData.bisInjury and not sName == 'Default' then
         tChoices[sName] = tData.nChanceOfAffliction or 0
     end
     end
@@ -335,6 +335,7 @@ function Event._preRollMalady(rController, tPersistentState, nElapsedTime)
 
     tPersistentState.tPrerolledMalady = Malady.createNewMaladyInstance(sMaladyTypeChoice, not bMakeNewStrain, bRequireResearch, nResearchTime)
 end
+
 
 function Event.getModuleContentsDebugString(rController, tPersistentState)
     local s = ""
