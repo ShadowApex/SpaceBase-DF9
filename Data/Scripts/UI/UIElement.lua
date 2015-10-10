@@ -13,6 +13,8 @@ function m.create()
     local Ob = MOAITransform.new()
 
     Ob.sDefaultRenderLayerName = 'UI'
+	
+--	local tHotkeyButtons = {}
 
     function Ob:init(sRenderLayerName,sLayoutFileName)
         self.uiWidth,self.uiHeight = 0,0
@@ -38,9 +40,9 @@ function m.create()
     end
 	
 	function Ob:addHotkey(sKey, rButton)
-		if not self.tHotkeyButtons then
-			self.tHotkeyButtons = {}
-		end
+--		if not self.tHotkeyButtons then
+--			self.tHotkeyButtons = {}
+--		end
         sKey = string.lower(sKey)
     
         local keyCode = -1
@@ -85,19 +87,16 @@ function m.create()
     
     -- returns true if key was handled
     function Ob:onKeyboard(key, bDown)
-        local bHandled = false
-
-        if not self.rSubmenu then
+		if self.rSubmenu and self.rSubmenu.onKeyboard then
+            return self.rSubmenu:onKeyboard(key, bDown)
+        else
             if bDown and self.tHotkeyButtons[key] then
-                local rButton = self.tHotkeyButtons[key]
-                rButton:keyboardPressed()
-                bHandled = true
+                self.tHotkeyButtons[key]:keyboardPressed()
+                return true
             end
+			if bDown and not self.tHotkeyButtons[key] then print('UIElement:onKeyboard('..key..') not found') end
         end
-        if not bHandled and self.rSubmenu and self.rSubmenu.onKeyboard then
-            bHandled = self.rSubmenu:onKeyboard(key, bDown)
-        end
-        return bHandled
+        return false
     end
 
     function Ob:setRenderLayer(sName)
@@ -138,7 +137,7 @@ function m.create()
             maxPri = self:_setElementVisible(v, true, maxPri + 1)
         end
 
-        self.maxPri = maxPri
+        self.maxPri = maxPri or 0
 
         g_GuiManager.setMaxPriOnLayer(self:getRenderLayerName(), self.maxPri)
         return maxPri
@@ -408,15 +407,15 @@ function m.create()
 	end
 
     function Ob:removeElement(rElement)
-            for i, rExistingElement in ipairs(self.tElements) do
-                if rElement == rExistingElement then
-                    self:_setElementVisible(rElement, false)
-                    table.remove(self.tElements, i)
-                    self.tElementsR[rElement] = nil
-                    rElement.rParentUIElement = nil
-                    return
-                end
-            end
+		for i, rExistingElement in ipairs(self.tElements) do
+			if rElement == rExistingElement then
+				self:_setElementVisible(rElement, false)
+				table.remove(self.tElements, i)
+				self.tElementsR[rElement] = nil
+				rElement.rParentUIElement = nil
+				return
+			end
+		end
     end
 
     function Ob:setElementHidden(elem, bHidden)

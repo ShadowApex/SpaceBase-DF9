@@ -31,6 +31,7 @@ function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 
     function Ob:init()
+		Ob.Parent.init(self)
 	    self:setRenderLayer('UIScrollLayerLeft')
         self:processUIInfo(sUILayoutFileName)
 
