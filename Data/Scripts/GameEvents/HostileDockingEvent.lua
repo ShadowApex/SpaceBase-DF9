@@ -31,10 +31,6 @@ function HostileDockingEvent.onQueue(rController, tUpcomingEventPersistentState,
     DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 end
 
-function HostileDockingEvent._ignoreRefusal(tPersistentEventState)
-    return math.random() > HostileDockingEvent.nChanceObey
-end
-
 function HostileDockingEvent._getHostility()
     if math.random() > .3 then
         return 'hostile'

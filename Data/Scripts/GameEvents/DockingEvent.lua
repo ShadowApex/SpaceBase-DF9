@@ -55,7 +55,11 @@ function DockingEvent.preExecuteSetup(rController, tUpcomingEventPersistentState
     local bPopcapFail = not tUpcomingEventPersistentState.bHostile and CharacterManager.getOwnedCitizenPopulation() >= g_nPopulationCap
     if bPopcapFail or not tUpcomingEventPersistentState.bClickedAlert then
         local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
-        if rClass._ignoreRefusal(tUpcomingEventPersistentState) or tUpcomingEventPersistentState.bSkipDialog then
+        local ignoreRefusal = false
+        if math.random() > rClass.nChanceObey then
+            ignoreRefusal = true
+        end
+        if ignoreRefusal or tUpcomingEventPersistentState.bSkipDialog then
             -- nothing
         else
             AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
@@ -112,10 +116,6 @@ function DockingEvent.tick(rController, dT, tCurrentEventPersistentState, tCurre
     GameRules.nLastNewShip = GameRules.elapsedTime
     Event.resumeGame()
     return true
-end
-
-function DockingEvent._ignoreRefusal(tPersistentEventState)
-    return math.random() > DockingEvent.nChanceObey
 end
 
 function DockingEvent._getHostility()
