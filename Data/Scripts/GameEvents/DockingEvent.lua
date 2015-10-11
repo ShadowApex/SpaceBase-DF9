@@ -24,6 +24,7 @@ DockingEvent.nMaxPopulation = -1
 DockingEvent.nMinTime = 60*10
 DockingEvent.nMaxTime = -1
 DockingEvent.nChanceObey = 1.00
+DockingEvent.nChanceHostile = 0.00
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
@@ -118,10 +119,6 @@ function DockingEvent.tick(rController, dT, tCurrentEventPersistentState, tCurre
     return true
 end
 
-function DockingEvent._getHostility()
-    return 'ambiguous'
-end
-
 function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientEventState, dT)
     if tTransientEventState.bWaitingOnDialog then
         return
@@ -131,7 +128,10 @@ function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientE
     -- vs immigration event, but after that just use the immigration event code
     if not tTransientEventState.tDialogStatus.tDlgSet then
         local rClass = rController.tEventClasses[tPersistentEventState.sEventType]
-        local sHostility = rClass._getHostility()
+        local sHostility = 'ambiguous'
+        if math.random() < rClass.nChanceHostile then
+            sHostility = 'hostile'
+        end
         tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(EventData['dockingEvents'][sHostility])
 
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
