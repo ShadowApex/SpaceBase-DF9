@@ -32,7 +32,7 @@ function HostileDockingEvent.onQueue(rController, tUpcomingEventPersistentState,
 end
 
 function HostileDockingEvent._getHostility()
-    if math.random() > .3 then
+    if math.random() < 0.66 then
         return 'hostile'
     else
         return 'ambiguous'
