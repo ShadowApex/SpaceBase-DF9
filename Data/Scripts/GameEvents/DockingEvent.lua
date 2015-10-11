@@ -117,11 +117,9 @@ function DockingEvent._ignoreRefusal(tPersistentEventState)
     return false
 end
 
-function DockingEvent._getDialogSet()
-    local sKey = 'ambiguous'
-    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
+function DockingEvent._getHostility()
+    return 'ambiguous'
 end
-
 
 function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientEventState, dT)
     if tTransientEventState.bWaitingOnDialog then
@@ -132,7 +130,8 @@ function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientE
     -- vs immigration event, but after that just use the immigration event code
     if not tTransientEventState.tDialogStatus.tDlgSet then
         local rClass = rController.tEventClasses[tPersistentEventState.sEventType]
-        tTransientEventState.tDialogStatus.tDlgSet = rClass._getDialogSet()
+        local sHostility = rClass._getHostility()
+        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(EventData['dockingEvents'][sHostility])
 
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true

@@ -34,12 +34,12 @@ function HostileDockingEvent._ignoreRefusal(tPersistentEventState)
     return math.random() > 0.33
 end
 
-function HostileDockingEvent._getDialogSet()
-    local sKey = 'ambiguous'
+function HostileDockingEvent._getHostility()
     if math.random() > .3 then
-        sKey = 'hostile'
+        return 'hostile'
+    else
+        return 'ambiguous'
     end
-    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
 end
 
 return HostileDockingEvent
