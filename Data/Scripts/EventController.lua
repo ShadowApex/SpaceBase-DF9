@@ -91,7 +91,7 @@ function EventController.setBaseSeeds()
         nClasses = nClasses + nWeight
         --print('EVENTCONTROLLER.LUA:     ',rClass.sEventType,nMod,'weight:',nWeight)
     end
-    print('EVENTCONTROLLER.LUA: total',nTotal,'out of',nClasses)
+    --print('EVENTCONTROLLER.LUA: total',nTotal,'out of',nClasses)
     local nAvg = nTotal / nClasses
     -- perfectly average is about
 
