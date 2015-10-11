@@ -16,26 +16,26 @@ function m.create()
     local Ob = DFUtil.createSubclass(UIElement.create())
 
     Ob.spriteSheet = "UI/StartMenu"
-    
+
     function Ob:init()
         Ob.Parent.init(self)
-        
+
         self.rMOTDTask = MOAIHttpTaskCurl.new()
         self.rMOTDTask:setCallback(function(rHTTPTask, nResponseCode) self:onMOTDTaskFinished(rHTTPTask, nResponseCode) end)
 
         self:setRenderLayer("UIOverlay")
 
         self:processUIInfo(sUILayoutFileName)
-		
+
 		-- read a const from layout data so we don't have same # in many places
 		self.nMOTDX = self:getExtraTemplateInfo('nMOTDX')
         self:refreshMOTD()
-		
+
         --self.logo = self:getTemplateElement('Logo')
         self.uiBG = self:getTemplateElement('Background')
         self.uiBG:setScl( Renderer.getViewport().sizeX * 2, Renderer.getViewport().sizeY * 2 )
         self.uiBG:setLoc( -Renderer.getViewport().sizeX * .5, Renderer.getViewport().sizeY * .5 )
-        
+
         -- buttons
         self.rButtonWebsite = self:getTemplateElement('ButtonWebsite')
         self.rButtonWebsite:addPressedCallback(self.onWebsitePressed, self)
@@ -56,7 +56,7 @@ function m.create()
         self.rButtonQuitOnly = self:getTemplateElement('ButtonQuitOnly')
         self.rButtonQuitOnly:addPressedCallback(self.quitOnly, self)
 
-	
+
     end
 
     function Ob:onTick(dt)
@@ -65,12 +65,21 @@ function m.create()
         if self.settings then self.settings:onTick(dt) end
     end
 
-    function Ob:refreshMOTD()
-        if DFSpace.isDev() then
-            local sPath = DFFile.getDataPath("UILayouts/motd-test.json")
-            local f = io.open(sPath, "r")
+    function Ob:readMOTDTest()
+        local sPath = DFFile.getDataPath("UILayouts/motd-test.json")
+        local f = io.open(sPath, "r")
+        if f~=nil then
             local sJson = f:read("*a")
             f:close()
+            return sJson
+        else
+            return ""
+        end
+    end
+
+    function Ob:refreshMOTD()
+        if DFSpace.isDev() then
+            local sJson = self:readMOTDTest()
             self:setupMOTD(sJson)
         else
             local sMOTDURL = 'http://blog.spacebasedf9.com/motd/motd.txt'
@@ -80,12 +89,12 @@ function m.create()
 
     function Ob:playWarbleEffect(bFullscreen)
         if bFullscreen then
-            local uiX,uiY,uiW,uiH = Renderer.getUIViewportRect()            
+            local uiX,uiY,uiW,uiH = Renderer.getUIViewportRect()
             g_GuiManager.createEffectMaskBox(0, 0, uiW, uiH, 0.3)
         else
             g_GuiManager.createEffectMaskBox(0, 0, 500, 1444, 0.3, 0.3)
         end
-    end    
+    end
 
 
     function Ob:onFinger(eventType, x, y, props)
@@ -108,16 +117,16 @@ function m.create()
         Ob.Parent.onFileChange(self, path)
 
         self:refreshMOTD()
-        
+
         self.uiBG:setScl( Renderer.getViewport().sizeX * 2, Renderer.getViewport().sizeY * 2 )
-        self.uiBG:setLoc( -Renderer.getViewport().sizeX * .5, Renderer.getViewport().sizeY * .5 )        
+        self.uiBG:setLoc( -Renderer.getViewport().sizeX * .5, Renderer.getViewport().sizeY * .5 )
     end
 
     function Ob:onWebsitePressed(rEnt, button, eventType)
         MOAIOpenInBrowser.openInBrowser('http://spacebasedf9.com/')
         g_GuiManager.updateHoverTarget()
     end
-    
+
     function Ob:onResumePressed(rEnt, button, eventType)
         SoundManager.playSfx('select')
         self:resume(false)
@@ -141,9 +150,9 @@ function m.create()
         else
             self:hide(true)
         end
-        g_GuiManager.refresh()        
+        g_GuiManager.refresh()
     end
-    
+
     function Ob:setFirstTime()
         self.bFirstTime = true
     end
@@ -154,10 +163,7 @@ function m.create()
             self:setupMOTD(sJson)
         else
             -- if http request failed, fall back to motd-test file
-            local sPath = DFFile.getDataPath("UILayouts/motd-test.json")
-            local f = io.open(sPath, "r")
-            local sJson = f:read("*a")
-            f:close()
+            local sJson = self:readMOTDTest()
             self:setupMOTD(sJson)
         end
     end
@@ -286,7 +292,7 @@ function m.create()
         self:resume(true)
         g_GuiManager.showNewBaseScreen()
     end
-	
+
 	function Ob:startTutorial()
 		-- reset with no landing zone given + tutorial mode
 		GameRules.bTutorialMode = true
@@ -294,12 +300,12 @@ function m.create()
 		--g_GuiManager:fadeInCentered('LegalScreen')
 		GameRules.reset()
 	end
-	
+
     function Ob:quit()
         SoundManager.playSfx('select')
         if g_GuiManager.newSideBar:isConstructMenuOpen() then
             g_GameRules.cancelBuild(true) -- let's cancel out any pending UNPAID construction
-            g_GuiManager.newSideBar:closeConstructMenu()            
+            g_GuiManager.newSideBar:closeConstructMenu()
         end
         GameRules.saveGame()
         MOAISim.exit()
@@ -308,26 +314,26 @@ function m.create()
         SoundManager.playSfx('select')
         if g_GuiManager.newSideBar:isConstructMenuOpen() then
             g_GameRules.cancelBuild(true) -- let's cancel out any pending UNPAID construction
-            g_GuiManager.newSideBar:closeConstructMenu()            
+            g_GuiManager.newSideBar:closeConstructMenu()
         end
         MOAISim.exit()
-    end 
-   
+    end
+
 	function Ob:loadSave()
 		SoundManager.playSfx('select')
         self.loadSave = runLoadSave.new()
         Gui.setActivePane(self.loadSave)
 		print('TEEEEEEEEEST - loadSave: -------  ' .. tostring(self.loadSave))
 	end
-	
-	
+
+
     function Ob:openCredits()
         SoundManager.playSfx('select')
         if not self.credits then self.credits = require('UI.Credits').new() end
         Gui.setActivePane(self.credits)
         --self.credits:show(self.maxPri)
     end
-    
+
     function Ob:openSettings()
         SoundManager.playSfx('select')
         if not self.settings then self.settings = require('UI.AudioVideoSettings').new() end
@@ -335,7 +341,7 @@ function m.create()
         Gui.setActivePane(self.settings)
         --self.settings:show(self.maxPri)
     end
-    
+
     function Ob:onResize()
         Ob.Parent.onResize(self)
         self.uiBG:setScl(Renderer.getViewport().sizeX*2,Renderer.getViewport().sizeY*2)
