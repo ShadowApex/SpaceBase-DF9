@@ -30,7 +30,7 @@ BreachingEvent.nMaxPopulation = -1
 BreachingEvent.bHostile = true
 
 function BreachingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(BreachingEvent.bHostile)
+    return Event._getExpMod('population') * Event.getHostilityMod(BreachingEvent.bHostile)
 end
 
 function BreachingEvent.allowEvent(nPopulation, nElapsedTime)

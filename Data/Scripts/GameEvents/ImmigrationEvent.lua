@@ -46,7 +46,7 @@ ImmigrationEvent.nMinTime = -1
 ImmigrationEvent.nMaxTime = -1
 
 function ImmigrationEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(ImmigrationEvent.bHostile)
+    return Event._getExpMod('population') * Event.getHostilityMod(ImmigrationEvent.bHostile)
 end
 
 function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)

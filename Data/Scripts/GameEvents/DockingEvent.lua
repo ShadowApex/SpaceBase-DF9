@@ -32,7 +32,7 @@ DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 DockingEvent.nAllowedSetupFailures = 30
 
 function DockingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(DockingEvent.bHostile)
+    return Event._getExpMod('population') * Event.getHostilityMod(DockingEvent.bHostile)
 end
 
 function DockingEvent.getWeight(nPopulation, nElapsedTime)

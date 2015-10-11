@@ -25,7 +25,7 @@ HostileDockingEvent.nChanceObey = 0.33
 HostileDockingEvent.nChanceHostile = 0.66
 
 function HostileDockingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(HostileDockingEvent.bHostile)
+    return Event._getExpMod('population') * Event.getHostilityMod(HostileDockingEvent.bHostile)
 end
 
 return HostileDockingEvent

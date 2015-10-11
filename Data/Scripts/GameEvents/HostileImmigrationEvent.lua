@@ -24,7 +24,7 @@ HostileImmigrationEvent.nMaxTime = -1
 HostileImmigrationEvent.bHostile = true
 
 function HostileImmigrationEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(HostileImmigrationEvent.bHostile)
+    return Event._getExpMod('population') * Event.getHostilityMod(HostileImmigrationEvent.bHostile)
 end
 
 function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)

@@ -34,7 +34,7 @@ CompoundEvent.nMaxTime = -1
 CompoundEvent.bHostile = true
 
 function CompoundEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(CompoundEvent.bHostile)
+    return Event._getExpMod('population') * Event.getHostilityMod(CompoundEvent.bHostile)
 end
 
 function CompoundEvent.allowEvent(nPopulation, nElapsedTime)
