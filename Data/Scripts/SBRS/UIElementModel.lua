@@ -31,6 +31,14 @@
 
 local UIElementModel {}
 
+local tKeyMappings = {
+	'esc' = 27,
+	'ret' = 13,
+	'ent' = 13,
+	'spc' = 32,
+} -- convenience table
+
+
 function UIElementModel.new()
 	local self = MOAITransform.new()
 	local tHotkeyButtons = {}
@@ -46,13 +54,9 @@ function UIElementModel.new()
 	function self:addHotkey(sKey, rButton)
 		sKey = string.lower(sKey)
         local keyCode = -1
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" or sKey == "ent" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
-        else
+		if tKeyMappings[sKey] then
+			keyCode = tKeyMappings[sKey]
+		else
             keyCode = string.byte(sKey)
             local uppercaseKeyCode = string.byte(string.upper(sKey))
 			tHotkeyButtons[uppercaseKeyCode] = rButton
@@ -63,12 +67,8 @@ function UIElementModel.new()
 	function self:remHotkey(sKey)
 		sKey = string.lower(sKey)
         local keyCode = -1
-        if sKey == "esc" then
-            keyCode = 27
-        elseif sKey == "ret" or sKey == "ent" then
-            keyCode = 13
-        elseif sKey == "spc" then
-            keyCode = 32
+        if tKeyMappings[sKey] then
+			keyCode = tKeyMappings[sKey]
         else
             keyCode = string.byte(sKey)
             local uppercaseKeyCode = string.byte(string.upper(sKey))
