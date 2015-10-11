@@ -23,6 +23,7 @@ DockingEvent.nMinPopulation = 4
 DockingEvent.nMaxPopulation = -1
 DockingEvent.nMinTime = 60*10
 DockingEvent.nMaxTime = -1
+DockingEvent.nChanceObey = 1.00
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
@@ -114,7 +115,7 @@ function DockingEvent.tick(rController, dT, tCurrentEventPersistentState, tCurre
 end
 
 function DockingEvent._ignoreRefusal(tPersistentEventState)
-    return false
+    return math.random() > DockingEvent.nChanceObey
 end
 
 function DockingEvent._getHostility()
