@@ -31,9 +31,10 @@ CompoundEvent.nMinPopulation = 15
 CompoundEvent.nMaxPopulation = -1
 CompoundEvent.nMinTime = 60*20
 CompoundEvent.nMaxTime = -1
+CompoundEvent.bHostile = true
 
 function CompoundEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(true)
+    return Event.getPopulationMod() * Event.getHostilityMod(CompoundEvent.bHostile)
 end
 
 function CompoundEvent.allowEvent(nPopulation, nElapsedTime)
@@ -152,7 +153,7 @@ function CompoundEvent.onQueue(rController, tPersistentState, nPopulation, nElap
         tPersistentState.bMega = true
     end
 
-    tPersistentState.bHostile = true
+    tPersistentState.bHostile = CompoundEvent.bHostile
     CompoundEvent.selectEvents(rController, tPersistentState, nPopulation, nElapsedTime, bMega)
     tPersistentState.tFinishedEvents = {}
 end

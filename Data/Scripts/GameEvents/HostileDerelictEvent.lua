@@ -18,9 +18,10 @@ HostileDerelictEvent.nMinPopulation = 4
 HostileDerelictEvent.nMaxPopulation = -1
 HostileDerelictEvent.nMinTime = 10*60
 HostileDerelictEvent.nMaxTime = -1
+HostileDerelictEvent.bHostile = true
 
 function HostileDerelictEvent.getSpawnLocationModifier()
-    return Event._getExpMod('derelict') * Event.getHostilityMod(true)
+    return Event._getExpMod('derelict') * Event.getHostilityMod(HostileDerelictEvent.bHostile)
 end
 
 function HostileDerelictEvent.getWeight(nPop,nElapsed,bForecast)
@@ -40,7 +41,7 @@ function HostileDerelictEvent.getWeight(nPop,nElapsed,bForecast)
 end
 
 function HostileDerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    tUpcomingEventPersistentState.bHostile=true
+    tUpcomingEventPersistentState.bHostile=HostileDerelictEvent.bHostile
     DerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 end
 

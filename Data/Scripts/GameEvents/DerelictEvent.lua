@@ -25,9 +25,10 @@ DerelictEvent.nMinPopulation = 4
 DerelictEvent.nMaxPopulation = -1
 DerelictEvent.nMinTime = 10*60
 DerelictEvent.nMaxTime = -1
+DerelictEvent.bHostile = false
 
 function DerelictEvent.getSpawnLocationModifier()
-    return Event._getExpMod('derelict') * Event.getHostilityMod(false)
+    return Event._getExpMod('derelict') * Event.getHostilityMod(DerelictEvent.bHostile)
 end
 
 function DerelictEvent.getWeight(nPopulation, nElapsedTime, bForecast)

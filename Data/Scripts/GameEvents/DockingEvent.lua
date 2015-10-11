@@ -23,6 +23,7 @@ DockingEvent.nMinPopulation = 4
 DockingEvent.nMaxPopulation = -1
 DockingEvent.nMinTime = 60*10
 DockingEvent.nMaxTime = -1
+DockingEvent.bHostile = false
 DockingEvent.nChanceObey = 1.00
 DockingEvent.nChanceHostile = 0.00
 
@@ -31,7 +32,7 @@ DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 DockingEvent.nAllowedSetupFailures = 30
 
 function DockingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(false)
+    return Event.getPopulationMod() * Event.getHostilityMod(DockingEvent.bHostile)
 end
 
 function DockingEvent.getWeight(nPopulation, nElapsedTime)
@@ -46,6 +47,8 @@ function DockingEvent.allowEvent(nPopulation, nElapsedTime)
 end
 
 function DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
+    tUpcomingEventPersistentState.bHostile = rClass.bHostile
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     Event._attemptDock(rController, tUpcomingEventPersistentState)
 end

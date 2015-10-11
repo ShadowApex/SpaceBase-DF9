@@ -20,16 +20,12 @@ HostileDockingEvent.nMinPopulation = 4
 HostileDockingEvent.nMaxPopulation = -1
 HostileDockingEvent.nMinTime = 60*10
 HostileDockingEvent.nMaxTime = -1
+HostileDockingEvent.bHostile = true
 HostileDockingEvent.nChanceObey = 0.33
 HostileDockingEvent.nChanceHostile = 0.66
 
 function HostileDockingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(true)
-end
-
-function HostileDockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    tUpcomingEventPersistentState.bHostile = true
-    DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    return Event.getPopulationMod() * Event.getHostilityMod(HostileDockingEvent.bHostile)
 end
 
 return HostileDockingEvent

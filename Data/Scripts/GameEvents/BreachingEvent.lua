@@ -27,9 +27,10 @@ BreachingEvent.nMinPopulation = 6
 BreachingEvent.nMaxPopulation = -1
 BreachingEvent.nMinTime = 60 * 10
 BreachingEvent.nMaxPopulation = -1
+BreachingEvent.bHostile = true
 
 function BreachingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(true)
+    return Event.getPopulationMod() * Event.getHostilityMod(BreachingEvent.bHostile)
 end
 
 function BreachingEvent.allowEvent(nPopulation, nElapsedTime)
@@ -56,7 +57,7 @@ end
 function BreachingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 
-    tUpcomingEventPersistentState.bHostile = true
+    tUpcomingEventPersistentState.bHostile = BreachingEvent.bHostile
 
     local nDifficulty = tUpcomingEventPersistentState.nDifficulty
     tUpcomingEventPersistentState.tCharSpawnStats = require('EventController').rollRandomRaiders(nDifficulty,true)
