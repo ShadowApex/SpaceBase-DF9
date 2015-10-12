@@ -372,9 +372,10 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
 	
     local sFriendlyName = Malady.getNewDiseaseName(sMaladyType)
 	
+    --Replace with data from the malady itself
 	if sMaladyType == 'Thing' then
 	    bRequireResearch = true
-	    nResearchTimeOverride = math.random(500)+200
+	    nResearchTimeOverride = math.random(500)+500
 	end
 
 	
@@ -513,6 +514,18 @@ function Malady.tickMaladies(rChar)
     end
 end
 
+--adjust various statuses of those infected to match the disease
+
+function Malady.adjustCharacter(rChar,tMalady)
+    if tMalady.nSpeed then
+        if rChar.tStats.nspeed then
+            rChar.tStats.nspeed = tMalady.nSpeed
+        else
+            rChar.tStats.nspeed = tMalady.nSpeed  
+        end
+    end
+end
+
 function Malady._tickMalady(rChar,tMalady)
 	if tMalady.nMaladyEnd and tMalady.nMaladyEnd < GameRules.elapsedTime then
 		rChar:cure(tMalady.sMaladyName)
@@ -523,6 +536,10 @@ function Malady._tickMalady(rChar,tMalady)
 	-- Check for stage increment of staged diseases.
 	-- When we get to a new stage, just copy all the new data from the symptom stage
 	-- into the running malady.
+    
+    --Adjust the characters variables if required this will hopefully be where the magic of making things more data driven happens
+
+    
 	if tMalady.tSymptomStarts then
 		local nNextStage = tMalady.nCurrentStage+1
 
@@ -565,6 +582,8 @@ function Malady._tickMalady(rChar,tMalady)
 			Log.add(logtype, rChar)
 			tMalady.nNextSymptomLog = Malady._nextTime(Malady.LOG_RANGE)
 		end
+        --adjust the character, speed can be adjusted at top level or in specific stages
+         Malady.adjustCharacter(rChar,tMalady)
         --The Thing
 		if tMalady.sSpecial == 'thing' and (not tMalady.nNextSpawnAttempt or tMalady.nNextSpawnAttempt < GameRules.elapsedTime) then
 			tMalady.nNextSpawnAttempt = GameRules.elapsedTime + 15

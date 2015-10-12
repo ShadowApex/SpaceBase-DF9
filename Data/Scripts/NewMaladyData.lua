@@ -187,6 +187,8 @@ local tMaladyList = {
     Thing=
     {
         sDesc='DISEASTHINGTEXT',
+        --Things get a slight speed boost
+        nSpeed = 1.5,
 		nChanceOfAffliction = 4,
         nChanceOfNewStrain = 100,
 	    bSpreadSneeze=false,
@@ -214,9 +216,11 @@ local tMaladyList = {
         },
     },
  
+ --Hardcoded alot, needs to be edited.
 	 Hyper=
     {
         sDesc='DISEASDESC10TEXT',
+        nSpeed = 10,
 		nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,
 	    bSpreadSneeze=true,
@@ -286,6 +290,8 @@ local tMaladyList = {
 	Rhinovirus=
     {
         sDesc='DISEASDESC07TEXT',
+        --A cold makes you lethargic
+        nSpeed = .5,
 		nChanceOfAffliction = 50,
         nChanceOfNewStrain = 50,
         nChanceToInfectCharacter=.5,
@@ -320,6 +326,8 @@ local tMaladyList = {
         sDesc='DISEASDESC03TEXT',
 		nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,
+        --Plague makes you lethargic
+        nSpeed = .5,
         bSpreadSneeze=true,
         bSpreadTouch=true,
         nChanceToInfectCharacter=.9,
@@ -532,6 +540,7 @@ local tMaladyList = {
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Social=.2,
+            nSpeed = .3,
             Energy=4,
         },
     },

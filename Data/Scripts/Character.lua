@@ -57,6 +57,7 @@ function Character:init( tData )
 
 	CharacterManager = require( 'CharacterManager' )
 	-- basic setup
+
 	self.sDirection = 'SE'
 	self.rAssetSet = GameRules.worldAssets
 
@@ -175,8 +176,8 @@ function Character:init( tData )
 	
 	------------------------------------------------------------------
 	self.squadName = tData.sSquadName or nil
-	------------------------------------------------------------------
     
+	------------------------------------------------------------------
     local tx,ty = self:getTileLoc()
     if not World._isInBounds(tx,ty,true) then
         CharacterManager.killCharacter(self, Character.CAUSE_OF_DEATH.SUCKED_INTO_SPACE)
@@ -3268,6 +3269,12 @@ function Character:_setStats( tData )
 	-- try to load from save
 	if tData then
 		self.tStats = tData.tStats or {}
+        --new data for maladies to modify
+        
+        --nSpeed is simply a speed multiplier
+        if not self.tStats.nspeed then self.tStats.nspeed = 1 end
+        
+        --done
 		if not self.tStats.tPersonality then self.tStats.tPersonality = {} end
 		if not self.tStats.tHistory then self.tStats.tHistory = {} end
 		if not self.tStats.tHistory.tMoraleEvents then self.tStats.tHistory.tMoraleEvents = {} end
@@ -6251,12 +6258,8 @@ function Character:getAdjustedSpeed()
     elseif self.tStats.nMorale < -Character.MORALE_SPEED_THRESHOLD then
 		nMoraleMod = 1 + Character.MORALE_LOW_SPEED_MODIFIER
 	end
-	local speed = self.tStats.speed * nMoraleMod
-	
-    if self:getHasMaladyType('Hyper') then
-		speed = speed*4
-    end
-	
+	local speed = self.tStats.speed * nMoraleMod * self.tStats.nspeed
+
     return speed
 end
 
@@ -6390,8 +6393,11 @@ function Character:cure(sName)
     if self.tStatus.tMaladies[sName] then
         local tMalady = self.tStatus.tMaladies[sName]
         self.tStatus.tMaladies[sName] = nil
+        --set speed multiplier to 1 immediately if the person has another disease that mods it it will appear next tick
+        self.tStats.nspeed=1
     end
     self.tStats.tImmunities[sName] = GameRules.elapsedTime
+    
 end
 
 function Character:DBG_cureAllMaladies()
