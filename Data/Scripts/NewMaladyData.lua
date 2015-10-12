@@ -219,7 +219,7 @@ local tMaladyList = {
 	 Hyper=
     {
         sDesc='DISEASDESC10TEXT',
-        nSpeed = 10,
+        nSpeed = 4,
 		nChanceOfAffliction = 15,
         nChanceOfNewStrain = 50,
 	    bSpreadSneeze=true,
