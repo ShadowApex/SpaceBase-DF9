@@ -216,7 +216,6 @@ local tMaladyList = {
         },
     },
  
- --Hardcoded alot, needs to be edited.
 	 Hyper=
     {
         sDesc='DISEASDESC10TEXT',
