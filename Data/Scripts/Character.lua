@@ -6249,7 +6249,7 @@ end
 function Character:getAdjustedSpeed()
     if self.rCurrentRig.tCurrentAnimationData and self.rCurrentRig.tCurrentAnimationData.bUseRunSpeed then
     --if self:isPlayingAnim('run') then
-        return self.tStats.runSpeed
+        return self.tStats.runSpeed * self.tStats.nspeed
     end
 	
     local nMoraleMod = 1
