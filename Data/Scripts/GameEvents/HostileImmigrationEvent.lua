@@ -30,14 +30,6 @@ function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > HostileImmigrationEvent.nMinPopulation or GameRules.elapsedTime > HostileImmigrationEvent.nMinTime
 end
 
-function HostileImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-
-    tUpcomingEventPersistentState.bHostile = HostileImmigrationEvent.bHostile
-
-    HostileImmigrationEvent._prerollRaiders(rController, tUpcomingEventPersistentState)
-end
-
 function HostileImmigrationEvent._prerollRaiders(rController, tUpcomingEventPersistentState)
     -- choose how many raiders, and how tuff
     local nDifficulty = tUpcomingEventPersistentState.nDifficulty

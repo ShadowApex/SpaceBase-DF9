@@ -39,9 +39,4 @@ function HostileDerelictEvent.getWeight(nPop,nElapsed,bForecast)
     return 0
 end
 
-function HostileDerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    tUpcomingEventPersistentState.bHostile=HostileDerelictEvent.bHostile
-    DerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-end
-
 return HostileDerelictEvent

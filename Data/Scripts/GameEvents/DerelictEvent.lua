@@ -50,8 +50,9 @@ function DerelictEvent.allowEvent(nPopulation, nElapsedTime)
 end
 
 function DerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
+    tUpcomingEventPersistentState.bHostile = rClass.bHostile
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-
     Event._attemptDock(rController, tUpcomingEventPersistentState)
 end
 

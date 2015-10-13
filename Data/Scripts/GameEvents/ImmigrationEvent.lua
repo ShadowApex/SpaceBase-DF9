@@ -61,18 +61,25 @@ function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)
 end
 
 function ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
+    tUpcomingEventPersistentState.bHostile = rClass.bHostile
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
 
     local tRange = rController.tEventClasses[tUpcomingEventPersistentState.sEventType].tNumSpawnsRange
     tUpcomingEventPersistentState.nNumSpawns = math.random(tRange[1],tRange[2])
 
+    -- Maladies
     Event._preRollMalady(rController,tUpcomingEventPersistentState, nElapsedTime)
-
     tUpcomingEventPersistentState.nNumMaladies = 0
     for i=1,tUpcomingEventPersistentState.nNumSpawns do
         if math.random(0,100) <= rController.tEventClasses[tUpcomingEventPersistentState.sEventType].nChanceOfMalady then
             tUpcomingEventPersistentState.nNumMaladies = tUpcomingEventPersistentState.nNumMaladies + 1
         end
+    end
+
+    -- Raiders
+    if rClass.bHostile and rClass._prerollRaiders then
+        rClass._prerollRaiders(rController, tUpcomingEventPersistentState)
     end
 end
 
