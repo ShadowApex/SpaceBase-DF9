@@ -25,16 +25,4 @@ HostileDockingEvent.nChanceObey = 0.33
 HostileDockingEvent.nChanceHostile = 0.66
 HostileDockingEvent.sExpMod = 'population'
 
-function HostileDockingEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 1
-    if HostileDockingEvent.nChanceObey + HostileDockingEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    elseif HostileDockingEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod(HostileDockingEvent.sExpMod) * hostileMultiplier
-end
-
 return HostileDockingEvent

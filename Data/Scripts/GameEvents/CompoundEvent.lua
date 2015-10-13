@@ -36,18 +36,6 @@ CompoundEvent.nChanceObey = 0.00
 CompoundEvent.nChanceHostile = 1.00
 CompoundEvent.sExpMod = 'population'
 
-function CompoundEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 0
-    if CompoundEvent.nChanceObey + CompoundEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    elseif CompoundEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod(CompoundEvent.sExpMod) * hostileMultiplier
-end
-
 function CompoundEvent.allowEvent(nPopulation, nElapsedTime)
     return not g_Config:getConfigValue('disable_hostiles') and
         not g_Config:getConfigValue('disable_hostile_events') and

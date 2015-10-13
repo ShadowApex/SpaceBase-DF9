@@ -48,18 +48,6 @@ ImmigrationEvent.nChanceObey = 0.00
 ImmigrationEvent.nChanceHostile = 1.00
 ImmigrationEvent.sExpMod = 'population'
 
-function ImmigrationEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 0
-    if ImmigrationEvent.nChanceObey + ImmigrationEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    elseif ImmigrationEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod(ImmigrationEvent.sExpMod) * hostileMultiplier
-end
-
 function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)
     -- if popcap reached, 0 chance of immigration
     if nPopulation >= g_nPopulationCap then

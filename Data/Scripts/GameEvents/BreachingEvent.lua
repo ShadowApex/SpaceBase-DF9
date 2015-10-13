@@ -32,18 +32,6 @@ BreachingEvent.nChanceObey = 0.00
 BreachingEvent.nChanceHostile = 1.00
 BreachingEvent.sExpMod = 'population'
 
-function BreachingEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 0
-    if BreachingEvent.nChanceObey + BreachingEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    elseif BreachingEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod(BreachingEvent.sExpMod) * hostileMultiplier
-end
-
 function BreachingEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > BreachingEvent.nMinPopulation or GameRules.elapsedTime > BreachingEvent.nMinTime
 end

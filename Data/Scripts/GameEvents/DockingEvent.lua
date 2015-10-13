@@ -32,18 +32,6 @@ DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
 DockingEvent.nAllowedSetupFailures = 30
 
-function DockingEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 0
-    if DockingEvent.nChanceObey + DockingEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    if DockingEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod('population') * hostileMultiplier
-end
-
 function DockingEvent.getWeight(nPopulation, nElapsedTime)
     if nPopulation >= g_nPopulationCap then
         return 0

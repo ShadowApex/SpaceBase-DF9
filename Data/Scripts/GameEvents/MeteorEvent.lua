@@ -30,18 +30,6 @@ MeteorEvent.nChanceObey = 0.00
 MeteorEvent.nChanceHostile = 0.00
 MeteorEvent.sExpMod = 'asteroids'
 
-function MeteorEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 0
-    if MeteorEvent.nChanceObey + MeteorEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    elseif MeteorEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod(MeteorEvent.sExpMod) * hostileMultiplier
-end
-
 function MeteorEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > MeteorEvent.nMinPopulation or GameRules.elapsedTime > MeteorEvent.nMinTime
 end

@@ -30,18 +30,6 @@ DerelictEvent.nChanceObey = 1.00
 DerelictEvent.nChanceHostile = 0.00
 DerelictEvent.sExpMod = 'population'
 
-function DerelictEvent.getSpawnLocationModifier()
-    local hostileMultiplier = 0
-    if DerelictEvent.nChanceObey + DerelictEvent.nChanceHostile == 0 then
-        hostileMultiplier = 1
-    elseif DerelictEvent.bHostile then
-        hostileMultiplier = 1/Event._getExpMod('hostility')
-    else
-        hostileMultiplier = Event._getExpMod('hostility')
-    end
-    return Event._getExpMod(DerelictEvent.sExpMod) * hostileMultiplier
-end
-
 function DerelictEvent.getWeight(nPopulation, nElapsedTime, bForecast)
     if nPopulation >= g_nPopulationCap then
         return 0
