@@ -29,7 +29,6 @@ ImmigrationEvent.sFailureLC = 'ALERTS024TEXT'
 ImmigrationEvent.sDialogSet = 'immigrationEvents'
 ImmigrationEvent.nPostDialogAlertTotalTime = 4
 ImmigrationEvent.nAllowedSetupFailures = 0
-ImmigrationEvent.bHostile = false
 
 -- if population is below threshold within early game, weight immigration higher
 ImmigrationEvent.EARLY_POPULATION_THRESHOLD = 8
@@ -44,9 +43,21 @@ ImmigrationEvent.nMinPopulation = -1
 ImmigrationEvent.nMaxPopulation = g_nPopulationCap
 ImmigrationEvent.nMinTime = -1
 ImmigrationEvent.nMaxTime = -1
+ImmigrationEvent.bHostile = true
+ImmigrationEvent.nChanceObey = 0.00
+ImmigrationEvent.nChanceHostile = 1.00
+ImmigrationEvent.sExpMod = 'population'
 
 function ImmigrationEvent.getSpawnLocationModifier()
-    return Event._getExpMod('population') * Event.getHostilityMod(ImmigrationEvent.bHostile)
+    local hostileMultiplier = 0
+    if ImmigrationEvent.nChanceObey + ImmigrationEvent.nChanceHostile == 0 then
+        hostileMultiplier = 1
+    elseif ImmigrationEvent.bHostile then
+        hostileMultiplier = 1/Event._getExpMod('hostility')
+    else
+        hostileMultiplier = Event._getExpMod('hostility')
+    end
+    return Event._getExpMod(ImmigrationEvent.sExpMod) * hostileMultiplier
 end
 
 function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)

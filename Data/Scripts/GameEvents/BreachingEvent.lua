@@ -28,9 +28,20 @@ BreachingEvent.nMaxPopulation = -1
 BreachingEvent.nMinTime = 60 * 10
 BreachingEvent.nMaxPopulation = -1
 BreachingEvent.bHostile = true
+BreachingEvent.nChanceObey = 0.00
+BreachingEvent.nChanceHostile = 1.00
+BreachingEvent.sExpMod = 'population'
 
 function BreachingEvent.getSpawnLocationModifier()
-    return Event._getExpMod('population') * Event.getHostilityMod(BreachingEvent.bHostile)
+    local hostileMultiplier = 0
+    if BreachingEvent.nChanceObey + BreachingEvent.nChanceHostile == 0 then
+        hostileMultiplier = 1
+    elseif BreachingEvent.bHostile then
+        hostileMultiplier = 1/Event._getExpMod('hostility')
+    else
+        hostileMultiplier = Event._getExpMod('hostility')
+    end
+    return Event._getExpMod(BreachingEvent.sExpMod) * hostileMultiplier
 end
 
 function BreachingEvent.allowEvent(nPopulation, nElapsedTime)

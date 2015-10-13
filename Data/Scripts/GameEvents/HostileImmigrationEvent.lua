@@ -22,9 +22,20 @@ HostileImmigrationEvent.nMaxPopulation = -1
 HostileImmigrationEvent.nMinTime = 60*12
 HostileImmigrationEvent.nMaxTime = -1
 HostileImmigrationEvent.bHostile = true
+HostileImmigrationEvent.nChanceObey = 0.00
+HostileImmigrationEvent.nChanceHostile = 1.00
+HostileImmigrationEvent.sExpMod = 'population'
 
 function HostileImmigrationEvent.getSpawnLocationModifier()
-    return Event._getExpMod('population') * Event.getHostilityMod(HostileImmigrationEvent.bHostile)
+    local hostileMultiplier = 0
+    if HostileImmigrationEvent.nChanceObey + HostileImmigrationEvent.nChanceHostile == 0 then
+        hostileMultiplier = 1
+    elseif HostileImmigrationEvent.bHostile then
+        hostileMultiplier = 1/Event._getExpMod('hostility')
+    else
+        hostileMultiplier = Event._getExpMod('hostility')
+    end
+    return Event._getExpMod(HostileImmigrationEvent.sExpMod) * hostileMultiplier
 end
 
 function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)

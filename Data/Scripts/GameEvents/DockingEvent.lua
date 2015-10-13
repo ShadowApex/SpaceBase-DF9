@@ -26,13 +26,22 @@ DockingEvent.nMaxTime = -1
 DockingEvent.bHostile = false
 DockingEvent.nChanceObey = 1.00
 DockingEvent.nChanceHostile = 0.00
+DockingEvent.sExpMod = 'population'
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
 DockingEvent.nAllowedSetupFailures = 30
 
 function DockingEvent.getSpawnLocationModifier()
-    return Event._getExpMod('population') * Event.getHostilityMod(DockingEvent.bHostile)
+    local hostileMultiplier = 0
+    if DockingEvent.nChanceObey + DockingEvent.nChanceHostile == 0 then
+        hostileMultiplier = 1
+    if DockingEvent.bHostile then
+        hostileMultiplier = 1/Event._getExpMod('hostility')
+    else
+        hostileMultiplier = Event._getExpMod('hostility')
+    end
+    return Event._getExpMod('population') * hostileMultiplier
 end
 
 function DockingEvent.getWeight(nPopulation, nElapsedTime)

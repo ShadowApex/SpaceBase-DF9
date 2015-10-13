@@ -19,9 +19,20 @@ HostileDerelictEvent.nMaxPopulation = -1
 HostileDerelictEvent.nMinTime = 10*60
 HostileDerelictEvent.nMaxTime = -1
 HostileDerelictEvent.bHostile = true
+HostileDerelictEvent.nChanceObey = 0.00
+HostileDerelictEvent.nChanceHostile = 1.00
+HostileDerelictEvent.sExpMod = 'population'
 
 function HostileDerelictEvent.getSpawnLocationModifier()
-    return Event._getExpMod('derelict') * Event.getHostilityMod(HostileDerelictEvent.bHostile)
+    local hostileMultiplier = 0
+    if HostileDerelictEvent.nChanceObey + HostileDerelictEvent.nChanceHostile == 0 then
+        hostileMultiplier = 1
+    elseif HostileDerelictEvent.bHostile then
+        hostileMultiplier = 1/Event._getExpMod('hostility')
+    else
+        hostileMultiplier = Event._getExpMod('hostility')
+    end
+    return Event._getExpMod(HostileDerelictEvent.sExpMod) * hostileMultiplier
 end
 
 function HostileDerelictEvent.getWeight(nPop,nElapsed,bForecast)
