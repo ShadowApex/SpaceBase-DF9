@@ -616,7 +616,7 @@
     HINTSX041TEXT = { sLine = "A Datacube containing research data has been discovered. Select \"claim data\" in its inspector and a Scientist will collect it.", },
     HINTSX042TEXT = { sLine = "To recover a Research Datacube you need a Lab with at least one Research Console.", },
     HINTSX043TEXT = { sLine = "Only Scientists can recover Research Datacubes. Use the Roster to assign citizens to Scientist duty.", },
-    HINTSX044TEXT = { sLine = "Doctors can only recycle corpses at a Matter Refinery. Construct one in a Refinery Zone.", },
+    HINTSX044TEXT = { sLine = "Janitors can only recycle corpses at a Matter Refinery. Construct one in a Refinery Zone.", },
     HINTSX045TEXT = { sLine = "A citizen is in an Infirmary zone awaiting treatment. Assign a citizen to Doctor duty.", },
     HINTSX046TEXT = { sLine = "Only Janitors can recycle corpses at a Matter Refinery. Assign a citizen to Janitor duty.", },
     HINTSX047TEXT = { sLine = "Your citizens are sick, but have no Doctor to treat them. Assign a citizen to Doctor duty.", },
