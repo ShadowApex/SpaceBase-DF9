@@ -586,7 +586,23 @@ Log.tTypes = {
 				},
 		priority=3,
 	},
+   WORM_STAGE_ONE={
+		
+               lineCodes={ 'WORMSTAGE101', 'WORMSTAGE102','WORMSTAGE103','WORMSTAGE104',
+                   'WORMSTAGE105', 'WORMSTAGE106','WORMSTAGE107','WORMSTAGE108',
+                   'WORMSTAGE109', 'WORMSTAGE110','WORMSTAGE111','WORMSTAGE112', },
+		priority=2,
+	},
+       WORM_STAGE_TWO={
+		
+               lineCodes={ 'WORMSTAGE201', 'WORMSTAGE202','WORMSTAGE203','WORMSTAGE204',
+                           'WORMSTAGE205', 'WORMSTAGE206','WORMSTAGE207','WORMSTAGE208',
+                           'WORMSTAGE209', 'WORMSTAGE210','WORMSTAGE211','WORMSTAGE212', 
+                          'WORMSTAGE213', 'WORMSTAGE214','WORMSTAGE215',},
+		priority=2,
+	},
 }
+
 
 -- if priority isn't specified for a log type above, use this
 Log.DEFAULT_PRIORITY = 0

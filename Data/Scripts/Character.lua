@@ -1151,8 +1151,8 @@ function Character:_getCoopTaskOption(sMyTaskName,sYourTaskName,rAskingChar)
 			    tData.targetLocationFn=function(rChar, rAO) return self:_coopTaskLocationCallback(rChar,rAO) end
             elseif sYourTaskName == 'FieldScanAndHeal' then
 			    tData.utilityGateFn=function(rChar, rThisActivityOption) 
-					--Things should always refuse checkups a bit hacky now, but they are a bit too easy
-					if self:getHasMaladyType('Thing') then
+					--If a character has the refuse doctor bool, refuse to have a checkup
+					if self.tStats.bRefuseDoctor and self.tStats.bRefuseDoctor==true  then
 						return false
 					end
                     -- don't get a checkup too often, but if stuff is real bad, we can get fixed up.
@@ -3269,11 +3269,11 @@ function Character:_setStats( tData )
 	-- try to load from save
 	if tData then
 		self.tStats = tData.tStats or {}
-        --new data for maladies to modify
-        
+        --new data for maladies to modify, could do this from within the maladies themselves, but that would get messy fast.
         --nSpeed is simply a speed multiplier
         if not self.tStats.nspeed then self.tStats.nspeed = 1 end
-        
+        if not self.tStats.bRefuseDoctor then self.tStats.bRefuseDoctor = false end 
+        if not self.tStats.bHideSigns then self.tStats.bHideSigns = false end 
         --done
 		if not self.tStats.tPersonality then self.tStats.tPersonality = {} end
 		if not self.tStats.tHistory then self.tStats.tHistory = {} end
@@ -4850,12 +4850,11 @@ function Character:getWalkAnim()
 	elseif self:hasUtilityStatus(Character.STATUS_RAMPAGE) then
 		sWalk = 'walk_tantrum'
 	elseif self.tStatus.bLowOxygen or nIllnesses > 0 then
-	--Things hide their illnesses, we need to figure out a way of doing this without a bunch of if statements, a special character object would work well for "things".
-        if not self:getHasMaladyType('Thing') then
-            sWalk = 'walk_low_oxygen'
+        if self.tStats.bHideSigns and self.tStats.bHideSigns==true then
+        sWalk= 'walk'
         else
-            sWalk= 'walk'
-         end
+         sWalk = 'walk_low_oxygen'
+        end
 	elseif self.tStats.nMorale > Character.MORALE_SPEED_THRESHOLD then
 		sWalk = 'walk_happy'
 	elseif self.tStats.nMorale < -Character.MORALE_SPEED_THRESHOLD then
@@ -5703,8 +5702,8 @@ function Character:getPerceivedDiseaseSeverity(bIncludeHP)
             end
         end
     end
-	--for things
-    if self:getHasMaladyType('Thing') then
+	--for maladies that refuse doctors
+    if self.tStats.bRefuseDoctor and self.tStats.bRefuseDoctor==true then
         nSev=0
         return nSev
     end
@@ -6174,11 +6173,8 @@ function Character:getHealth()
     if Malady.isIncapacitated(self) then
         return Character.STATUS_INCAPACITATED
     end
-	--The Thing tries to hide itself from the player a big red 'Ill" would just give it away, but for the first stage, showing ill is fine (person is being transformed)
     if self:getPerceivedDiseaseSeverity() > .1 then
-		if not self:getHasMaladyType('Thing') then
-			return Character.STATUS_ILL
-			elseif not  self.tStatus.tMaladies['Thing'].sSpecial=='thing'  then
+    if not self.tStats.bHideSigns and not self.tStats.bHideSigns==true then
 			return Character.STATUS_ILL
 		end
     end
@@ -6395,6 +6391,8 @@ function Character:cure(sName)
         self.tStatus.tMaladies[sName] = nil
         --set speed multiplier to 1 immediately if the person has another disease that mods it it will appear next tick
         self.tStats.nspeed=1
+        self.tStats.bRefuseDoctor=false
+        self.tStats.bHideSigns =false
     end
     self.tStats.tImmunities[sName] = GameRules.elapsedTime
     

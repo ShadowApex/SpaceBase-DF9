@@ -189,8 +189,11 @@ local tMaladyList = {
         sDesc='DISEASTHINGTEXT',
         --Things get a slight speed boost
         nSpeed = 1.5,
+        nForceResearch = 600,
 		nChanceOfAffliction = 4,
         nChanceOfNewStrain = 100,
+        bRefuseHeal=true,
+        bHidden=true,
 	    bSpreadSneeze=false,
         bSpreadTouch=false,
         nSeverity=1,
@@ -358,7 +361,6 @@ local tMaladyList = {
 				Energy=.5,
                 Social=.8,
                 Amusement=.8,
-				Energy=.5,
                 Hunger=1.
 			},
                 sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
@@ -547,7 +549,7 @@ local tMaladyList = {
     AllBadDisease=
     {
         sDesc='DISEASDESC19TEXT',
-        nChanceOfAffliction = 4,
+        nChanceOfAffliction =15,
         nChanceOfNewStrain = 90,
         nChanceToInfectCharacter=.9,
         nChanceToInfectObject=.9,
@@ -567,6 +569,62 @@ local tMaladyList = {
             Social = 3,
             Hunger = 8,
             Duty=0,
+        },
+    },
+    
+    --Brain worm. SHould very quickly infect alot of people and make player creeped out a bit.
+    SocialWorm=
+    {
+        sDesc='DISEASDESC16TEXT',
+        nChanceOfAffliction = 15,
+        nChanceOfNewStrain = 70,
+        nChanceToInfectCharacter=.9,
+        nChanceToInfectObject=.9,
+        nForceResearch = 800,
+        bRefuseHeal=true,
+        bSpreadSneeze=true,
+        bSpreadTouch=true,
+        nPerceivedSeverity=0,
+        nSeverity=.5,
+		nDifficulty=.8,
+        tTimeToContagious={1,10},
+        nFieldTreatSkill=7,
+        bCreateStrains=true,
+		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
+        tSymptomStages=
+        {
+            {
+            tTimeToSymptoms={10,60*5},
+            tReduceMods={
+                social=6,
+                Amusement=-.3,
+            },
+                nSpeed=1.2,
+                --chatter should mention a creature "talking" to them
+                sSymptomLog=Log.tTypes.WORM_STAGE_ONE,
+            },
+	    {
+        ---Ruh oh
+        tTimeToSymptoms={60*5,60*20},
+        tReduceMods={
+        --Infected dont work, dont eat, dont sleep, only talk, and spread the infection (they eventually die)
+            Social=12,
+            Duty=0,
+            Energy=0,
+            Amusement = -3,
+            Hunger = 0,
+        },
+        --Log gets filled with crazy chatter about how they have a purpose in life now etc, (really creepy)
+                sSymptomLog=Log.tTypes.WORM_STAGE_TWO,
+                --Become unhumanly slow, zombie like, should look creepy, and now, hide your disease completely.
+                nSpeed=.5,
+                bHidden=true,
+            },
+            {
+            --They have served their purpose........
+                tTimeToSymptoms={60*20,60*21},
+                sSpecial='death',
+            },
         },
     },
 

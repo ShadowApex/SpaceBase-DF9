@@ -363,6 +363,10 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
 	
     local sMaladyType = tMaladySpec.sMaladyType
     local sMaladyName = sMaladyType .. i
+    if tMaladySpec.nForceResearch then
+        bRequireResearch = true
+        extraResearch = math.random(tMaladySpec.nForceResearch)
+    end
 	
 	
     while Malady.tS.tMaladyStrains[sMaladyName] do
@@ -373,9 +377,8 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
     local sFriendlyName = Malady.getNewDiseaseName(sMaladyType)
 	
     --Replace with data from the malady itself
-	if sMaladyType == 'Thing' then
-	    bRequireResearch = true
-	    nResearchTimeOverride = math.random(500)+500
+	if tMaladySpec.nForceResearch and tMaladySpec.nForceResearch>0 then
+	    nResearchTimeOverride = math.random(0,tMaladySpec.nForceResearch)+500
 	end
 
 	
@@ -517,11 +520,28 @@ end
 --adjust various statuses of those infected to match the disease
 
 function Malady.adjustCharacter(rChar,tMalady)
+--just saying tMalady.x will return whether it is nil or not, not whether its true or false, so do that separately
     if tMalady.nSpeed then
         if rChar.tStats.nspeed then
             rChar.tStats.nspeed = tMalady.nSpeed
         else
             rChar.tStats.nspeed = tMalady.nSpeed  
+        end
+    end
+    --refuse doctors if you have to
+    if tMalady.bRefuseHeal and tMalady.bRefuseHeal==true then
+        if rChar.tStats.bRefuseDoctor then
+            rChar.tStats.bRefuseDoctor = tMalady.bRefuseHeal
+        else
+            rChar.tStats.bRefuseDoctor = tMalady.bRefuseHeal  
+        end
+    end
+    --Hide disease if required
+    if tMalady.bHidden and tMalady.bHidden==true then
+        if rChar.tStats.bHideSigns then
+            rChar.tStats.bHideSigns = tMalady.bHidden
+        else
+            rChar.tStats.bHideSigns = tMalady.bHidden  
         end
     end
 end
