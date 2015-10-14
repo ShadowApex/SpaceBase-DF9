@@ -43,9 +43,9 @@ ImmigrationEvent.nMinPopulation = -1
 ImmigrationEvent.nMaxPopulation = g_nPopulationCap
 ImmigrationEvent.nMinTime = -1
 ImmigrationEvent.nMaxTime = -1
-ImmigrationEvent.bHostile = true
-ImmigrationEvent.nChanceObey = 0.00
-ImmigrationEvent.nChanceHostile = 1.00
+ImmigrationEvent.bHostile = false
+ImmigrationEvent.nChanceObey = 1.00
+ImmigrationEvent.nChanceHostile = 0.00
 ImmigrationEvent.sExpMod = 'population'
 
 function ImmigrationEvent.getWeight(nPopulation, nElapsedTime)
