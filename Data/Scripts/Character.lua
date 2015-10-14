@@ -5463,12 +5463,28 @@ function Character:takeDamage(rAttacker, tDamage)
 		tDamage.nDamage = 0
 		self.tStatus.nHitPoints = Character.STARTING_HIT_POINTS
 	end
+    
     if self.tStatus.nHitPoints then
         self.tStatus.nHitPoints = self.tStatus.nHitPoints - nDamage
-
+        
+        local  bInjury =  math.random()
+        
+        --Minor injuries, fairly common
+       if nDamage > 1 and  bInjury > .25 then
+       local tInjuries, num = Malady.getMinorInjuryFromList() 
+           local sMalady = tInjuries[math.random(0,num)]
+            if self:diseaseInteraction(nil,Malady.createNewMaladyInstance(sMalady)) then
+                if self:retrieveMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY) then
+                    -- log about being hurt :[
+                    Log.add(Log.tTypes.HEALTH_CITIZEN_MINOR_INJURY, self)
+                end
+            end
+        end
+        
         local bIncapacitate = math.random() * 1.5 * Character.STARTING_HIT_POINTS < nDamage
+       --Injuries, for incapacitated indivduals,
         if bIncapacitate then
-       local tInjuries, num = Malady.getInjuryFromList()
+       local tInjuries, num = Malady.getInjuryFromList() 
            local sMalady = tInjuries[math.random(0,num)]
             if self:diseaseInteraction(nil,Malady.createNewMaladyInstance(sMalady)) then
                 if self:retrieveMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY) then
@@ -5477,6 +5493,7 @@ function Character:takeDamage(rAttacker, tDamage)
                 end
             end
         end
+        
         local bDestroyItem = math.random() < .5 * nDamage/Character.STARTING_HIT_POINTS
         if bDestroyItem then
             local sKey = MiscUtil.randomKey(self.tInventory)
@@ -5484,6 +5501,7 @@ function Character:takeDamage(rAttacker, tDamage)
                 self:destroyItem(sKey)
             end
         end
+        
     end
     if not self.tStatus.nHitPoints or self.tStatus.nHitPoints <= 0 then
         local bStunDamage = tDamage.nDamageType == Character.DAMAGE_TYPE.Stunner 

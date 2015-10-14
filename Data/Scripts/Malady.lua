@@ -83,7 +83,7 @@ function Malady._updateMaladySaveData()
     end
 end
 
-local tDiseaseSpecific = {'thing','Thing','Hyper','hyper'}
+local tDiseaseSpecific = {'thing','Thing','Hyper','hyper','SocialWorm','socialWorm'}
 
 local tDiseaseAdjectives = {
    default = {
@@ -117,7 +117,9 @@ local tDiseaseAdjectives = {
    'DISEAS074TEXT', 'DISEAS075TEXT', 'DISEAS076TEXT', 
    'DISEAS077TEXT', 'DISEAS078TEXT', 'DISEAS079TEXT',
    'DISEAS080TEXT', 'DISEAS081TEXT', 'DISEAS082TEXT',},
-			  
+    SocialWorm = {
+   'WORMADJECTIVE001', 'WORMADJECTIVE002',
+   'WORMADJECTIVE003', 'WORMADJECTIVE004', 'WORMADJECTIVE005',},		  
 }
 
 local tDiseaseNouns = {
@@ -130,14 +132,16 @@ Hyper = {
 'DISEAS010TEXT', 'DISEAS013TEXT', 'DISEAS017TEXT',
 'DISEAS019TEXT', 'DISEAS020TEXT','DISEAS060TEXT', 
 'DISEAS061TEXT', 'DISEAS062TEXT', 'DISEAS063TEXT',
-'DISEAS064TEXT', 'DISEAS065TEXT',},			
+'DISEAS064TEXT', 'DISEAS065TEXT',},	
+SocialWorm = {
+'WORMNOUN001','WORMNOUN002','WORMNOUN003',
+'WORMNOUN004','WORMNOUN005',},		
 default = {
 'DISEAS007TEXT', 'DISEAS008TEXT', 'DISEAS009TEXT',
 'DISEAS010TEXT', 'DISEAS013TEXT', 'DISEAS017TEXT',
 'DISEAS019TEXT', 'DISEAS020TEXT','DISEAS060TEXT', 
 'DISEAS061TEXT', 'DISEAS062TEXT', 'DISEAS063TEXT',
-'DISEAS064TEXT', 'DISEAS065TEXT',},
-		  
+'DISEAS064TEXT', 'DISEAS065TEXT',},		  
 }
 
 local tDiseaseSpecials = { 'DISEAS021TEXT', }
@@ -148,7 +152,7 @@ function Malady.getDiseaseName(sDiseaseType)
     local sName = ''
 	local bIsSpecial=false
 	
-    if math.random() < 0.75 then
+    if math.random() < 0.75 and not sDiseaseType == 'Thing'  then
        sName = require('Topics').getRandomProvenance() .. ' '
    end
    
@@ -227,12 +231,12 @@ function Malady.updateSavedMaladies(tMaladies)
     end
 end
 
---retrieves an injury type from the list
+--retrieves a major injury type from the list
 function Malady.getInjuryFromList()
 tInjuryNames = {}
 n=0
     for k,v in pairs(MaladyData) do
-        if Malady.isInjury(k) then
+        if Malady.isInjury(k) and not Malady.isMinorInjury(k)  then
              n=n+1
              print(k)
              table.insert(tInjuryNames, k)
@@ -240,6 +244,21 @@ n=0
     end
 return tInjuryNames, n-1
 end
+
+--retrieves a minor injury type from the list
+function Malady.getMinorInjuryFromList()
+tInjuryNames = {}
+n=0
+    for k,v in pairs(MaladyData) do
+        if Malady.isInjury(k)  and Malady.isMinorInjury(k) then
+             n=n+1
+             print(k)
+             table.insert(tInjuryNames, k)
+        end
+    end
+return tInjuryNames, n-1
+end
+
 
 function Malady.getNextUndiagnosedMalady(rChar)
     local tMaladies = rChar.tStatus.tMaladies
@@ -407,6 +426,13 @@ function Malady.isInjury(sMaladyName)
 	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
 	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].bIsInjury
+end
+
+function Malady.isMinorInjury(sMaladyName)
+	-- returns true if this malady has the "injury" flag used to distinguish
+	-- things like broken legs
+    local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
+	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].bIsInjury and MaladyData[sMaladyType].bIsMinorInjury
 end
 
 function Malady.getDescription(sMaladyName)

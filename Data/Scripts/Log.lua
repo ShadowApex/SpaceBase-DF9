@@ -207,6 +207,13 @@ Log.tTypes = {
 				},
 		priority=3,
 	},
+    HEALTH_CITIZEN_MINOR_INJURY={
+		lineCodes={ 'SFINJURY001', 'SFINJURY002', 'SFINJURY003',
+                    'SFINJURY004', 'SFINJURY005', 'SFINJURY006',
+                    'SFINJURY007', 'SFINJURY008',
+                   },
+		priority=3,
+	},
 	HEALTH_CITIZEN_HEAL_ILLNESS={
 		lineCodes={ 'SFDOCT045CITZ', 'SFDOCT046CITZ', 'SFDOCT052CITZ', 'SFDOCT053CITZ',
 				},

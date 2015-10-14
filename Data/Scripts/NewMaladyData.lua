@@ -115,12 +115,13 @@ local tMaladyList = {
         bNoSpawnInEvent=true,
 		-- "injury" flag denotes it in a separate UI section
 		bIsInjury=true,
+        bIsMinorInjury=true,
     },
     BrokenNose=
     {
         sFriendlyName='DISEASTYPE06TEXT',
         sDesc='DISEASDESC13TEXT',
-        bIncapacitated=true,
+        bIncapacitated=false,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
 		nDifficulty=1,
@@ -129,6 +130,24 @@ local tMaladyList = {
         bNoSpawnInEvent=true,
 		-- "injury" flag denotes it in a separate UI section
 		bIsInjury=true,
+        bIsMinorInjury=true,
+    },
+    SprainedAnkle=
+    {
+        sFriendlyName='DISEASTYPE08TEXT',
+        sDesc='DISEASDESC21TEXT',
+        bIncapacitated=false,
+        tDurationRange={100000000,100000000},
+        nFieldTreatSkill=0,
+		nDifficulty=1,
+        nPerceivedSeverity=1,
+        bCreateStrains=false,
+        bNoSpawnInEvent=true,
+		-- "injury" flag denotes it in a separate UI section
+		bIsInjury=true,
+        bIsMinorInjury=true,
+        --ankle is sprained, so move slower (just to show how this works)
+        nSpeed=.8,
     },
 ---Injuries above
 

@@ -156,6 +156,17 @@
     DISEASTYPE05TEXT = { sLine = "Cracked Skull", },
     DISEASTYPE06TEXT = { sLine = "Broken Nose", }, 
     DISEASTYPE07TEXT = { sLine = "Broken Rib", },
+    DISEASTYPE08TEXT = { sLine = "Sprained Ankle", },
+    
+    --Minor injury logs
+    SFINJURY001 = { sLine = "WOW. In so much pain right now.", },
+    SFINJURY002 = { sLine = "OUCH that hurt!", },
+    SFINJURY003 = { sLine = "I hope I survive this...", }, 
+    SFINJURY004 = { sLine = "This is bad..real bad!", }, 
+    SFINJURY005 = { sLine = "Oh smeb, these guys mean business!", }, 
+    SFINJURY006 = { sLine = "AGGHH i'm hit,  IM HIT!", }, 
+    SFINJURY007 = { sLine = "That's not good, I think I'm injured!", }, 
+    SFINJURY008 = { sLine = "I'm hurt, I am hurt very badly!", },
     
     --Disease descriptions
     DISEASDESC01TEXT = { sLine = "Broken legs leave citizens lying on the floor in pain.", },
@@ -178,6 +189,20 @@
     DISEASDESC18TEXT = { sLine = "A disease that makes those infected with it extremely sleepy, it is also quite infectious.", },
     DISEASDESC19TEXT = { sLine = "A disease that makes those infected with it waste away slowly. Its origins are unknown, although it is feared throughout the galaxy. It is extremely infectious.", },
     DISEASDESC20TEXT = { sLine = "A strange worm-like organism that burrows into its hosts brain and eventually exercises chemical based mind control. The infected think of nothing but spreading the worms progeny.", },
+    DISEASDESC21TEXT = { sLine = "This character has a sprained ankle.", },
+    
+    
+    WORMNOUN001 =  { sLine = "Worm", },
+    WORMNOUN002 =  { sLine = "Tunneller", },
+    WORMNOUN003 =  { sLine = "Parasite", },
+    WORMNOUN004 =  { sLine = "Dweller", },
+    WORMNOUN005 =  { sLine = "Controller", },
+    
+    WORMADJECTIVE001 =  { sLine = "Brain", },
+    WORMADJECTIVE002 =  { sLine = "Mind", }
+    WORMADJECTIVE003 =  { sLine = "Neurax", }
+    WORMADJECTIVE004 =  { sLine = "Neural", }
+    WORMADJECTIVE005 =  { sLine = "Puppet", }
     
     WORMSTAGE101 = { sLine = "Is it just me, or did anyone else hear a voice telling them to 'Spread' in /CURRENTROOM/ ", },
     WORMSTAGE102 = { sLine = "Hey guys, I think I heard someone talking to me just now..but there was no one around, do we have ghosts or something?", },
