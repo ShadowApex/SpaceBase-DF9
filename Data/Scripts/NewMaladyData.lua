@@ -575,7 +575,7 @@ local tMaladyList = {
     --Brain worm. SHould very quickly infect alot of people and make player creeped out a bit.
     SocialWorm=
     {
-        sDesc='DISEASDESC16TEXT',
+        sDesc='DISEASDESC20TEXT',
         nChanceOfAffliction = 15,
         nChanceOfNewStrain = 70,
         nChanceToInfectCharacter=.9,
