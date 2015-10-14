@@ -31,10 +31,10 @@ CompoundEvent.nMinPopulation = 15
 CompoundEvent.nMaxPopulation = -1
 CompoundEvent.nMinTime = 60*20
 CompoundEvent.nMaxTime = -1
-
-function CompoundEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(true)
-end
+CompoundEvent.bHostile = true
+CompoundEvent.nChanceObey = 0.00
+CompoundEvent.nChanceHostile = 1.00
+CompoundEvent.sExpMod = 'population'
 
 function CompoundEvent.allowEvent(nPopulation, nElapsedTime)
     return not g_Config:getConfigValue('disable_hostiles') and
@@ -152,7 +152,7 @@ function CompoundEvent.onQueue(rController, tPersistentState, nPopulation, nElap
         tPersistentState.bMega = true
     end
 
-    tPersistentState.bHostile = true
+    tPersistentState.bHostile = CompoundEvent.bHostile
     CompoundEvent.selectEvents(rController, tPersistentState, nPopulation, nElapsedTime, bMega)
     tPersistentState.tFinishedEvents = {}
 end

@@ -25,10 +25,10 @@ MeteorEvent.nMinPopulation = 4
 MeteorEvent.nMaxPopulation = -1
 MeteorEvent.nMinTime = 60*10
 MeteorEvent.nMaxTime = -1
-
-function MeteorEvent.getSpawnLocationModifier()
-    return Event._getExpMod('asteroids')
-end
+MeteorEvent.bHostile = false
+MeteorEvent.nChanceObey = 0.00
+MeteorEvent.nChanceHostile = 0.00
+MeteorEvent.sExpMod = 'asteroids'
 
 function MeteorEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > MeteorEvent.nMinPopulation or GameRules.elapsedTime > MeteorEvent.nMinTime

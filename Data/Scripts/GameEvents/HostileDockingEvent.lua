@@ -20,26 +20,9 @@ HostileDockingEvent.nMinPopulation = 4
 HostileDockingEvent.nMaxPopulation = -1
 HostileDockingEvent.nMinTime = 60*10
 HostileDockingEvent.nMaxTime = -1
-
-function HostileDockingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(true)
-end
-
-function HostileDockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    tUpcomingEventPersistentState.bHostile = true
-    DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-end
-
-function HostileDockingEvent._ignoreRefusal(tPersistentEventState)
-    return math.random() > 0.33
-end
-
-function HostileDockingEvent._getDialogSet()
-    local sKey = 'ambiguous'
-    if math.random() > .3 then
-        sKey = 'hostile'
-    end
-    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
-end
+HostileDockingEvent.bHostile = true
+HostileDockingEvent.nChanceObey = 0.33
+HostileDockingEvent.nChanceHostile = 0.66
+HostileDockingEvent.sExpMod = 'population'
 
 return HostileDockingEvent

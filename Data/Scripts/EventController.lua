@@ -42,6 +42,7 @@ EventController.RENDER_LAYER = 'WorldFloor'
 EventController.RENDER_LAYER_BG = 'WorldFloor' --'WorldBackground'
 
 -- all event types that can occur in-game must be placed here.
+local Event = require('GameEvents.Event')
 local ImmigrationEvent = require('GameEvents.ImmigrationEvent')
 local DerelictEvent = require('GameEvents.DerelictEvent')
 local HostileImmigrationEvent = require('GameEvents.HostileImmigrationEvent')
@@ -82,7 +83,15 @@ function EventController.setBaseSeeds()
     local nTotal = 0.0
     local nClasses = 0
     for _, rClass in pairs(EventController.tEventClasses) do
-        local nMod = rClass.getSpawnLocationModifier()
+        local hostileMultiplier = 1
+        if rClass.nChanceObey + rClass.nChanceHostile == 0 then
+            hostileMultiplier = 1
+        elseif rClass.bHostile then
+            hostileMultiplier = 1 / Event._getExpMod('hostility')
+        else
+            hostileMultiplier = Event._getExpMod('hostility')
+        end
+        local nMod = Event._getExpMod(rClass.sExpMod) * hostileMultiplier
         EventController.tS.tSpawnModifiers[rClass.sEventType] = nMod
         -- While storing our modifiers, also calc a weighted average of all event likelihoods.
         -- Use that to scale event frequency.
@@ -91,7 +100,7 @@ function EventController.setBaseSeeds()
         nClasses = nClasses + nWeight
         --print('EVENTCONTROLLER.LUA:     ',rClass.sEventType,nMod,'weight:',nWeight)
     end
-    print('EVENTCONTROLLER.LUA: total',nTotal,'out of',nClasses)
+    --print('EVENTCONTROLLER.LUA: total',nTotal,'out of',nClasses)
     local nAvg = nTotal / nClasses
     -- perfectly average is about
 
@@ -689,7 +698,6 @@ function EventController.rollRandomRaiders(nDifficulty, bAllowKillbots)
 
 
     local tCharSpawnStats = {}
-    local Event=require('GameEvents.Event')
     -- difficulty of each raider is difficulty of event +/- 15%
     for i=1,nRaiders do
         tCharSpawnStats[i] =

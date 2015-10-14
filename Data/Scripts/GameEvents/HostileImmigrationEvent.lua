@@ -21,21 +21,13 @@ HostileImmigrationEvent.nMinPopulation = 6
 HostileImmigrationEvent.nMaxPopulation = -1
 HostileImmigrationEvent.nMinTime = 60*12
 HostileImmigrationEvent.nMaxTime = -1
-
-function HostileImmigrationEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(true)
-end
+HostileImmigrationEvent.bHostile = true
+HostileImmigrationEvent.nChanceObey = 0.00
+HostileImmigrationEvent.nChanceHostile = 1.00
+HostileImmigrationEvent.sExpMod = 'population'
 
 function HostileImmigrationEvent.allowEvent(nPopulation, nElapsedTime)
     return nPopulation > HostileImmigrationEvent.nMinPopulation or GameRules.elapsedTime > HostileImmigrationEvent.nMinTime
-end
-
-function HostileImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-    ImmigrationEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-
-    tUpcomingEventPersistentState.bHostile = true
-
-    HostileImmigrationEvent._prerollRaiders(rController, tUpcomingEventPersistentState)
 end
 
 function HostileImmigrationEvent._prerollRaiders(rController, tUpcomingEventPersistentState)

@@ -148,7 +148,7 @@ return
             key = 'MedViolenceLabel',
             type = 'textBox',
             pos = { nButtonXStart + 20, -nButtonHeight },
-            text = "Eleminate Hostiles",
+            text = "Eliminate Hostiles",
             style = 'dosisregular26',
             rect = { 0, nButtonHeight, nButtonWidth, 0 },
             hAlign = MOAITextBox.LEFT_JUSTIFY,

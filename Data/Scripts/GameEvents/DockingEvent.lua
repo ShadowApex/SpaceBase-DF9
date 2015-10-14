@@ -23,14 +23,14 @@ DockingEvent.nMinPopulation = 4
 DockingEvent.nMaxPopulation = -1
 DockingEvent.nMinTime = 60*10
 DockingEvent.nMaxTime = -1
+DockingEvent.bHostile = false
+DockingEvent.nChanceObey = 1.00
+DockingEvent.nChanceHostile = 0.00
+DockingEvent.sExpMod = 'population'
 
 DockingEvent.sAcceptedSuccessAlert='ALERTS029TEXT'
 
 DockingEvent.nAllowedSetupFailures = 30
-
-function DockingEvent.getSpawnLocationModifier()
-    return Event.getPopulationMod() * Event.getHostilityMod(false)
-end
 
 function DockingEvent.getWeight(nPopulation, nElapsedTime)
     if nPopulation >= g_nPopulationCap then
@@ -44,6 +44,8 @@ function DockingEvent.allowEvent(nPopulation, nElapsedTime)
 end
 
 function DockingEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
+    tUpcomingEventPersistentState.bHostile = rClass.bHostile
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
     Event._attemptDock(rController, tUpcomingEventPersistentState)
 end
@@ -54,7 +56,11 @@ function DockingEvent.preExecuteSetup(rController, tUpcomingEventPersistentState
     local bPopcapFail = not tUpcomingEventPersistentState.bHostile and CharacterManager.getOwnedCitizenPopulation() >= g_nPopulationCap
     if bPopcapFail or not tUpcomingEventPersistentState.bClickedAlert then
         local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
-        if rClass._ignoreRefusal(tUpcomingEventPersistentState) or tUpcomingEventPersistentState.bSkipDialog then
+        local ignoreRefusal = false
+        if math.random() > rClass.nChanceObey then
+            ignoreRefusal = true
+        end
+        if ignoreRefusal or tUpcomingEventPersistentState.bSkipDialog then
             -- nothing
         else
             AlertEntry.dOnClick:unregister(ImmigrationEvent.onAlertClick,
@@ -113,16 +119,6 @@ function DockingEvent.tick(rController, dT, tCurrentEventPersistentState, tCurre
     return true
 end
 
-function DockingEvent._ignoreRefusal(tPersistentEventState)
-    return false
-end
-
-function DockingEvent._getDialogSet()
-    local sKey = 'ambiguous'
-    return DFUtil.arrayRandom(EventData['dockingEvents'][sKey])
-end
-
-
 function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientEventState, dT)
     if tTransientEventState.bWaitingOnDialog then
         return
@@ -132,7 +128,11 @@ function DockingEvent.dialogTick(rController, tPersistentEventState, tTransientE
     -- vs immigration event, but after that just use the immigration event code
     if not tTransientEventState.tDialogStatus.tDlgSet then
         local rClass = rController.tEventClasses[tPersistentEventState.sEventType]
-        tTransientEventState.tDialogStatus.tDlgSet = rClass._getDialogSet()
+        local sHostility = 'ambiguous'
+        if math.random() < rClass.nChanceHostile then
+            sHostility = 'hostile'
+        end
+        tTransientEventState.tDialogStatus.tDlgSet = DFUtil.arrayRandom(EventData['dockingEvents'][sHostility])
 
         local tDlgSet = tTransientEventState.tDialogStatus.tDlgSet
         tTransientEventState.bWaitingOnDialog = true

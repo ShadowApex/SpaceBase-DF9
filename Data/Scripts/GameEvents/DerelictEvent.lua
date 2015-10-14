@@ -25,10 +25,10 @@ DerelictEvent.nMinPopulation = 4
 DerelictEvent.nMaxPopulation = -1
 DerelictEvent.nMinTime = 10*60
 DerelictEvent.nMaxTime = -1
-
-function DerelictEvent.getSpawnLocationModifier()
-    return Event._getExpMod('derelict') * Event.getHostilityMod(false)
-end
+DerelictEvent.bHostile = false
+DerelictEvent.nChanceObey = 1.00
+DerelictEvent.nChanceHostile = 0.00
+DerelictEvent.sExpMod = 'population'
 
 function DerelictEvent.getWeight(nPopulation, nElapsedTime, bForecast)
     if nPopulation >= g_nPopulationCap then
@@ -50,8 +50,9 @@ function DerelictEvent.allowEvent(nPopulation, nElapsedTime)
 end
 
 function DerelictEvent.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
+    local rClass = rController.tEventClasses[tUpcomingEventPersistentState.sEventType]
+    tUpcomingEventPersistentState.bHostile = rClass.bHostile
     Event.onQueue(rController, tUpcomingEventPersistentState, nPopulation, nElapsedTime)
-
     Event._attemptDock(rController, tUpcomingEventPersistentState)
 end
 

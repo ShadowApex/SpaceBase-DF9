@@ -46,10 +46,6 @@ function Event._getExpMod(sMod)
     return nSpawnLocModifier
 end
 
-function Event.getPopulationMod()
-    return Event._getExpMod('population')
-end
-
 function Event.getHostilityMod(bHostile)
     local nMod = Event._getExpMod('hostility')
     if not bHostile then nMod = 1/nMod end
