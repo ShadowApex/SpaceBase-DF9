@@ -71,7 +71,7 @@
     DFMINE002CITZ = { sLine = "The key to being a good miner is \"mind over matter\". Heh.", },
     DFMINE003CITZ = { sLine = "Builders wouldn't exist if it weren't for miners, but do they ever thank us? Nope.", },
     DFMINE004CITZ = { sLine = "I wonder if we'll ever run out of asteroids to mine...", },
-    
+
     --Disease name generation
     DISEAS004TEXT = { sLine = "Bat", },
     DISEAS005TEXT = { sLine = "Bursting", },
@@ -154,9 +154,9 @@
     DISEASTYPE03TEXT = { sLine = "Parasite", },
     DISEASTYPE04TEXT = { sLine = "Unconscious", },
     DISEASTYPE05TEXT = { sLine = "Cracked Skull", },
-    DISEASTYPE06TEXT = { sLine = "Broken Nose", }, 
+    DISEASTYPE06TEXT = { sLine = "Broken Nose", },
     DISEASTYPE07TEXT = { sLine = "Broken Rib", },
-    
+
     --Disease descriptions
     DISEASDESC01TEXT = { sLine = "Broken legs leave citizens lying on the floor in pain.", },
     DISEASDESC02TEXT = { sLine = "After a gestational period, a vicious monster bursts from its unfortunate host.", },
@@ -178,7 +178,7 @@
     DISEASDESC18TEXT = { sLine = "A disease that makes those infected with it extremely sleepy, it is also quite infectious.", },
     DISEASDESC19TEXT = { sLine = "A disease that makes those infected with it waste away slowly. Its origins are unknown, although it is feared throughout the galaxy. It is extremely infectious.", },
     DISEASDESC20TEXT = { sLine = "A strange worm-like organism that burrows into its hosts brain and eventually exercises chemical based mind control. The infected think of nothing but spreading the worms progeny.", },
-    
+
     WORMSTAGE101 = { sLine = "Is it just me, or did anyone else hear a voice telling them to 'Spread' in /CURRENTROOM/ ", },
     WORMSTAGE102 = { sLine = "Hey guys, I think I heard someone talking to me just now..but there was no one around, do we have ghosts or something?", },
     WORMSTAGE103 = { sLine = "I feel like I just saw a ghost. ", },
@@ -186,11 +186,11 @@
     WORMSTAGE105 = { sLine = "I have this pounding headache and it isnt going away...", },
     WORMSTAGE106 = { sLine = "Im sure im fine, I dont need to see a doctor.", },
     WORMSTAGE107 = { sLine = "I am not crazy I swear.", },
-    WORMSTAGE108 = { sLine = "I feel as though I am being watched.", }, 
-    WORMSTAGE109 = { sLine = "I swear I just heard someone call out my name in /CURRENTROOM/. Someone trying to prank me or something?", }, 
-    WORMSTAGE110 = { sLine = "This isn't funny guys, who is messing with me?? :( ", }, 
-    WORMSTAGE111 = { sLine = "Someone was talking to me just now in /CURRENTROOM/ I couldn't see them, but they seemed pretty cool.", }, 
-    WORMSTAGE112 = { sLine = "Why do I suddenly have an interest in worms...what the heck is wrong with me.", }, 
+    WORMSTAGE108 = { sLine = "I feel as though I am being watched.", },
+    WORMSTAGE109 = { sLine = "I swear I just heard someone call out my name in /CURRENTROOM/. Someone trying to prank me or something?", },
+    WORMSTAGE110 = { sLine = "This isn't funny guys, who is messing with me?? :( ", },
+    WORMSTAGE111 = { sLine = "Someone was talking to me just now in /CURRENTROOM/ I couldn't see them, but they seemed pretty cool.", },
+    WORMSTAGE112 = { sLine = "Why do I suddenly have an interest in worms...what the heck is wrong with me.", },
     WORMSTAGE201 = { sLine = "I knew I wasn't crazy, im the chosen one, listen to my words! ", },
     WORMSTAGE202 = { sLine = "Hey everyone, ive been enlightened..it told me everything.", },
     WORMSTAGE203 = { sLine = "I will spread the word.... I will do it for you!", },
@@ -198,15 +198,15 @@
     WORMSTAGE205 = { sLine = "I used to have headaches...but now all I feel is ecstasy!", },
     WORMSTAGE206 = { sLine = "I dont need a doctor..the doctor needs me.", },
     WORMSTAGE207 = { sLine = "Hahaha..wormy you are the best.", },
-    WORMSTAGE208 = { sLine = "My worm buddy just told me an awesome joke, you guys wouldn't get it though.", }, 
-    WORMSTAGE209 = { sLine = "I was just told to 'Spread the true word' by a worm who lives in my brain, it even said I would get an 'Eternal reward' if I did do it, im totally doing it.  I wonder if the reward is candy? ", }, 
-    WORMSTAGE210 = { sLine = "Too Happy for words right now.", }, 
+    WORMSTAGE208 = { sLine = "My worm buddy just told me an awesome joke, you guys wouldn't get it though.", },
+    WORMSTAGE209 = { sLine = "I was just told to 'Spread the true word' by a worm who lives in my brain, it even said I would get an 'Eternal reward' if I did do it, im totally doing it.  I wonder if the reward is candy? ", },
+    WORMSTAGE210 = { sLine = "Too Happy for words right now.", },
     WORMSTAGE211 = { sLine = "Heh, I just told someone the good news... my worm gave me candy for it.", },
     WORMSTAGE212 = { sLine = "Haha, these worms are the best!", },
     WORMSTAGE213 = { sLine = "Dude, I have a worm in my brain, you should get one!", },
     WORMSTAGE214 = { sLine = "Why would you refuse to have a worm in your brain, I dont get it.", },
     WORMSTAGE215 = { sLine = "Hey guys, guess what, I have a worm, I've always wanted a worm.", },
-    
+
     DOCKUI001TEXT = { sLine = "INCOMING DOCKING REQUEST FROM:", },
     DOCKUI002TEXT = { sLine = "Starship Information Unavailable", },
     DOCKUI003TEXT = { sLine = "Greetings, Spaceb&##ase.As you can see our trasSS MISsion relay is having some issues.  Not artificially jammed.\n\nWe AR**|*E NOT P|RATES this is real. Please allow us to dock with your base. With your bountiful resources we will make a great team and you can;uk]Ahelp a stranger out. Not pirates or raiders.", },
@@ -1536,9 +1536,9 @@
     OBFLAV034TEXT = { sLine = "DIRT-KNAP™\n\nThe cheap n' biodegradable substrate for plant culture in deep space environments!  Grows the most delightful mushrooms in certain spectra of nebula. No spores! Scientists still puzzled. Current research outside the scope of this product label.", },
     OBFLAV035TEXT = { sLine = "ConFoodCo Food Preparation Unit, Galaxy-C3 Model\n\nEstimated Collector's Value: $2000 (Imperial Dollars)\n\nOriginally a brand extension of ConFoodCo's \"Cookin' 4 Kids\" toy line, this model's signature feature propelled it to unexpected mega-popularity: it forms all foods cooked within into the iconic \"chicken dinner\" shape that became the company's logo within the century.", },
     OBFLAV036TEXT = { sLine = "MORLA (4 pcs) - Assembly Instructions:\n\n9. Transmission authorize: \"DARK WIZARD BEYOND TIME / HE SHOWS YOU WONDERS\"\n\n12. I am the one who writes all these instruction labels. I am being kept here against my will.\n\n76. Please send help. Factory hiveworld near rim of Wah-toh-Gua space. Landing coordinates encrypted in instructions for FONHGE model smoothie maker. Hurry.", },
-	OBFLAV037TEXT = { sLine = "An old bulky Terran design with a huge power output that sometimes makes scary noises, but according to the designer is \"Mostly harmless\".", },
-	OBFLAV038TEXT = { sLine = "Known to the scientific community as the \"Singularity Conductor Inductor\", this reactor harnesses the power of a highly dangerous and highly reactive black hole to power your refrigerator. To the nonscientific community, It is known simply as \"The Singularity\". However, both groups agree that \"SCI\" reactor sounds quite right.", },
-	OBJCTX001TEXT = { sLine = "Breach Ship", },
+        OBFLAV037TEXT = { sLine = "An old bulky Terran design with a huge power output that sometimes makes scary noises, but according to the designer is \"Mostly harmless\".", },
+        OBFLAV038TEXT = { sLine = "Known to the scientific community as the \"Singularity Conductor Inductor\", this reactor harnesses the power of a highly dangerous and highly reactive black hole to power your refrigerator. To the nonscientific community, It is known simply as \"The Singularity\". However, both groups agree that \"SCI\" reactor sounds quite right.", },
+        OBJCTX001TEXT = { sLine = "Breach Ship", },
     OBJCTX002TEXT = { sLine = "Spaceship custom-fitted for boarding bases and other ships.", },
     OXYGEN001CITZ = { sLine = "I can't breathe!", },
     OXYGEN002CITZ = { sLine = "The oxygen's getting pretty low in this part of the base.", },
@@ -1696,10 +1696,10 @@
     PROPSX097TEXT = { sLine = "Harnesses barely comprehensible forces to provide power for your toaster oven.", },
     PROPSX098TEXT = { sLine = "Residence Assignment:", },
     PROPSX099TEXT = { sLine = "Brig Assignment:", },
-	PROPSX100TEXT = { sLine = "MTF Plasma Reactor", },
-	PROPSX101TEXT = { sLine = "A Terran technology \"Plasma Reactor\". Or so they claim.", },
-	PROPSX102TEXT = { sLine = "SCI Reactor", },
-	PROPSX103TEXT = { sLine = "The \"Singularity Conductor Inductor\" to power your refrigerator!", },
+        PROPSX100TEXT = { sLine = "MTF Plasma Reactor", },
+        PROPSX101TEXT = { sLine = "A Terran technology \"Plasma Reactor\". Or so they claim.", },
+        PROPSX102TEXT = { sLine = "SCI Reactor", },
+        PROPSX103TEXT = { sLine = "The \"Singularity Conductor Inductor\" to power your refrigerator!", },
     RESRCH001TEXT = { sLine = "Widebeam Vaporization Ray", },
     RESRCH002TEXT = { sLine = "Equips all builders with a much more powerful vaporization tool.", },
     RESRCH003TEXT = { sLine = "Phazer Rifle", },
@@ -3052,16 +3052,16 @@
     SFTHING05 = { sLine = "Hahaha, I figured out the password...errmm.. I mean, I haven't written a log in awhile.", },
     SFTHING06 = { sLine = "I do love a bit of inf--err..socialization.", },
     SFTHING07 = { sLine = "I am feeling extremely hungry today, might feed soon",},
-	
+
     SFTHICIT01= { sLine="Well, I guess its time to transform..ARRRGHHHH",},
     SFTHICIT02= { sLine="Foolish breathers...they never expected me..ARGHHHHHH!", },
     SFTHICIT03= { sLine="Whom shall I assimilate first..ARGHHHHHH!", },
     SFTHICIT04= { sLine="Well, transforming will probably be painful..but I am quite hungry ARGHHHHHHH!" ,},
     SFTHICIT05= { sLine="ARGHHHHHHH!" ,},
-	
+
     JB01 = { sLine = " The Jukebox in /CURRENTROOM/ has every song I like on it!",},
     JB02 = { sLine = "Just listened to some pre-collapse tunes on the jukebox, nostalgia baby",},
-	--Don't know the command to get a bandname.
+    --Don't know the command to get a bandname.
     JB03 = { sLine = "I'm so glad the adminstrator saw it fit to get a jukebox put in  /CURRENTROOM/ without it I couldnt listen to my favorite music!",},
     JB04 = { sLine = "Just listening to tunes in /CURRENTROOM/ #Nightlife ",},
 
