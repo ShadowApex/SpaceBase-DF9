@@ -368,7 +368,7 @@
     EVENT002TEXT06 = { sLine = "You needn't worry about your reward, laser brain.", },
     EVENT002TEXT07 = { sLine = "On second thought, let's pass on this scruffy-looking station.", },
     EVENT002TEXT08 = { sLine = "Who's scruffy-looking?", },
-    EVENT002TEXT09 = { sLine = "That's a good story. I think you just can't bear to let a gorgeous guy like me onto your station. ", },
+    EVENT002TEXT09 = { sLine = "That's a good story.  I think you just can't bear to let a gorgeous guy like me onto your station.  Prepare yourself, here I come!", },
     EVENT002TEXT10 = { sLine = "You wouldn't happen to have a price on your head, would you?", },
 
     -- WAS DOCKUI 162-171
