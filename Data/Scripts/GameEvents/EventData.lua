@@ -78,7 +78,7 @@ local tEvents =
            screwYouResponse='EVENT004TEXT09', screwYouResponseButton='EVENT004TEXT10',
         },
         {   --Dark Side of the Moon
-           title='EVENT005TEXT01', request='EVENT004TEXT02',
+           title='EVENT005TEXT01', request='EVENT005TEXT02',
            acceptButton='EVENT005TEXT03', rejectButton='EVENT005TEXT04',
            acceptedResponse='EVENT005TEXT05', acceptedResponseButton='EVENT005TEXT06',
            rejectedResponse='EVENT005TEXT07', rejectedResponseButton='EVENT005TEXT08',
@@ -122,7 +122,7 @@ local tEvents =
            screwYouResponse='EVENT004TEXT09', screwYouResponseButton='EVENT004TEXT10',
         },
         {   --Dark Side of the Moon
-           title='EVENT005TEXT01', request='EVENT004TEXT02',
+           title='EVENT005TEXT01', request='EVENT005TEXT02',
            acceptButton='EVENT005TEXT03', rejectButton='EVENT005TEXT04',
            acceptedResponse='EVENT005TEXT05', acceptedResponseButton='EVENT005TEXT06',
            rejectedResponse='EVENT005TEXT07', rejectedResponseButton='EVENT005TEXT08',
@@ -164,7 +164,7 @@ local tEvents =
            screwYouResponse='EVENT004TEXT09', screwYouResponseButton='EVENT004TEXT10',
         },
         {   --Dark Side of the Moon
-           title='EVENT005TEXT01', request='EVENT004TEXT02',
+           title='EVENT005TEXT01', request='EVENT005TEXT02',
            acceptButton='EVENT005TEXT03', rejectButton='EVENT005TEXT04',
            acceptedResponse='EVENT005TEXT05', acceptedResponseButton='EVENT005TEXT06',
            rejectedResponse='EVENT005TEXT07', rejectedResponseButton='EVENT005TEXT08',
