@@ -374,13 +374,13 @@
     -- WAS DOCKUI 162-171
     EVENT003TEXT01 = { sLine = "A Jupiter Mining Corporation spaceship", },
     EVENT003TEXT02 = { sLine = "I just awoke from suspended animation.  Everyone else on the ship is dead, except for the evolved descendants of my pet cat.  And a very annoying hologram.  Requesting transfer.", },
-    EVENT003TEXT03 = { sLine = "Sorry, our food replicators are stuck on 'goat vindaloo'", },
-    EVENT003TEXT04 = { sLine = "Yes, we can use another skilled technician!", },
+    EVENT003TEXT03 = { sLine = "Sure, but our food replicators are stuck on 'goat vindaloo'.  Hope that's okay?", },
+    EVENT003TEXT04 = { sLine = "We'd love a skilled technician, but you?  Meh, scram.", },
     EVENT003TEXT05 = { sLine = "Ah, Brilliant! Is there any Ketchup?", },
     EVENT003TEXT06 = { sLine = "Nah we out-sauced that a while ago.", },
-    EVENT003TEXT07 = { sLine = "Hang on, I'm not sure I want to get tied down to a career.  Smeg off.", },
-    EVENT003TEXT08 = { sLine = "You're about as much use as a condom machine in the Vatican.", },
-    EVENT003TEXT09 = { sLine = "A simple 'yes' would have sufficed.", },
+    EVENT003TEXT07 = { sLine = "Lucky I don't want to get tied down to a career anyway.  Smeg off.", },
+    EVENT003TEXT08 = { sLine = "The cat would be welcome though.", },
+    EVENT003TEXT09 = { sLine = "A simple 'yes' would have sufficed.  Here I come!", },
     EVENT003TEXT10 = { sLine = "Oh, smeg.", },
 
     -- WAS DOCKUI 172-181
