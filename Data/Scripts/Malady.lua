@@ -238,7 +238,6 @@ n=0
     for k,v in pairs(MaladyData) do
         if Malady.isInjury(k) and not Malady.isMinorInjury(k)  then
              n=n+1
-             print(k)
              table.insert(tInjuryNames, k)
         end
     end
@@ -252,7 +251,6 @@ n=0
     for k,v in pairs(MaladyData) do
         if Malady.isInjury(k)  and Malady.isMinorInjury(k) then
              n=n+1
-             print(k)
              table.insert(tInjuryNames, k)
         end
     end

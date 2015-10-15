@@ -5472,7 +5472,7 @@ function Character:takeDamage(rAttacker, tDamage)
         --Minor injuries, fairly common
        if nDamage > 1 and  bInjury > .25 then
        local tInjuries, num = Malady.getMinorInjuryFromList() 
-           local sMalady = tInjuries[math.random(0,num)]
+           local sMalady = tInjuries[math.random(num)]
             if self:diseaseInteraction(nil,Malady.createNewMaladyInstance(sMalady)) then
                 if self:retrieveMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY) then
                     -- log about being hurt :[
@@ -5485,7 +5485,7 @@ function Character:takeDamage(rAttacker, tDamage)
        --Injuries, for incapacitated indivduals,
         if bIncapacitate then
        local tInjuries, num = Malady.getInjuryFromList() 
-           local sMalady = tInjuries[math.random(0,num)]
+           local sMalady = tInjuries[math.random(num)]
             if self:diseaseInteraction(nil,Malady.createNewMaladyInstance(sMalady)) then
                 if self:retrieveMemory(Character.MEMORY_TOOK_DAMAGE_RECENTLY) then
                     -- log about being incapacitated :[
