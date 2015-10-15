@@ -156,7 +156,6 @@
     DISEASTYPE05TEXT = { sLine = "Cracked Skull", },
     DISEASTYPE06TEXT = { sLine = "Broken Nose", },
     DISEASTYPE07TEXT = { sLine = "Broken Rib", },
-<<<<<<< HEAD
     DISEASTYPE08TEXT = { sLine = "Sprained Ankle", },
     
     --Minor injury logs
@@ -165,13 +164,10 @@
     SFINJURY003 = { sLine = "I hope I survive this...", }, 
     SFINJURY004 = { sLine = "This is bad..real bad!", }, 
     SFINJURY005 = { sLine = "Oh smeb, these guys mean business!", }, 
-    SFINJURY006 = { sLine = "AGGHH i'm hit,  IM HIT!", }, 
+    SFINJURY006 = { sLine = "AGGHH I'm hit,  IM HIT!", }, 
     SFINJURY007 = { sLine = "That's not good, I think I'm injured!", }, 
     SFINJURY008 = { sLine = "I'm hurt, I am hurt very badly!", },
     
-=======
-
->>>>>>> 6207b6d5938386100b462c625675af73c9d74b04
     --Disease descriptions
     DISEASDESC01TEXT = { sLine = "Broken legs leave citizens lying on the floor in pain.", },
     DISEASDESC02TEXT = { sLine = "After a gestational period, a vicious monster bursts from its unfortunate host.", },
@@ -193,7 +189,6 @@
     DISEASDESC18TEXT = { sLine = "A disease that makes those infected with it extremely sleepy, it is also quite infectious.", },
     DISEASDESC19TEXT = { sLine = "A disease that makes those infected with it waste away slowly. Its origins are unknown, although it is feared throughout the galaxy. It is extremely infectious.", },
     DISEASDESC20TEXT = { sLine = "A strange worm-like organism that burrows into its hosts brain and eventually exercises chemical based mind control. The infected think of nothing but spreading the worms progeny.", },
-<<<<<<< HEAD
     DISEASDESC21TEXT = { sLine = "This character has a sprained ankle.", },
     
     
@@ -209,9 +204,6 @@
     WORMADJECTIVE004 =  { sLine = "Neural", }
     WORMADJECTIVE005 =  { sLine = "Puppet", }
     
-=======
-
->>>>>>> 6207b6d5938386100b462c625675af73c9d74b04
     WORMSTAGE101 = { sLine = "Is it just me, or did anyone else hear a voice telling them to 'Spread' in /CURRENTROOM/ ", },
     WORMSTAGE102 = { sLine = "Hey guys, I think I heard someone talking to me just now..but there was no one around, do we have ghosts or something?", },
     WORMSTAGE103 = { sLine = "I feel like I just saw a ghost. ", },
@@ -2425,7 +2417,7 @@
     SFWAND030CITZ = { sLine = "/CURRENTROOM/ is secretly my favorite place on the base. The plants and fresh air make it so pleasant!", },
     SFWAND031CITZ = { sLine = "The air everywhere else on the base is so stale. I come to /CURRENTROOM/ as often as I can.", },
     SFWAND032CITZ = { sLine = "I just love being around plant life. So relaxing! ^_^", tTags = { "emoticon", "happy", },},
-    SFWAND033CITZ = { sLine = "Has the Administrator been spiffing up the place recently, or was this fancy decor always here?", },
+    SFWAND033CITZ = { sLine = "Has the Administrator been spiffying up the place recently, or was this fancy decor always here?", },
     SFWAND034CITZ = { sLine = "Surroundings... pleasant. Associating region with dopamine reception.", tTags = { "jelly", },},
     SFWAND035CITZ = { sLine = "People may think I'm weird, but I like spending time in /CURRENTROOM/.", },
     SFWAND036CITZ = { sLine = "I def appreciate that the Administrator has seen fit to decorate the base with niceties, I just wish they had slightly better taste...", tTags = { "hipster", },},
@@ -2788,7 +2780,7 @@
     UITASK032TEXT = { sLine = "Dropping Everything", },
     UITASK033TEXT = { sLine = "Picking up Something", },
     UITASK034TEXT = { sLine = "Working Out", },
-    UITASK035TEXT = { sLine = "Playing Handheld Game", },
+    UITASK035TEXT = { sLine = "Playing Hand held Game", },
     UITASK036TEXT = { sLine = "Exiting the Base", },
     UITASK037TEXT = { sLine = "Involuntarily Entering Space", },
     UITASK038TEXT = { sLine = "", },
@@ -2988,10 +2980,10 @@
     ZONEUI150TEXT = { sLine = "Select Bed to Assign", },
     ZONEUI151CITZ = { sLine = "Select Brig to Assign", },
     SFJANI001CITZ = { sLine = "And so I commend /DECEASED/ to their eternal resting place. Assuming they believe in one, of course.", },
-    SFJANI002CITZ = { sLine = "We came from starstuff. /DECEASED/ gets to be starstuff again, a little earlier than the rest of us.", },
+    SFJANI002CITZ = { sLine = "We came from star-stuff. /DECEASED/ gets to be star-stuff again, a little earlier than the rest of us.", },
     SFJANI003CITZ = { sLine = "Better luck in the next life, /DECEASED/.", },
     SFJANI004CITZ = { sLine = "I wonder what /DECEASED/'s life was like before they came to this base. Well, tears in rain and all that.", },
-    SFJANI005CITZ = { sLine = "We really need to get some spacecoffins so we can have proper burial services for these poor souls.", },
+    SFJANI005CITZ = { sLine = "We really need to get some space-coffins so we can have proper burial services for these poor souls.", },
     SFJANI006CITZ = { sLine = "I don't believe in a great beyond or anything, but I think /DECEASED/'s life had meaning. Sad to see them go.", },
     SFJANI007CITZ = { sLine = "Planet-dwellers find it barbaric that we recycle our dead. They don't know what it's like trying to survive out here.", },
     SFJANI008CITZ = { sLine = "Well, that's it for /DECEASED/. Guess we'll all be dead sooner or later, huh?", tTags = { "angry", },},
@@ -3057,7 +3049,7 @@
     JUKEX003TEXT = { sLine = "Listen to all the hipster jams of space.", },
     JUKEX004TEXT = { sLine = "Listening to Jukebox", },
 
-    TRADE001TEXT = { sLine = "Travelling Trader", },
+    TRADE001TEXT = { sLine = "Traveling Trader", },
     TRADE002TEXT = { sLine = "Vacuums!  Vacuums for SALE!  And Matter!  Vacuums and MATTER!  Might'n I interest your crew in some excellent time saving apparatuses?", },
     TRADE003TEXT = { sLine = "Uh, maybe just the matter for now.", },
     TRADE004TEXT = { sLine = "Sorry, no thanks.", },
@@ -3077,7 +3069,7 @@
     DEBUG007TEXT = { sLine = "Infect Character", },
     DEBUG008TEXT = { sLine = "Random Code Test", },
 
-    DISEASTHINGTEXT = { sLine = "A parasitical intracosmic lifeform that assimilates biologicals and metamorphasizes to imitate host organisms.", },
+    DISEASTHINGTEXT = { sLine = "A parasitical intracosmic life form that assimilates biologicals and metamorphasizes to imitate host organisms.", },
     SFTHING01 = { sLine = "*darts eyes uncontrollably*", },
     SFTHING02 = { sLine = "*is scheming*", },
     SFTHING03 = { sLine = "*Stares at a wall*", },
