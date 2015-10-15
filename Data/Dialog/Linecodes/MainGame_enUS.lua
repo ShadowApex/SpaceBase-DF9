@@ -199,10 +199,10 @@
     WORMNOUN005 =  { sLine = "Controller", },
     
     WORMADJECTIVE001 =  { sLine = "Brain", },
-    WORMADJECTIVE002 =  { sLine = "Mind", }
-    WORMADJECTIVE003 =  { sLine = "Neurax", }
-    WORMADJECTIVE004 =  { sLine = "Neural", }
-    WORMADJECTIVE005 =  { sLine = "Puppet", }
+    WORMADJECTIVE002 =  { sLine = "Mind", },
+    WORMADJECTIVE003 =  { sLine = "Neurax", },
+    WORMADJECTIVE004 =  { sLine = "Neural", },
+    WORMADJECTIVE005 =  { sLine = "Puppet", },
     
     WORMSTAGE101 = { sLine = "Is it just me, or did anyone else hear a voice telling them to 'Spread' in /CURRENTROOM/ ", },
     WORMSTAGE102 = { sLine = "Hey guys, I think I heard someone talking to me just now..but there was no one around, do we have ghosts or something?", },
