@@ -2478,6 +2478,10 @@
     TAGSXX031TEXT = { sLine = "smooth", },
     TAGSXX032TEXT = { sLine = "beige", },
     TAGSXX033TEXT = { sLine = "gold", },
+	
+	
+	-- Band pattern = [the] [adjective] noun (singular or plural)
+	-- Band adjectives	
     TBANDS001TEXT = { sLine = "Velvet", },
     TBANDS002TEXT = { sLine = "Screaming", },
     TBANDS003TEXT = { sLine = "Purple", },
@@ -2496,6 +2500,13 @@
     TBANDS016TEXT = { sLine = "Festering", },
     TBANDS017TEXT = { sLine = "Luscious", },
     TBANDS018TEXT = { sLine = "Skeletal", },
+	TBANDS034TEXT = { sLine = "Action", },
+    TBANDS035TEXT = { sLine = "Custom", },
+    TBANDS036TEXT = { sLine = "Brutal", },
+    TBANDS038TEXT = { sLine = "Neo", },
+    TBANDS039TEXT = { sLine = "Rural", },
+
+	-- Band nouns
     TBANDS019TEXT = { sLine = "Star", },
     TBANDS020TEXT = { sLine = "Slimes", },
     TBANDS021TEXT = { sLine = "Void", },
@@ -2511,63 +2522,76 @@
     TBANDS031TEXT = { sLine = "Motherboards", },
     TBANDS032TEXT = { sLine = "Hipsters", },
     TBANDS033TEXT = { sLine = "Power", },
-    TBANDS034TEXT = { sLine = "Action", },
-    TBANDS035TEXT = { sLine = "Custom", },
-    TBANDS036TEXT = { sLine = "Brutal", },
     TBANDS037TEXT = { sLine = "Legends", },
-    TBANDS038TEXT = { sLine = "Neo", },
-    TBANDS039TEXT = { sLine = "Rural", },
     TBANDS040TEXT = { sLine = "Tardigrades", },
     TBANDS041TEXT = { sLine = "Skeletons", },
     TBANDS042TEXT = { sLine = "Warriors", },
     TBANDS043TEXT = { sLine = "Draculas", },
+	
+	-- Creature pattern = [provenance] [adjective] [descriptor] noun
+	-- Creature descriptors
     TCREAT001TEXT = { sLine = "Bread", },
-    TCREAT002TEXT = { sLine = "Worm", },
-    TCREAT003TEXT = { sLine = "Mollusk", },
-    TCREAT004TEXT = { sLine = "Beast", },
+    TCREAT008TEXT = { sLine = "Land", },
+    TCREAT009TEXT = { sLine = "Mud", },
+    TCREAT019TEXT = { sLine = "Terror", },
+    TCREAT020TEXT = { sLine = "Spore", },
+    TCREAT023TEXT = { sLine = "Sky", },
+    TCREAT024TEXT = { sLine = "Sand", },
+    TCREAT027TEXT = { sLine = "Blood", },
+    TCREAT028TEXT = { sLine = "Plague", },
+    TCREAT030TEXT = { sLine = "Jelly", },
+	
+	-- Creature adjective
     TCREAT005TEXT = { sLine = "Venomous", },
     TCREAT006TEXT = { sLine = "Spitting", },
     TCREAT007TEXT = { sLine = "Eyeless", },
-    TCREAT008TEXT = { sLine = "Land", },
-    TCREAT009TEXT = { sLine = "Mud", },
-    TCREAT010TEXT = { sLine = "Hound", },
-    TCREAT011TEXT = { sLine = "Hen", },
     TCREAT012TEXT = { sLine = "Spiny", },
     TCREAT013TEXT = { sLine = "Greater", },
     TCREAT014TEXT = { sLine = "Lesser", },
     TCREAT015TEXT = { sLine = "Spiked", },
+    TCREAT021TEXT = { sLine = "Glowing", },
+    TCREAT022TEXT = { sLine = "Fuzzy", },
+	
+	-- Creature nouns
+    TCREAT010TEXT = { sLine = "Hound", },
+    TCREAT011TEXT = { sLine = "Hen", },
     TCREAT016TEXT = { sLine = "Bird", },
     TCREAT017TEXT = { sLine = "Hawk", },
     TCREAT018TEXT = { sLine = "Bat", },
-    TCREAT019TEXT = { sLine = "Terror", },
-    TCREAT020TEXT = { sLine = "Spore", },
-    TCREAT021TEXT = { sLine = "Glowing", },
-    TCREAT022TEXT = { sLine = "Fuzzy", },
-    TCREAT023TEXT = { sLine = "Sky", },
-    TCREAT024TEXT = { sLine = "Sand", },
     TCREAT025TEXT = { sLine = "Beefalo", },
     TCREAT026TEXT = { sLine = "Puff", },
-    TCREAT027TEXT = { sLine = "Blood", },
-    TCREAT028TEXT = { sLine = "Plague", },
     TCREAT029TEXT = { sLine = "Whale", },
-    TCREAT030TEXT = { sLine = "Jelly", },
     TCREAT031TEXT = { sLine = "Bee", },
+    TCREAT002TEXT = { sLine = "Worm", },
+    TCREAT003TEXT = { sLine = "Mollusk", },
+    TCREAT004TEXT = { sLine = "Beast", },
+	
+	-- Beer pattern: provenance + beer type
+	-- Cocktail pattern: adjective [adjective] noun
+	-- Beers
     TDRINK001TEXT = { sLine = "Ale", },
     TDRINK002TEXT = { sLine = "Stout", },
     TDRINK003TEXT = { sLine = "Porter", },
     TDRINK004TEXT = { sLine = "IPA", },
     TDRINK005TEXT = { sLine = "Beer", },
     TDRINK006TEXT = { sLine = "Lager", },
+	
+	-- Cocktail adjectives
     TDRINK007TEXT = { sLine = "Pan-Galactic", },
     TDRINK008TEXT = { sLine = "Smashy", },
     TDRINK009TEXT = { sLine = "Rude", },
     TDRINK010TEXT = { sLine = "Red", },
     TDRINK011TEXT = { sLine = "Sticky", },
+	
+	-- Cocktail nouns
     TDRINK012TEXT = { sLine = "Gargle Blaster", },
     TDRINK013TEXT = { sLine = "Nail", },
     TDRINK014TEXT = { sLine = "Scumm", },
     TDRINK015TEXT = { sLine = "Space Mule", },
     TDRINK016TEXT = { sLine = "Frobnabulator", },
+	
+	-- Food pattern = [provenance] [prep method] [adjective] ingredient [dish type]
+	-- Food preparation methods
     TFOODS001TEXT = { sLine = "Grilled", },
     TFOODS002TEXT = { sLine = "Scrambled", },
     TFOODS003TEXT = { sLine = "Poached", },
@@ -2587,6 +2611,8 @@
     TFOODS019TEXT = { sLine = "Smoked", },
     TFOODS020TEXT = { sLine = "Freeze-Dried", },
     TFOODS021TEXT = { sLine = "Deep Fried", },
+	
+	-- Food adjectives
     TFOODS022TEXT = { sLine = "Monstrose", },
     TFOODS023TEXT = { sLine = "Green", },
     TFOODS024TEXT = { sLine = "Neon", },
@@ -2598,10 +2624,23 @@
     TFOODS030TEXT = { sLine = "Organic", },
     TFOODS031TEXT = { sLine = "Pungent", },
     TFOODS032TEXT = { sLine = "Rancid", },
+	
+	-- Food provenance
     TFOODS033TEXT = { sLine = "Centauri", },
     TFOODS034TEXT = { sLine = "Terran", },
     TFOODS035TEXT = { sLine = "Tralfamadorian", },
     TFOODS036TEXT = { sLine = "Jojoban", },
+    TFOODS079TEXT = { sLine = "Thalrasshan", },
+    TFOODS080TEXT = { sLine = "Veloxi", },
+    TFOODS081TEXT = { sLine = "Brebulan", },
+    TFOODS084TEXT = { sLine = "Venusian", },
+    TFOODS085TEXT = { sLine = "Gargattaraxan", },
+    TFOODS086TEXT = { sLine = "Texan", },
+    TFOODS087TEXT = { sLine = "Betelgeusean", },
+    TFOODS088TEXT = { sLine = "Spathi", },
+    TFOODS089TEXT = { sLine = "Neo-Australian", },
+	
+	-- Food key ingredient
     TFOODS037TEXT = { sLine = "Metachicken", },
     TFOODS038TEXT = { sLine = "Honeybat", },
     TFOODS039TEXT = { sLine = "Fruitwasp", },
@@ -2617,6 +2656,14 @@
     TFOODS049TEXT = { sLine = "Marrow", },
     TFOODS050TEXT = { sLine = "Slug", },
     TFOODS051TEXT = { sLine = "Hump", },
+    TFOODS075TEXT = { sLine = "Turtle Face", },
+    TFOODS076TEXT = { sLine = "Curd", },
+    TFOODS077TEXT = { sLine = "Beetle", },
+    TFOODS078TEXT = { sLine = "Moon Beef", },
+    TFOODS082TEXT = { sLine = "Breadbug", },
+    TFOODS083TEXT = { sLine = "Beefalo", },
+	
+	-- Food dishes
     TFOODS052TEXT = { sLine = "Sliders", },
     TFOODS053TEXT = { sLine = "Sandwich", },
     TFOODS054TEXT = { sLine = "Salad", },
@@ -2635,26 +2682,13 @@
     TFOODS067TEXT = { sLine = "Pot Pie", },
     TFOODS068TEXT = { sLine = "Brioche", },
     TFOODS069TEXT = { sLine = "Crunch", },
-    TFOODS070TEXT = { sLine = "Fillets", },
+    TFOODS070TEXT = { sLine = "Filets", },
     TFOODS071TEXT = { sLine = "Jelly", },
     TFOODS072TEXT = { sLine = "Medallions", },
     TFOODS073TEXT = { sLine = "Cutlets", },
     TFOODS074TEXT = { sLine = "MREs", },
-    TFOODS075TEXT = { sLine = "Turtle Face", },
-    TFOODS076TEXT = { sLine = "Curd", },
-    TFOODS077TEXT = { sLine = "Beetle", },
-    TFOODS078TEXT = { sLine = "Moon Beef", },
-    TFOODS079TEXT = { sLine = "Thalrasshan", },
-    TFOODS080TEXT = { sLine = "Veloxi", },
-    TFOODS081TEXT = { sLine = "Brebulan", },
-    TFOODS082TEXT = { sLine = "Breadbug", },
-    TFOODS083TEXT = { sLine = "Beefalo", },
-    TFOODS084TEXT = { sLine = "Venusian", },
-    TFOODS085TEXT = { sLine = "Gargattaraxan", },
-    TFOODS086TEXT = { sLine = "Texan", },
-    TFOODS087TEXT = { sLine = "Betelgeusean", },
-    TFOODS088TEXT = { sLine = "Spathi", },
-    TFOODS089TEXT = { sLine = "Neo-Australian", },
+	
+	-- Game names
     TGAMES001TEXT = { sLine = "Horror Puzzle Time", },
     TGAMES002TEXT = { sLine = "Killbot Adventures", },
     TGAMES003TEXT = { sLine = "Psychonauts 4", },
@@ -2671,18 +2705,21 @@
     TGAMES014TEXT = { sLine = "Fisticuffs 4D XDT Theta", },
     TGAMES015TEXT = { sLine = "Words & Guns", },
     TGAMES016TEXT = { sLine = "Endless Ladder Climbing", },
-    TGAMES017TEXT = { sLine = "Ricochet 2", },
-    TGAMES018TEXT = { sLine = "Pretend Battle Beasts", },
+    TGAMES017TEXT = { sLine = "Richochet 2", },
+    TGAMES018TEXT = { sLine = "Pretend Battle Beests", },
     TGAMES019TEXT = { sLine = "Giga Funlicker", },
     TGAMES020TEXT = { sLine = "Legend of Frogmancer", },
     TGAMES021TEXT = { sLine = "Soul Stapler 9", },
     TGAMES022TEXT = { sLine = "Pumalords", },
     TGAMES023TEXT = { sLine = "Melancholy Writer III", },
+	
+	-- Chatting topics
     TOPICS001TEXT = { sLine = "Walking", },
-    TOPICS002TEXT = { sLine = "Working Out", },
+    TOPICS002TEXT = { sLine = "Working out", },
     TOPICS003TEXT = { sLine = "Gaming", },
     TOPICS004TEXT = { sLine = "Drinking", },
     TOPICS005TEXT = { sLine = "duty", },
+
     TRAING001TEXT = { sLine = "Use the mouse wheel or middle mouse button to zoom the view in and out.", },
     TRAING002TEXT = { sLine = "Right-click and drag the mouse to look around.", },
     TRAING003TEXT = { sLine = "Left-click to select and \"inspect\" a citizen, a room, or an object.", },
