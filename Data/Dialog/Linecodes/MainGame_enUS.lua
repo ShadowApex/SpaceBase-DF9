@@ -2783,6 +2783,7 @@
     UIMISC042TEXT = { sLine = "Very Distant", },
     UIMISC043TEXT = { sLine = "QUIT", },
     UIMISC044TEXT = { sLine = "LOAD SAVE BASE", },
+	UIMISC045TEXT = { sLine = "LEARN TO PLAY", },
     UITASK001TEXT = { sLine = "Wandering Around", },
     UITASK002TEXT = { sLine = "Exploring", },
     UITASK003TEXT = { sLine = "Patrolling", },
