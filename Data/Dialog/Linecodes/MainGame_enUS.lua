@@ -3090,4 +3090,13 @@
     JB03 = { sLine = "I'm so glad the administrator saw it fit to get a jukebox put in  /CURRENTROOM/ without it I couldn't listen to my favorite music!",},
     JB04 = { sLine = "Just listening to tunes in /CURRENTROOM/ #Nightlife ",},
 
+	-- Settings menu
+	SETMENU01 = { sLine = "SETTINGS", },
+	SETMENU02 = { sLine = "MUSIC VOLUME", },
+	SETMENU03 = { sLine = "SFX VOLUME", },
+	SETMENU04 = { sLine = "AUTOSAVE", },
+	SETMENU05 = { sLine = "USE OS MOUSE CURSOR", },
+	SETMENU06 = { sLine = "FULLSCREEN", },
+	SETMENU07 = { sLine = "COLORBLIND MODE (Requires restart)", },
+
 }
