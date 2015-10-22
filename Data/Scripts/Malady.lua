@@ -236,7 +236,7 @@ function Malady.getInjuryFromList()
 tInjuryNames = {}
 n=0
     for k,v in pairs(MaladyData) do
-        if Malady.isInjury(k) and not Malady.isMinorInjury(k)  then
+        if Malady.isInjury(k) then
              n=n+1
              table.insert(tInjuryNames, k)
         end
@@ -249,7 +249,7 @@ function Malady.getMinorInjuryFromList()
 tInjuryNames = {}
 n=0
     for k,v in pairs(MaladyData) do
-        if Malady.isInjury(k)  and Malady.isMinorInjury(k) then
+        if Malady.isMinorInjury(k) then
              n=n+1
              table.insert(tInjuryNames, k)
         end
@@ -285,8 +285,8 @@ function Malady.isIncapacitated(rChar)
     if rChar:spacewalking() then return false end
     
     for sMaladyName,tMalady in pairs(rChar.tStatus.tMaladies) do
-        if tMalady.bSymptomatic and tMalady.sType and tMalady.sType == 'MajorInjury' then
-            return true
+        if tMalady.bSymptomatic and tMalady.sType=='MajorInjury' then
+                return true
         end
     end
 end
@@ -423,14 +423,14 @@ function Malady.isInjury(sMaladyName)
 	-- returns true if this malady has the "injury" flag used to distinguish
 	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
-	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType and MaladyData[sMaladyType].sType=='MajorInjury'
+      return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType=='MajorInjury'
 end
 
 function Malady.isMinorInjury(sMaladyName)
 	-- returns true if this malady has the "injury" flag used to distinguish
 	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
-	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType and MaladyData[sMaladyType].sType=='MinorInjury'
+      return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType=='MinorInjury'
 end
 
 function Malady.getDescription(sMaladyName)

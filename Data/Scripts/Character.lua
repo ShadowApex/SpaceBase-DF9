@@ -5467,10 +5467,10 @@ function Character:takeDamage(rAttacker, tDamage)
     if self.tStatus.nHitPoints then
         self.tStatus.nHitPoints = self.tStatus.nHitPoints - nDamage
         
-        local  bInjury =  math.random()
+        local  nInjury =  math.random()
         
         --Minor injuries, fairly common
-       if nDamage > 1 and  bInjury > .25 then
+       if nDamage > 1 and  nInjury > .25 then
        local tInjuries, num = Malady.getMinorInjuryFromList() 
            local sMalady = tInjuries[math.random(num)]
             if self:diseaseInteraction(nil,Malady.createNewMaladyInstance(sMalady)) then
