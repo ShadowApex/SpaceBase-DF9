@@ -1,0 +1,363 @@
+Controlling the Level of Challenge for Gameplay Aspects
+-------------------------------------------------------
+
+Different people enjoy games like Spacebase DF9 in different ways.
+Building the base is a huge part of the game's gameplay, and some
+players wish to do *only* that in a nearly pure sandbox style.  Some
+might enjoy trade, others might find it tedious.  And so on.  There are
+several of these distinct "Gameplay Aspects", that different players
+might prefer to one degree or another:
+
+  * Building
+  * Combat
+  * Discovery
+  * Sociology
+  * Trade
+  * Story
+
+I suppose there must exist players who would wish to focus on one of
+these to the exclusion of all the others.  More generally, our players
+will want some mix of these aspects, but perhaps weighting one or two
+more strongly than the others.
+
+
+== Challenge Levels ==
+
+Let's call this per-Aspect weighting measurements "Challenge Levels",
+with scores varying from 0 to 6.  These affect the game's difficulty:
+
+  0  Disabled
+  1  Trivial
+  2  Standard
+  3  
+  4  Hard
+  5  
+  6  Impossible
+
+A game with all aspects set to 2 should give an enjoyable experience for
+a new player.  Skilled players will prefer to dial things up on one or
+two aspects, for example setting Building up to 5 and Combat to 3 if
+they wish to mostly focus on building out a defensive base.
+
+The Challenge Level setting for an aspect can be used to influence a
+number of game parameters.  For example, the number, strength, and
+frequency of raiders should obviously be controlled by the Combat
+setting.  At high levels (3-5), the player can expect invasion fleets,
+boarding parties, and strongly defended derelicts.  They will need to
+hone their security teams and employ good tactics to survive.  Level 6
+should be unplayable but within reason:  One or two of our most highly
+skilled players might be able to survive this setting if they're lucky
+and have extremely tight gameplay.
+
+Challenge Level 1 is provided as a way to allow players to really tone
+down an aspect of the game they dislike, without removing it entirely
+from the game.  For example, players that dislike having to manage crew
+morale might set Sociology to 1, which would slow morale drops and
+reduce the number of friends and enemies a character makes; effectively
+it greatly reduces the likelihood of fist fights and freak outs, and
+makes it significantly easier to fix such problems.
+
+Challenge Level 0 effectively disables the given aspect.  Not only are
+the game effects completely removed, but related UI bits should be
+largely disabled or hidden as well.  If Combat is turned off, then the
+roster should not list a Security role, the build menu should not
+provide turrets, and attack/defense technologies should not appear in
+the Research menu.
+
+
+== Difficulty Triggers ==
+
+Challenge Levels can be controlled in two ways.
+
+First, is at the start of the game; the base location selection sets the
+default initial levels.  Level 0 can only be set from game start.
+
+Second, in-game mechanisms are provided which allow the player to morph
+gameplay as they go.  In this way, we allow the player to immerse
+themselves in the game before requiring them to decide what type of game
+they wish to play, and we acquire the player's choice in as unabtrusive
+a way as possible.  We do this via player-selected game states, which
+we'll call "Difficulty Triggers".  These can come in a variety of forms,
+for example:
+
+  * Researching certain technologies
+  * Events that offer "road less traveled" type options
+  * Building certain structures
+  * Building a threshold number objects
+  * Employing >N crew to a role for a threshold period
+  * Failing to do adequant amounts of the above
+
+So for example, if a player is disproportionately researching combat
+technology and has pincushioned her base with turrets, and has established
+two or more squads of Security forces, these are all strong indications
+she is battle-thirsty, and the game should oblige by incrementing the
+challenge level up to 4.  If she handily defeats the adversaries we
+throw at her, knock it up to 5.
+
+As another example, a merchantile representative appears in an Event
+offering to establish a trading partnership.  The player can use the
+dialogs to indicate their complete disinterest in trade (thereby
+decrementing the level to 1) or agree to do some ordinary trading
+(level 2).  The event could also have an option for a weird response,
+like bribing the representative or returning his head on a platter
+stuffed with Baconite, igniting a trade war (and thus upping the Trade
+Challenge Level appropriately).
+
+Challenge Levels should be allowed to go down as well as up.  This way
+the game can morph itself to better suit novice gamers.  If the player
+has Combat set to default but is suffering one defeat after another, and
+hasn't built a single turret, we might dial combat down to 1.  A player
+who continually refuses trade offers may be indicating a desire to shut
+that down.
+
+
+== Implementation Plan ==
+
+Some parts of this concept will be easier to implement than others, so
+this functionality should be rolled out incrementally.  For example,
+being able to disable game elements (Challenge Level 0) will involve
+making UI and large swaths of the game more configurable than they are
+currently, so this could be left to be done later.
+
+So, we'll break development up into six phases, which we'll delve into
+below.
+
+Trade is a new feature we're introducing, so effectively we've been at
+Trade Challenge Level 0 to date.  As we implement this feature, we can
+build up the feature to account for levels 0, 1, 2, and 3 from the get
+go.  Trade Challenge Levels 4-6 probably would benefit from waiting
+until we have some game testing experience for this system under our
+belts, so we can collect ideas on how to up the engagement of it.
+
+Story is kind of a unique Aspect in that it is not really a "measurable"
+thing like morale levels, Baconite tallies, or number of raiders.  In a
+way, it's also the most complex to code.  Dialing down the Story level
+should be obvious enough - simplify object descriptions to remove
+background, tone down crew commentary, and genericize events.
+Increasing the story level needs to have the effect of making the game
+more "rich" and to interweave plotlines that the character can follow.
+What this should look like and how it should be developed, will need a
+lot more brainstorming.
+
+
+Phase A: Initialization
+=======================
+* Introduce a Game table for tracking the six Challenge Levels.
+  It should be possible to access and modify these levels from most
+  areas of the codebase.
+
+* Challenge Levels are implemented as floating point values that range
+  from 0.00 to 6.00.
+
+* Initially, the Challenge Levels are set as follows:
+
+  Building-2
+  Combat-2
+  Discovery-1
+  Sociology-2
+  Trade-1
+  Story-1
+
+* This phase presents a simplified form of our overall concept.  We
+  implement a few Challenge Level modifications that should be
+  straightforward to implement within the existing rules framework, and
+  that address tweakables that players are already requesting:
+
+  Combat-3: Researching LaserRifles, ArmorLevel2, or TeamTactics
+  increases Combat by 0.5 each.  There is also an early-on event that
+  the player can give an aggressive answer to which increments by 0.75.
+  At 3.0, the number of raiders is increased, and hostile
+  encounters occur more frequently.  The fleet invasion Event will not
+  occur unless the Combat Challenge Level is at least 3.0.
+
+  Sociology-1: Building Happy Fun Bot decrements the Sociology Challenge
+  Level by 1.0.  At level 1.0, the morale loss rate is reduced; the goal
+  of this is neutralizing morale management as a significant part of
+  gameplay.
+
+  Trade-2: Each fridge built increases the level by .25.  Researching
+  Fridge v2.0 increments by 0.50.  There is also a new Event added which
+  can increment by 0.50.  Reaching 2.0 causes trading activity to begin.
+
+  Discovery-2: Each RevivaBed and Research Console built increases
+  Discovery by .10.  Two new Events also include options which increment
+  this, by 0.50 each.  Above Discovery Challenge Level 2.0, the
+  frequency and severity of maladies is increased.
+
+
+Phase B:  Trigger Infrastructure
+================================
+In this phase, we build infrastructure to allow more intricate
+Difficulty Triggers, and expand our Challenge Levels to more fully
+represent the bones of this system.
+
+* For this phase, we start the game with all Challenge Levels initially
+  set to 1:
+
+  Building-1
+  Combat-1
+  Discovery-1
+  Sociology-1
+  Trade-1
+  Story-1
+
+* A Statistics table is established.  This tallies the number of each
+  type of object built in the game.  So if the player builds a turret
+  and then it gets destroyed and rebuilt, that tallies '2' even though
+  only 1 turret is active.  Also, it tallies only for objects
+  intentionally built; a turret found on a derelict does not count for
+  this tally.
+
+* Early-Game Difficulty Triggers
+
+  +0.5 Building when first AirLock is activated
+  +0.5 Building when first matter delivered to refinery
+  +0.5 Building when first power reactor is built
+  +0.5 Combat when first Security Squad established
+  +0.5 Combat when first Raider killed
+  +0.5 Sociology when first Immigrant approved
+  +0.5 Sociology when first crewmember cured of a Malady
+  +0.1 Sociology when first plant built
+  +0.1 Sociology when first monitor built
+  +0.1 Sociology when first shelf built
+  +0.1 Sociology when first dresser built
+  +0.1 Sociology when first rug built
+
+* Mid-Game Difficulty Triggers
+
+  +0.5 Building by researching GeneratorLevel2
+  +0.5 Building by researching GeneratorLevel3
+  +1.0 Building by researching GeneratorLevel4
+  +0.5 Combat by researching LaserRifles
+  +0.5 Combat by researching ArmorLevel2
+  +0.5 Combat by researching TeamTactics
+  +0.5 Combat when first Turret is built
+  +0.75 Combat via Event
+  +0.25 Trade per Fridge built
+  +0.50 Trade via Event
+  +0.10 Discovery per RevivaBed built
+  +0.10 Discovery per Research Console built
+  +0.50 Discovery via Event
+  +0.50 Discovery via Event
+  # TODO: More
+
+* Difficulty Level Effects on Gameplay Aspects
+
+  Building:
+
+  1 - Seed Pod does not degrade.  Other objects degrade at half the
+      normal Tight quarters procedures - Rooms, workstations, and
+      objects can be used by double the normal number of crew.  Crew is
+      fine with sleeping on bedroom floors.  Docking events increased in
+      frequency.
+  2 - Objects degrade at normal rate.  Seed Pod degrades like other
+      objects, and the power it produces is reduced as its repair level
+      diminishes.  Crew requires normal working spaces.
+  3 - Seed Pod degradation is irreversable, so player needs to build
+      their own power reactors fairly quickly.  Crew members demand good
+      quarters and well-outfitted working spaces for working at top
+      efficiency.  Meteor Events are more common, and will leave
+      asteroid deposits on the game map; they are also more damaging to
+      the station.  Docking and Derelict Events occur less frequently.
+      If too much Oxygen is supplied, fires are more damaging.
+
+  Combat:
+  1 - Hostile events are very infrequent, and typically only involve one
+      bad guy.  No hostile turrets.  No Parasites.  No invasion fleet.
+  2 - Normal frequency for hostiles including Parasites.  The final game
+      invasion fleet event does not occur, but there are some tougher
+      hostile events that can occur as the game progresses.
+  3 - Number and strength of raiders is increased.  Hostile encounters
+      are more frequent.  The fleet invasion event is enabled.
+  4 - Docking and derelict events are hostile more often, and the
+      strength of raiders is higher.  The fleet invasion occurs sooner
+      than at level 3, and involve more invaders with better defenses.
+
+  Discovery:
+  1 - Maladies that require research are encountered less frequently.
+      Derelicts don't have Data Cubes.  
+  2 - 
+  3 - A number of severe Maladies are introduced
+
+  Sociology:
+  1 - Morale loss rates are halved for Stuff, Social, and Fun.
+      Characters care less if other crew members die.  Maladies occur
+      less frequently.
+  2 - 
+  3 - Racial intolerence is more severe, requiring more careful crew
+      selection.  There should also be other sources for personality
+      conflicts (team preferences, love interests, abrasiveness
+      vs. thin-skinned, etc.)  There are more consequences to low morale
+      measures - extreme hunger leads to cannibalism, low Stuff and Duty
+      leads to theft, low Social and Fun leads to suicide, low Energy
+      and Hunger leads to Malady affliction, etc.
+
+  Trade:
+  1 - Simple credits-for-matter system
+  2 - Static trades for a few basic commodities.  Stable values and
+      predictable trading.
+  3 - Many more commodity options.  Fluctuating economy, with supply and
+      demand causing price collapses and runs on necessity goods.
+
+  Story:
+  1 - Events are simplified
+  2 - Events are more intricate with more meaningful choices to be
+      made.  Crew chatter is more pertinent to ongoing plotlines.
+  3 - Mysteries are intertwined throughout the game.  Choices are
+      paramount to the gameplay, and relationships with and between
+      characters are crucial to ensuring survival.  Characters remember
+      much more about things that happen to them, and present the player
+      with their needs and problems, their loves and hates, their
+      opinions and feelings.
+
+
+Phase C:
+========
+Game setup now provides mechanisms that allow the player to
+intentionally select higher or lower Challenge Levels.
+
+Continue fleshing out more Difficulty Triggers.
+
+Add Combat-5.  This should be extremely challenging but still playable.
+Should go beyond more than just upping the dials, and give the raiders
+some sneaky or devastating tactics (e.g. formation attacks,
+combined-arms attacks with raiders+turrets, identification of weak
+spots, use of cover to avoid getting shot, etc.)
+
+Define Challenge Levels 1-4 for most Aspects.
+
+Add Trade-0, Sociology-0, and Combat-0, allowing disabiling these
+aspects of the game entirely.  Ensure the relevant game objects, menu
+items, and research topics are also disabled.
+
+
+Phase D:  
+========
+Add Combat-6.  This needs to be nigh-impossible.
+
+Challenge Levels 1-5 should be implemented for all Aspects.
+
+Add Story-0.  This game setting effectively disables all backstory and
+color from the game, for players that find it boring and just want pure
+gameplay.  Events largely go away, in favor of a simple immigration
+setting that controls the speed of new immigrants.
+
+Add Building-0.  This is really only usable for 'canned' scenarios such
+as invading an enemy stronghold, or a rescue mission on a
+malady-afflicted vessel.
+
+
+Phase E:  Feature-Complete
+==========================
+Goal is to get all Challenge Levels implemented for all Aspects, at
+least roughly.
+
+Discovery-0 turns off the Goals and Research menus, and disabled
+Maladies entirely from the game.  Technologies are set at game
+initialization.
+
+
+Phase F:  Finishing
+===================
+Focus on polish, bug fixing, and balance tweaking.
+
