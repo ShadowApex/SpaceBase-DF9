@@ -19,7 +19,7 @@
 -- The Original Developer is not the Initial Developer and is Michael
 -- Hamm of Derelict Games.
 
--- The Initial Developer of the Original Code is Double Fine
+-- The Initial Developer of the Or iginal Code is Double Fine
 -- Productions, Inc.
 --
 -- The code in this file is the original work of Derelict Games,
@@ -28,6 +28,7 @@
 -- Copyright (c) 2015  Michael Hamm <untrustedlife2@gmail.com>
 -- All Rights Reserved.
 ------------------------------------------------------------------------
+
 
 local Log=require('Log')
 
@@ -47,11 +48,11 @@ local tMaladyList = {
         bNoCreate=true,
         bSpreadSneeze=false,
         bSpreadTouch=false,
-
         nPerceivedSeverity=.2,
         nSeverity=.2,
         bCreateStrains=false,
         bIsMental=false,
+        sType='none',
     },
 
     -- NON-CONTAGIOUS CONDITIONS we will keep for now
@@ -60,30 +61,26 @@ local tMaladyList = {
     {
         sFriendlyName='DISEASTYPE02TEXT',
         sDesc='DISEASDESC01TEXT',
-        bIncapacitated=true,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
 		nDifficulty=1,
         nPerceivedSeverity=1,
         bCreateStrains=false,
         bNoSpawnInEvent=true,
-		-- "injury" flag denotes it in a separate UI section
-		bIsInjury=true,
+        sType='MajorInjury',
     },
 
     KnockedOut=
     {
         sFriendlyName='DISEASTYPE04TEXT',
         sDesc='DISEASDESC08TEXT',
-        bIncapacitated=true,
         tDurationRange={60*2.5,60*5},
         nFieldTreatSkill=0,
         nPerceivedSeverity=1,
 		nDifficulty=1,
         bCreateStrains=false,
         bNoSpawnInEvent=true,
-		-- "injury" flag denotes it in a separate UI section
-		bIsInjury=true,
+        sType='MajorInjury',
     },
 
 --Our injuries
@@ -91,61 +88,50 @@ local tMaladyList = {
     {
         sFriendlyName='DISEASTYPE05TEXT',
         sDesc='DISEASDESC11TEXT',
-        bIncapacitated=true,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
 		nDifficulty=1,
         nPerceivedSeverity=1,
         bCreateStrains=false,
         bNoSpawnInEvent=true,
-		-- "injury" flag denotes it in a separate UI section
-		bIsInjury=true,
+        sType='MajorInjury',
     },
     
      BrokenRib=
     {
         sFriendlyName='DISEASTYPE07TEXT',
         sDesc='DISEASDESC12TEXT',
-        bIncapacitated=false,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
 		nDifficulty=1,
         nPerceivedSeverity=1,
         bCreateStrains=false,
         bNoSpawnInEvent=true,
-		-- "injury" flag denotes it in a separate UI section
-		bIsInjury=true,
-        bIsMinorInjury=true,
+        sType='MinorInjury',
     },
     BrokenNose=
     {
         sFriendlyName='DISEASTYPE06TEXT',
         sDesc='DISEASDESC13TEXT',
-        bIncapacitated=false,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
 		nDifficulty=1,
         nPerceivedSeverity=1,
         bCreateStrains=false,
         bNoSpawnInEvent=true,
-		-- "injury" flag denotes it in a separate UI section
-		bIsInjury=true,
-        bIsMinorInjury=true,
+        sType='MinorInjury',
     },
     SprainedAnkle=
     {
         sFriendlyName='DISEASTYPE08TEXT',
         sDesc='DISEASDESC21TEXT',
-        bIncapacitated=false,
         tDurationRange={100000000,100000000},
         nFieldTreatSkill=0,
 		nDifficulty=1,
         nPerceivedSeverity=1,
         bCreateStrains=false,
         bNoSpawnInEvent=true,
-		-- "injury" flag denotes it in a separate UI section
-		bIsInjury=true,
-        bIsMinorInjury=true,
+        sType='MinorInjury',
         --ankle is sprained, so move slower (just to show how this works)
         nSpeed=.8,
     },
@@ -166,6 +152,7 @@ local tMaladyList = {
         tTimeToSymptoms={60,120},
         nFieldTreatSkill=5,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Social=0,
@@ -185,6 +172,7 @@ local tMaladyList = {
         sSpecial='parasite',
         nFieldTreatSkill=99999,
         bCreateStrains=false,
+        sType='Disease',
         tSymptomStages=
         {
             {
@@ -221,6 +209,7 @@ local tMaladyList = {
         nPerceivedSeverity=.2,
         nFieldTreatSkill=6,
         bCreateStrains=true,
+        sType='Disease',
 		tSymptomStages=
         {
             {
@@ -254,6 +243,7 @@ local tMaladyList = {
         nPerceivedSeverity=.4,
         nFieldTreatSkill=6,
         bCreateStrains=true,
+        sType='Disease',
 		tReduceMods={
             Duty=4,
             Hunger=8,
@@ -279,6 +269,7 @@ local tMaladyList = {
         nFieldTreatSkill=2,
         nBacteriaLifetime=60*15,
         bCreateStrains=true,
+        sType='Disease',
 	sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tSymptomStages=
         {
@@ -327,6 +318,7 @@ local tMaladyList = {
         nFieldTreatSkill=2,
         nBacteriaLifetime=60*15,
         bCreateStrains=true,
+        sType='Disease',
 	sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tSymptomStages=
         {
@@ -361,6 +353,7 @@ local tMaladyList = {
         nFieldTreatSkill=7,
         nBacteriaLifetime=60*30,
         bCreateStrains=true,
+        sType='Disease',
 	sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tSymptomStages=
         {
@@ -407,6 +400,7 @@ local tMaladyList = {
         nFieldTreatSkill=5,
         nBacteriaLifetime=60*30,
         bCreateStrains=true,
+        sType='Disease',
 	sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tSymptomStages=
         {
@@ -449,6 +443,7 @@ local tMaladyList = {
         nFieldTreatSkill=5,
         nBacteriaLifetime=60*30,
         bCreateStrains=true,
+        sType='Disease',
 	sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tSymptomStages=
         {
@@ -495,6 +490,7 @@ local tMaladyList = {
         tTimeToSymptoms={60,120},
         nFieldTreatSkill=5,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Duty=3,
@@ -516,6 +512,7 @@ local tMaladyList = {
         tTimeToSymptoms={10,11},
         nFieldTreatSkill=5,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Social=3,
@@ -537,6 +534,7 @@ local tMaladyList = {
         tTimeToSymptoms={10,11},
         nFieldTreatSkill=5,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Amusement = 3,
@@ -557,6 +555,7 @@ local tMaladyList = {
         tTimeToSymptoms={10,11},
         nFieldTreatSkill=5,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Social=.2,
@@ -581,6 +580,7 @@ local tMaladyList = {
         tTimeToSymptoms={10,11},
         nFieldTreatSkill=5,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tReduceMods={
             Energy=4,
@@ -609,6 +609,7 @@ local tMaladyList = {
         tTimeToContagious={1,10},
         nFieldTreatSkill=7,
         bCreateStrains=true,
+        sType='Disease',
 		sSymptomLog=Log.tTypes.HEALTH_CITIZEN_GETTING_ILL,
         tSymptomStages=
         {

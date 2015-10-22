@@ -285,7 +285,7 @@ function Malady.isIncapacitated(rChar)
     if rChar:spacewalking() then return false end
     
     for sMaladyName,tMalady in pairs(rChar.tStatus.tMaladies) do
-        if tMalady.bSymptomatic and tMalady.bIncapacitated then
+        if tMalady.bSymptomatic and tMalady.sType and tMalady.sType == 'MajorInjury' then
             return true
         end
     end
@@ -423,14 +423,14 @@ function Malady.isInjury(sMaladyName)
 	-- returns true if this malady has the "injury" flag used to distinguish
 	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
-	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].bIsInjury
+	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType and MaladyData[sMaladyType].sType=='MajorInjury'
 end
 
 function Malady.isMinorInjury(sMaladyName)
 	-- returns true if this malady has the "injury" flag used to distinguish
 	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
-	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].bIsInjury and MaladyData[sMaladyType].bIsMinorInjury
+	return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType and MaladyData[sMaladyType].sType=='MinorInjury'
 end
 
 function Malady.getDescription(sMaladyName)
