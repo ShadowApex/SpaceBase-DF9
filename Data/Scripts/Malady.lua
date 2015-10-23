@@ -419,28 +419,28 @@ function Malady.getFriendlyName(sMaladyName)
     return Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sFriendlyName
 end
 
+--Check to see if is in fact a "Major" injury, major injries are instant KO
 function Malady.isInjury(sMaladyName)
-	-- returns true if this malady has the "injury" flag used to distinguish
-	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
       return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType=='MajorInjury'
 end
 
+--Check to see if is in fact a "Minor" injury, minor injuries dont cause KO but may have other effects.
 function Malady.isMinorInjury(sMaladyName)
-	-- returns true if this malady has the "injury" flag used to distinguish
-	-- things like broken legs
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName] and Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
       return sMaladyType and MaladyData[sMaladyType] and MaladyData[sMaladyType].sType=='MinorInjury'
 end
 
+--Grab the description of the disease from the data.
 function Malady.getDescription(sMaladyName)
     local sMaladyType = Malady.tS.tMaladyStrains[sMaladyName].sMaladyType
     return sMaladyType and MaladyData[sMaladyType].sDesc
 end
 
 --Grabs the badness from a disease for future event code things (Was going to delete, instead decided to change)
-function Malady.getMaladyDifficulty(tMalady)
-   return tMalady.nDifficulty
+function Malady.getDiseaseTier(tMalady)
+--Tier 0 is injuries Tier 1 is easy, tier 2 is medium, tier 3 is plague level, tier -1 is Special diseases (like brain worms and things)
+   return tMalady.nDifficultyTier
 end
 
 function Malady.createNewMaladyInstance(sMaladyType, bUseExistingStrain, bRequireResearch, nResearchTimeOverride)
@@ -698,6 +698,8 @@ end
 
 -- rChar is interacting with rTarget. Test disease spread both ways.
 function Malady.interactedWith(rChar,rTarget)
+--REWORK FOR DIFFERING DISEASES...brain parisites and such.
+
     if not rTarget.diseaseInteraction then return end
 
     local tMaladies = rChar.getMaladies and rChar:getMaladies()
