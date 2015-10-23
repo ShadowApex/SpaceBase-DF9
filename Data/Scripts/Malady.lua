@@ -447,6 +447,7 @@ function Malady.getDiseaseTier(tMalady)
    return tMalady.nDifficultyTier
 end
 
+--Creates a completely new malady
 function Malady.createNewMaladyInstance(sMaladyType, bUseExistingStrain, bRequireResearch, nResearchTimeOverride)
     local tMaladySpec = DFUtil.deepCopy( MaladyData[sMaladyType] )
     tMaladySpec.sMaladyName = nil
@@ -545,7 +546,7 @@ function Malady.tickMaladies(rChar)
     end
 end
 
---adjust various statuses of those infected to match the disease
+--Adjust various status variables of those infected to match the disease
 
 function Malady.adjustCharacter(rChar,tMalady)
 --just saying tMalady.x will return whether it is nil or not, not whether its true or false, so do that separately
@@ -720,6 +721,7 @@ function Malady.interactedWith(rChar,rTarget)
     end
 end
 
+--Change how well diseases spread around one or multiple scrubbers
 function Malady._getEnvironmentSpreadMod(tx,ty)
 	local tScrubbers = require('EnvObjects.EnvObject').getObjectsOfType('AirScrubber', true, true)
 	local nChance = 1
@@ -734,20 +736,20 @@ function Malady._getEnvironmentSpreadMod(tx,ty)
 end
 
 function Malady._testSpread(tMalady, rSource,rTarget)
-    local bSpread = tMalady.bContagious and (tMalady.bSpreadTouch or (tMalady.bSymptomatic and tMalady.bSpreadSneeze))
-    if bSpread then
-        if not rTarget.isImmuneTo or not rTarget:isImmuneTo(tMalady) then
-            local nInfectChance
-            if ObjectList.getObjType(rTarget) == ObjectList.CHARACTER then
-                nInfectChance = tMalady.nChanceToInfectCharacter
-                if rTarget:getJob() == Character.DOCTOR then
-                    nInfectChance = nInfectChance * .5
-                    if rTarget:getCurrentTaskName() == 'FieldScanAndHeal' or rTarget:getCurrentTaskName() == 'BedHeal' then
-                        nInfectChance = 0
+--Using this for diseases,wormParisites, could easily expand to other types, eg parisites,viruses,bacteria, in fact I will do that
+    if tMalady.sType='Disease' then
+        local bSpread = tMalady.bContagious and (tMalady.bSpreadTouch or (tMalady.bSymptomatic and tMalady.bSpreadSneeze))
+        if bSpread then
+            if not rTarget.isImmuneTo or not rTarget:isImmuneTo(tMalady) then
+            local nInfectChance = tMalady.nChanceToInfect
+            --I guess doctors are more sanitary then other people?
+                if ObjectList.getObjType(rTarget) == ObjectList.CHARACTER then
+                    if rTarget:getJob() == Character.DOCTOR then
+                           nInfectChance = nInfectChance * .5
+                            if rTarget:getCurrentTaskName() == 'FieldScanAndHeal' or rTarget:getCurrentTaskName() == 'BedHeal' then
+                                nInfectChance = 0
+                          end
                     end
-                end
-            else
-                nInfectChance = tMalady.nChanceToInfectObject
             end
             local nEnvironmentMod = Malady._getEnvironmentSpreadMod(rSource:getTileLoc())
             nInfectChance = nInfectChance * nEnvironmentMod
@@ -756,7 +758,25 @@ function Malady._testSpread(tMalady, rSource,rTarget)
             end
         end
     end
+    --Worm Parisites right now use the standard function, considering moving to specific "spreadTheWorm" task..
+    elseif tMalady.sType='WormParisite' then
+            if not rTarget.isImmuneTo or not rTarget:isImmuneTo(tMalady) then
+            local nInfectChance=tMalady.nChanceToInfect
+                if ObjectList.getObjType(rTarget) == ObjectList.CHARACTER then
+                    if rTarget:getJob() == Character.DOCTOR then
+                    --A doctor who is also a brain eating parisite thrall? infect all of the people!
+                       nInfectChance = 1
+                    end
+            else
+                nInfectChance = 0
+            end
+            if math.random() < nInfectChance then
+                rTarget:diseaseInteraction(rSource,tMalady)
+            end
+        end
+    end
 end
+
 
 function Malady.shouldInterruptCurrentTask(rChar)
     if Malady.getGathererOverride(rChar) ~= nil then

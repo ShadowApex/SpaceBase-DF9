@@ -1663,6 +1663,7 @@ function EnvObject:getToolTipTextInfos()
     return self.tToolTipTextInfos
 end
 
+--Malady calls this to remove diseases from objects after a certain amount of time, consider moving
 function EnvObject:diseaseInteraction(rSource,tMalady)
     if not self.tMaladies then self.tMaladies = {} end
     if not self.tMaladies[tMalady.sMaladyName] then
