@@ -19,12 +19,10 @@ local Malady = {}
 
 Malady.MEMORY_HP_HEALED_RECENTLY = 'bGotHPHealedRecently'
 Malady.FIELD_HP_COOLDOWN = 60*10
-
 Malady.CHECKUP_COOLDOWN = 60*4
 Malady.TIME_TO_WORRY = 60*6
 Malady.INV_TIME_TO_WORRY = 1/Malady.TIME_TO_WORRY
 Malady.MAX_SKILL = -1
--- multiple scrubbers can only make infection chance this low
 Malady.MIN_SPREAD_CHANCE = 0.1
 
 Malady.INCAPACITATED_ACTIVITIES_ALLOWED = {
@@ -258,6 +256,7 @@ return tInjuryNames, n-1
 end
 
 
+--Grab next malady without the bDiagnosed flag.
 function Malady.getNextUndiagnosedMalady(rChar)
     local tMaladies = rChar.tStatus.tMaladies
     if not tMaladies then return end
@@ -269,6 +268,7 @@ function Malady.getNextUndiagnosedMalady(rChar)
     end
 end
 
+--Used by doctors to cure patients.
 function Malady.getNextCurableMalady(rChar,nSkillLevel)
     local tMaladies = rChar.tStatus.tMaladies
     if not tMaladies then return end
@@ -280,6 +280,7 @@ function Malady.getNextCurableMalady(rChar,nSkillLevel)
     end
 end
 
+--Check to see if we need to force an Incap.
 function Malady.isIncapacitated(rChar)
     if not rChar.tStatus.tMaladies then return false end
     if rChar:spacewalking() then return false end
@@ -319,6 +320,7 @@ function Malady.hasIdentifiedDisease(sMaladyName)
 	end
 end
 
+--Check to see if a cure has been researched already.
 function Malady.hasDiscoveredCure(sMaladyName)
     if not Malady.tS.tResearch[sMaladyName] or not Malady.tS.tResearch[sMaladyName].nResearchCure then
         return true
@@ -329,6 +331,7 @@ function Malady.hasDiscoveredCure(sMaladyName)
     return true
 end
 
+--Create the specified malady from tMaladyData
 function Malady.reproduceMalady(tMaladyData)
     local tMalady = DFUtil.deepCopy(tMaladyData)
     assert(not tMalady.bNoCreate)
@@ -362,6 +365,8 @@ function Malady.reproduceMalady(tMaladyData)
     return tMalady
 end
 
+
+--Check to see if its time to show symptoms
 function Malady._initSymptomStarts(tMalady)
     tMalady.tSymptomStarts = {}
     for i,v in ipairs(tMalady.tSymptomStages) do
@@ -393,7 +398,6 @@ function Malady._createNewStrain(tMaladySpec, bRequireResearch, nResearchTimeOve
 	
     local sFriendlyName = Malady.getNewDiseaseName(sMaladyType)
 	
-    --Replace with data from the malady itself
 	if tMaladySpec.nForceResearch and tMaladySpec.nForceResearch>0 then
 	    nResearchTimeOverride = math.random(0,tMaladySpec.nForceResearch)+500
 	end
