@@ -255,6 +255,19 @@ n=0
 return tInjuryNames, n-1
 end
 
+--Grab maladies by tier, tier 0 is all injuries, 1 is easy, 2 is medium, 3 is plague level, -1 is special maladies (like brain worms and other things)
+function Malady.getMaladyByTier(tier)
+tInjuryNames = {}
+n=0
+    for k,v in pairs(MaladyData) do
+        malady=Malady.tS.tMaladyStrains[k]
+        if MaladyData[malady].nDifficultyTier == tier then
+             n=n+1
+             table.insert(tInjuryNames, k)
+        end
+    end
+return tInjuryNames, n-1
+end
 
 --Grab next malady without the bDiagnosed flag.
 function Malady.getNextUndiagnosedMalady(rChar)

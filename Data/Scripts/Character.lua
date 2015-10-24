@@ -6191,11 +6191,6 @@ function Character:getHealth()
     if Malady.isIncapacitated(self) then
         return Character.STATUS_INCAPACITATED
     end
-    if self:getPerceivedDiseaseSeverity() > .1 then
-    if not self.tStats.bHideSigns and not self.tStats.bHideSigns==true then
-			return Character.STATUS_ILL
-		end
-    end
     local hp = self:getHP()
     if hp < Character.HURT_THRESHOLD then
         return Character.STATUS_HURT 
@@ -6203,6 +6198,19 @@ function Character:getHealth()
     if hp < Character.SCUFFED_UP_THRESHOLD then
         return Character.STATUS_SCUFFED_UP
     end
+    
+    if self.tStats.nRace ~= Character.RACE_KILLBOT then
+        if self.getHasMaladyOfTier(0) then
+            return Character.STATUS_INJURED
+        end
+    end
+    
+    if self:getPerceivedDiseaseSeverity() > .1 and self.tStats.nRace ~= Character.RACE_MONSTER then
+        if not self.tStats.bHideSigns or not self.tStats.bHideSigns==true then
+			return Character.STATUS_ILL
+		end
+    end
+    
     return Character.STATUS_HEALTHY
 end
 
@@ -6280,25 +6288,13 @@ end
 ------------------------------------------------
 -- MALADIES
 ------------------------------------------------
-function Character:getHasMaladyType(sDiseaseName)
-	bInfected=false
-	-- wasnt working correctly
-	bInfected=false
-	local tIllList, nNum = self:getIllnesses()
-	for i, tStrainData in pairs (tIllList) do
-          if  tStrainData.sMaladyType == sDiseaseName then
-			bInfected=true
-          end
-	end
-	return bInfected
-end
 
-function Character:getHasMaladyOfName(sDiseaseName)
---Linear checks for friendly name
+function Character:getHasMaladyOfTier(nTier)
+--Linear checks for tier
 	bInfected=false
 	local tIllList, nNum = self:getIllnesses()
 	for i, tStrainData in pairs (tIllList) do
-          if  tStrainData.sFriendlyName == sDiseaseName then
+          if  tStrainData.nDifficultyTier == nTier then
 			bInfected=true
           end
 	end

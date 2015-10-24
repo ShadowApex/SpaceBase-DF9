@@ -485,7 +485,7 @@ CharacterConstants.STATUS_DEAD = 4
 CharacterConstants.STATUS_INCAPACITATED = 5
 CharacterConstants.STATUS_ILL = 6
 CharacterConstants.STATUS_SCUFFED_UP = 7
-
+CharacterConstants.STATUS_INJURED = 8
 
 CharacterConstants.HEALTH_STATUS_LINE=
 {
@@ -496,6 +496,7 @@ CharacterConstants.HEALTH_STATUS_LINE=
     [CharacterConstants.STATUS_INCAPACITATED] = "INSPEC142TEXT",
     [CharacterConstants.STATUS_ILL] = "INSPEC143TEXT",
     [CharacterConstants.STATUS_SCUFFED_UP] = "INSPEC151TEXT",
+    [CharacterConstants.STATUS_INJURED] = "INSPEC201TEXT",
 }
 
 CharacterConstants.ROBOT_HEALTH_STATUS_LINE=

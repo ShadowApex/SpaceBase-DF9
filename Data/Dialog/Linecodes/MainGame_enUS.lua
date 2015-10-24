@@ -920,6 +920,7 @@
     INSPEC198TEXT = { sLine = "Cancel Execution", },
     INSPEC199TEXT = { sLine = "Owner:", },
     INSPEC200TEXT = { sLine = "Transformed", },
+    INSPEC201TEXT = { sLine = "Injured", },
     INVOBJ001TEXT = { sLine = "Toy Ball", },
     INVOBJ002TEXT = { sLine = "Mug", },
     INVOBJ003TEXT = { sLine = "Kitty Doll", },

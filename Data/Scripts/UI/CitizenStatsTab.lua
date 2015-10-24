@@ -126,7 +126,7 @@ function m.create()
 			table.insert(tInjuryNames, Malady.getFriendlyName(sID))
 		end
 		local sIllness, sInjury
-		if #tIllnessNames > 0 and not self.rCitizen:getHasMaladyType('Thing')  then
+		if #tIllnessNames > 0 and not self.rCitizen.tStats.bHideSigns==true  then
 			sIllness = table.concat(tIllnessNames, ', ')
 			-- enable button
 			self.rIllnessButton:setEnabled(true)
