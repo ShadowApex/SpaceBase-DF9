@@ -750,7 +750,7 @@ end
 
 function Malady._testSpread(tMalady, rSource,rTarget)
 --Using this for diseases,wormParisites, could easily expand to other types, eg parisites,viruses,bacteria, in fact I will do that
-    if tMalady.sType='Disease' then
+    if tMalady.sType=='Disease' then
         local bSpread = tMalady.bContagious and (tMalady.bSpreadTouch or (tMalady.bSymptomatic and tMalady.bSpreadSneeze))
         if bSpread then
             if not rTarget.isImmuneTo or not rTarget:isImmuneTo(tMalady) then
@@ -772,7 +772,7 @@ function Malady._testSpread(tMalady, rSource,rTarget)
         end
     end
     --Worm Parisites right now use the standard function, considering moving to specific "spreadTheWorm" task..
-    elseif tMalady.sType='WormParisite' then
+    elseif tMalady.sType=='WormParisite' then
             if not rTarget.isImmuneTo or not rTarget:isImmuneTo(tMalady) then
             local nInfectChance=tMalady.nChanceToInfect
                 if ObjectList.getObjType(rTarget) == ObjectList.CHARACTER then

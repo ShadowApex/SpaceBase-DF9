@@ -508,6 +508,7 @@ CharacterConstants.ROBOT_HEALTH_STATUS_LINE=
     [CharacterConstants.STATUS_INCAPACITATED] = "INSPEC142TEXT",
     [CharacterConstants.STATUS_ILL] = "INSPEC142TEXT",
     [CharacterConstants.STATUS_SCUFFED_UP] = "INSPEC151TEXT",
+    [CharacterConstants.STATUS_INJURED] = "INSPEC201TEXT",
 }
 
 CharacterConstants.CORPSE_DURATION = 60*10

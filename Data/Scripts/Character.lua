@@ -6200,14 +6200,16 @@ function Character:getHealth()
     end
     
     if self.tStats.nRace ~= Character.RACE_KILLBOT then
-        if self.getHasMaladyOfTier(0) then
+        if self:getHasMaladyOfTier(0) then
             return Character.STATUS_INJURED
         end
     end
     
     if self:getPerceivedDiseaseSeverity() > .1 and self.tStats.nRace ~= Character.RACE_MONSTER then
-        if not self.tStats.bHideSigns or not self.tStats.bHideSigns==true then
-			return Character.STATUS_ILL
+        if self.tStats.bHideSigns and self.tStats.bHideSigns==true then
+        return Character.STATUS_HEALTHY
+        else
+        return Character.STATUS_ILL
 		end
     end
     
