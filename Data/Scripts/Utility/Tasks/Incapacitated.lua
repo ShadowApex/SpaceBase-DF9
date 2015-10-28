@@ -23,12 +23,11 @@ end
 
 function Incapacitated:checkForKnockOut()
     if self.rChar.tMaladies then
-    for k,v in pairs(self.rChar.tMaladies) do
-        if k.sType=='MajorInjury' then
-            return true
+        for k,v in pairs(self.rChar.tMaladies) do
+            if k.sType=='MajorInjury' then
+                return true
+            end
         end
-        end
-    end
     end
     return false
 end
