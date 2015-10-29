@@ -457,32 +457,32 @@
     EVENT007TEXT08 = { sLine = "Good riddance.", },
     EVENT007TEXT09 = { sLine = "I'm sorry, but if we don't complete this job our boss will kill us! Prepare to be deconstructed!", },
     EVENT007TEXT10 = { sLine = "Typical", },
+   
+    -- WAS DOCKUI 222-231
+    --Hero Trap
+    EVENT008TEXT01 = { sLine = "Ship Information Unavailable", },
+    EVENT008TEXT02 = { sLine = "Hello,...we need help....our lives are at stake.", },
+    EVENT008TEXT03 = { sLine = "Always a pleasure to help a person in need. Come aboard.", },
+    EVENT008TEXT04 = { sLine = "Uh, No we can't help you, go away please.", },
+    EVENT008TEXT05 = { sLine = "Thank you! We will just get our laz...err..bags, and come aboard..", },
+    EVENT008TEXT06 = { sLine = "No problem, always...wait...did you just say laser?.", },
+    EVENT008TEXT07 = { sLine = "No?! Why not? We told you we needed help!", },
+    EVENT008TEXT08 = { sLine = "I'm sure another base will be able to 'Help' you", },
+    EVENT008TEXT09 = { sLine = "I shouldn't have even asked, we never needed help, prepare to be boarded.", },
+    EVENT008TEXT10 = { sLine = "Pirates! I KNEW YOU WERE SHADY!", },
 
     -- WAS DOCKUI 212-221
     --A different spacebase failed
-    EVENT008TEXT01 = { sLine = "Ship Information Unavailable", },
-    EVENT008TEXT02 = { sLine = "Hello, we are refugees from another spacebase about 66 parsecs from here, Something horrible happened on our base..and..we..errm.. we need... well... a new place to stay. Can you help us?", },
-    EVENT008TEXT03 = { sLine = "Come aboard we have plenty of room.", },
-    EVENT008TEXT04 = { sLine = "Uh, No we can't help you, go away please.", },
-    EVENT008TEXT05 = { sLine = "Thank you! I'm sorry about my tone, we are a bit shaken ya-know.", },
-    EVENT008TEXT06 = { sLine = "No problem, always willing to help people in need. Don't expect a free lunch though.", },
-    EVENT008TEXT07 = { sLine = "No?! Why not? Please help us!", },
-    EVENT008TEXT08 = { sLine = "I'm sure another base will have room for you.", },
-    EVENT008TEXT09 = { sLine = "We just went through a blackhole and back, we are coming in no matter what!", },
-    EVENT008TEXT10 = { sLine = "What if something horrible happens to you again? Would you reconsider?", },
-
-    -- WAS DOCKUI 222-231
-    --Hero Trap
     EVENT009TEXT01 = { sLine = "Ship Information Unavailable", },
-    EVENT009TEXT02 = { sLine = "Hello,...we need help....our lives are at stake.", },
-    EVENT009TEXT03 = { sLine = "Always a pleasure to help a person in need. Come aboard.", },
+    EVENT009TEXT02 = { sLine = "Hello, we are refugees from another spacebase about 66 parsecs from here, Something horrible happened on our base..and..we..errm.. we need... well... a new place to stay. Can you help us?", },
+    EVENT009TEXT03 = { sLine = "Come aboard we have plenty of room.", },
     EVENT009TEXT04 = { sLine = "Uh, No we can't help you, go away please.", },
-    EVENT009TEXT05 = { sLine = "Thank you! We will just get our laz...err..bags, and come aboard..", },
-    EVENT009TEXT06 = { sLine = "No problem, always...wait...did you just say laser?.", },
-    EVENT009TEXT07 = { sLine = "No?! Why not? We told you we needed help!", },
-    EVENT009TEXT08 = { sLine = "I'm sure another base will be able to 'Help' you", },
-    EVENT009TEXT09 = { sLine = "I shouldn't have even asked, we never needed help, prepare to be boarded.", },
-    EVENT009TEXT10 = { sLine = "Pirates! I KNEW YOU WERE SHADY!", },
+    EVENT009TEXT05 = { sLine = "Thank you! I'm sorry about my tone, we are a bit shaken ya-know.", },
+    EVENT009TEXT06 = { sLine = "No problem, always willing to help people in need. Don't expect a free lunch though.", },
+    EVENT009TEXT07 = { sLine = "No?! Why not? Please help us!", },
+    EVENT009TEXT08 = { sLine = "I'm sure another base will have room for you.", },
+    EVENT009TEXT09 = { sLine = "We just went through a blackhole and back, we are coming in no matter what!", },
+    EVENT009TEXT10 = { sLine = "What if something horrible happens to you again? Would you reconsider?", },
 
     -- WAS DOCKUI 232-238
     EVENT001TEXT01 = { sLine = "Smugglers, Incorporated", },
