@@ -641,7 +641,7 @@ end
 function EmergencyBeacon:remove()
 	self.rPreviewProp:setVisible(false)
 	for k,v in pairs(self.tBeacons) do
-		v:setVisible(false)
+		if v.setVisible then v:setVisible(false) end
 		self:removeBeacon(v)
 	end
 	self:setVisible(false)

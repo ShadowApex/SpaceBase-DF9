@@ -49,6 +49,7 @@ function m.create()
 	end
 	
 	function Ob:onHighViolenceButtonPressed(rButton, eventType)
+		if not self.rSquad then return end
 		if eventType == DFInput.TOUCH_UP then
 			self:selectButton(rButton)
 			g_ERBeacon:setViolence(self.rSquad.getName(), EmergencyBeacon.VIOLENCE_LETHAL)
@@ -56,6 +57,7 @@ function m.create()
 	end
 	
 	function Ob:onMedViolenceButtonPressed(rButton, eventType)
+		if not self.rSquad then return end
 		if eventType == DFInput.TOUCH_UP then
 			self:selectButton(rButton)
 			g_ERBeacon:setViolence(self.rSquad.getName(), EmergencyBeacon.VIOLENCE_DEFAULT)
@@ -63,6 +65,7 @@ function m.create()
 	end
 	
 	function Ob:onLowViolenceButtonPressed(rButton, eventType)
+		if not self.rSquad then return end
 		if eventType == DFInput.TOUCH_UP then
 			self:selectButton(rButton)
 			g_ERBeacon:setViolence(self.rSquad.getName(), EmergencyBeacon.VIOLENCE_NONLETHAL)
