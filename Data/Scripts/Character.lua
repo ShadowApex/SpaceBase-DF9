@@ -175,7 +175,7 @@ function Character:init( tData )
 	self.bInitialized = true
 	
 	------------------------------------------------------------------
-	self.squadName = tData.sSquadName or nil
+	self.squadName = tData.squadName or nil
     
 	------------------------------------------------------------------
     local tx,ty = self:getTileLoc()
